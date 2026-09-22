@@ -1,0 +1,651 @@
+sku_id,warehouse_location,primary_supplier,category,units_in_stock,reorder_threshold,unit_purchase_cost,total_inventory_value,lead_time_days,annual_holding_cost,inventory_turnover_ratio,defect_rate_pct,stock_health_status
+SKU-30000,WH-South-Dallas,Apex Logistics,Mechanical,1152,102,62.34,71815.68,12,11.22,5.01,1.4,Optimal
+SKU-30001,WH-South-Dallas,Pinnacle Fabricators,Mechanical,586,190,137.59,80627.74,20,24.77,2.27,0.46,Optimal
+SKU-30002,WH-North-Chicago,Pinnacle Fabricators,Packaging,1393,281,279.5,389343.5,11,50.31,8.78,2.13,Optimal
+SKU-30003,WH-North-Chicago,Pacific Maritime,Packaging,1308,258,60.03,78519.24,13,10.81,4.56,0.0,Optimal
+SKU-30004,WH-East-Newark,Global Components,Hydraulics,1188,135,142.83,169682.04,9,25.71,8.51,2.01,Optimal
+SKU-30005,WH-North-Chicago,Pacific Maritime,Packaging,263,346,605.12,159146.56,2,108.92,9.42,2.19,Low Stock
+SKU-30006,WH-North-Chicago,Global Components,Packaging,1380,271,643.46,887974.8,17,115.82,8.98,0.29,Optimal
+SKU-30007,WH-West-Reno,Global Components,Mechanical,612,240,129.39,79186.68,13,23.29,7.08,0.71,Optimal
+SKU-30008,WH-North-Chicago,Pinnacle Fabricators,Fasteners,1062,381,230.87,245183.94,19,41.56,9.45,1.28,Optimal
+SKU-30009,WH-East-Newark,Pinnacle Fabricators,Fasteners,753,358,303.82,228776.46,13,54.69,3.77,1.76,Optimal
+SKU-30010,WH-North-Chicago,Apex Logistics,Fasteners,1469,311,518.79,762102.51,23,93.38,8.03,3.2,Optimal
+SKU-30011,WH-South-Dallas,Global Components,Mechanical,741,281,335.95,248938.95,15,60.47,7.79,0.66,Optimal
+SKU-30012,WH-South-Dallas,Pinnacle Fabricators,Hydraulics,1486,172,504.76,750073.36,17,90.86,3.57,1.58,Optimal
+SKU-30013,WH-South-Dallas,Vanguard Precision,Fasteners,420,335,559.45,234969.0,9,100.7,2.66,2.82,Optimal
+SKU-30014,WH-South-Dallas,Pacific Maritime,Mechanical,1054,304,39.88,42033.52,9,7.18,5.32,2.92,Optimal
+SKU-30015,WH-North-Chicago,Global Components,Hydraulics,686,387,343.44,235599.84,10,61.82,6.02,3.0,Optimal
+SKU-30016,WH-South-Dallas,Global Components,Fasteners,285,154,472.17,134568.45,13,84.99,2.72,1.23,Optimal
+SKU-30017,WH-North-Chicago,Vanguard Precision,Mechanical,91,195,322.51,29348.41,17,58.05,8.85,2.73,Low Stock
+SKU-30018,WH-West-Reno,Pinnacle Fabricators,Mechanical,265,160,225.74,59821.1,15,40.63,6.41,1.66,Optimal
+SKU-30019,WH-North-Chicago,Global Components,Mechanical,429,148,271.71,116563.59,13,48.91,7.96,3.34,Optimal
+SKU-30020,WH-East-Newark,Pacific Maritime,Hydraulics,1301,279,147.38,191741.38,14,26.53,8.22,2.75,Optimal
+SKU-30021,WH-East-Newark,Pinnacle Fabricators,Packaging,1106,253,84.81,93799.86,9,15.27,2.43,1.19,Optimal
+SKU-30022,WH-North-Chicago,Vanguard Precision,Packaging,818,186,346.56,283486.08,17,62.38,2.32,0.82,Optimal
+SKU-30023,WH-East-Newark,Pacific Maritime,Mechanical,1068,288,198.08,211549.44,12,35.65,4.89,2.55,Optimal
+SKU-30024,WH-East-Newark,Apex Logistics,Mechanical,1394,143,193.53,269780.82,10,34.84,4.13,0.43,Optimal
+SKU-30025,WH-East-Newark,Vanguard Precision,Mechanical,64,345,322.55,20643.2,9,58.06,6.45,3.66,Low Stock
+SKU-30026,WH-East-Newark,Global Components,Electronics,824,322,131.19,108100.56,10,23.61,7.12,3.74,Optimal
+SKU-30027,WH-East-Newark,Pinnacle Fabricators,Packaging,308,115,353.63,108918.04,13,63.65,7.96,2.9,Optimal
+SKU-30028,WH-West-Reno,Global Components,Electronics,1478,201,383.45,566739.1,10,69.02,7.44,1.09,Optimal
+SKU-30029,WH-West-Reno,Vanguard Precision,Hydraulics,1395,249,178.07,248407.65,13,32.05,6.83,1.41,Optimal
+SKU-30030,WH-South-Dallas,Vanguard Precision,Fasteners,922,346,345.83,318855.26,9,62.25,8.19,2.86,Optimal
+SKU-30031,WH-North-Chicago,Pinnacle Fabricators,Hydraulics,443,237,497.94,220587.42,17,89.63,3.56,0.28,Optimal
+SKU-30032,WH-East-Newark,Vanguard Precision,Mechanical,919,223,513.65,472044.35,16,92.46,1.76,2.89,Overstocked
+SKU-30033,WH-North-Chicago,Global Components,Hydraulics,832,211,589.11,490139.52,9,106.04,1.38,2.3,Overstocked
+SKU-30034,WH-North-Chicago,Global Components,Hydraulics,1340,265,104.26,139708.4,25,18.77,1.27,1.24,Overstocked
+SKU-30035,WH-East-Newark,Pacific Maritime,Mechanical,1211,125,272.85,330421.35,21,49.11,2.39,0.82,Optimal
+SKU-30036,WH-West-Reno,Vanguard Precision,Mechanical,854,205,373.77,319199.58,15,67.28,6.86,1.66,Optimal
+SKU-30037,WH-South-Dallas,Vanguard Precision,Packaging,117,289,551.61,64538.37,17,99.29,4.77,0.0,Low Stock
+SKU-30038,WH-East-Newark,Pacific Maritime,Packaging,866,147,338.82,293418.12,12,60.99,9.48,0.0,Optimal
+SKU-30039,WH-West-Reno,Pacific Maritime,Mechanical,89,207,633.47,56378.83,13,114.02,4.74,1.35,Low Stock
+SKU-30040,WH-West-Reno,Pinnacle Fabricators,Mechanical,569,363,97.09,55244.21,9,17.48,9.11,2.83,Optimal
+SKU-30041,WH-North-Chicago,Apex Logistics,Electronics,754,218,88.19,66495.26,15,15.87,3.17,1.16,Optimal
+SKU-30042,WH-South-Dallas,Pinnacle Fabricators,Fasteners,302,301,524.76,158477.52,13,94.46,1.44,2.01,Optimal
+SKU-30043,WH-North-Chicago,Apex Logistics,Fasteners,121,283,549.23,66456.83,18,98.86,3.14,2.36,Low Stock
+SKU-30044,WH-West-Reno,Global Components,Hydraulics,142,294,276.6,39277.2,11,49.79,7.68,0.21,Low Stock
+SKU-30045,WH-South-Dallas,Pinnacle Fabricators,Mechanical,792,118,84.0,66528.0,16,15.12,8.61,2.67,Optimal
+SKU-30046,WH-South-Dallas,Apex Logistics,Electronics,345,318,357.84,123454.8,19,64.41,4.43,2.09,Optimal
+SKU-30047,WH-West-Reno,Pinnacle Fabricators,Electronics,632,114,573.88,362692.16,12,103.3,4.99,1.13,Optimal
+SKU-30048,WH-North-Chicago,Vanguard Precision,Packaging,521,153,423.12,220445.52,13,76.16,5.45,1.78,Optimal
+SKU-30049,WH-East-Newark,Pinnacle Fabricators,Electronics,1426,175,278.21,396727.46,10,50.08,4.51,1.97,Optimal
+SKU-30050,WH-North-Chicago,Global Components,Fasteners,65,345,117.9,7663.5,16,21.22,3.4,1.32,Low Stock
+SKU-30051,WH-South-Dallas,Pinnacle Fabricators,Fasteners,1334,125,634.06,845836.04,13,114.13,5.5,1.25,Optimal
+SKU-30052,WH-South-Dallas,Apex Logistics,Mechanical,549,176,228.01,125177.49,15,41.04,3.34,2.21,Optimal
+SKU-30053,WH-North-Chicago,Pacific Maritime,Packaging,298,321,104.7,31200.6,16,18.85,2.16,0.0,Low Stock
+SKU-30054,WH-North-Chicago,Vanguard Precision,Packaging,313,152,579.97,181530.61,10,104.39,5.14,3.29,Optimal
+SKU-30055,WH-West-Reno,Pacific Maritime,Fasteners,438,264,74.35,32565.3,16,13.38,2.85,2.44,Optimal
+SKU-30056,WH-South-Dallas,Pacific Maritime,Mechanical,1326,314,74.96,99396.96,10,13.49,1.53,1.44,Overstocked
+SKU-30057,WH-West-Reno,Global Components,Fasteners,257,212,327.48,84162.36,14,58.95,2.05,2.17,Optimal
+SKU-30058,WH-East-Newark,Pinnacle Fabricators,Electronics,1365,288,641.61,875797.65,6,115.49,3.31,2.18,Optimal
+SKU-30059,WH-North-Chicago,Global Components,Hydraulics,71,260,440.9,31303.9,12,79.36,7.39,3.31,Low Stock
+SKU-30060,WH-West-Reno,Pacific Maritime,Packaging,1245,349,199.18,247979.1,6,35.85,3.07,3.01,Optimal
+SKU-30061,WH-South-Dallas,Global Components,Fasteners,71,155,17.75,1260.25,5,3.19,6.23,1.93,Low Stock
+SKU-30062,WH-North-Chicago,Pacific Maritime,Electronics,667,248,507.14,338262.38,16,91.29,2.52,4.36,Optimal
+SKU-30063,WH-East-Newark,Apex Logistics,Fasteners,1233,396,439.77,542236.41,15,79.16,5.4,0.6,Optimal
+SKU-30064,WH-East-Newark,Vanguard Precision,Electronics,844,397,270.5,228302.0,7,48.69,8.83,4.06,Optimal
+SKU-30065,WH-South-Dallas,Apex Logistics,Fasteners,1468,264,638.7,937611.6,18,114.97,7.93,0.0,Optimal
+SKU-30066,WH-West-Reno,Vanguard Precision,Mechanical,1178,244,144.24,169914.72,10,25.96,2.79,0.88,Optimal
+SKU-30067,WH-East-Newark,Vanguard Precision,Packaging,1125,175,26.62,29947.5,15,4.79,5.16,4.84,Defective Quarantine
+SKU-30068,WH-South-Dallas,Pacific Maritime,Hydraulics,674,197,215.44,145206.56,8,38.78,3.76,0.18,Optimal
+SKU-30069,WH-East-Newark,Apex Logistics,Hydraulics,562,327,98.86,55559.32,17,17.79,2.72,1.72,Optimal
+SKU-30070,WH-North-Chicago,Vanguard Precision,Mechanical,1324,217,441.18,584122.32,11,79.41,9.4,1.54,Optimal
+SKU-30071,WH-East-Newark,Vanguard Precision,Mechanical,1234,236,635.37,784046.58,10,114.37,2.02,1.59,Optimal
+SKU-30072,WH-West-Reno,Pacific Maritime,Mechanical,1007,171,609.63,613897.41,16,109.73,1.55,1.5,Overstocked
+SKU-30073,WH-East-Newark,Vanguard Precision,Packaging,1015,101,170.85,173412.75,20,30.75,2.01,3.44,Optimal
+SKU-30074,WH-North-Chicago,Pacific Maritime,Electronics,1347,263,199.9,269265.3,11,35.98,6.55,0.0,Optimal
+SKU-30075,WH-West-Reno,Pacific Maritime,Mechanical,774,123,39.56,30619.44,11,7.12,4.74,0.96,Optimal
+SKU-30076,WH-East-Newark,Global Components,Electronics,1125,110,555.04,624420.0,14,99.91,2.5,0.0,Optimal
+SKU-30077,WH-East-Newark,Pacific Maritime,Mechanical,358,141,549.32,196656.56,8,98.88,6.13,0.22,Optimal
+SKU-30078,WH-West-Reno,Apex Logistics,Electronics,918,352,254.41,233548.38,7,45.79,5.0,2.25,Optimal
+SKU-30079,WH-West-Reno,Global Components,Mechanical,1298,315,460.44,597651.12,9,82.88,4.57,0.0,Optimal
+SKU-30080,WH-West-Reno,Pacific Maritime,Electronics,1419,339,585.5,830824.5,14,105.39,7.26,0.62,Optimal
+SKU-30081,WH-South-Dallas,Vanguard Precision,Electronics,236,225,521.12,122984.32,24,93.8,6.25,1.19,Optimal
+SKU-30082,WH-East-Newark,Global Components,Hydraulics,1228,327,97.92,120245.76,16,17.63,2.27,1.46,Optimal
+SKU-30083,WH-West-Reno,Apex Logistics,Fasteners,808,203,524.05,423432.4,12,94.33,6.69,2.32,Optimal
+SKU-30084,WH-North-Chicago,Vanguard Precision,Fasteners,607,151,485.53,294716.71,12,87.4,6.81,3.54,Optimal
+SKU-30085,WH-West-Reno,Apex Logistics,Mechanical,611,126,86.99,53150.89,11,15.66,9.06,0.95,Optimal
+SKU-30086,WH-South-Dallas,Pinnacle Fabricators,Electronics,70,233,521.63,36514.1,19,93.89,7.68,4.76,Low Stock
+SKU-30087,WH-East-Newark,Vanguard Precision,Fasteners,1485,226,200.11,297163.35,19,36.02,7.09,2.62,Optimal
+SKU-30088,WH-South-Dallas,Global Components,Packaging,1102,164,591.46,651788.92,3,106.46,7.48,2.18,Optimal
+SKU-30089,WH-West-Reno,Apex Logistics,Hydraulics,437,202,247.61,108205.57,22,44.57,5.33,2.49,Optimal
+SKU-30090,WH-South-Dallas,Vanguard Precision,Fasteners,799,313,334.31,267113.69,11,60.18,2.59,1.58,Optimal
+SKU-30091,WH-West-Reno,Vanguard Precision,Hydraulics,449,360,616.97,277019.53,17,111.05,8.1,1.12,Optimal
+SKU-30092,WH-West-Reno,Pacific Maritime,Fasteners,639,113,397.4,253938.6,8,71.53,8.51,3.53,Optimal
+SKU-30093,WH-North-Chicago,Pinnacle Fabricators,Packaging,227,236,638.44,144925.88,22,114.92,2.17,0.2,Low Stock
+SKU-30094,WH-North-Chicago,Global Components,Fasteners,971,352,213.06,206881.26,12,38.35,1.28,0.0,Overstocked
+SKU-30095,WH-West-Reno,Pinnacle Fabricators,Hydraulics,1342,273,40.78,54726.76,8,7.34,6.57,4.74,Defective Quarantine
+SKU-30096,WH-West-Reno,Global Components,Packaging,248,280,210.2,52129.6,8,37.84,8.09,3.27,Low Stock
+SKU-30097,WH-East-Newark,Vanguard Precision,Electronics,888,280,424.93,377337.84,16,76.49,7.5,0.39,Optimal
+SKU-30098,WH-South-Dallas,Global Components,Hydraulics,316,368,557.87,176286.92,14,100.42,7.89,1.21,Low Stock
+SKU-30099,WH-South-Dallas,Vanguard Precision,Mechanical,74,109,63.56,4703.44,20,11.44,5.61,1.35,Low Stock
+SKU-30100,WH-East-Newark,Pinnacle Fabricators,Fasteners,722,171,578.02,417330.44,13,104.04,7.52,2.43,Optimal
+SKU-30101,WH-West-Reno,Pinnacle Fabricators,Fasteners,672,228,290.12,194960.64,16,52.22,4.37,2.61,Optimal
+SKU-30102,WH-West-Reno,Pacific Maritime,Hydraulics,1187,202,432.74,513662.38,5,77.89,6.43,2.58,Optimal
+SKU-30103,WH-North-Chicago,Vanguard Precision,Mechanical,302,303,64.89,19596.78,24,11.68,6.97,2.99,Low Stock
+SKU-30104,WH-East-Newark,Pacific Maritime,Electronics,850,382,137.48,116858.0,14,24.75,5.57,2.44,Optimal
+SKU-30105,WH-West-Reno,Apex Logistics,Mechanical,721,276,111.58,80449.18,11,20.08,7.26,2.36,Optimal
+SKU-30106,WH-North-Chicago,Pacific Maritime,Fasteners,367,142,499.71,183393.57,14,89.95,5.49,2.21,Optimal
+SKU-30107,WH-South-Dallas,Vanguard Precision,Fasteners,589,346,356.85,210184.65,20,64.23,2.48,3.25,Optimal
+SKU-30108,WH-West-Reno,Global Components,Hydraulics,376,172,296.49,111480.24,8,53.37,2.24,1.0,Optimal
+SKU-30109,WH-South-Dallas,Global Components,Packaging,402,123,398.43,160168.86,15,71.72,2.68,0.09,Optimal
+SKU-30110,WH-South-Dallas,Pinnacle Fabricators,Fasteners,1176,142,619.35,728355.6,17,111.48,1.85,3.06,Overstocked
+SKU-30111,WH-South-Dallas,Global Components,Electronics,1362,280,463.05,630674.1,17,83.35,7.85,3.09,Optimal
+SKU-30112,WH-North-Chicago,Pacific Maritime,Mechanical,1439,210,295.94,425857.66,12,53.27,4.12,1.24,Optimal
+SKU-30113,WH-South-Dallas,Global Components,Fasteners,1237,350,540.87,669056.19,3,97.36,5.4,2.94,Optimal
+SKU-30114,WH-West-Reno,Global Components,Mechanical,545,206,641.64,349693.8,13,115.5,6.02,1.13,Optimal
+SKU-30115,WH-West-Reno,Pinnacle Fabricators,Packaging,1456,194,648.37,944026.72,11,116.71,4.08,1.48,Optimal
+SKU-30116,WH-West-Reno,Pacific Maritime,Hydraulics,773,333,381.72,295069.56,13,68.71,8.46,2.85,Optimal
+SKU-30117,WH-East-Newark,Pinnacle Fabricators,Electronics,130,330,373.85,48600.5,12,67.29,2.11,1.18,Low Stock
+SKU-30118,WH-East-Newark,Apex Logistics,Packaging,730,203,405.64,296117.2,15,73.02,7.46,2.19,Optimal
+SKU-30119,WH-North-Chicago,Pinnacle Fabricators,Electronics,795,399,155.89,123932.55,9,28.06,6.46,2.53,Optimal
+SKU-30120,WH-North-Chicago,Pinnacle Fabricators,Fasteners,318,176,440.73,140152.14,11,79.33,9.32,1.33,Optimal
+SKU-30121,WH-South-Dallas,Pinnacle Fabricators,Packaging,492,105,259.03,127442.76,11,46.63,5.89,0.95,Optimal
+SKU-30122,WH-East-Newark,Apex Logistics,Packaging,917,324,581.61,533336.37,13,104.69,4.49,0.82,Optimal
+SKU-30123,WH-North-Chicago,Pacific Maritime,Packaging,575,311,549.0,315675.0,11,98.82,4.06,0.0,Optimal
+SKU-30124,WH-West-Reno,Pinnacle Fabricators,Mechanical,1044,111,595.16,621347.04,4,107.13,6.7,3.05,Optimal
+SKU-30125,WH-East-Newark,Apex Logistics,Hydraulics,799,272,79.52,63536.48,10,14.31,2.58,3.35,Optimal
+SKU-30126,WH-East-Newark,Pinnacle Fabricators,Electronics,877,145,43.46,38114.42,14,7.82,1.49,3.46,Overstocked
+SKU-30127,WH-North-Chicago,Pinnacle Fabricators,Packaging,1099,268,141.59,155607.41,12,25.49,8.8,4.2,Optimal
+SKU-30128,WH-North-Chicago,Global Components,Mechanical,450,225,617.83,278023.5,23,111.21,8.6,3.34,Optimal
+SKU-30129,WH-North-Chicago,Global Components,Fasteners,1062,399,167.19,177555.78,7,30.09,1.91,0.76,Overstocked
+SKU-30130,WH-West-Reno,Pacific Maritime,Mechanical,576,340,175.1,100857.6,19,31.52,4.65,2.29,Optimal
+SKU-30131,WH-North-Chicago,Pinnacle Fabricators,Fasteners,97,195,571.39,55424.83,12,102.85,8.63,0.0,Low Stock
+SKU-30132,WH-West-Reno,Vanguard Precision,Electronics,700,226,347.65,243355.0,20,62.58,3.94,1.49,Optimal
+SKU-30133,WH-West-Reno,Pinnacle Fabricators,Hydraulics,753,170,108.82,81941.46,17,19.59,4.65,3.36,Optimal
+SKU-30134,WH-South-Dallas,Vanguard Precision,Packaging,379,264,425.42,161234.18,2,76.58,3.72,3.1,Optimal
+SKU-30135,WH-East-Newark,Apex Logistics,Packaging,1233,347,123.55,152337.15,19,22.24,3.95,2.57,Optimal
+SKU-30136,WH-West-Reno,Pacific Maritime,Fasteners,214,243,579.52,124017.28,7,104.31,8.16,0.78,Low Stock
+SKU-30137,WH-North-Chicago,Pacific Maritime,Packaging,354,272,284.88,100847.52,12,51.28,6.3,0.44,Optimal
+SKU-30138,WH-South-Dallas,Global Components,Electronics,749,119,369.79,276972.71,17,66.56,2.54,0.0,Optimal
+SKU-30139,WH-West-Reno,Vanguard Precision,Packaging,249,324,231.99,57765.51,15,41.76,5.74,0.32,Low Stock
+SKU-30140,WH-North-Chicago,Apex Logistics,Mechanical,208,342,584.46,121567.68,12,105.2,7.48,4.05,Low Stock
+SKU-30141,WH-West-Reno,Pacific Maritime,Packaging,379,195,251.05,95147.95,18,45.19,7.01,3.06,Optimal
+SKU-30142,WH-East-Newark,Vanguard Precision,Packaging,549,274,605.67,332512.83,15,109.02,2.43,1.69,Optimal
+SKU-30143,WH-South-Dallas,Pinnacle Fabricators,Electronics,30,179,533.73,16011.9,22,96.07,8.72,3.62,Low Stock
+SKU-30144,WH-South-Dallas,Pacific Maritime,Electronics,1049,121,148.05,155304.45,17,26.65,9.48,2.46,Optimal
+SKU-30145,WH-East-Newark,Global Components,Packaging,1193,344,78.81,94020.33,15,14.19,6.74,0.97,Optimal
+SKU-30146,WH-South-Dallas,Apex Logistics,Hydraulics,1111,185,91.5,101656.5,11,16.47,9.27,1.98,Optimal
+SKU-30147,WH-West-Reno,Apex Logistics,Mechanical,1143,166,326.74,373463.82,17,58.81,6.84,0.0,Optimal
+SKU-30148,WH-West-Reno,Pinnacle Fabricators,Mechanical,1047,310,300.23,314340.81,15,54.04,5.63,0.24,Optimal
+SKU-30149,WH-South-Dallas,Apex Logistics,Mechanical,259,220,574.69,148844.71,13,103.44,3.93,0.99,Optimal
+SKU-30150,WH-West-Reno,Global Components,Mechanical,731,188,234.56,171463.36,13,42.22,6.62,0.04,Optimal
+SKU-30151,WH-West-Reno,Pacific Maritime,Mechanical,475,384,361.84,171874.0,24,65.13,1.27,0.85,Optimal
+SKU-30152,WH-West-Reno,Pinnacle Fabricators,Hydraulics,460,399,160.14,73664.4,10,28.83,5.97,3.4,Optimal
+SKU-30153,WH-North-Chicago,Apex Logistics,Mechanical,839,313,299.68,251431.52,12,53.94,2.84,0.42,Optimal
+SKU-30154,WH-West-Reno,Apex Logistics,Hydraulics,1110,130,437.4,485514.0,16,78.73,6.69,2.54,Optimal
+SKU-30155,WH-South-Dallas,Apex Logistics,Packaging,997,293,362.8,361711.6,22,65.3,9.18,1.33,Optimal
+SKU-30156,WH-South-Dallas,Pinnacle Fabricators,Electronics,1139,172,555.54,632760.06,11,100.0,8.66,0.94,Optimal
+SKU-30157,WH-East-Newark,Pinnacle Fabricators,Hydraulics,1320,169,610.45,805794.0,9,109.88,5.59,0.48,Optimal
+SKU-30158,WH-East-Newark,Global Components,Fasteners,559,128,540.09,301910.31,3,97.22,8.15,2.56,Optimal
+SKU-30159,WH-West-Reno,Global Components,Packaging,146,344,61.72,9011.12,16,11.11,4.17,0.62,Low Stock
+SKU-30160,WH-West-Reno,Global Components,Packaging,35,217,221.0,7735.0,19,39.78,7.1,1.02,Low Stock
+SKU-30161,WH-South-Dallas,Global Components,Packaging,1372,354,540.46,741511.12,15,97.28,5.91,2.89,Optimal
+SKU-30162,WH-South-Dallas,Apex Logistics,Hydraulics,1078,102,621.11,669556.58,16,111.8,8.06,2.93,Optimal
+SKU-30163,WH-North-Chicago,Pacific Maritime,Hydraulics,919,310,421.93,387753.67,18,75.95,5.13,2.35,Optimal
+SKU-30164,WH-North-Chicago,Apex Logistics,Mechanical,1233,349,603.59,744226.47,12,108.65,4.68,2.97,Optimal
+SKU-30165,WH-East-Newark,Vanguard Precision,Fasteners,487,189,330.38,160895.06,17,59.47,8.68,1.73,Optimal
+SKU-30166,WH-West-Reno,Apex Logistics,Mechanical,1033,342,371.41,383666.53,10,66.85,6.74,3.09,Optimal
+SKU-30167,WH-North-Chicago,Vanguard Precision,Fasteners,39,125,524.18,20443.02,9,94.35,1.83,1.47,Low Stock
+SKU-30168,WH-East-Newark,Vanguard Precision,Packaging,1378,223,528.85,728755.3,8,95.19,4.87,1.67,Optimal
+SKU-30169,WH-East-Newark,Pacific Maritime,Packaging,29,314,338.32,9811.28,11,60.9,4.21,2.74,Low Stock
+SKU-30170,WH-North-Chicago,Pacific Maritime,Electronics,695,114,149.7,104041.5,19,26.95,7.84,3.18,Optimal
+SKU-30171,WH-North-Chicago,Vanguard Precision,Electronics,1094,287,586.95,642123.3,4,105.65,4.96,1.53,Optimal
+SKU-30172,WH-South-Dallas,Vanguard Precision,Fasteners,57,212,580.69,33099.33,11,104.52,3.74,1.68,Low Stock
+SKU-30173,WH-East-Newark,Apex Logistics,Electronics,151,336,205.48,31027.48,13,36.99,4.12,0.81,Low Stock
+SKU-30174,WH-South-Dallas,Apex Logistics,Mechanical,1253,276,86.48,108359.44,20,15.57,5.05,0.05,Optimal
+SKU-30175,WH-North-Chicago,Apex Logistics,Hydraulics,1435,305,42.13,60456.55,11,7.58,5.38,1.26,Optimal
+SKU-30176,WH-West-Reno,Vanguard Precision,Fasteners,1422,107,487.47,693182.34,20,87.74,2.17,0.47,Optimal
+SKU-30177,WH-North-Chicago,Apex Logistics,Hydraulics,880,333,451.51,397328.8,13,81.27,1.46,2.73,Overstocked
+SKU-30178,WH-East-Newark,Apex Logistics,Mechanical,752,272,425.9,320276.8,17,76.66,2.04,2.28,Optimal
+SKU-30179,WH-North-Chicago,Vanguard Precision,Fasteners,1044,314,189.08,197399.52,16,34.03,8.2,3.73,Optimal
+SKU-30180,WH-East-Newark,Pinnacle Fabricators,Electronics,92,258,263.93,24281.56,15,47.51,3.34,1.23,Low Stock
+SKU-30181,WH-East-Newark,Global Components,Packaging,342,326,406.59,139053.78,14,73.19,1.93,0.93,Optimal
+SKU-30182,WH-North-Chicago,Apex Logistics,Hydraulics,1423,151,429.94,611804.62,14,77.39,7.96,1.07,Optimal
+SKU-30183,WH-South-Dallas,Apex Logistics,Fasteners,1039,373,187.74,195061.86,9,33.79,4.34,2.14,Optimal
+SKU-30184,WH-North-Chicago,Apex Logistics,Electronics,1498,372,198.88,297922.24,17,35.8,8.29,0.25,Optimal
+SKU-30185,WH-North-Chicago,Pinnacle Fabricators,Packaging,204,271,426.92,87091.68,12,76.85,4.27,1.88,Low Stock
+SKU-30186,WH-East-Newark,Pacific Maritime,Electronics,310,315,178.72,55403.2,14,32.17,6.75,2.34,Low Stock
+SKU-30187,WH-South-Dallas,Pinnacle Fabricators,Fasteners,714,281,488.4,348717.6,9,87.91,2.78,3.45,Optimal
+SKU-30188,WH-East-Newark,Pacific Maritime,Mechanical,1451,399,611.83,887765.33,15,110.13,6.19,1.02,Optimal
+SKU-30189,WH-South-Dallas,Vanguard Precision,Hydraulics,99,129,146.56,14509.44,14,26.38,9.03,3.32,Low Stock
+SKU-30190,WH-North-Chicago,Apex Logistics,Packaging,1223,383,300.78,367853.94,15,54.14,4.43,1.44,Optimal
+SKU-30191,WH-West-Reno,Pacific Maritime,Hydraulics,17,220,487.85,8293.45,7,87.81,2.16,1.77,Low Stock
+SKU-30192,WH-West-Reno,Global Components,Electronics,1160,177,424.4,492304.0,15,76.39,5.96,3.78,Optimal
+SKU-30193,WH-South-Dallas,Vanguard Precision,Electronics,89,346,649.9,57841.1,18,116.98,2.02,1.08,Low Stock
+SKU-30194,WH-West-Reno,Pacific Maritime,Hydraulics,1051,373,497.12,522473.12,7,89.48,4.2,1.67,Optimal
+SKU-30195,WH-South-Dallas,Apex Logistics,Hydraulics,536,161,648.17,347419.12,13,116.67,4.1,1.79,Optimal
+SKU-30196,WH-West-Reno,Apex Logistics,Fasteners,820,143,371.24,304416.8,20,66.82,8.74,0.28,Optimal
+SKU-30197,WH-South-Dallas,Pacific Maritime,Fasteners,1078,231,356.62,384436.36,13,64.19,2.71,1.08,Optimal
+SKU-30198,WH-North-Chicago,Pacific Maritime,Mechanical,1122,266,530.62,595355.64,14,95.51,2.14,2.47,Optimal
+SKU-30199,WH-East-Newark,Global Components,Hydraulics,398,371,60.34,24015.32,12,10.86,4.8,0.32,Optimal
+SKU-30200,WH-West-Reno,Vanguard Precision,Mechanical,76,148,610.93,46430.68,13,109.97,6.1,1.48,Low Stock
+SKU-30201,WH-North-Chicago,Apex Logistics,Electronics,1135,312,194.51,220768.85,8,35.01,4.44,2.71,Optimal
+SKU-30202,WH-East-Newark,Global Components,Fasteners,1265,347,118.13,149434.45,10,21.26,8.09,1.37,Optimal
+SKU-30203,WH-East-Newark,Global Components,Hydraulics,842,144,454.0,382268.0,25,81.72,6.1,0.19,Optimal
+SKU-30204,WH-South-Dallas,Global Components,Hydraulics,1491,304,171.55,255781.05,16,30.88,6.22,2.24,Optimal
+SKU-30205,WH-South-Dallas,Pacific Maritime,Hydraulics,1389,183,184.42,256159.38,5,33.2,2.08,0.78,Optimal
+SKU-30206,WH-South-Dallas,Global Components,Hydraulics,36,150,472.57,17012.52,8,85.06,4.68,1.66,Low Stock
+SKU-30207,WH-West-Reno,Vanguard Precision,Electronics,931,106,29.64,27594.84,15,5.34,8.33,4.04,Optimal
+SKU-30208,WH-South-Dallas,Pinnacle Fabricators,Packaging,796,104,612.58,487613.68,15,110.26,6.01,3.1,Optimal
+SKU-30209,WH-West-Reno,Apex Logistics,Hydraulics,1392,136,64.76,90145.92,14,11.66,8.52,4.27,Optimal
+SKU-30210,WH-North-Chicago,Pacific Maritime,Electronics,714,148,318.19,227187.66,16,57.27,5.24,1.84,Optimal
+SKU-30211,WH-East-Newark,Global Components,Electronics,786,146,435.85,342578.1,12,78.45,3.59,2.75,Optimal
+SKU-30212,WH-East-Newark,Pacific Maritime,Mechanical,110,326,583.23,64155.3,21,104.98,3.42,1.85,Low Stock
+SKU-30213,WH-East-Newark,Vanguard Precision,Fasteners,198,147,636.32,125991.36,9,114.54,3.5,1.43,Optimal
+SKU-30214,WH-West-Reno,Pacific Maritime,Packaging,237,383,445.85,105666.45,6,80.25,2.22,0.16,Low Stock
+SKU-30215,WH-East-Newark,Pinnacle Fabricators,Electronics,424,266,644.97,273467.28,17,116.09,8.8,1.81,Optimal
+SKU-30216,WH-West-Reno,Pacific Maritime,Packaging,138,374,234.95,32423.1,13,42.29,2.1,1.9,Low Stock
+SKU-30217,WH-West-Reno,Pacific Maritime,Fasteners,1043,117,208.96,217945.28,11,37.61,8.25,3.05,Optimal
+SKU-30218,WH-North-Chicago,Vanguard Precision,Hydraulics,220,125,380.35,83677.0,11,68.46,2.9,1.02,Optimal
+SKU-30219,WH-South-Dallas,Apex Logistics,Mechanical,1150,285,559.03,642884.5,22,100.63,6.53,0.15,Optimal
+SKU-30220,WH-West-Reno,Global Components,Mechanical,696,321,359.35,250107.6,20,64.68,3.86,0.73,Optimal
+SKU-30221,WH-East-Newark,Apex Logistics,Packaging,116,363,243.7,28269.2,19,43.87,1.81,1.41,Low Stock
+SKU-30222,WH-West-Reno,Pacific Maritime,Hydraulics,205,200,641.52,131511.6,12,115.47,7.01,2.67,Optimal
+SKU-30223,WH-South-Dallas,Pacific Maritime,Hydraulics,207,330,428.14,88624.98,16,77.07,9.22,4.63,Low Stock
+SKU-30224,WH-East-Newark,Global Components,Packaging,246,229,189.14,46528.44,11,34.05,2.94,1.61,Optimal
+SKU-30225,WH-North-Chicago,Pacific Maritime,Fasteners,943,160,213.86,201669.98,26,38.49,1.25,0.6,Overstocked
+SKU-30226,WH-South-Dallas,Vanguard Precision,Hydraulics,1113,238,28.8,32054.4,16,5.18,5.17,1.18,Optimal
+SKU-30227,WH-West-Reno,Global Components,Mechanical,437,267,195.52,85442.24,20,35.19,8.85,1.06,Optimal
+SKU-30228,WH-North-Chicago,Pinnacle Fabricators,Hydraulics,221,252,259.4,57327.4,20,46.69,5.58,1.83,Low Stock
+SKU-30229,WH-East-Newark,Global Components,Mechanical,1098,271,63.9,70162.2,18,11.5,6.99,0.48,Optimal
+SKU-30230,WH-South-Dallas,Apex Logistics,Mechanical,138,201,180.42,24897.96,11,32.48,8.65,2.78,Low Stock
+SKU-30231,WH-South-Dallas,Apex Logistics,Hydraulics,629,172,410.72,258342.88,15,73.93,6.09,1.77,Optimal
+SKU-30232,WH-East-Newark,Apex Logistics,Electronics,29,212,108.32,3141.28,14,19.5,6.15,1.63,Low Stock
+SKU-30233,WH-North-Chicago,Pacific Maritime,Fasteners,932,223,433.87,404366.84,11,78.1,4.21,1.24,Optimal
+SKU-30234,WH-East-Newark,Apex Logistics,Mechanical,448,205,373.13,167162.24,10,67.16,7.26,2.67,Optimal
+SKU-30235,WH-East-Newark,Vanguard Precision,Fasteners,674,396,232.37,156617.38,15,41.83,6.57,0.81,Optimal
+SKU-30236,WH-West-Reno,Vanguard Precision,Hydraulics,391,311,148.09,57903.19,20,26.66,2.67,2.06,Optimal
+SKU-30237,WH-South-Dallas,Apex Logistics,Packaging,999,298,586.87,586283.13,8,105.64,4.64,0.82,Optimal
+SKU-30238,WH-East-Newark,Vanguard Precision,Mechanical,580,380,600.01,348005.8,10,108.0,1.63,0.76,Optimal
+SKU-30239,WH-East-Newark,Pacific Maritime,Fasteners,1048,202,547.73,574021.04,13,98.59,2.67,2.46,Optimal
+SKU-30240,WH-East-Newark,Vanguard Precision,Packaging,833,154,84.64,70505.12,13,15.24,6.31,0.0,Optimal
+SKU-30241,WH-North-Chicago,Vanguard Precision,Packaging,1421,306,498.16,707885.36,16,89.67,9.23,0.23,Optimal
+SKU-30242,WH-West-Reno,Global Components,Packaging,1416,347,40.34,57121.44,12,7.26,8.75,3.87,Optimal
+SKU-30243,WH-West-Reno,Pinnacle Fabricators,Hydraulics,303,142,186.52,56515.56,16,33.57,7.85,0.0,Optimal
+SKU-30244,WH-North-Chicago,Apex Logistics,Hydraulics,1142,207,550.85,629070.7,20,99.15,8.7,2.01,Optimal
+SKU-30245,WH-North-Chicago,Pacific Maritime,Fasteners,530,113,30.38,16101.4,11,5.47,3.22,1.55,Optimal
+SKU-30246,WH-North-Chicago,Global Components,Mechanical,1362,378,116.42,158564.04,11,20.96,3.51,2.91,Optimal
+SKU-30247,WH-North-Chicago,Pacific Maritime,Electronics,1422,263,70.39,100094.58,18,12.67,4.62,0.52,Optimal
+SKU-30248,WH-East-Newark,Apex Logistics,Electronics,1293,311,181.88,235170.84,10,32.74,3.71,0.96,Optimal
+SKU-30249,WH-South-Dallas,Pinnacle Fabricators,Hydraulics,950,143,447.43,425058.5,5,80.54,1.82,1.87,Overstocked
+SKU-30250,WH-South-Dallas,Apex Logistics,Mechanical,699,267,579.25,404895.75,18,104.27,9.33,2.7,Optimal
+SKU-30251,WH-East-Newark,Pinnacle Fabricators,Electronics,1297,329,57.95,75161.15,7,10.43,2.25,0.0,Optimal
+SKU-30252,WH-North-Chicago,Pacific Maritime,Electronics,239,353,292.86,69993.54,13,52.71,7.51,1.92,Low Stock
+SKU-30253,WH-West-Reno,Vanguard Precision,Mechanical,1446,168,549.56,794663.76,8,98.92,3.91,0.0,Optimal
+SKU-30254,WH-West-Reno,Vanguard Precision,Hydraulics,502,387,569.34,285808.68,14,102.48,8.11,1.94,Optimal
+SKU-30255,WH-South-Dallas,Global Components,Packaging,480,220,123.41,59236.8,11,22.21,8.72,3.13,Optimal
+SKU-30256,WH-North-Chicago,Vanguard Precision,Mechanical,1117,134,392.2,438087.4,9,70.6,5.32,1.75,Optimal
+SKU-30257,WH-West-Reno,Global Components,Hydraulics,42,102,130.74,5491.08,14,23.53,1.95,0.85,Low Stock
+SKU-30258,WH-East-Newark,Vanguard Precision,Electronics,845,231,296.94,250914.3,12,53.45,5.01,4.68,Defective Quarantine
+SKU-30259,WH-North-Chicago,Pinnacle Fabricators,Electronics,1057,328,241.75,255529.75,11,43.52,8.83,0.84,Optimal
+SKU-30260,WH-East-Newark,Global Components,Hydraulics,284,344,264.21,75035.64,15,47.56,1.27,2.49,Low Stock
+SKU-30261,WH-North-Chicago,Vanguard Precision,Electronics,1353,330,36.28,49086.84,8,6.53,5.56,2.71,Optimal
+SKU-30262,WH-West-Reno,Pacific Maritime,Hydraulics,233,296,29.16,6794.28,13,5.25,1.73,2.69,Low Stock
+SKU-30263,WH-South-Dallas,Pinnacle Fabricators,Hydraulics,106,265,194.67,20635.02,16,35.04,4.15,0.0,Low Stock
+SKU-30264,WH-North-Chicago,Pacific Maritime,Packaging,519,314,339.07,175977.33,7,61.03,6.92,3.07,Optimal
+SKU-30265,WH-North-Chicago,Vanguard Precision,Hydraulics,29,260,513.06,14878.74,9,92.35,6.85,1.46,Low Stock
+SKU-30266,WH-West-Reno,Apex Logistics,Hydraulics,198,270,156.71,31028.58,16,28.21,4.19,3.09,Low Stock
+SKU-30267,WH-West-Reno,Apex Logistics,Fasteners,30,216,405.22,12156.6,11,72.94,2.22,2.34,Low Stock
+SKU-30268,WH-West-Reno,Pinnacle Fabricators,Packaging,204,310,27.35,5579.4,10,4.92,9.21,4.37,Low Stock
+SKU-30269,WH-North-Chicago,Vanguard Precision,Mechanical,44,326,361.46,15904.24,21,65.06,6.89,2.76,Low Stock
+SKU-30270,WH-North-Chicago,Global Components,Mechanical,1445,107,31.43,45416.35,19,5.66,6.81,3.58,Optimal
+SKU-30271,WH-East-Newark,Apex Logistics,Mechanical,610,279,59.07,36032.7,9,10.63,1.39,2.28,Optimal
+SKU-30272,WH-North-Chicago,Global Components,Packaging,618,285,124.67,77046.06,15,22.44,7.84,1.95,Optimal
+SKU-30273,WH-East-Newark,Global Components,Packaging,1378,295,228.12,314349.36,16,41.06,6.03,1.07,Optimal
+SKU-30274,WH-East-Newark,Apex Logistics,Hydraulics,202,189,639.02,129082.04,18,115.02,1.64,2.5,Optimal
+SKU-30275,WH-South-Dallas,Pacific Maritime,Hydraulics,325,134,117.39,38151.75,10,21.13,3.79,2.99,Optimal
+SKU-30276,WH-East-Newark,Pinnacle Fabricators,Mechanical,1459,165,386.56,563991.04,21,69.58,8.91,2.24,Optimal
+SKU-30277,WH-East-Newark,Vanguard Precision,Packaging,630,201,180.43,113670.9,12,32.48,6.96,1.75,Optimal
+SKU-30278,WH-South-Dallas,Vanguard Precision,Hydraulics,327,152,35.18,11503.86,17,6.33,3.41,3.11,Optimal
+SKU-30279,WH-West-Reno,Apex Logistics,Mechanical,1313,226,627.57,823999.41,8,112.96,2.49,2.09,Optimal
+SKU-30280,WH-North-Chicago,Pinnacle Fabricators,Hydraulics,263,350,46.9,12334.7,16,8.44,3.62,1.78,Low Stock
+SKU-30281,WH-South-Dallas,Pacific Maritime,Fasteners,1008,174,426.69,430103.52,8,76.8,2.82,2.01,Optimal
+SKU-30282,WH-North-Chicago,Apex Logistics,Hydraulics,375,104,411.92,154470.0,13,74.15,1.94,2.85,Optimal
+SKU-30283,WH-West-Reno,Pacific Maritime,Mechanical,20,201,439.1,8782.0,16,79.04,3.46,1.51,Low Stock
+SKU-30284,WH-South-Dallas,Pacific Maritime,Mechanical,351,300,330.06,115851.06,3,59.41,1.6,0.18,Optimal
+SKU-30285,WH-East-Newark,Global Components,Hydraulics,97,381,493.67,47885.99,8,88.86,3.63,1.88,Low Stock
+SKU-30286,WH-West-Reno,Vanguard Precision,Electronics,1028,227,561.04,576749.12,13,100.99,3.14,3.55,Optimal
+SKU-30287,WH-South-Dallas,Pacific Maritime,Electronics,631,214,20.59,12992.29,16,3.71,8.34,1.9,Optimal
+SKU-30288,WH-East-Newark,Pacific Maritime,Fasteners,498,203,278.36,138623.28,16,50.1,4.34,0.24,Optimal
+SKU-30289,WH-South-Dallas,Pinnacle Fabricators,Electronics,360,338,442.88,159436.8,9,79.72,7.81,1.7,Optimal
+SKU-30290,WH-North-Chicago,Pinnacle Fabricators,Fasteners,1190,234,129.08,153605.2,23,23.23,7.44,1.09,Optimal
+SKU-30291,WH-West-Reno,Global Components,Fasteners,914,146,245.37,224268.18,15,44.17,7.95,2.77,Optimal
+SKU-30292,WH-South-Dallas,Pacific Maritime,Electronics,237,288,469.93,111373.41,12,84.59,8.23,3.45,Low Stock
+SKU-30293,WH-West-Reno,Pacific Maritime,Fasteners,350,380,416.76,145866.0,7,75.02,6.43,1.74,Low Stock
+SKU-30294,WH-South-Dallas,Global Components,Fasteners,477,227,272.33,129901.41,7,49.02,8.02,2.98,Optimal
+SKU-30295,WH-South-Dallas,Vanguard Precision,Packaging,9,186,406.85,3661.65,10,73.23,1.38,0.49,Low Stock
+SKU-30296,WH-North-Chicago,Apex Logistics,Mechanical,272,206,159.48,43378.56,15,28.71,8.05,3.91,Optimal
+SKU-30297,WH-North-Chicago,Pacific Maritime,Electronics,305,266,176.64,53875.2,13,31.8,5.51,1.54,Optimal
+SKU-30298,WH-North-Chicago,Global Components,Electronics,1410,208,639.01,901004.1,14,115.02,6.83,0.77,Optimal
+SKU-30299,WH-North-Chicago,Global Components,Electronics,15,204,563.05,8445.75,5,101.35,5.04,4.22,Low Stock
+SKU-30300,WH-West-Reno,Vanguard Precision,Electronics,1201,388,543.55,652803.55,12,97.84,9.46,1.68,Optimal
+SKU-30301,WH-West-Reno,Vanguard Precision,Packaging,1005,234,233.38,234546.9,5,42.01,4.39,1.84,Optimal
+SKU-30302,WH-East-Newark,Pinnacle Fabricators,Fasteners,203,382,26.77,5434.31,14,4.82,5.0,1.2,Low Stock
+SKU-30303,WH-West-Reno,Pacific Maritime,Fasteners,929,313,463.09,430210.61,19,83.36,2.46,0.4,Optimal
+SKU-30304,WH-East-Newark,Pacific Maritime,Fasteners,795,323,551.79,438673.05,21,99.32,2.69,0.88,Optimal
+SKU-30305,WH-North-Chicago,Pinnacle Fabricators,Mechanical,74,377,72.25,5346.5,12,13.0,9.49,1.02,Low Stock
+SKU-30306,WH-East-Newark,Apex Logistics,Electronics,1469,331,649.25,953748.25,20,116.86,1.78,2.39,Overstocked
+SKU-30307,WH-North-Chicago,Global Components,Electronics,1280,328,457.78,585958.4,11,82.4,7.66,0.0,Optimal
+SKU-30308,WH-West-Reno,Vanguard Precision,Electronics,929,101,311.12,289030.48,15,56.0,9.18,1.65,Optimal
+SKU-30309,WH-East-Newark,Apex Logistics,Fasteners,802,377,65.61,52619.22,5,11.81,8.59,4.42,Optimal
+SKU-30310,WH-East-Newark,Vanguard Precision,Mechanical,889,297,497.55,442321.95,12,89.56,5.41,0.0,Optimal
+SKU-30311,WH-South-Dallas,Pacific Maritime,Fasteners,1344,226,454.76,611197.44,12,81.86,9.43,4.23,Optimal
+SKU-30312,WH-West-Reno,Vanguard Precision,Mechanical,447,201,536.66,239887.02,9,96.6,1.34,2.48,Optimal
+SKU-30313,WH-West-Reno,Vanguard Precision,Mechanical,163,156,228.42,37232.46,17,41.12,5.52,3.1,Optimal
+SKU-30314,WH-North-Chicago,Pinnacle Fabricators,Electronics,1392,109,348.97,485766.24,9,62.81,7.75,2.63,Optimal
+SKU-30315,WH-South-Dallas,Apex Logistics,Fasteners,528,127,175.28,92547.84,12,31.55,1.97,1.79,Optimal
+SKU-30316,WH-South-Dallas,Global Components,Electronics,740,313,153.92,113900.8,17,27.71,5.8,2.16,Optimal
+SKU-30317,WH-East-Newark,Global Components,Electronics,1181,174,545.77,644554.37,17,98.24,8.92,2.05,Optimal
+SKU-30318,WH-South-Dallas,Global Components,Packaging,102,374,28.97,2954.94,10,5.21,6.32,0.4,Low Stock
+SKU-30319,WH-North-Chicago,Apex Logistics,Packaging,1175,167,292.41,343581.75,9,52.63,5.91,1.47,Optimal
+SKU-30320,WH-East-Newark,Apex Logistics,Hydraulics,1102,358,451.01,497013.02,18,81.18,5.23,2.41,Optimal
+SKU-30321,WH-North-Chicago,Pacific Maritime,Mechanical,104,302,83.42,8675.68,12,15.02,7.68,2.18,Low Stock
+SKU-30322,WH-North-Chicago,Apex Logistics,Fasteners,651,305,409.57,266630.07,13,73.72,8.9,2.79,Optimal
+SKU-30323,WH-West-Reno,Pinnacle Fabricators,Packaging,186,156,240.51,44734.86,23,43.29,5.78,1.63,Optimal
+SKU-30324,WH-West-Reno,Pinnacle Fabricators,Mechanical,424,299,202.92,86038.08,14,36.53,5.99,1.99,Optimal
+SKU-30325,WH-East-Newark,Vanguard Precision,Electronics,532,158,51.23,27254.36,9,9.22,2.03,2.68,Optimal
+SKU-30326,WH-North-Chicago,Apex Logistics,Electronics,220,370,438.04,96368.8,9,78.85,6.98,1.92,Low Stock
+SKU-30327,WH-South-Dallas,Vanguard Precision,Packaging,226,145,648.88,146646.88,2,116.8,9.21,0.0,Optimal
+SKU-30328,WH-North-Chicago,Vanguard Precision,Hydraulics,1399,395,468.01,654745.99,16,84.24,4.85,1.02,Optimal
+SKU-30329,WH-South-Dallas,Vanguard Precision,Hydraulics,709,127,490.55,347799.95,9,88.3,4.13,0.61,Optimal
+SKU-30330,WH-North-Chicago,Vanguard Precision,Fasteners,1110,373,210.7,233877.0,6,37.93,4.9,2.71,Optimal
+SKU-30331,WH-South-Dallas,Apex Logistics,Fasteners,1328,390,147.27,195574.56,19,26.51,4.17,3.52,Optimal
+SKU-30332,WH-West-Reno,Global Components,Mechanical,1291,329,63.82,82391.62,17,11.49,5.31,3.81,Optimal
+SKU-30333,WH-South-Dallas,Global Components,Packaging,1113,192,403.39,448973.07,15,72.61,5.18,1.54,Optimal
+SKU-30334,WH-West-Reno,Global Components,Mechanical,141,151,323.05,45550.05,18,58.15,6.05,2.57,Low Stock
+SKU-30335,WH-North-Chicago,Global Components,Fasteners,381,387,541.39,206269.59,7,97.45,3.57,3.3,Low Stock
+SKU-30336,WH-South-Dallas,Vanguard Precision,Electronics,1349,325,526.93,710828.57,22,94.85,7.7,1.77,Optimal
+SKU-30337,WH-East-Newark,Global Components,Fasteners,724,329,551.46,399257.04,16,99.26,5.51,0.23,Optimal
+SKU-30338,WH-South-Dallas,Pinnacle Fabricators,Hydraulics,1021,167,390.62,398823.02,17,70.31,7.23,2.95,Optimal
+SKU-30339,WH-South-Dallas,Global Components,Electronics,1464,244,512.19,749846.16,10,92.19,9.01,3.76,Optimal
+SKU-30340,WH-North-Chicago,Pinnacle Fabricators,Packaging,395,207,479.94,189576.3,13,86.39,7.19,3.5,Optimal
+SKU-30341,WH-West-Reno,Apex Logistics,Hydraulics,1148,261,183.74,210933.52,19,33.07,2.74,1.79,Optimal
+SKU-30342,WH-East-Newark,Global Components,Electronics,259,124,289.02,74856.18,11,52.02,1.74,3.26,Optimal
+SKU-30343,WH-West-Reno,Apex Logistics,Hydraulics,379,357,437.24,165713.96,9,78.7,7.97,0.92,Optimal
+SKU-30344,WH-East-Newark,Pinnacle Fabricators,Electronics,190,313,43.33,8232.7,21,7.8,8.93,0.76,Low Stock
+SKU-30345,WH-North-Chicago,Vanguard Precision,Fasteners,17,335,340.13,5782.21,13,61.22,7.01,3.06,Low Stock
+SKU-30346,WH-West-Reno,Vanguard Precision,Mechanical,967,368,204.04,197306.68,22,36.73,3.01,3.23,Optimal
+SKU-30347,WH-West-Reno,Global Components,Mechanical,1064,365,264.75,281694.0,6,47.66,3.82,0.86,Optimal
+SKU-30348,WH-West-Reno,Pacific Maritime,Hydraulics,1256,257,120.91,151862.96,9,21.76,1.82,1.09,Overstocked
+SKU-30349,WH-North-Chicago,Pacific Maritime,Fasteners,495,188,447.25,221388.75,11,80.5,3.23,0.94,Optimal
+SKU-30350,WH-North-Chicago,Vanguard Precision,Mechanical,487,259,32.89,16017.43,16,5.92,6.49,1.59,Optimal
+SKU-30351,WH-North-Chicago,Pinnacle Fabricators,Mechanical,116,284,81.98,9509.68,16,14.76,5.35,0.81,Low Stock
+SKU-30352,WH-West-Reno,Vanguard Precision,Hydraulics,1254,103,26.75,33544.5,8,4.81,2.52,0.0,Optimal
+SKU-30353,WH-North-Chicago,Vanguard Precision,Mechanical,1275,321,547.75,698381.25,12,98.59,7.89,0.76,Optimal
+SKU-30354,WH-South-Dallas,Pacific Maritime,Packaging,859,309,502.15,431346.85,11,90.39,7.61,2.21,Optimal
+SKU-30355,WH-North-Chicago,Vanguard Precision,Mechanical,807,219,150.01,121058.07,10,27.0,4.46,2.74,Optimal
+SKU-30356,WH-South-Dallas,Pinnacle Fabricators,Packaging,563,279,378.68,213196.84,21,68.16,8.01,1.33,Optimal
+SKU-30357,WH-South-Dallas,Apex Logistics,Hydraulics,1299,281,168.27,218582.73,6,30.29,1.85,2.12,Overstocked
+SKU-30358,WH-East-Newark,Pinnacle Fabricators,Mechanical,210,330,598.33,125649.3,16,107.7,5.54,1.18,Low Stock
+SKU-30359,WH-West-Reno,Vanguard Precision,Electronics,251,268,498.3,125073.3,11,89.69,5.93,0.0,Low Stock
+SKU-30360,WH-South-Dallas,Pacific Maritime,Mechanical,643,395,170.35,109535.05,9,30.66,6.48,0.0,Optimal
+SKU-30361,WH-West-Reno,Apex Logistics,Mechanical,1068,102,34.86,37230.48,17,6.27,7.37,2.32,Optimal
+SKU-30362,WH-West-Reno,Pinnacle Fabricators,Packaging,950,284,307.92,292524.0,20,55.43,6.96,0.21,Optimal
+SKU-30363,WH-West-Reno,Apex Logistics,Electronics,684,343,497.92,340577.28,7,89.63,2.63,2.55,Optimal
+SKU-30364,WH-South-Dallas,Pinnacle Fabricators,Electronics,1083,195,588.69,637551.27,9,105.96,7.29,1.8,Optimal
+SKU-30365,WH-South-Dallas,Pinnacle Fabricators,Hydraulics,401,150,58.33,23390.33,13,10.5,2.54,2.54,Optimal
+SKU-30366,WH-East-Newark,Global Components,Electronics,80,318,251.52,20121.6,17,45.27,7.14,3.67,Low Stock
+SKU-30367,WH-North-Chicago,Apex Logistics,Packaging,102,334,181.11,18473.22,4,32.6,8.32,2.54,Low Stock
+SKU-30368,WH-West-Reno,Pinnacle Fabricators,Mechanical,488,349,438.13,213807.44,16,78.86,2.0,1.15,Optimal
+SKU-30369,WH-East-Newark,Pinnacle Fabricators,Hydraulics,360,103,635.29,228704.4,19,114.35,8.3,1.13,Optimal
+SKU-30370,WH-East-Newark,Vanguard Precision,Fasteners,1201,351,323.32,388307.32,16,58.2,2.17,0.0,Optimal
+SKU-30371,WH-East-Newark,Apex Logistics,Mechanical,1138,267,324.28,369030.64,13,58.37,5.55,3.64,Optimal
+SKU-30372,WH-East-Newark,Pacific Maritime,Packaging,1021,390,178.72,182473.12,8,32.17,4.04,3.17,Optimal
+SKU-30373,WH-North-Chicago,Pacific Maritime,Electronics,213,280,500.54,106615.02,9,90.1,4.05,0.95,Low Stock
+SKU-30374,WH-East-Newark,Vanguard Precision,Electronics,922,297,223.62,206177.64,19,40.25,8.39,1.96,Optimal
+SKU-30375,WH-South-Dallas,Pacific Maritime,Electronics,994,376,649.19,645294.86,2,116.85,1.5,3.2,Overstocked
+SKU-30376,WH-South-Dallas,Global Components,Electronics,424,110,556.51,235960.24,18,100.17,8.77,2.01,Optimal
+SKU-30377,WH-South-Dallas,Vanguard Precision,Hydraulics,1249,240,478.73,597933.77,20,86.17,6.98,2.4,Optimal
+SKU-30378,WH-West-Reno,Global Components,Hydraulics,677,389,258.3,174869.1,14,46.49,7.1,1.83,Optimal
+SKU-30379,WH-South-Dallas,Apex Logistics,Electronics,603,293,492.57,297019.71,13,88.66,5.51,3.32,Optimal
+SKU-30380,WH-East-Newark,Pacific Maritime,Packaging,864,219,362.29,313018.56,13,65.21,8.66,1.8,Optimal
+SKU-30381,WH-East-Newark,Vanguard Precision,Mechanical,1133,286,53.32,60411.56,9,9.6,5.51,0.0,Optimal
+SKU-30382,WH-North-Chicago,Vanguard Precision,Fasteners,474,101,71.28,33786.72,14,12.83,4.48,1.14,Optimal
+SKU-30383,WH-West-Reno,Pacific Maritime,Fasteners,357,180,426.66,152317.62,19,76.8,6.62,4.01,Optimal
+SKU-30384,WH-South-Dallas,Apex Logistics,Mechanical,1017,178,451.56,459236.52,14,81.28,3.13,1.78,Optimal
+SKU-30385,WH-West-Reno,Vanguard Precision,Mechanical,157,371,546.4,85784.8,8,98.35,6.83,1.59,Low Stock
+SKU-30386,WH-West-Reno,Pinnacle Fabricators,Electronics,1456,143,513.31,747379.36,19,92.4,9.24,2.9,Optimal
+SKU-30387,WH-East-Newark,Pinnacle Fabricators,Mechanical,1415,108,182.03,257572.45,11,32.77,4.64,0.62,Optimal
+SKU-30388,WH-South-Dallas,Pacific Maritime,Packaging,879,367,632.07,555589.53,17,113.77,4.83,2.61,Optimal
+SKU-30389,WH-West-Reno,Pinnacle Fabricators,Packaging,787,375,255.19,200834.53,9,45.93,3.88,0.24,Optimal
+SKU-30390,WH-East-Newark,Pacific Maritime,Electronics,844,271,84.79,71562.76,10,15.26,6.4,0.41,Optimal
+SKU-30391,WH-West-Reno,Pacific Maritime,Hydraulics,247,249,61.35,15153.45,19,11.04,9.38,4.76,Low Stock
+SKU-30392,WH-East-Newark,Pinnacle Fabricators,Fasteners,1434,328,566.18,811902.12,12,101.91,8.77,2.55,Optimal
+SKU-30393,WH-East-Newark,Global Components,Fasteners,889,113,89.16,79263.24,18,16.05,3.69,3.06,Optimal
+SKU-30394,WH-North-Chicago,Global Components,Hydraulics,1073,348,161.71,173514.83,7,29.11,7.6,0.92,Optimal
+SKU-30395,WH-East-Newark,Vanguard Precision,Hydraulics,1220,364,134.99,164687.8,13,24.3,2.49,2.02,Optimal
+SKU-30396,WH-South-Dallas,Pacific Maritime,Fasteners,323,184,315.56,101925.88,21,56.8,2.42,2.68,Optimal
+SKU-30397,WH-North-Chicago,Vanguard Precision,Hydraulics,711,318,79.55,56560.05,20,14.32,4.31,0.0,Optimal
+SKU-30398,WH-West-Reno,Apex Logistics,Packaging,907,325,378.71,343489.97,10,68.17,7.83,3.73,Optimal
+SKU-30399,WH-North-Chicago,Global Components,Electronics,329,398,533.11,175393.19,16,95.96,9.23,1.01,Low Stock
+SKU-30400,WH-East-Newark,Apex Logistics,Mechanical,208,314,103.33,21492.64,3,18.6,4.82,1.95,Low Stock
+SKU-30401,WH-West-Reno,Global Components,Mechanical,1256,140,201.16,252656.96,12,36.21,7.86,1.07,Optimal
+SKU-30402,WH-West-Reno,Pinnacle Fabricators,Fasteners,673,345,550.5,370486.5,25,99.09,8.13,0.0,Optimal
+SKU-30403,WH-East-Newark,Apex Logistics,Mechanical,917,170,545.23,499975.91,13,98.14,7.1,1.52,Optimal
+SKU-30404,WH-South-Dallas,Global Components,Fasteners,270,360,620.0,167400.0,19,111.6,6.91,3.71,Low Stock
+SKU-30405,WH-East-Newark,Vanguard Precision,Electronics,159,135,563.97,89671.23,11,101.51,8.73,3.43,Optimal
+SKU-30406,WH-North-Chicago,Vanguard Precision,Electronics,1386,194,206.61,286361.46,13,37.19,7.32,1.94,Optimal
+SKU-30407,WH-East-Newark,Global Components,Fasteners,886,383,639.15,566286.9,15,115.05,7.05,2.09,Optimal
+SKU-30408,WH-East-Newark,Pinnacle Fabricators,Fasteners,1118,165,315.57,352807.26,19,56.8,3.14,4.26,Optimal
+SKU-30409,WH-West-Reno,Global Components,Mechanical,1102,140,79.49,87597.98,12,14.31,4.31,1.89,Optimal
+SKU-30410,WH-West-Reno,Vanguard Precision,Electronics,827,226,197.33,163191.91,8,35.52,2.01,3.57,Optimal
+SKU-30411,WH-South-Dallas,Pinnacle Fabricators,Mechanical,168,125,465.71,78239.28,12,83.83,4.9,2.44,Optimal
+SKU-30412,WH-South-Dallas,Pacific Maritime,Hydraulics,589,331,543.0,319827.0,14,97.74,3.01,2.24,Optimal
+SKU-30413,WH-West-Reno,Apex Logistics,Electronics,218,291,536.7,117000.6,17,96.61,8.26,2.52,Low Stock
+SKU-30414,WH-North-Chicago,Pacific Maritime,Hydraulics,163,344,198.98,32433.74,14,35.82,8.2,2.52,Low Stock
+SKU-30415,WH-East-Newark,Apex Logistics,Mechanical,609,388,300.15,182791.35,17,54.03,4.52,2.37,Optimal
+SKU-30416,WH-West-Reno,Vanguard Precision,Electronics,141,156,495.9,69921.9,18,89.26,3.06,1.56,Low Stock
+SKU-30417,WH-North-Chicago,Apex Logistics,Fasteners,694,257,239.73,166372.62,13,43.15,6.93,2.62,Optimal
+SKU-30418,WH-South-Dallas,Pacific Maritime,Fasteners,988,176,611.61,604270.68,13,110.09,3.99,1.63,Optimal
+SKU-30419,WH-West-Reno,Apex Logistics,Hydraulics,809,117,535.39,433130.51,12,96.37,1.49,2.19,Overstocked
+SKU-30420,WH-West-Reno,Vanguard Precision,Fasteners,808,104,455.36,367930.88,16,81.96,4.69,0.66,Optimal
+SKU-30421,WH-West-Reno,Pacific Maritime,Fasteners,980,232,561.89,550652.2,9,101.14,6.3,0.98,Optimal
+SKU-30422,WH-West-Reno,Vanguard Precision,Packaging,907,290,162.34,147242.38,4,29.22,4.37,0.74,Optimal
+SKU-30423,WH-South-Dallas,Vanguard Precision,Fasteners,55,347,219.73,12085.15,16,39.55,2.52,2.25,Low Stock
+SKU-30424,WH-South-Dallas,Pacific Maritime,Electronics,1080,161,495.64,535291.2,17,89.22,6.63,2.69,Optimal
+SKU-30425,WH-East-Newark,Global Components,Hydraulics,728,275,563.23,410031.44,12,101.38,4.01,0.81,Optimal
+SKU-30426,WH-East-Newark,Pacific Maritime,Fasteners,1204,330,303.89,365883.56,17,54.7,1.61,2.5,Overstocked
+SKU-30427,WH-North-Chicago,Global Components,Electronics,830,235,402.59,334149.7,6,72.47,9.05,1.58,Optimal
+SKU-30428,WH-North-Chicago,Pinnacle Fabricators,Fasteners,63,280,489.35,30829.05,13,88.08,4.69,1.62,Low Stock
+SKU-30429,WH-South-Dallas,Global Components,Mechanical,365,210,326.91,119322.15,14,58.84,2.17,0.96,Optimal
+SKU-30430,WH-North-Chicago,Vanguard Precision,Hydraulics,895,381,360.42,322575.9,8,64.88,5.11,0.94,Optimal
+SKU-30431,WH-West-Reno,Vanguard Precision,Fasteners,141,388,415.13,58533.33,15,74.72,9.44,2.51,Low Stock
+SKU-30432,WH-East-Newark,Vanguard Precision,Mechanical,927,378,482.57,447342.39,9,86.86,7.5,2.49,Optimal
+SKU-30433,WH-West-Reno,Pinnacle Fabricators,Mechanical,61,158,205.56,12539.16,14,37.0,3.69,2.84,Low Stock
+SKU-30434,WH-West-Reno,Vanguard Precision,Mechanical,133,158,639.2,85013.6,12,115.06,5.48,1.16,Low Stock
+SKU-30435,WH-North-Chicago,Global Components,Electronics,1236,281,81.3,100486.8,19,14.63,1.55,1.82,Overstocked
+SKU-30436,WH-North-Chicago,Pinnacle Fabricators,Electronics,1394,182,387.13,539659.22,15,69.68,4.19,1.73,Optimal
+SKU-30437,WH-West-Reno,Global Components,Mechanical,278,341,397.54,110516.12,13,71.56,2.34,2.54,Low Stock
+SKU-30438,WH-South-Dallas,Apex Logistics,Electronics,1344,107,22.18,29809.92,15,3.99,4.4,1.82,Optimal
+SKU-30439,WH-South-Dallas,Vanguard Precision,Fasteners,271,199,207.28,56172.88,14,37.31,2.04,3.28,Optimal
+SKU-30440,WH-East-Newark,Pinnacle Fabricators,Packaging,683,146,417.62,285234.46,18,75.17,5.39,1.49,Optimal
+SKU-30441,WH-North-Chicago,Pacific Maritime,Fasteners,554,289,300.37,166404.98,12,54.07,7.17,1.22,Optimal
+SKU-30442,WH-North-Chicago,Pacific Maritime,Electronics,886,324,155.86,138091.96,8,28.05,5.1,0.1,Optimal
+SKU-30443,WH-North-Chicago,Pacific Maritime,Fasteners,690,397,571.39,394259.1,20,102.85,9.18,3.11,Optimal
+SKU-30444,WH-East-Newark,Apex Logistics,Electronics,1216,214,443.97,539867.52,13,79.91,8.59,0.44,Optimal
+SKU-30445,WH-West-Reno,Pinnacle Fabricators,Packaging,830,380,592.2,491526.0,17,106.6,1.32,2.82,Overstocked
+SKU-30446,WH-West-Reno,Global Components,Mechanical,768,347,41.11,31572.48,11,7.4,3.09,1.67,Optimal
+SKU-30447,WH-North-Chicago,Vanguard Precision,Hydraulics,1271,203,143.85,182833.35,13,25.89,1.77,1.22,Overstocked
+SKU-30448,WH-South-Dallas,Apex Logistics,Electronics,109,360,397.06,43279.54,17,71.47,6.77,0.63,Low Stock
+SKU-30449,WH-South-Dallas,Pinnacle Fabricators,Mechanical,1237,212,208.15,257481.55,10,37.47,2.47,3.45,Optimal
+SKU-30450,WH-West-Reno,Pacific Maritime,Packaging,1240,155,649.16,804958.4,16,116.85,8.13,3.32,Optimal
+SKU-30451,WH-North-Chicago,Pacific Maritime,Fasteners,594,317,626.2,371962.8,21,112.72,7.65,1.05,Optimal
+SKU-30452,WH-East-Newark,Global Components,Electronics,179,161,244.89,43835.31,19,44.08,9.33,1.49,Optimal
+SKU-30453,WH-South-Dallas,Vanguard Precision,Packaging,1084,157,241.96,262284.64,2,43.55,6.51,2.8,Optimal
+SKU-30454,WH-North-Chicago,Pacific Maritime,Fasteners,402,387,288.1,115816.2,15,51.86,6.88,0.76,Optimal
+SKU-30455,WH-North-Chicago,Pinnacle Fabricators,Packaging,1286,389,98.41,126555.26,5,17.71,2.56,2.69,Optimal
+SKU-30456,WH-West-Reno,Global Components,Electronics,827,176,359.81,297562.87,16,64.77,7.97,1.83,Optimal
+SKU-30457,WH-South-Dallas,Apex Logistics,Hydraulics,58,350,225.7,13090.6,16,40.63,9.45,0.32,Low Stock
+SKU-30458,WH-West-Reno,Vanguard Precision,Fasteners,1110,238,223.19,247740.9,12,40.17,8.67,2.1,Optimal
+SKU-30459,WH-North-Chicago,Apex Logistics,Fasteners,1177,242,429.61,505650.97,11,77.33,3.63,1.98,Optimal
+SKU-30460,WH-East-Newark,Vanguard Precision,Fasteners,491,394,46.1,22635.1,8,8.3,9.32,1.35,Optimal
+SKU-30461,WH-West-Reno,Pinnacle Fabricators,Electronics,242,306,205.24,49668.08,13,36.94,1.96,1.48,Low Stock
+SKU-30462,WH-South-Dallas,Vanguard Precision,Electronics,219,224,620.12,135806.28,9,111.62,5.83,3.49,Low Stock
+SKU-30463,WH-South-Dallas,Pacific Maritime,Mechanical,1311,357,175.28,229792.08,19,31.55,6.62,2.1,Optimal
+SKU-30464,WH-North-Chicago,Apex Logistics,Packaging,1304,152,133.8,174475.2,13,24.08,2.17,4.53,Defective Quarantine
+SKU-30465,WH-West-Reno,Pacific Maritime,Mechanical,822,273,368.54,302939.88,11,66.34,3.78,1.47,Optimal
+SKU-30466,WH-East-Newark,Pacific Maritime,Electronics,2,286,461.44,922.88,7,83.06,4.32,0.0,Low Stock
+SKU-30467,WH-West-Reno,Global Components,Packaging,656,104,99.39,65199.84,6,17.89,4.96,1.63,Optimal
+SKU-30468,WH-North-Chicago,Apex Logistics,Fasteners,1081,254,644.21,696391.01,16,115.96,4.01,0.22,Optimal
+SKU-30469,WH-West-Reno,Apex Logistics,Packaging,227,166,270.77,61464.79,13,48.74,2.67,2.08,Optimal
+SKU-30470,WH-West-Reno,Apex Logistics,Mechanical,1242,281,340.24,422578.08,9,61.24,8.65,2.58,Optimal
+SKU-30471,WH-South-Dallas,Apex Logistics,Packaging,1173,181,372.22,436614.06,12,67.0,7.02,0.22,Optimal
+SKU-30472,WH-South-Dallas,Vanguard Precision,Packaging,335,104,573.81,192226.35,22,103.29,6.48,2.01,Optimal
+SKU-30473,WH-East-Newark,Global Components,Packaging,77,141,53.39,4111.03,15,9.61,3.19,2.09,Low Stock
+SKU-30474,WH-East-Newark,Pacific Maritime,Mechanical,1230,214,173.29,213146.7,7,31.19,3.77,0.0,Optimal
+SKU-30475,WH-West-Reno,Global Components,Hydraulics,1319,335,620.88,818940.72,8,111.76,3.25,2.5,Optimal
+SKU-30476,WH-South-Dallas,Vanguard Precision,Mechanical,72,337,19.53,1406.16,16,3.52,3.42,1.33,Low Stock
+SKU-30477,WH-East-Newark,Pinnacle Fabricators,Packaging,650,145,423.89,275528.5,3,76.3,8.54,1.47,Optimal
+SKU-30478,WH-North-Chicago,Global Components,Mechanical,87,142,71.25,6198.75,16,12.82,2.72,2.52,Low Stock
+SKU-30479,WH-North-Chicago,Global Components,Electronics,992,355,225.73,223924.16,15,40.63,6.14,2.04,Optimal
+SKU-30480,WH-East-Newark,Apex Logistics,Fasteners,603,158,87.6,52822.8,12,15.77,7.36,2.06,Optimal
+SKU-30481,WH-East-Newark,Pacific Maritime,Packaging,401,368,242.59,97278.59,15,43.67,6.77,2.42,Optimal
+SKU-30482,WH-South-Dallas,Pinnacle Fabricators,Electronics,1396,291,633.59,884491.64,16,114.05,5.09,1.15,Optimal
+SKU-30483,WH-South-Dallas,Pacific Maritime,Fasteners,866,198,482.63,417957.58,13,86.87,3.0,1.7,Optimal
+SKU-30484,WH-South-Dallas,Pacific Maritime,Fasteners,1185,209,347.2,411432.0,17,62.5,4.57,0.63,Optimal
+SKU-30485,WH-North-Chicago,Pinnacle Fabricators,Fasteners,1041,388,346.28,360477.48,9,62.33,4.27,0.92,Optimal
+SKU-30486,WH-East-Newark,Pinnacle Fabricators,Mechanical,1032,279,416.57,429900.24,17,74.98,6.93,0.98,Optimal
+SKU-30487,WH-East-Newark,Pacific Maritime,Hydraulics,291,116,362.55,105502.05,8,65.26,1.67,2.74,Optimal
+SKU-30488,WH-North-Chicago,Pacific Maritime,Packaging,101,239,114.61,11575.61,4,20.63,2.67,2.15,Low Stock
+SKU-30489,WH-North-Chicago,Pacific Maritime,Mechanical,289,355,604.08,174579.12,6,108.73,5.59,1.09,Low Stock
+SKU-30490,WH-South-Dallas,Pacific Maritime,Packaging,461,373,134.42,61967.62,13,24.2,6.79,0.0,Optimal
+SKU-30491,WH-South-Dallas,Pinnacle Fabricators,Packaging,256,348,134.82,34513.92,15,24.27,5.54,1.9,Low Stock
+SKU-30492,WH-West-Reno,Global Components,Fasteners,584,323,238.3,139167.2,14,42.89,7.7,3.64,Optimal
+SKU-30493,WH-East-Newark,Pacific Maritime,Fasteners,1406,378,57.9,81407.4,18,10.42,6.64,0.25,Optimal
+SKU-30494,WH-South-Dallas,Apex Logistics,Hydraulics,371,319,471.17,174804.07,27,84.81,1.21,2.74,Optimal
+SKU-30495,WH-North-Chicago,Global Components,Fasteners,1352,205,128.48,173704.96,15,23.13,8.68,1.09,Optimal
+SKU-30496,WH-North-Chicago,Pacific Maritime,Mechanical,1286,269,544.14,699764.04,11,97.95,1.29,1.56,Overstocked
+SKU-30497,WH-West-Reno,Global Components,Packaging,258,350,15.65,4037.7,8,2.82,3.37,0.0,Low Stock
+SKU-30498,WH-South-Dallas,Apex Logistics,Packaging,356,357,70.97,25265.32,16,12.77,3.83,2.31,Low Stock
+SKU-30499,WH-South-Dallas,Apex Logistics,Fasteners,1319,290,498.04,656914.76,14,89.65,2.0,1.23,Optimal
+SKU-30500,WH-West-Reno,Vanguard Precision,Hydraulics,947,327,304.85,288692.95,8,54.87,5.19,0.03,Optimal
+SKU-30501,WH-West-Reno,Apex Logistics,Packaging,559,290,121.61,67979.99,12,21.89,8.68,1.22,Optimal
+SKU-30502,WH-West-Reno,Vanguard Precision,Electronics,877,244,377.08,330699.16,8,67.87,9.02,1.17,Optimal
+SKU-30503,WH-West-Reno,Global Components,Mechanical,802,329,581.16,466090.32,15,104.61,2.95,2.01,Optimal
+SKU-30504,WH-West-Reno,Global Components,Fasteners,814,276,264.61,215392.54,8,47.63,6.92,1.4,Optimal
+SKU-30505,WH-West-Reno,Vanguard Precision,Packaging,989,290,540.79,534841.31,11,97.34,8.54,2.02,Optimal
+SKU-30506,WH-South-Dallas,Global Components,Packaging,1078,220,408.41,440265.98,17,73.51,3.54,0.0,Optimal
+SKU-30507,WH-South-Dallas,Apex Logistics,Fasteners,938,388,340.98,319839.24,8,61.38,4.85,1.94,Optimal
+SKU-30508,WH-East-Newark,Pinnacle Fabricators,Packaging,914,222,628.4,574357.6,10,113.11,8.38,2.14,Optimal
+SKU-30509,WH-North-Chicago,Apex Logistics,Packaging,685,235,162.54,111339.9,16,29.26,3.24,0.9,Optimal
+SKU-30510,WH-East-Newark,Pacific Maritime,Electronics,546,350,78.87,43063.02,14,14.2,1.28,2.14,Optimal
+SKU-30511,WH-South-Dallas,Global Components,Packaging,1417,212,637.89,903890.13,23,114.82,5.23,1.16,Optimal
+SKU-30512,WH-East-Newark,Pinnacle Fabricators,Electronics,562,387,643.28,361523.36,21,115.79,6.1,0.54,Optimal
+SKU-30513,WH-West-Reno,Pinnacle Fabricators,Electronics,800,178,196.87,157496.0,19,35.44,7.06,0.0,Optimal
+SKU-30514,WH-East-Newark,Global Components,Fasteners,1413,383,464.59,656465.67,14,83.63,7.1,1.18,Optimal
+SKU-30515,WH-East-Newark,Pinnacle Fabricators,Fasteners,157,215,376.74,59148.18,12,67.81,8.21,2.79,Low Stock
+SKU-30516,WH-West-Reno,Vanguard Precision,Hydraulics,101,162,490.6,49550.6,17,88.31,9.09,1.22,Low Stock
+SKU-30517,WH-West-Reno,Apex Logistics,Fasteners,1324,157,240.77,318779.48,28,43.34,7.6,3.55,Optimal
+SKU-30518,WH-North-Chicago,Vanguard Precision,Mechanical,968,246,444.2,429985.6,21,79.96,7.53,0.94,Optimal
+SKU-30519,WH-South-Dallas,Vanguard Precision,Hydraulics,324,339,277.68,89968.32,15,49.98,7.95,1.34,Low Stock
+SKU-30520,WH-North-Chicago,Pinnacle Fabricators,Electronics,1081,158,590.36,638179.16,9,106.26,6.3,1.35,Optimal
+SKU-30521,WH-West-Reno,Pinnacle Fabricators,Hydraulics,571,331,236.85,135241.35,14,42.63,4.34,1.5,Optimal
+SKU-30522,WH-East-Newark,Pinnacle Fabricators,Packaging,1071,206,584.85,626374.35,23,105.27,2.78,0.57,Optimal
+SKU-30523,WH-South-Dallas,Pinnacle Fabricators,Electronics,592,300,398.29,235787.68,12,71.69,7.15,3.3,Optimal
+SKU-30524,WH-West-Reno,Vanguard Precision,Mechanical,1403,300,191.22,268281.66,11,34.42,1.86,3.32,Overstocked
+SKU-30525,WH-West-Reno,Pacific Maritime,Fasteners,615,211,38.13,23449.95,7,6.86,1.63,0.64,Optimal
+SKU-30526,WH-East-Newark,Global Components,Electronics,498,105,270.81,134863.38,10,48.75,5.23,2.63,Optimal
+SKU-30527,WH-West-Reno,Pinnacle Fabricators,Fasteners,507,179,534.2,270839.4,6,96.16,5.09,0.0,Optimal
+SKU-30528,WH-South-Dallas,Pinnacle Fabricators,Fasteners,513,277,80.36,41224.68,6,14.46,4.2,1.35,Optimal
+SKU-30529,WH-North-Chicago,Vanguard Precision,Mechanical,1498,138,370.82,555488.36,13,66.75,6.97,2.08,Optimal
+SKU-30530,WH-East-Newark,Pinnacle Fabricators,Fasteners,974,348,270.53,263496.22,17,48.7,2.81,0.99,Optimal
+SKU-30531,WH-North-Chicago,Apex Logistics,Fasteners,748,258,229.72,171830.56,7,41.35,5.47,1.28,Optimal
+SKU-30532,WH-South-Dallas,Vanguard Precision,Fasteners,798,340,515.11,411057.78,13,92.72,7.77,1.69,Optimal
+SKU-30533,WH-West-Reno,Apex Logistics,Fasteners,1035,371,229.37,237397.95,13,41.29,1.98,1.28,Overstocked
+SKU-30534,WH-North-Chicago,Pinnacle Fabricators,Hydraulics,1463,250,504.61,738244.43,9,90.83,6.87,1.36,Optimal
+SKU-30535,WH-South-Dallas,Global Components,Packaging,1070,193,423.68,453337.6,19,76.26,3.36,0.55,Optimal
+SKU-30536,WH-West-Reno,Pacific Maritime,Hydraulics,916,163,403.59,369688.44,13,72.65,6.16,0.72,Optimal
+SKU-30537,WH-South-Dallas,Global Components,Hydraulics,652,116,535.94,349432.88,19,96.47,2.05,1.36,Optimal
+SKU-30538,WH-North-Chicago,Pinnacle Fabricators,Packaging,441,107,141.32,62322.12,13,25.44,1.69,2.09,Optimal
+SKU-30539,WH-North-Chicago,Global Components,Hydraulics,125,277,338.84,42355.0,18,60.99,1.95,2.04,Low Stock
+SKU-30540,WH-South-Dallas,Vanguard Precision,Electronics,1441,173,150.48,216841.68,14,27.09,5.58,4.79,Defective Quarantine
+SKU-30541,WH-West-Reno,Apex Logistics,Fasteners,409,233,161.45,66033.05,11,29.06,6.41,1.65,Optimal
+SKU-30542,WH-West-Reno,Apex Logistics,Packaging,458,388,83.85,38403.3,13,15.09,4.87,2.71,Optimal
+SKU-30543,WH-East-Newark,Vanguard Precision,Hydraulics,1104,379,85.14,93994.56,12,15.33,3.67,0.0,Optimal
+SKU-30544,WH-West-Reno,Pacific Maritime,Hydraulics,382,357,125.41,47906.62,10,22.57,4.09,2.31,Optimal
+SKU-30545,WH-North-Chicago,Pinnacle Fabricators,Packaging,1086,380,88.08,95654.88,10,15.85,6.35,1.54,Optimal
+SKU-30546,WH-North-Chicago,Global Components,Mechanical,1462,118,151.25,221127.5,9,27.22,4.23,1.95,Optimal
+SKU-30547,WH-West-Reno,Global Components,Electronics,817,225,360.41,294454.97,16,64.87,3.75,1.82,Optimal
+SKU-30548,WH-West-Reno,Apex Logistics,Electronics,1231,248,646.2,795472.2,21,116.32,7.05,1.9,Optimal
+SKU-30549,WH-North-Chicago,Apex Logistics,Hydraulics,928,362,368.06,341559.68,10,66.25,1.29,0.69,Overstocked
+SKU-30550,WH-North-Chicago,Global Components,Mechanical,107,182,129.45,13851.15,17,23.3,6.61,4.19,Low Stock
+SKU-30551,WH-West-Reno,Global Components,Fasteners,462,285,411.02,189891.24,14,73.98,3.33,1.86,Optimal
+SKU-30552,WH-South-Dallas,Global Components,Mechanical,5,121,255.56,1277.8,30,46.0,4.1,0.49,Low Stock
+SKU-30553,WH-North-Chicago,Vanguard Precision,Hydraulics,497,247,546.05,271386.85,4,98.29,1.55,2.49,Optimal
+SKU-30554,WH-West-Reno,Global Components,Mechanical,904,204,553.74,500580.96,12,99.67,2.77,0.94,Optimal
+SKU-30555,WH-West-Reno,Pacific Maritime,Fasteners,1425,138,193.91,276321.75,3,34.9,8.74,2.16,Optimal
+SKU-30556,WH-East-Newark,Pinnacle Fabricators,Electronics,818,274,586.89,480076.02,21,105.64,2.44,2.49,Optimal
+SKU-30557,WH-East-Newark,Vanguard Precision,Electronics,634,224,614.58,389643.72,13,110.62,3.13,1.44,Optimal
+SKU-30558,WH-West-Reno,Global Components,Electronics,688,255,579.74,398861.12,13,104.35,3.19,2.24,Optimal
+SKU-30559,WH-West-Reno,Vanguard Precision,Fasteners,539,146,158.82,85603.98,23,28.59,5.16,1.28,Optimal
+SKU-30560,WH-South-Dallas,Global Components,Mechanical,241,302,480.36,115766.76,11,86.46,8.02,4.09,Low Stock
+SKU-30561,WH-North-Chicago,Global Components,Packaging,839,248,537.2,450710.8,13,96.7,7.36,0.0,Optimal
+SKU-30562,WH-East-Newark,Apex Logistics,Packaging,704,265,639.78,450405.12,7,115.16,6.92,0.37,Optimal
+SKU-30563,WH-North-Chicago,Global Components,Fasteners,348,332,279.66,97321.68,20,50.34,5.63,2.24,Optimal
+SKU-30564,WH-East-Newark,Apex Logistics,Electronics,1074,226,186.53,200333.22,18,33.58,7.9,2.2,Optimal
+SKU-30565,WH-North-Chicago,Global Components,Hydraulics,71,194,197.35,14011.85,22,35.52,2.6,3.36,Low Stock
+SKU-30566,WH-South-Dallas,Pacific Maritime,Packaging,1286,157,397.24,510850.64,10,71.5,1.5,0.57,Overstocked
+SKU-30567,WH-East-Newark,Global Components,Hydraulics,173,318,534.92,92541.16,10,96.29,7.88,0.37,Low Stock
+SKU-30568,WH-West-Reno,Pinnacle Fabricators,Packaging,919,172,385.22,354017.18,16,69.34,7.58,2.31,Optimal
+SKU-30569,WH-South-Dallas,Pinnacle Fabricators,Packaging,81,369,251.01,20331.81,16,45.18,2.47,2.98,Low Stock
+SKU-30570,WH-West-Reno,Vanguard Precision,Electronics,1366,219,468.42,639861.72,9,84.32,9.32,1.24,Optimal
+SKU-30571,WH-West-Reno,Apex Logistics,Electronics,224,315,383.29,85856.96,16,68.99,9.09,4.12,Low Stock
+SKU-30572,WH-North-Chicago,Pacific Maritime,Mechanical,611,210,580.95,354960.45,12,104.57,8.33,2.22,Optimal
+SKU-30573,WH-West-Reno,Pinnacle Fabricators,Fasteners,921,384,323.43,297879.03,15,58.22,1.73,1.02,Overstocked
+SKU-30574,WH-East-Newark,Pacific Maritime,Hydraulics,1445,199,409.97,592406.65,4,73.79,4.57,2.09,Optimal
+SKU-30575,WH-South-Dallas,Apex Logistics,Fasteners,629,257,51.49,32387.21,11,9.27,3.59,1.07,Optimal
+SKU-30576,WH-West-Reno,Global Components,Fasteners,661,309,531.84,351546.24,12,95.73,4.6,1.69,Optimal
+SKU-30577,WH-West-Reno,Pacific Maritime,Fasteners,986,116,421.83,415924.38,13,75.93,8.76,1.35,Optimal
+SKU-30578,WH-West-Reno,Global Components,Hydraulics,1378,112,504.26,694870.28,13,90.77,2.73,1.63,Optimal
+SKU-30579,WH-East-Newark,Pacific Maritime,Hydraulics,200,353,361.22,72244.0,17,65.02,2.06,2.08,Low Stock
+SKU-30580,WH-West-Reno,Vanguard Precision,Fasteners,858,132,403.62,346305.96,21,72.65,3.85,0.78,Optimal
+SKU-30581,WH-West-Reno,Pinnacle Fabricators,Mechanical,916,157,481.91,441429.56,12,86.74,1.87,3.1,Overstocked
+SKU-30582,WH-West-Reno,Global Components,Packaging,838,186,502.78,421329.64,2,90.5,6.06,1.26,Optimal
+SKU-30583,WH-South-Dallas,Vanguard Precision,Fasteners,372,319,51.1,19009.2,18,9.2,8.95,0.86,Optimal
+SKU-30584,WH-North-Chicago,Pacific Maritime,Packaging,206,371,97.14,20010.84,14,17.49,9.23,1.62,Low Stock
+SKU-30585,WH-East-Newark,Global Components,Electronics,2,142,459.29,918.58,13,82.67,8.37,1.58,Low Stock
+SKU-30586,WH-East-Newark,Pinnacle Fabricators,Hydraulics,807,371,98.9,79812.3,11,17.8,9.12,1.86,Optimal
+SKU-30587,WH-South-Dallas,Vanguard Precision,Packaging,1458,311,439.38,640616.04,15,79.09,3.6,1.59,Optimal
+SKU-30588,WH-North-Chicago,Pinnacle Fabricators,Electronics,923,240,185.2,170939.6,20,33.34,6.44,0.0,Optimal
+SKU-30589,WH-West-Reno,Global Components,Mechanical,954,314,123.37,117694.98,17,22.21,6.92,5.03,Defective Quarantine
+SKU-30590,WH-East-Newark,Apex Logistics,Fasteners,782,196,564.88,441736.16,16,101.68,6.04,3.19,Optimal
+SKU-30591,WH-South-Dallas,Pinnacle Fabricators,Fasteners,440,309,436.99,192275.6,11,78.66,5.16,0.0,Optimal
+SKU-30592,WH-North-Chicago,Global Components,Fasteners,1003,261,582.18,583926.54,7,104.79,1.87,1.42,Overstocked
+SKU-30593,WH-West-Reno,Apex Logistics,Fasteners,896,368,384.47,344485.12,18,69.2,3.02,2.24,Optimal
+SKU-30594,WH-West-Reno,Vanguard Precision,Electronics,1114,297,362.94,404315.16,11,65.33,8.07,0.22,Optimal
+SKU-30595,WH-West-Reno,Vanguard Precision,Mechanical,76,331,607.29,46154.04,9,109.31,6.32,1.08,Low Stock
+SKU-30596,WH-South-Dallas,Pacific Maritime,Fasteners,626,320,110.3,69047.8,17,19.85,9.47,1.64,Optimal
+SKU-30597,WH-North-Chicago,Pacific Maritime,Fasteners,770,289,263.85,203164.5,18,47.49,5.33,3.52,Optimal
+SKU-30598,WH-West-Reno,Global Components,Packaging,908,357,492.58,447262.64,17,88.66,3.66,4.19,Optimal
+SKU-30599,WH-North-Chicago,Global Components,Packaging,34,126,181.51,6171.34,15,32.67,2.02,0.98,Low Stock
+SKU-30600,WH-North-Chicago,Global Components,Fasteners,192,358,568.02,109059.84,11,102.24,2.43,2.05,Low Stock
+SKU-30601,WH-East-Newark,Global Components,Electronics,1047,183,24.55,25703.85,17,4.42,7.49,3.95,Optimal
+SKU-30602,WH-South-Dallas,Pinnacle Fabricators,Hydraulics,1275,167,234.12,298503.0,7,42.14,8.58,1.83,Optimal
+SKU-30603,WH-East-Newark,Apex Logistics,Fasteners,1222,320,248.44,303593.68,12,44.72,5.28,1.53,Optimal
+SKU-30604,WH-South-Dallas,Pacific Maritime,Electronics,463,159,175.37,81196.31,5,31.57,4.92,0.94,Optimal
+SKU-30605,WH-West-Reno,Pacific Maritime,Fasteners,454,210,72.75,33028.5,15,13.09,1.83,2.22,Optimal
+SKU-30606,WH-East-Newark,Apex Logistics,Fasteners,356,320,217.48,77422.88,15,39.15,8.9,2.42,Optimal
+SKU-30607,WH-South-Dallas,Pacific Maritime,Mechanical,587,313,92.73,54432.51,7,16.69,6.48,3.56,Optimal
+SKU-30608,WH-South-Dallas,Global Components,Packaging,499,173,260.67,130074.33,15,46.92,9.1,2.5,Optimal
+SKU-30609,WH-West-Reno,Pinnacle Fabricators,Fasteners,89,135,268.73,23916.97,10,48.37,3.68,0.0,Low Stock
+SKU-30610,WH-North-Chicago,Global Components,Packaging,1258,221,140.72,177025.76,11,25.33,4.08,2.42,Optimal
+SKU-30611,WH-North-Chicago,Global Components,Hydraulics,1185,208,403.14,477720.9,11,72.57,2.34,2.82,Optimal
+SKU-30612,WH-North-Chicago,Global Components,Mechanical,138,366,133.76,18458.88,17,24.08,8.16,1.84,Low Stock
+SKU-30613,WH-North-Chicago,Pacific Maritime,Electronics,540,233,548.2,296028.0,3,98.68,7.03,2.54,Optimal
+SKU-30614,WH-East-Newark,Pinnacle Fabricators,Hydraulics,874,107,80.34,70217.16,17,14.46,5.51,2.14,Optimal
+SKU-30615,WH-East-Newark,Apex Logistics,Hydraulics,62,315,362.07,22448.34,10,65.17,3.99,0.88,Low Stock
+SKU-30616,WH-North-Chicago,Pinnacle Fabricators,Fasteners,1033,106,649.12,670540.96,8,116.84,2.05,2.46,Optimal
+SKU-30617,WH-West-Reno,Global Components,Hydraulics,129,174,100.37,12947.73,18,18.07,1.69,1.43,Low Stock
+SKU-30618,WH-East-Newark,Apex Logistics,Hydraulics,468,150,111.12,52004.16,13,20.0,5.03,2.69,Optimal
+SKU-30619,WH-North-Chicago,Vanguard Precision,Hydraulics,329,340,223.43,73508.47,12,40.22,4.02,2.7,Low Stock
+SKU-30620,WH-East-Newark,Global Components,Fasteners,93,298,264.95,24640.35,16,47.69,7.36,1.55,Low Stock
+SKU-30621,WH-South-Dallas,Apex Logistics,Packaging,735,166,18.33,13472.55,23,3.3,2.55,0.91,Optimal
+SKU-30622,WH-East-Newark,Vanguard Precision,Hydraulics,1418,143,319.36,452852.48,20,57.48,4.38,0.23,Optimal
+SKU-30623,WH-North-Chicago,Global Components,Packaging,1369,197,307.71,421254.99,11,55.39,1.72,0.95,Overstocked
+SKU-30624,WH-East-Newark,Pinnacle Fabricators,Mechanical,1116,396,535.67,597807.72,13,96.42,8.55,0.38,Optimal
+SKU-30625,WH-South-Dallas,Pinnacle Fabricators,Electronics,1124,209,473.13,531798.12,13,85.16,8.08,0.45,Optimal
+SKU-30626,WH-North-Chicago,Vanguard Precision,Mechanical,268,120,568.61,152387.48,26,102.35,6.26,1.84,Optimal
+SKU-30627,WH-South-Dallas,Apex Logistics,Mechanical,1467,168,622.17,912723.39,19,111.99,1.54,3.0,Overstocked
+SKU-30628,WH-East-Newark,Global Components,Fasteners,1444,295,447.74,646536.56,8,80.59,4.38,0.16,Optimal
+SKU-30629,WH-West-Reno,Global Components,Electronics,442,262,639.28,282561.76,14,115.07,7.6,1.78,Optimal
+SKU-30630,WH-East-Newark,Pinnacle Fabricators,Mechanical,354,396,486.7,172291.8,19,87.61,3.93,4.91,Low Stock
+SKU-30631,WH-North-Chicago,Pinnacle Fabricators,Fasteners,194,391,381.89,74086.66,14,68.74,5.57,2.75,Low Stock
+SKU-30632,WH-North-Chicago,Pinnacle Fabricators,Mechanical,157,108,251.94,39554.58,17,45.35,3.99,0.89,Optimal
+SKU-30633,WH-South-Dallas,Apex Logistics,Fasteners,1088,302,516.23,561658.24,9,92.92,2.24,3.99,Optimal
+SKU-30634,WH-North-Chicago,Vanguard Precision,Electronics,1396,304,419.11,585077.56,11,75.44,9.16,0.06,Optimal
+SKU-30635,WH-East-Newark,Pinnacle Fabricators,Fasteners,525,133,216.12,113463.0,17,38.9,4.96,2.06,Optimal
+SKU-30636,WH-South-Dallas,Global Components,Hydraulics,1041,392,402.42,418919.22,9,72.44,8.37,0.0,Optimal
+SKU-30637,WH-West-Reno,Vanguard Precision,Electronics,251,279,150.51,37778.01,12,27.09,3.98,3.69,Low Stock
+SKU-30638,WH-West-Reno,Apex Logistics,Fasteners,46,284,626.58,28822.68,9,112.78,4.45,0.18,Low Stock
+SKU-30639,WH-East-Newark,Pinnacle Fabricators,Hydraulics,152,354,39.55,6011.6,12,7.12,7.07,1.46,Low Stock
+SKU-30640,WH-East-Newark,Apex Logistics,Fasteners,800,245,24.36,19488.0,15,4.38,1.6,3.2,Optimal
+SKU-30641,WH-East-Newark,Global Components,Mechanical,1302,247,329.79,429386.58,2,59.36,6.7,3.36,Optimal
+SKU-30642,WH-North-Chicago,Pinnacle Fabricators,Packaging,1195,182,430.59,514555.05,6,77.51,4.62,2.72,Optimal
+SKU-30643,WH-East-Newark,Pinnacle Fabricators,Packaging,1242,316,30.67,38092.14,14,5.52,9.42,2.67,Optimal
+SKU-30644,WH-West-Reno,Pacific Maritime,Packaging,712,212,426.17,303433.04,15,76.71,5.12,2.53,Optimal
+SKU-30645,WH-West-Reno,Apex Logistics,Packaging,527,311,182.36,96103.72,13,32.82,1.36,1.6,Optimal
+SKU-30646,WH-East-Newark,Global Components,Mechanical,81,217,216.97,17574.57,11,39.05,6.31,0.74,Low Stock
+SKU-30647,WH-North-Chicago,Global Components,Electronics,1349,271,353.27,476561.23,13,63.59,8.42,0.22,Optimal
+SKU-30648,WH-South-Dallas,Pinnacle Fabricators,Electronics,254,340,646.82,164292.28,11,116.43,6.16,1.38,Low Stock
+SKU-30649,WH-South-Dallas,Pinnacle Fabricators,Fasteners,738,240,598.71,441847.98,14,107.77,2.01,0.66,Optimal

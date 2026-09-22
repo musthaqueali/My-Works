@@ -1,0 +1,113 @@
+/* ==========================================================================
+   ELECTRON BROADSHEET DESIGN SYSTEM (Inspired by musthaque.netlify.app)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Warm Parchment & Bone Palette */
+  --bg-parchment: #e2dedb;
+  --bg-bone: #cdc6be;
+  --bg-bone-light: #ece8e4;
+  --bg-sheet: #fbf9f5;
+  
+  /* Ink & Typography */
+  --text-ink: #1d1d1b;
+  --text-black: #000000;
+  --text-charcoal: #69645f;
+  --text-muted: #7d7872;
+  
+  /* Accent Ember */
+  --accent-ember: #c03f13;
+  --accent-ember-hover: #a3340e;
+  --accent-ember-bg: rgba(192, 63, 19, 0.08);
+  --accent-ember-border: rgba(192, 63, 19, 0.25);
+  
+  /* Inverted Surfaces */
+  --inverted-bg: #1d1d1b;
+  --inverted-text: #e2dedb;
+  
+  /* Borders */
+  --border-ink: #1d1d1b;
+  --border-double: 3px double #1d1d1b;
+  --border-rule: 1px solid #1d1d1b;
+  --border-dashed: 1px dashed #1d1d1b;
+  
+  /* Typography */
+  --font-display: 'Big Shoulders Display', 'Syne', sans-serif;
+  --font-serif-hero: 'Instrument Serif', Georgia, serif;
+  --font-serif-editorial: 'Newsreader', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+  background-color: var(--bg-parchment);
+  color: var(--text-ink);
+  font-family: var(--font-sans);
+}
+
+.font-display { font-family: var(--font-display); }
+.font-serif-hero { font-family: var(--font-serif-hero); }
+.font-serif-editorial { font-family: var(--font-serif-editorial); }
+.font-mono { font-family: var(--font-mono); }
+
+.border-ink { border-color: var(--border-ink); }
+.border-double-ink { border-bottom: var(--border-double); }
+.border-rule { border: var(--border-rule); }
+.border-dashed-ink { border: var(--border-dashed); }
+
+.bg-parchment { background-color: var(--bg-parchment); }
+.bg-sheet { background-color: var(--bg-sheet); }
+.bg-bone { background-color: var(--bg-bone-light); }
+.bg-inverted { background-color: var(--inverted-bg); color: var(--inverted-text); }
+
+.text-ink { color: var(--text-ink); }
+.text-charcoal { color: var(--text-charcoal); }
+.text-ember { color: var(--accent-ember); }
+.bg-ember { background-color: var(--accent-ember); color: #ffffff; }
+
+.btn-ember {
+  background-color: var(--accent-ember);
+  color: #ffffff;
+  border: 1px solid var(--border-ink);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  transition: all 0.15s ease;
+}
+.btn-ember:hover {
+  background-color: var(--accent-ember-hover);
+  transform: translateY(-1px);
+  box-shadow: 2px 2px 0px var(--border-ink);
+}
+
+.btn-broadsheet {
+  background-color: var(--bg-sheet);
+  color: var(--text-ink);
+  border: 1px solid var(--border-ink);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+.btn-broadsheet:hover {
+  background-color: var(--bg-bone-light);
+  box-shadow: 2px 2px 0px var(--border-ink);
+}
+
+/* Broadsheet Box Shadow */
+.box-ink {
+  box-shadow: 3px 3px 0px var(--border-ink);
+}
+.box-ink-sm {
+  box-shadow: 2px 2px 0px var(--border-ink);
+}
+
+/* Custom Scrollbar for parchment */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-parchment); }
+::-webkit-scrollbar-thumb { background: #69645f; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #1d1d1b; }

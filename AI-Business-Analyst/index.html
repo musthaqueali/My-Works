@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE AI BUSINESS ANALYST — Senior Business Analyst, Statistician &amp; Management Consultant</title>
+  <meta name="description" content="Production-quality AI Business Analyst platform performing data quality audits, hierarchical root-cause analysis, Stata-grade statistics, recommendation priority matrices, and what-if scenario simulations.">
+
+  <!-- Core Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Master Broadsheet Stylesheets -->
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/broadsheet.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/analytics-dashboard.css">
+
+  <!-- External Visual & Parsing Engines -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+<div class="broadsheet-wrapper">
+
+  <!-- Top Dispatch Strip -->
+  <aside class="broadsheet-top-strip" aria-label="System Dispatch Strip">
+    <div class="top-strip-item">
+      <span class="status-dot"></span>
+      <span>ENGINE: <strong>AI BUSINESS ANALYST &amp; STATISTICAL SUITE</strong></span>
+      <span>•</span>
+      <span id="liveClock">TUE, 15 SEP 2026 • 02:15 IST</span>
+    </div>
+    <div class="top-strip-item">
+      <span>AI CONSULTANT: <strong>GEMINI FLASH LITE</strong></span>
+      <span>•</span>
+      <span>DECISION MATRIX: <strong>ACTIVE</strong></span>
+    </div>
+  </aside>
+
+  <!-- Broadsheet Masthead -->
+  <header class="masthead">
+    <div class="masthead-meta-top">
+      <span>ENTERPRISE DECISION &amp; STATISTICAL INTELLIGENCE</span>
+      <span>EST. HYDERABAD &amp; CALICUT</span>
+      <span>NIT CALICUT &amp; PINNACLE HERITAGE</span>
+    </div>
+
+    <div class="academic-h1">THE AI BUSINESS ANALYST</div>
+    <div class="academic-subhead">
+      Senior Business Analyst, Statistician &amp; Management Consultant • Root-Cause Decomposition &amp; Strategic Action Matrix
+    </div>
+
+    <div class="masthead-rule-double"></div>
+
+    <!-- Navigation -->
+    <nav class="broadsheet-nav" aria-label="Section Navigation">
+      <div class="nav-links">
+        <a href="#ingest" class="nav-link">I. Ingestion</a>
+        <a href="#executive" class="nav-link">II. Executive Dossier</a>
+        <a href="#quality" class="nav-link">III. Data Quality Audit</a>
+        <a href="#kpis" class="nav-link">IV. Benchmarks &amp; KPIs</a>
+        <a href="#canvas" class="nav-link">V. Visual Matrix</a>
+        <a href="#rootcause" class="nav-link">VI. Root Cause Engine</a>
+        <a href="#recommendations" class="nav-link">VII. Recommendation Matrix</a>
+        <a href="#stata-console" class="nav-link">VIII. Stata Ledger</a>
+        <a href="#whatif-terminal" class="nav-link">IX. What-If &amp; AI Terminal</a>
+        <a href="#data-preview" class="nav-link">X. Observation Ledger</a>
+      </div>
+      <div style="display:flex; gap:0.5rem;">
+        <button class="btn btn-sm btn-primary print-hide" onclick="App.printDossier()">🖨️ EXPORT PDF DOSSIER</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- API Strip -->
+  <div class="api-strip print-hide">
+    <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+      <span class="api-status-badge">AI CORE: GEMINI FLASH LITE</span>
+      <span>API KEY:</span>
+      <input type="password" id="apiKeyInput" placeholder="Enter Gemini API Key" value="" style="background:#fff; border:1.5px solid #111; font-family:monospace; padding:0.25rem 0.5rem; width:250px; font-size:0.75rem;">
+    </div>
+    <div style="font-family:var(--font-mono-stata); font-size:0.72rem; color:#4b5563;">
+      LOCAL FASTAPI PROXY ENABLED • TABLEAU / POWER BI CALIBER • ROOT-CAUSE DECOMPOSITION
+    </div>
+  </div>
+
+  <!-- SECTION I: DATA INGESTION & SAMPLE REPOSITORIES -->
+  <section id="ingest">
+    <div class="dropzone-container">
+      <div class="dropzone-box" id="dropzone">
+        <input type="file" id="fileInput" accept=".csv, .xlsx, .xls" style="display:none;">
+        <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="#1a365d" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        <div style="font-family:var(--font-academic); font-size:1.8rem; font-weight:700; color:#111;">
+          UPLOAD BUSINESS DATASET FOR EXECUTIVE AUDIT
+        </div>
+        <div style="font-family:var(--font-mono-stata); font-size:0.75rem; color:#555; margin-top:0.25rem;">
+          DRAG &amp; DROP CSV OR EXCEL (.XLSX) • COMPUTES QUALITY AUDITS, ROOT CAUSES, KPIS &amp; STRATEGIC ACTIONS
+        </div>
+        <div style="margin-top:1rem;">
+          <span class="btn btn-sm btn-primary">SELECT LOCAL DATASET</span>
+        </div>
+      </div>
+
+      <!-- Quick Industry Repositories -->
+      <div class="sample-picker-box">
+        <div>
+          <div class="sample-picker-title" style="color:#1a365d;">
+            <span>●</span> PRE-LOADED ENTERPRISE REPOSITORIES
+          </div>
+          <div class="sample-button-list">
+            <button class="btn-sample" onclick="App.loadSample('ecommerce')">
+              <div class="btn-sample-heading">Retail &amp; E-Commerce Sales</div>
+              <div class="btn-sample-sub">1,200 Observations • Regional Elasticity, Discounts &amp; Profit Margins</div>
+            </button>
+            <button class="btn-sample" onclick="App.loadSample('saas')">
+              <div class="btn-sample-heading">SaaS Subscription &amp; Churn</div>
+              <div class="btn-sample-sub">850 Accounts • MRR, CAC, LTV &amp; Predictive Churn Risk</div>
+            </button>
+            <button class="btn-sample" onclick="App.loadSample('inventory')">
+              <div class="btn-sample-heading">Supply Chain &amp; Inventory Health</div>
+              <div class="btn-sample-sub">650 SKUs • Turnover Ratios, Holding Costs &amp; Stockout Risk</div>
+            </button>
+          </div>
+        </div>
+        <div style="font-family:var(--font-mono-stata); font-size:0.68rem; color:#6b7280; margin-top:0.75rem;">
+          ONE-CLICK STATISTICAL &amp; MANAGEMENT AUDIT READY
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Progress Bar -->
+  <div class="analysis-progress-panel" id="progressPanel">
+    <div style="font-family:var(--font-academic); font-size:1.8rem; font-weight:700; color:#111;">
+      EXECUTING SENIOR ANALYST &amp; ECONOMETRIC AUDIT
+    </div>
+    <div class="custom-progress-bar-container">
+      <div class="custom-progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <div class="progress-ticker" id="progressTicker" style="color:#1a365d;">
+      INFERRING COLUMNS, AUDITING QUALITY &amp; COMPUTING ROOT CAUSES...
+    </div>
+  </div>
+
+  <!-- MAIN DASHBOARD CONTENT -->
+  <main id="dashboardContainer" style="display:none;">
+
+    <!-- GLOBAL DASHBOARD COMMAND BAR -->
+    <div class="dashboard-command-bar print-hide">
+      <div class="command-status-text" id="telemetryStatusText">
+        DATASET ACTIVE: READY FOR EXECUTIVE DECISION
+      </div>
+      <div class="command-bar-group">
+        <button class="btn btn-sm" onclick="App.reRunAnalysis()" title="Re-run statistical calculations">🔄 RE-RUN AUDIT</button>
+        <button class="btn btn-sm" onclick="App.exportCleanCSV()" title="Download active dataset">📥 EXPORT CSV</button>
+        <button class="btn btn-sm" onclick="App.exportExcel()" title="Export analyzed Excel workbook">📊 EXCEL WORKBOOK</button>
+        <button class="btn btn-sm" onclick="App.copyExecutiveSummary()" title="Copy text to clipboard">📋 COPY SUMMARY</button>
+        <button class="btn btn-sm" onclick="App.toggleStudioContrast()" title="Toggle contrast mode">🌓 CONTRAST VIEW</button>
+        <button class="btn btn-sm btn-primary" onclick="App.printDossier()" title="Print complete report">🖨️ PRINT PDF</button>
+      </div>
+    </div>
+
+    <!-- SECTION II: EXECUTIVE DOSSIER & C-LEVEL BRIEFING -->
+    <section id="executive" class="stata-synthesis-box">
+      <div class="stata-synthesis-header">
+        <span>II. C-LEVEL EXECUTIVE DOSSIER &amp; STRATEGIC SYNTHESIS</span>
+        <span id="execHealthStatus" style="color:#065f46; font-weight:700;">BUSINESS HEALTH: GOOD</span>
+      </div>
+
+      <div style="margin-bottom:1.25rem;">
+        <div style="font-family:var(--font-academic); font-size:1.85rem; font-weight:700; color:#111;">
+          PRIMARY EMPIRICAL FINDINGS &amp; STRATEGIC DIAGNOSIS
+        </div>
+        <div style="font-family:var(--font-academic); font-style:italic; font-size:1.05rem; color:#555;">
+          Point-by-point statistical briefing answering what is happening, why it is happening, and what management must prioritize first.
+        </div>
+      </div>
+
+      <ul class="stata-bullet-list" id="executivePointsList"></ul>
+
+      <!-- Strategic Risk & Growth Opportunity Cards -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-top:1.5rem;">
+        <div style="background:#fff; border:1.5px solid var(--stata-border); border-left:5px solid #991b1b; padding:1.15rem; box-shadow:var(--shadow-press);">
+          <div style="font-family:var(--font-mono-stata); font-size:0.72rem; font-weight:700; color:#991b1b; text-transform:uppercase; margin-bottom:0.3rem;">
+            ⚠️ PRIMARY STRATEGIC RISK
+          </div>
+          <div id="execBiggestRisk" style="font-family:var(--font-academic); font-size:1.08rem; line-height:1.5; color:#111; font-weight:600;">
+            Awaiting analysis...
+          </div>
+        </div>
+        <div style="background:#fff; border:1.5px solid var(--stata-border); border-left:5px solid #065f46; padding:1.15rem; box-shadow:var(--shadow-press);">
+          <div style="font-family:var(--font-mono-stata); font-size:0.72rem; font-weight:700; color:#065f46; text-transform:uppercase; margin-bottom:0.3rem;">
+            💡 HIGHEST-LEVERAGE OPPORTUNITY
+          </div>
+          <div id="execBiggestOpportunity" style="font-family:var(--font-academic); font-size:1.08rem; line-height:1.5; color:#111; font-weight:600;">
+            Awaiting analysis...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION III: DATA QUALITY AUDIT -->
+    <section id="quality" class="stata-synthesis-box">
+      <div class="stata-synthesis-header">
+        <span>III. DATA QUALITY &amp; INSTITUTIONAL HYGIENE AUDIT</span>
+        <span id="qualityScoreText" style="color:#1a365d; font-weight:700;">QUALITY SCORE: 100%</span>
+      </div>
+      <div style="margin-bottom:1rem;">
+        <div style="font-family:var(--font-academic); font-size:1.6rem; font-weight:700; color:#111;">
+          DATA INTEGRITY DIAGNOSIS (PROBLEM → IMPACT → RECOMMENDED FIX)
+        </div>
+        <div style="font-family:var(--font-academic); font-style:italic; font-size:1.02rem; color:#555;">
+          Automated screening across missing cells, duplicate records, zero-variance columns, extreme tail outliers, and suspicious negative values.
+        </div>
+      </div>
+      <div id="qualityIssuesContainer" style="display:flex; flex-direction:column; gap:0.85rem;"></div>
+    </section>
+
+    <!-- SECTION IV: CORE BENCHMARKS & DASHBOARD TOTALS -->
+    <section id="kpis">
+      <div style="border-bottom: 2px solid var(--stata-border); margin-bottom: 1.25rem; padding-bottom: 0.35rem; display:flex; justify-content:space-between; align-items:baseline;">
+        <span style="font-family:var(--font-academic); font-size:1.45rem; font-weight:700;">
+          IV. CORE STATISTICAL BENCHMARKS &amp; DASHBOARD TOTALS
+        </span>
+        <span style="font-family:var(--font-mono-stata); font-size:0.72rem; color:#555;">
+          LIVE DATASET TOTALS • MOMENT-BASED DIAGNOSTICS
+        </span>
+      </div>
+      <div class="stata-kpi-grid" id="kpiGrid"></div>
+    </section>
+
+    <!-- INTERACTIVE SLICE & DICE FILTER BAR WITH NUMERICAL SLIDER -->
+    <div class="filter-slice-bar print-hide">
+      <div class="filter-row">
+        <!-- Dimension Slicer -->
+        <div class="filter-controls-group">
+          <span class="filter-label">🗂️ DIMENSION SLICER:</span>
+          <select id="categorySlicerSelect" class="filter-select" title="Filter entire dashboard by categorical segment">
+            <option value="ALL">All Categories &amp; Records</option>
+          </select>
+        </div>
+
+        <!-- Particular Numerical Range Slider -->
+        <div class="filter-controls-group" style="flex:1; min-width:320px;">
+          <span class="filter-label">🎚️ FILTER BY VALUE:</span>
+          <select id="sliderColSelect" class="filter-select" style="max-width:160px;" title="Select column to slide">
+            <!-- Populated dynamically -->
+          </select>
+          <input type="range" id="numericalRangeSlider" class="range-slider-input" min="0" max="100" value="100" style="flex:1; min-width:140px;" title="Filter rows by threshold">
+          <span id="sliderValueBadge" class="range-slider-val" style="min-width:90px; text-align:center;">MAX</span>
+        </div>
+
+        <!-- Aggregation Mode -->
+        <div class="filter-controls-group">
+          <span class="filter-label">📊 AGGREGATION:</span>
+          <div class="agg-button-group">
+            <button class="agg-btn active" data-agg="sum" onclick="App.setAggregation('sum')">SUM</button>
+            <button class="agg-btn" data-agg="mean" onclick="App.setAggregation('mean')">AVERAGE</button>
+            <button class="agg-btn" data-agg="count" onclick="App.setAggregation('count')">COUNT</button>
+          </div>
+          <button class="btn btn-sm" onclick="App.resetSlicers()" title="Reset slicers to default">↺ RESET SLICERS</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION V: ADVANCED GRAPHICS CANVAS -->
+    <section id="canvas">
+      <div style="border-bottom: 2px solid var(--stata-border); margin-bottom: 1.25rem; padding-bottom: 0.35rem; display:flex; justify-content:space-between; align-items:baseline;">
+        <span style="font-family:var(--font-academic); font-size:1.45rem; font-weight:700;">
+          V. ADVANCED ECONOMETRIC &amp; PREDICTIVE VISUAL MATRIX
+        </span>
+        <span style="font-family:var(--font-mono-stata); font-size:0.72rem; color:#555;">
+          FULLSCREEN EXPAND • DATA TABLE TOGGLE • ZOOM SLIDERS • MULTI-HUE PALETTE
+        </span>
+      </div>
+      <div class="stata-charts-grid" id="chartsGrid"></div>
+    </section>
+
+    <!-- SECTION VI: HIERARCHICAL ROOT-CAUSE ANALYSIS -->
+    <section id="rootcause" class="stata-synthesis-box">
+      <div class="stata-synthesis-header">
+        <span>VI. HIERARCHICAL ROOT-CAUSE DECOMPOSITION ENGINE</span>
+        <span style="color:#991b1b; font-weight:700;">DIAGNOSTIC RIGOR: MULTI-LEVEL DRILLDOWN</span>
+      </div>
+      <div style="margin-bottom:1.25rem;">
+        <div style="font-family:var(--font-academic); font-size:1.75rem; font-weight:700; color:#111;">
+          INVESTIGATING "WHY" PERFORMANCE CHANGED
+        </div>
+        <div style="font-family:var(--font-academic); font-style:italic; font-size:1.02rem; color:#555;">
+          Isolating high-level variances into Level 1 segment drivers and Level 2 subcategory contributions.
+        </div>
+      </div>
+      <div id="rootCausesContainer"></div>
+    </section>
+
+    <!-- SECTION VII: "WHAT SHOULD I CHANGE?" RECOMMENDATION PRIORITY MATRIX -->
+    <section id="recommendations" class="stata-synthesis-box">
+      <div class="stata-synthesis-header">
+        <span>VII. "WHAT SHOULD I CHANGE?" STRATEGIC RECOMMENDATION MATRIX</span>
+        <span style="color:#065f46; font-weight:700;">ACTION MATRIX: IMPACT × CONFIDENCE × EFFORT</span>
+      </div>
+      <div style="margin-bottom:1.25rem;">
+        <div style="font-family:var(--font-academic); font-size:1.75rem; font-weight:700; color:#111;">
+          PRIORITIZED MANAGEMENT ACTION PLAN
+        </div>
+        <div style="font-family:var(--font-academic); font-style:italic; font-size:1.02rem; color:#555;">
+          Concrete operational interventions ranked by expected ROI, confidence limits, and required effort.
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="broadsheet-table" id="recommendationsTable"></table>
+      </div>
+    </section>
+
+    <!-- SECTION VIII: STATA DETAIL CONSOLE OUTPUT -->
+    <section id="stata-console">
+      <div style="border-bottom: 2px solid var(--stata-border); margin-bottom: 1.25rem; padding-bottom: 0.35rem; display:flex; justify-content:space-between; align-items:baseline;">
+        <span style="font-family:var(--font-academic); font-size:1.45rem; font-weight:700;">
+          VIII. STATA DETAILED MOMENTS LEDGER (`summarize, detail`)
+        </span>
+        <div style="display:flex; gap:0.5rem;">
+          <button class="btn btn-sm" onclick="App.copyStataLatex()" title="Copy LaTeX code for research papers">📋 COPY LATEX</button>
+          <button class="btn btn-sm btn-primary" onclick="App.downloadStataCSV()" title="Download Stata moments as CSV">📥 DOWNLOAD CSV</button>
+        </div>
+      </div>
+
+      <div class="stata-terminal-container">
+        <div class="stata-terminal-title">
+          <span>STATA / SE 18.0 CONSOLE: . summarize [all_numeric_vars], detail</span>
+          <span>ROBUST VARIANCE ESTIMATORS</span>
+        </div>
+        <table class="stata-console-table" id="stataConsoleTable"></table>
+      </div>
+    </section>
+
+    <!-- SECTION IX: DYNAMIC WHAT-IF SIMULATOR & ASK AI ANALYST -->
+    <section id="whatif-terminal" class="print-hide" style="margin-top:2.5rem;">
+      
+      <!-- What-If Simulator -->
+      <div class="stata-synthesis-box" style="margin-bottom:2rem;">
+        <div class="stata-synthesis-header">
+          <span>⚡ DYNAMIC WHAT-IF / SCENARIO SIMULATOR</span>
+          <span style="color:#1a365d;">SENSITIVITY &amp; ELASTICITY MODEL</span>
+        </div>
+        <div style="font-family:var(--font-academic); font-size:1.25rem; font-weight:700; margin-bottom:0.5rem;">
+          Simulate Parameter Changes &amp; Expected KPI Impacts
+        </div>
+        <div style="display:flex; gap:1.25rem; align-items:center; flex-wrap:wrap; margin-bottom:1.25rem;">
+          <label style="font-family:var(--font-mono-stata); font-size:0.75rem; font-weight:700;">SELECT VARIABLE:</label>
+          <select id="whatIfVarSelect" class="filter-select" style="max-width:200px;"></select>
+          <div style="display:flex; align-items:center; gap:0.75rem; flex:1; min-width:250px;">
+            <input type="range" id="whatIfSlider" class="range-slider-input" min="-50" max="50" value="5" step="1" style="flex:1;">
+            <span id="whatIfSliderBadge" class="range-slider-val" style="min-width:65px; text-align:center;">+5%</span>
+          </div>
+        </div>
+        <div id="whatIfResultsBox"></div>
+      </div>
+
+      <!-- Conversational Analyst Terminal -->
+      <div class="ask-ai-terminal">
+        <div class="terminal-header">
+          <span style="color:#38bdf8;">● ASK AI BUSINESS ANALYST (DIRECT STATA &amp; MANAGEMENT INFERENCE)</span>
+          <span>GEMINI FLASH LITE</span>
+        </div>
+        <div class="terminal-input-group">
+          <input type="text" id="askAiInput" class="terminal-input" placeholder="e.g., What is causing underperformance in the South region, and what should we stop doing?">
+          <button id="askAiBtn" class="btn btn-primary" style="background:#1a365d; border-color:#38bdf8; color:#fff;">RUN QUERY</button>
+        </div>
+        <div class="terminal-response-area" id="askAiResponse" style="font-family:var(--font-academic); font-size:1.05rem;">
+          Awaiting query. Ask about root causes, pricing elasticity, underperforming segments, or strategic priorities.
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION X: DATA PREVIEW -->
+    <section id="data-preview" style="margin-top:2.5rem;">
+      <div style="border-bottom: 2px solid var(--stata-border); margin-bottom: 1.25rem; padding-bottom: 0.35rem; display:flex; justify-content:space-between; align-items:baseline;">
+        <span style="font-family:var(--font-academic); font-size:1.45rem; font-weight:700;">
+          X. OBSERVATION LEDGER (FIRST 10 EMPIRICAL ROWS)
+        </span>
+      </div>
+      <div class="data-preview-table-container">
+        <table class="broadsheet-table" id="previewTable"></table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Excel Multi-Sheet Modal -->
+  <div class="modal-overlay" id="sheetModal">
+    <div class="modal-box" style="border:2px solid #111; box-shadow:var(--shadow-press-lg); border-radius:0;">
+      <div style="font-family:var(--font-academic); font-size:1.4rem; font-weight:700; margin-bottom:0.5rem; color:#111;">
+        Multiple Worksheets Detected
+      </div>
+      <div style="font-family:var(--font-academic); font-size:0.95rem; color:#555; margin-bottom:1.25rem;">
+        This Excel workbook contains multiple sheets. Select which worksheet to analyze:
+      </div>
+      <select id="sheetSelect" class="filter-select" style="width:100%; margin-bottom:1.5rem; font-size:0.85rem; padding:0.5rem;"></select>
+      <div style="display:flex; justify-content:flex-end; gap:0.75rem;">
+        <button class="btn btn-sm" onclick="document.getElementById('sheetModal').classList.remove('active')">CANCEL</button>
+        <button class="btn btn-sm btn-primary" onclick="App.confirmSheetSelection()">ANALYZE SHEET</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer style="border-top: var(--border-double); margin-top: 4rem; padding: 2.25rem 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-family:var(--font-academic); font-size:0.92rem; color:#444;">
+    <div>
+      <strong>MUSTHAQUE ALI</strong> — Mechanical Integrity Engineer &amp; Reliability Data Analyst
+      <br>
+      <span style="font-family:var(--font-mono-stata); font-size:0.75rem; color:#666;">
+        NIT Calicut • Pinnacle Reliability • Chevron RBI Heritage
+      </span>
+    </div>
+    <div style="display:flex; gap:1.25rem; font-family:var(--font-mono-stata); font-size:0.75rem;">
+      <a href="https://musthaque.netlify.app" target="_blank" style="color:#111; text-decoration:underline;">PORTFOLIO</a>
+      <a href="https://www.linkedin.com/in/musthaqueali/" target="_blank" style="color:#111; text-decoration:underline;">LINKEDIN</a>
+      <a href="https://github.com/musthaqueali" target="_blank" style="color:#111; text-decoration:underline;">GITHUB</a>
+      <a href="https://wa.me/917012318459" target="_blank" style="color:#1a365d; font-weight:700;">WHATSAPP</a>
+    </div>
+  </footer>
+
+</div>
+
+<!-- Application Logic Scripts -->
+<script src="js/charts.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

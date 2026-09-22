@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 500 120" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="I Love Files — CAD and universal engine">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;700&amp;family=Martian+Mono:wght@400&amp;display=swap');
+    .ilf-logo-text { fill: #0F172A; }
+    .ilf-logo-sub { fill: rgba(15,23,42,0.62); }
+    .ilf-logo-tm { fill: rgba(15,23,42,0.5); }
+    @media (prefers-color-scheme: dark) {
+      .ilf-logo-text { fill: #F8FAFC; }
+      .ilf-logo-sub { fill: rgba(248,250,252,0.7); }
+      .ilf-logo-tm { fill: rgba(248,250,252,0.55); }
+    }
+  </style>
+  <defs>
+    <linearGradient id="ilf-l-pipe" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF3366"/>
+      <stop offset="100%" stop-color="#D91641"/>
+    </linearGradient>
+    <clipPath id="ilf-l-clip">
+      <path d="M110 186 C110 186 26 126 26 78 C26 46 52 26 78 26 C96 26 110 40 110 40 C110 40 124 26 142 26 C168 26 194 46 194 78 C194 126 110 186 110 186 Z"/>
+    </clipPath>
+  </defs>
+  <g transform="translate(84 0)">
+    <text class="ilf-logo-text" x="0" y="74" font-family="'Familjen Grotesk',system-ui,sans-serif" font-size="58" font-weight="400" fill="#0F172A">I</text>
+    <g transform="translate(24 6) scale(0.5)">
+      <g clip-path="url(#ilf-l-clip)">
+        <g fill="#FFFFFF" stroke="#0F172A" stroke-width="5" stroke-linejoin="round">
+          <rect x="52" y="56" width="24" height="66" rx="12"/>
+          <rect x="86" y="70" width="20" height="52" rx="10"/>
+          <circle cx="150" cy="88" r="19"/>
+        </g>
+        <g fill="none" stroke="#0F172A" stroke-opacity="0.5" stroke-width="5" stroke-linecap="round">
+          <path d="M46 132 H166 M52 62 H150 M150 62 V50"/>
+        </g>
+        <g fill="none" stroke="#059669" stroke-width="5" stroke-linecap="round" stroke-dasharray="12 18">
+          <path d="M46 132 H166">
+            <animate attributeName="stroke-dashoffset" from="60" to="0" dur="1.8s" repeatCount="indefinite"/>
+          </path>
+        </g>
+      </g>
+      <path d="M110 186 C110 186 26 126 26 78 C26 46 52 26 78 26 C96 26 110 40 110 40 C110 40 124 26 142 26 C168 26 194 46 194 78 C194 126 110 186 110 186 Z" fill="none" stroke="url(#ilf-l-pipe)" stroke-width="13" stroke-linejoin="round"/>
+    </g>
+    <text class="ilf-logo-text" x="143" y="74" font-family="'Familjen Grotesk',system-ui,sans-serif" font-size="58" font-weight="700" letter-spacing="0.5" fill="#0F172A">FILES</text>
+    <text class="ilf-logo-tm" x="295" y="42" font-family="'Martian Mono',monospace" font-size="10" fill="rgba(15,23,42,0.5)">TM</text>
+  </g>
+</svg>

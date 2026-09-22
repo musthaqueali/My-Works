@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinnacle | Leave Balance Forecast Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- jsPDF and jsPDF-AutoTable for bulletproof, natively rendered PDFs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <!-- Chart.js for Visual Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --bg: #f1f5f9;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --success: #059669;
+    --success-bg: #d1fae5;
+    --danger: #dc2626;
+    --danger-bg: #fee2e2;
+    --radius: 12px;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+    --input-bg: #f8fafc;
+    --header-bg: #ffffff;
+}
+
+[data-theme="dark"] {
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --success: #34d399;
+    --success-bg: rgba(16, 185, 129, 0.15);
+    --danger: #f87171;
+    --danger-bg: rgba(239, 68, 68, 0.15);
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    --input-bg: #0f172a;
+    --header-bg: #1e293b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.top-navbar {
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+.logo-container svg {
+    height: 48px;
+    width: auto;
+    display: block;
+}
+
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.theme-switch-wrapper span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 28px;
+    position: relative;
+    width: 50px;
+}
+
+.theme-switch input { display: none; }
+
+.slider {
+    background-color: var(--border);
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    border-radius: 28px;
+}
+
+.slider:before {
+    background-color: var(--text-main);
+    bottom: 4px;
+    content: "";
+    height: 20px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 20px;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+    background-color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.card h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card h2 span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.875rem;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+label {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 1.125rem;
+    height: 1.125rem;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.primary-btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.875rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.primary-btn:hover { background-color: var(--primary-hover); }
+
+.secondary-btn {
+    background-color: var(--input-bg);
+    color: var(--text-main);
+    border: 1px dashed var(--border);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1rem;
+}
+.secondary-btn:hover { background-color: var(--border); border-style: solid; }
+
+.pdf-btn {
+    background-color: #0f172a;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.pdf-btn:hover { background-color: #1e293b; }
+[data-theme="dark"] .pdf-btn { background-color: #f8fafc; color: #0f172a; }
+[data-theme="dark"] .pdf-btn:hover { background-color: #e2e8f0; }
+
+.leave-period-row {
+    position: relative;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+.leave-period-row:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.row-header h4 { font-size: 0.875rem; font-weight: 600; color: var(--text-muted); }
+.remove-btn {
+    background: transparent;
+    color: var(--danger);
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.hidden { display: none !important; }
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-shadow: var(--shadow);
+}
+.summary-card h4 { color: var(--text-muted); font-size: 0.875rem; font-weight: 500; }
+.summary-card .value { font-size: 2rem; font-weight: 700; line-height: 1; }
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+.badge.valid { background-color: var(--success-bg); color: var(--success); }
+.badge.invalid { background-color: var(--danger-bg); color: var(--danger); }
+
+.table-responsive {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+}
+table { width: 100%; border-collapse: collapse; text-align: left; }
+th, td { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+th { background-color: var(--input-bg); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); }
+td { font-size: 0.875rem; font-weight: 500; }
+.negative { color: var(--danger); }
+.positive { color: var(--success); }
+
+.positive { color: var(--success); }
+
+/* FLOATING AI CHATBOT */
+.chat-widget-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+}
+.chat-fab {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.5), 0 8px 10px -6px rgba(99, 102, 241, 0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+.chat-fab:hover {
+    transform: scale(1.08) translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.6), 0 10px 10px -5px rgba(99, 102, 241, 0.2);
+}
+.chat-window {
+    width: 380px;
+    height: 550px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-origin: bottom right;
+}
+[data-theme="light"] .chat-window {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+[data-theme="dark"] .chat-window {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+.chat-window.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.9) translateY(20px);
+}
+.chat-header {
+    background: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+    padding: 1.25rem;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+.close-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.8;
+}
+.close-btn:hover { opacity: 1; }
+.chat-history {
+    flex: 1;
+    padding: 1.25rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.chat-input-area {
+    padding: 1rem;
+    border-top: 1px solid var(--border);
+    background: var(--input-bg);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+.chat-input-area input {
+    flex: 1;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    border-radius: 24px;
+    color: var(--text-main);
+    outline: none;
+    font-size: 0.875rem;
+}
+.chat-input-area input:focus {
+    border-color: #6366f1;
+}
+.chat-input-area button {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    color: white;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.chat-input-area button:hover { transform: scale(1.05); }
+.chat-msg {
+    max-width: 85%;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+.bot-msg {
+    align-self: flex-start;
+    background: var(--input-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 4px;
+}
+.user-msg {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    color: white;
+    border-bottom-right-radius: 4px;
+    box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.2);
+}
+
+/* Settings & Chips */
+.chat-window { position: relative; }
+.chat-settings {
+    position: absolute; top: 60px; left: 0; right: 0; background: var(--card-bg);
+    padding: 1.5rem; border-bottom: 1px solid var(--border); z-index: 10;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+.chat-settings.hidden {
+    transform: translateY(-100%); opacity: 0; pointer-events: none;
+}
+.preset-chips {
+    display: flex; flex-direction: column; gap: 0.5rem; padding: 0.75rem 1rem; 
+    background: var(--card-bg); border-top: 1px solid var(--border);
+    max-height: 140px; overflow-y: auto;
+}
+.preset-chips::-webkit-scrollbar { width: 4px; }
+.preset-chips::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.chip {
+    text-align: left; padding: 0.5rem 0.75rem; border-radius: 8px;
+    border: 1px solid #8b5cf6; background: transparent; color: #8b5cf6;
+    font-size: 0.8rem; cursor: pointer; transition: all 0.2s;
+}
+.chip:hover { background: #8b5cf6; color: white; }
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+    body { padding-top: 60px; }
+    .container { padding: 1rem; margin: 0 auto; width: 100%; }
+    .card { padding: 1.25rem; margin-bottom: 1.5rem; }
+    
+    /* Keep navbar horizontal but scaled down */
+    .top-navbar { flex-direction: row; justify-content: space-between; padding: 0.75rem 1rem; height: 60px; }
+    .logo-container svg { height: 26px; }
+    
+    /* Input grids: stack them but add good spacing */
+    .input-grid { gap: 1.25rem; grid-template-columns: 1fr; }
+    
+    /* Header layout for sections */
+    .row-header { flex-direction: column; align-items: flex-start !important; gap: 1rem; }
+    .row-header > div { flex-wrap: wrap; gap: 0.75rem; justify-content: flex-start !important; }
+    
+    /* Keep buttons button-sized */
+    .row-header button { width: auto; font-size: 0.875rem; padding: 0.6rem 1rem; margin: 0; }
+    
+    /* Table scrolling improvements */
+    .table-responsive { width: 100%; border-radius: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); }
+    th, td { padding: 0.75rem; font-size: 0.8rem; white-space: nowrap; }
+    
+    /* Analytics Grid: Give them plenty of height so they don't look squished */
+    .tableau-grid { grid-template-columns: 1fr !important; gap: 2rem; }
+    .chart-container { height: 350px !important; padding: 1rem !important; }
+    
+    /* Typography adjustments */
+    .page-header h1 { font-size: 1.5rem; }
+    .page-header p { font-size: 0.9rem; }
+    .card h2 { font-size: 1rem; }
+    
+    /* Make chat widget responsive */
+    .chat-window { width: calc(100vw - 32px); height: 60vh; bottom: 80px; position: fixed; right: 16px; }
+    .chat-widget-container { bottom: 16px; right: 16px; }
+    .chat-fab { width: 56px; height: 56px; }
+}
+    </style>
+</head>
+<body>
+    <nav class="top-navbar">
+        <div class="logo-container">
+            <svg viewBox="0 0 550 120" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="15,55 45,35 45,85 15,115" fill="#ED1C24"/>
+                <polygon points="15,25 75,10 105,45 45,65" fill="#66C2B4"/>
+                <polygon points="45,85 105,45 105,80 15,115" fill="#9CCC45"/>
+                <text x="130" y="75" font-family="'Inter', sans-serif" font-weight="800" font-size="64" fill="var(--text-main)" letter-spacing="4">PINNACLE</text>
+                <text x="135" y="105" font-family="'Inter', sans-serif" font-weight="400" font-size="18" fill="var(--text-main)" letter-spacing="7">DATA-DRIVEN RELIABILITY</text>
+            </svg>
+        </div>
+        <div class="theme-switch-wrapper">
+            <span id="theme-label">Light</span>
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider"></div>
+            </label>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Leave Balance Analytics & Forecast</h1>
+            <p>Plan your upcoming time off and dynamically project your future balance.</p>
+        </div>
+
+        <div class="card">
+            <h2><span>1</span> Employee Details</h2>
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="empName">Full Name</label>
+                    <input type="text" id="empName" placeholder="e.g. Jane Doe">
+                </div>
+                <div class="input-group">
+                    <label for="empId">Employee ID</label>
+                    <input type="text" id="empId" placeholder="e.g. PIN-1024">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><span>2</span> System Parameters</h2>
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="currentBalance">Current Balance (Hours)</label>
+                    <input type="number" id="currentBalance" placeholder="e.g. 10.97" step="0.01">
+                </div>
+                <div class="input-group">
+                    <label for="monthlyCredit">Monthly Accrual (Days)</label>
+                    <input type="number" id="monthlyCredit" value="2.5" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label for="maxAdvance">Max Advance Permitted (Days)</label>
+                    <input type="number" id="maxAdvance" value="5" step="1">
+                </div>
+                <div class="input-group">
+                    <label for="hoursPerDay">Standard Workday (Hours)</label>
+                    <input type="number" id="hoursPerDay" value="8" step="0.5">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><span>3</span> Proposed Leave Schedule</h2>
+            
+            <div id="leavePeriodsContainer">
+                <div class="leave-period-row">
+                    <div class="row-header">
+                        <h4>Period 1</h4>
+                    </div>
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label>Start Date</label>
+                            <input type="date" class="startDate">
+                        </div>
+                        <div class="input-group">
+                            <label>End Date</label>
+                            <input type="date" class="endDate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" id="addPeriodBtn" class="secondary-btn">+ Add Another Leave Period</button>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="skipWeekends" checked>
+                <label for="skipWeekends">Exclude Weekends (Saturday & Sunday)</label>
+            </div>
+            <button id="calculateBtn" class="primary-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                Generate Forecast
+            </button>
+        </div>
+
+        <div id="results" class="results-container hidden">
+            <div class="card">
+                <h2><span>4</span> Analytics Summary</h2>
+                <div class="summary-cards" id="summaryCards" style="margin-bottom: 0;">
+                    <!-- Summary injected via JS -->
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="row-header" style="margin-bottom: 1.5rem; align-items: flex-start;">
+                    <h2><span>5</span> Timeline Data</h2>
+                    
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: flex-end;">
+                        <button id="emailBtn" class="secondary-btn" style="margin: 0; width: auto; display: inline-flex; align-items: center; gap: 0.5rem; border-color: #0078d4; color: #0078d4;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            Email Outlook
+                        </button>
+                        <button id="pdfBtn" class="pdf-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Export Leave Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="timelineTable">
+                        <thead>
+                            <tr>
+                                <th>Period</th>
+                                <th>Opening Balance</th>
+                                <th>Leave Deducted</th>
+                                <th>Monthly Accrual</th>
+                                <th>Closing Balance</th>
+                                <th>Available Advance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PREMIUM ENTERPRISE DASHBOARD -->
+            <div class="card premium-dashboard" style="background: var(--card-bg); padding: 2.5rem; border-top: 4px solid var(--primary); margin-top: 2rem;">
+                <div class="row-header" style="margin-bottom: 2rem; flex-direction: column; align-items: flex-start; gap: 0.5rem;">
+                    <h2 style="margin: 0; display: flex; align-items: center; font-size: 1.5rem;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:0.75rem;"><path d="M3 3v18h18"></path><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path></svg>
+                        Leave Analytics Dashboard
+                    </h2>
+                </div>
+
+                <div class="tableau-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                    <div class="chart-container" style="background: var(--input-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); position: relative; height: 420px;">
+                        <h4 style="margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">Leave Utilization</h4>
+                        <canvas id="utilizationChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container" style="background: var(--input-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); position: relative; height: 420px;">
+                        <h4 style="margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">Balance Trajectory</h4>
+                        <canvas id="trajectoryChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container" style="background: var(--input-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); position: relative; height: 420px;">
+                        <h4 style="margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">Net Velocity</h4>
+                        <canvas id="velocityChart"></canvas>
+                    </div>
+
+                    <div class="chart-container" style="background: var(--input-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); position: relative; height: 420px;">
+                        <h4 style="margin-bottom: 1rem; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">Monthly Deductions</h4>
+                        <canvas id="deductionsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer style="text-align: center; margin-top: 3rem; padding-bottom: 2rem; color: var(--text-muted); font-size: 0.75rem;">
+            <p style="margin: 0.25rem 0;">&copy; 2026 Pinnacle. All rights reserved.</p>
+            <p style="margin: 0.25rem 0; opacity: 0.7;">Made by Musthaque</p>
+        </footer>
+    </div>
+    
+    <!-- FLOATING AI CHATBOT WIDGET -->
+    <div id="aiChatWidget" class="chat-widget-container">
+        <!-- The Chat Window -->
+        <div id="aiChatWindow" class="chat-window hidden">
+            <div class="chat-header">
+                <div style="display:flex; align-items:center; gap:0.5rem;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg>
+                    <span>Pinnacle AI Advisor</span>
+                </div>
+                <div style="display:flex; align-items:center; gap: 0.5rem;">
+                    <button id="chatSettingsBtn" class="close-btn" style="font-size: 1.1rem;" title="API Settings">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    </button>
+                    <button id="closeChatBtn" class="close-btn">&times;</button>
+                </div>
+            </div>
+            
+            <!-- Settings Overlay -->
+            <div id="chatSettingsPanel" class="chat-settings hidden">
+                <div style="margin-bottom: 1rem;">
+                    <label style="font-size: 0.875rem; display:block; margin-bottom:0.5rem; font-weight: 500;">OpenRouter API Key</label>
+                    <input type="password" id="geminiApiKey" placeholder="sk-or-v1-..." style="width:100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border); background: var(--input-bg); color: var(--text-main); font-family: monospace;">
+                    <small style="color: var(--text-muted); font-size: 0.75rem; display: block; margin-top: 0.5rem; line-height: 1.4;">Stored securely in your local browser storage. Required for advanced AI responses via OpenRouter.</small>
+                </div>
+                <button id="saveApiBtn" class="primary-btn" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Save Key</button>
+            </div>
+
+            <div id="chatHistory" class="chat-history">
+                <div class="chat-msg bot-msg">Hello! I am your Enterprise AI Advisor. Generate a forecast to begin analyzing your data!</div>
+            </div>
+            
+            <div class="preset-chips">
+                <button class="chip">Summarize my forecast</button>
+                <button class="chip">Am I breaking any rules?</button>
+                <button class="chip">What is my lowest projected balance?</button>
+                <button class="chip">When do I reach my lowest balance?</button>
+                <button class="chip">Is my leave pattern typical?</button>
+                <button class="chip">Write an email to my manager</button>
+                <button class="chip">Draft a polite cancellation email</button>
+            </div>
+            
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Ask about limits, balances...">
+                <button id="sendChatBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- The Floating Action Button -->
+        <button id="aiChatFab" class="chat-fab">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 10h.01"></path><path d="M12 10h.01"></path><path d="M16 10h.01"></path></svg>
+        </button>
+    </div>
+
+    <script>
+// Globals
+let globalTimeline = null;
+let globalIsValid = true;
+let globalLeavePeriods = null;
+
+// Utility Formatters
+function formatHrsHTML(val) {
+    const num = parseFloat(val);
+    const formatted = num.toFixed(2) + 'h';
+    return num < 0 ? `<span class="negative">${formatted}</span>` : `<span class="positive">${formatted}</span>`;
+}
+
+function formatHrsPlain(val) {
+    const num = parseFloat(val);
+    return num.toFixed(2) + 'h';
+}
+
+// Theme Toggle Logic
+const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+const themeLabel = document.getElementById('theme-label');
+const currentTheme = localStorage.getItem('theme');
+
+if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+        themeLabel.textContent = 'Dark';
+    }
+}
+
+function switchTheme(e) {
+    if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeLabel.textContent = 'Dark';
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        themeLabel.textContent = 'Light';
+    }
+    
+    // Redraw charts if they exist to match theme
+    if (globalTimeline && window.renderCharts) {
+        window.renderCharts(globalTimeline);
+    }
+}
+toggleSwitch.addEventListener('change', switchTheme, false);
+
+
+// Calculator Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const calculateBtn = document.getElementById('calculateBtn');
+    const addPeriodBtn = document.getElementById('addPeriodBtn');
+    const pdfBtn = document.getElementById('pdfBtn');
+    const emailBtn = document.getElementById('emailBtn');
+    
+    calculateBtn.addEventListener('click', calculateForecast);
+    addPeriodBtn.addEventListener('click', addLeavePeriod);
+    pdfBtn.addEventListener('click', downloadPDF);
+    emailBtn.addEventListener('click', openOutlookEmail);
+    
+    // Chatbot Toggle Handlers
+    const fab = document.getElementById('aiChatFab');
+    const chatWindow = document.getElementById('aiChatWindow');
+    const closeBtn = document.getElementById('closeChatBtn');
+    
+    // Settings logic
+    const settingsBtn = document.getElementById('chatSettingsBtn');
+    const settingsPanel = document.getElementById('chatSettingsPanel');
+    const apiKeyInput = document.getElementById('geminiApiKey');
+    const saveApiBtn = document.getElementById('saveApiBtn');
+    
+    const savedKey = localStorage.getItem('openrouter_api_key') || localStorage.getItem('gemini_api_key');
+    if (savedKey) apiKeyInput.value = savedKey;
+
+    settingsBtn.addEventListener('click', () => {
+        settingsPanel.classList.toggle('hidden');
+    });
+    
+    saveApiBtn.addEventListener('click', () => {
+        const key = apiKeyInput.value.trim();
+        if (key) {
+            localStorage.setItem('openrouter_api_key', key);
+            settingsPanel.classList.add('hidden');
+            addChatMessage("API Key saved! I am now connected via OpenRouter.", 'bot');
+        } else {
+            localStorage.removeItem('openrouter_api_key');
+            settingsPanel.classList.add('hidden');
+        }
+    });
+    
+    // Chips logic
+    document.querySelectorAll('.chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const chatInput = document.getElementById('chatInput');
+            chatInput.value = chip.textContent;
+            handleChatInput();
+        });
+    });
+    
+    fab.addEventListener('click', () => {
+        chatWindow.classList.toggle('hidden');
+    });
+    closeBtn.addEventListener('click', () => {
+        chatWindow.classList.add('hidden');
+    });
+    
+    const sendBtn = document.getElementById('sendChatBtn');
+    const chatInput = document.getElementById('chatInput');
+    sendBtn.addEventListener('click', handleChatInput);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleChatInput();
+    });
+    
+    calculateForecast();
+});
+
+let periodCount = 1;
+
+function addLeavePeriod() {
+    periodCount++;
+    const container = document.getElementById('leavePeriodsContainer');
+    
+    const row = document.createElement('div');
+    row.className = 'leave-period-row';
+    
+    row.innerHTML = `
+        <div class="row-header">
+            <h4>Period ${periodCount}</h4>
+            <button type="button" class="remove-btn" onclick="this.closest('.leave-period-row').remove()">Remove</button>
+        </div>
+        <div class="input-grid">
+            <div class="input-group">
+                <label>Start Date</label>
+                <input type="date" class="startDate">
+            </div>
+            <div class="input-group">
+                <label>End Date</label>
+                <input type="date" class="endDate">
+            </div>
+        </div>
+    `;
+    
+    container.appendChild(row);
+}
+
+function calculateForecast() {
+    const currentBalance = parseFloat(document.getElementById('currentBalance').value) || 0;
+    const monthlyCreditDays = parseFloat(document.getElementById('monthlyCredit').value) || 0;
+    const maxAdvanceDays = parseFloat(document.getElementById('maxAdvance').value) || 0;
+    const hoursPerDay = parseFloat(document.getElementById('hoursPerDay').value) || 8;
+    const skipWeekends = document.getElementById('skipWeekends').checked;
+    
+    const monthlyCreditHours = monthlyCreditDays * hoursPerDay;
+    const maxAdvanceHours = maxAdvanceDays * hoursPerDay;
+
+    const leaveRows = document.querySelectorAll('.leave-period-row');
+    const leavesPerMonth = {}; 
+    let totalLeaveHours = 0;
+    
+    let earliestDate = null;
+    let latestDate = null;
+    let hasValidDates = false;
+    let validPeriods = [];
+
+    leaveRows.forEach(row => {
+        const startVal = row.querySelector('.startDate').value;
+        const endVal = row.querySelector('.endDate').value;
+        
+        if (!startVal || !endVal) return;
+
+        const startDate = new Date(startVal);
+        const endDate = new Date(endVal);
+        
+        if (startDate > endDate) return;
+
+        hasValidDates = true;
+        
+        if (!earliestDate || startDate < earliestDate) earliestDate = new Date(startDate);
+        if (!latestDate || endDate > latestDate) latestDate = new Date(endDate);
+
+        endDate.setHours(23, 59, 59, 999);
+        let currentDate = new Date(startDate);
+        let daysInPeriod = 0;
+
+        while (currentDate <= endDate) {
+            const dayOfWeek = currentDate.getDay(); 
+            const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+
+            if (!(skipWeekends && isWeekend)) {
+                const yearMonth = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
+                if (!leavesPerMonth[yearMonth]) {
+                    leavesPerMonth[yearMonth] = 0;
+                }
+                leavesPerMonth[yearMonth] += hoursPerDay;
+                totalLeaveHours += hoursPerDay;
+                daysInPeriod++;
+            }
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+        
+        validPeriods.push({ start: startVal, end: endVal, days: daysInPeriod });
+    });
+
+    const today = new Date();
+    if (!earliestDate) earliestDate = new Date(today);
+    if (!latestDate) latestDate = new Date(today);
+
+    let forecastStart = new Date(Math.min(today.getTime(), earliestDate.getTime()));
+    forecastStart.setDate(1); 
+    forecastStart.setHours(0, 0, 0, 0);
+    
+    let forecastEnd = new Date(Math.max(today.getTime(), latestDate.getTime()));
+    if (!hasValidDates) {
+        forecastEnd.setFullYear(forecastEnd.getFullYear() + 1);
+    } else {
+        forecastEnd.setMonth(forecastEnd.getMonth() + 4); 
+    }
+
+    const timeline = [];
+    let runningBalance = currentBalance;
+    let isValid = true;
+    let minBalance = currentBalance;
+
+    let cursorDate = new Date(forecastStart);
+
+    while (cursorDate <= forecastEnd) {
+        const yearMonth = `${cursorDate.getFullYear()}-${String(cursorDate.getMonth() + 1).padStart(2, '0')}`;
+        const monthName = cursorDate.toLocaleString('default', { month: 'short', year: 'numeric' });
+        
+        const startingBalance = runningBalance;
+        const leavesTaken = leavesPerMonth[yearMonth] || 0;
+        
+        runningBalance -= leavesTaken;
+        if (runningBalance < minBalance) minBalance = runningBalance;
+        
+        if (runningBalance < -maxAdvanceHours) {
+            isValid = false;
+        }
+
+        const endOfMonthCredit = monthlyCreditHours;
+        runningBalance += endOfMonthCredit;
+        const maxAvailableNextMonth = runningBalance + maxAdvanceHours;
+
+        timeline.push({
+            monthName,
+            startingBalance,
+            leavesTaken,
+            endOfMonthCredit,
+            endingBalance: runningBalance,
+            maxAvailableNextMonth
+        });
+
+        cursorDate.setMonth(cursorDate.getMonth() + 1);
+    }
+
+    globalTimeline = timeline;
+    globalIsValid = isValid;
+    globalLeavePeriods = validPeriods;
+    renderResults(totalLeaveHours, hoursPerDay, minBalance, maxAdvanceHours, isValid, timeline);
+}
+
+function renderResults(totalLeaveHours, hoursPerDay, minBalance, maxAdvanceHours, isValid, timeline) {
+    const resultsContainer = document.getElementById('results');
+    const summaryCards = document.getElementById('summaryCards');
+    const tbody = document.querySelector('#timelineTable tbody');
+    
+    resultsContainer.classList.remove('hidden');
+    resultsContainer.style.animation = 'none';
+    resultsContainer.offsetHeight; 
+    resultsContainer.style.animation = null;
+    
+    const totalDays = (totalLeaveHours / hoursPerDay).toFixed(1);
+    
+    let statusBadge = isValid 
+        ? `<span class="badge valid">Approved</span>`
+        : `<span class="badge invalid">Exceeded Limits</span>`;
+
+    summaryCards.innerHTML = `
+        <div class="summary-card">
+            <h4>Total Time Requested</h4>
+            <div style="display:flex; align-items:center; gap: 1rem; margin-top: 0.5rem;">
+                <div class="value">${totalDays}d</div>
+                <div class="subtitle">(${totalLeaveHours}h)</div>
+            </div>
+        </div>
+        <div class="summary-card">
+            <h4>Forecast Status</h4>
+            <div style="margin-top: 0.5rem;">${statusBadge}</div>
+            <div class="subtitle" style="margin-top:0.5rem;">${isValid ? 'Within allowed advance limits' : 'Dips below max advance'}</div>
+        </div>
+        <div class="summary-card">
+            <h4>Lowest Balance Point</h4>
+            <div style="display:flex; align-items:center; gap: 1rem; margin-top: 0.5rem;">
+                <div class="value ${minBalance < -maxAdvanceHours ? 'negative' : 'positive'}">${minBalance.toFixed(2)}h</div>
+            </div>
+            <div class="subtitle">Advance Limit: -${maxAdvanceHours}h</div>
+        </div>
+    `;
+
+    tbody.innerHTML = '';
+    timeline.forEach(row => {
+        const tr = document.createElement('tr');
+
+        tr.innerHTML = `
+            <td><strong>${row.monthName}</strong></td>
+            <td>${formatHrsHTML(row.startingBalance)}</td>
+            <td>${row.leavesTaken > 0 ? `<span class="negative">-${row.leavesTaken.toFixed(2)}h</span>` : '-'}</td>
+            <td><span class="positive">+${row.endOfMonthCredit.toFixed(2)}h</span></td>
+            <td>${formatHrsHTML(row.endingBalance)}</td>
+            <td>${formatHrsHTML(row.maxAvailableNextMonth)}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+    
+    // Initialize Chatbot with new context
+    initChatbot(timeline, maxAdvanceHours);
+
+    // Call chart rendering
+    if (window.renderCharts) {
+        window.renderCharts(timeline);
+    }
+}
+
+// -----------------------------------------
+// SIMULATED AI CHATBOT ENGINE
+// -----------------------------------------
+function addChatMessage(text, sender) {
+    const history = document.getElementById('chatHistory');
+    if (!history) return;
+    
+    const msgDiv = document.createElement('div');
+    const isBot = sender === 'bot';
+    
+    msgDiv.className = isBot ? 'chat-msg bot-msg' : 'chat-msg user-msg';
+    
+    if (isBot) {
+        let formatted = text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/\n/g, '<br>');
+        msgDiv.innerHTML = formatted;
+    } else {
+        msgDiv.textContent = text;
+    }
+    
+    history.appendChild(msgDiv);
+    history.scrollTop = history.scrollHeight;
+}
+
+async function processChatQuery(query) {
+    if (!globalTimeline) return;
+    
+    // Automatically use the provided permanent key if nothing is explicitly set in localStorage
+    const apiKey = localStorage.getItem('openrouter_api_key') || localStorage.getItem('gemini_api_key') || "";
+    if (!apiKey) {
+        addChatMessage("Please configure your **OpenRouter API Key** in the settings (gear icon) to enable real AI responses.", 'bot');
+        return;
+    }
+    
+    const totalTaken = globalTimeline.reduce((sum, t) => sum + t.leavesTaken, 0);
+    const finalBalance = globalTimeline[globalTimeline.length - 1].endingBalance;
+    const lowestBalance = Math.min(...globalTimeline.map(t => t.endingBalance));
+    const maxAdvanceHours = (parseFloat(document.getElementById('maxAdvance').value) || 0) * (parseFloat(document.getElementById('hoursPerDay').value) || 8);
+    
+    const systemInstruction = `You are the 'Pinnacle Enterprise AI Advisor', a highly intelligent AI built into a Leave Calculator app. 
+Your tone should be "$1000-dollar professional", concise, helpful, and clear. Use very simple markdown (only bold and line breaks). Do NOT use complex markdown headers or lists.
+
+You possess vast knowledge and are permitted to answer questions about literally ANYTHING in the universe. If the user asks general knowledge questions, science, history, coding, or anything unrelated to their leave, answer it accurately and enthusiastically!
+
+You also possess specific knowledge about our company, "Pinnacle" (pinnaclereliability.com): Pinnacle helps industrial leaders use data and Newton™ software to drive reliability and optimize asset performance. Pinnacle has invested $20MM+ in R&D and Ventures focused on industrial reliability and data science, and has implemented and analyzed over 2MM+ assets. We are making the world reliable!
+
+
+If (and only if) the user asks about their leave balance or forecast, use the following context:
+- Accrual Policy: ${document.getElementById('accrualRate').value} days per month (added at the end of every month)
+- 1 Day = ${document.getElementById('hoursPerDay').value} hours
+- Total hours requested off: ${totalTaken}
+- Lowest projected balance point: ${lowestBalance} hours
+- Final balance at end of forecast: ${finalBalance} hours
+- Max Advance Allowance: -${maxAdvanceHours} hours (Going below this means the request is invalid)
+- The detailed timeline data: ${JSON.stringify(globalTimeline.map(t => ({month: t.monthName, starting: t.startingBalance, taken: t.leavesTaken, ending: t.endingBalance})))}
+
+Special Instructions for Leave Queries:
+- If asked about "breaking rules", strictly check if the lowest balance dips below the -${maxAdvanceHours} advance limit.
+- If asked about the "lowest projected balance", state the number and point out which month it occurs in based on the timeline.
+- If asked to "Write an email" or "Draft a cancellation", write a professional email template to a manager regarding the specific dates listed in the timeline.
+- If asked a HYPOTHETICAL question (e.g. "If I take X days..."), do step-by-step mathematical reasoning. Calculate the total hours taken, deduct them from the starting balance, check if it breaches the -${maxAdvanceHours} limit BEFORE the end-of-month accrual, add the monthly accrual at the end of the month, and determine the exact remaining buffer for the subsequent month.`;
+
+    const history = document.getElementById('chatHistory');
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'chat-msg bot-msg';
+    loadingDiv.innerHTML = '<span style="opacity:0.6; display:flex; gap:0.5rem; align-items:center;">Thinking... <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg></span>';
+    
+    // Add spinner keyframes if not exists
+    if (!document.getElementById('spinKeyframes')) {
+        const style = document.createElement('style');
+        style.id = 'spinKeyframes';
+        style.textContent = '@keyframes spin { 100% { transform: rotate(360deg); } }';
+        document.head.appendChild(style);
+    }
+    
+    history.appendChild(loadingDiv);
+    history.scrollTop = history.scrollHeight;
+
+    try {
+        const response = await fetch(`https://openrouter.ai/api/v1/chat/completions`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model: "openai/gpt-3.5-turbo",
+                messages: [
+                    { role: "system", content: systemInstruction },
+                    { role: "user", content: query }
+                ]
+            })
+        });
+        
+        if (!response.ok) throw new Error(`API Error: ${response.status}`);
+        const data = await response.json();
+        
+        history.removeChild(loadingDiv);
+        
+        if (data.choices && data.choices[0].message.content) {
+            addChatMessage(data.choices[0].message.content, 'bot');
+        } else {
+            addChatMessage("Received an unexpected response format from the API.", 'bot');
+        }
+    } catch (error) {
+        history.removeChild(loadingDiv);
+        addChatMessage("Sorry, there was an error communicating with OpenRouter. Please verify your API key in the settings.", 'bot');
+        console.error(error);
+    }
+}
+
+function handleChatInput() {
+    if (!globalTimeline) {
+        alert("Please generate a forecast first.");
+        return;
+    }
+    
+    const inputField = document.getElementById('chatInput');
+    const query = inputField.value.trim().toLowerCase();
+    if (!query) return;
+    
+    addChatMessage(inputField.value, 'user');
+    inputField.value = '';
+    
+    // Simulate thinking delay
+    setTimeout(() => processChatQuery(query), 600);
+}
+
+function initChatbot(timeline, maxAdvanceHours) {
+    const history = document.getElementById('chatHistory');
+    if (!history) return;
+    history.innerHTML = ''; // clear
+    
+    const lowestBalance = Math.min(...timeline.map(t => t.endingBalance));
+    
+    let initialMsg = "Hello! I've analyzed your leave schedule. ";
+    if (lowestBalance < -maxAdvanceHours) {
+        initialMsg += `🚨 **Warning:** This forecast exceeds your advance limit. `;
+    } else {
+        initialMsg += `Everything looks good and within policy. `;
+    }
+    initialMsg += "What would you like to know about your projection?";
+    
+    addChatMessage(initialMsg, 'bot');
+    
+    // Automatically open the chat if it's a critical warning
+    if (lowestBalance < -maxAdvanceHours) {
+        document.getElementById('aiChatWindow').classList.remove('hidden');
+    }
+}
+
+let utilizationChartInst = null;
+let trajectoryChartInst = null;
+let velocityChartInst = null;
+let deductionsChartInst = null;
+
+// Custom plugin for center text in doughnut chart (Premium BI feel)
+const centerTextPlugin = {
+    id: 'centerText',
+    beforeDraw: function(chart) {
+        if (chart.config.type !== 'doughnut') return;
+        var width = chart.width, height = chart.height, ctx = chart.ctx;
+        ctx.restore();
+        var fontSize = (height / 120).toFixed(2);
+        ctx.font = "bold " + fontSize + "em Inter";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = Chart.defaults.color;
+        
+        var text = chart.config.options.elements?.center?.text || '',
+            textX = Math.round((width - ctx.measureText(text).width) / 2),
+            textY = height / 2 + 10;
+        ctx.fillText(text, textX, textY);
+        
+        ctx.font = "600 " + (fontSize/3.5).toFixed(2) + "em Inter";
+        var subText = chart.config.options.elements?.center?.subText || '',
+            subX = Math.round((width - ctx.measureText(subText).width) / 2),
+            subY = height / 2 - 20;
+        ctx.fillText(subText, subX, subY);
+        ctx.save();
+    }
+};
+Chart.register(centerTextPlugin);
+
+window.renderCharts = function(timeline) {
+    if (!timeline || timeline.length === 0) return;
+
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const textColor = isDark ? '#f8fafc' : '#0f172a';
+    const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+    const tooltipBg = isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)';
+    const tooltipBorder = isDark ? '#334155' : '#e2e8f0';
+
+    Chart.defaults.color = isDark ? '#94a3b8' : '#64748b';
+    Chart.defaults.font.family = "'Inter', sans-serif";
+    Chart.defaults.plugins.tooltip.backgroundColor = tooltipBg;
+    Chart.defaults.plugins.tooltip.titleColor = textColor;
+    Chart.defaults.plugins.tooltip.bodyColor = textColor;
+    Chart.defaults.plugins.tooltip.borderColor = tooltipBorder;
+    Chart.defaults.plugins.tooltip.borderWidth = 1;
+    Chart.defaults.plugins.tooltip.padding = 12;
+    Chart.defaults.plugins.tooltip.cornerRadius = 8;
+    Chart.defaults.plugins.tooltip.boxPadding = 6;
+
+    const labels = timeline.map(t => t.monthName);
+    
+    // 1. Trajectory Data (Gradient Area Chart)
+    const trajectoryData = timeline.map(t => t.endingBalance);
+    if (trajectoryChartInst) trajectoryChartInst.destroy();
+    const ctxTraj = document.getElementById('trajectoryChart').getContext('2d');
+    let gradientTraj = ctxTraj.createLinearGradient(0, 0, 0, 350);
+    gradientTraj.addColorStop(0, isDark ? 'rgba(99, 102, 241, 0.6)' : 'rgba(79, 70, 229, 0.3)');
+    gradientTraj.addColorStop(1, isDark ? 'rgba(99, 102, 241, 0.0)' : 'rgba(79, 70, 229, 0.0)');
+
+    trajectoryChartInst = new Chart(ctxTraj, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Forecast Balance',
+                data: trajectoryData,
+                borderColor: isDark ? '#818cf8' : '#4f46e5',
+                backgroundColor: gradientTraj,
+                borderWidth: 3,
+                pointBackgroundColor: isDark ? '#1e293b' : '#ffffff',
+                pointBorderColor: isDark ? '#818cf8' : '#4f46e5',
+                pointBorderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            interaction: { intersect: false, mode: 'index' },
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { grid: { color: gridColor, drawBorder: false }, border: { dash: [4, 4] } },
+                x: { grid: { display: false, drawBorder: false } }
+            }
+        }
+    });
+
+    // 2. Velocity Data (Waterfall style Bar Chart)
+    const velocityData = timeline.map(t => t.endOfMonthCredit - t.leavesTaken);
+    const velocityColors = velocityData.map(v => v >= 0 ? (isDark ? '#34d399' : '#10b981') : (isDark ? '#f43f5e' : '#e11d48'));
+    
+    if (velocityChartInst) velocityChartInst.destroy();
+    const ctxVel = document.getElementById('velocityChart').getContext('2d');
+    velocityChartInst = new Chart(ctxVel, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Net Velocity (Hours)',
+                data: velocityData,
+                backgroundColor: velocityColors,
+                borderRadius: 6,
+                barThickness: 'flex',
+                maxBarThickness: 40
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { grid: { color: gridColor, drawBorder: false }, border: { dash: [4, 4] } },
+                x: { grid: { display: false, drawBorder: false } }
+            }
+        }
+    });
+
+    // 3. Utilization Doughnut
+    let totalTaken = 0; let totalAccrued = 0;
+    timeline.forEach(t => { totalTaken += t.leavesTaken; totalAccrued += t.endOfMonthCredit; });
+    const currentBal = parseFloat(document.getElementById('currentBalance').value) || 0;
+    const maxAdv = (parseFloat(document.getElementById('maxAdvance').value) || 0) * (parseFloat(document.getElementById('hoursPerDay').value) || 8);
+    const maxAvailable = currentBal + totalAccrued + maxAdv;
+    const remaining = Math.max(0, maxAvailable - totalTaken);
+    const utilPct = maxAvailable > 0 ? Math.round((totalTaken / maxAvailable) * 100) : 0;
+
+    if (utilizationChartInst) utilizationChartInst.destroy();
+    const ctxUtil = document.getElementById('utilizationChart').getContext('2d');
+    
+    utilizationChartInst = new Chart(ctxUtil, {
+        type: 'doughnut',
+        data: {
+            labels: ['Total Requested', 'Remaining Capacity'],
+            datasets: [{
+                data: [totalTaken, remaining],
+                backgroundColor: [
+                    isDark ? '#f59e0b' : '#d97706',
+                    isDark ? '#334155' : '#e2e8f0'
+                ],
+                borderWidth: 0,
+                cutout: '82%'
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } },
+                tooltip: { callbacks: { label: (ctx) => ` ${ctx.label}: ${ctx.raw}h` } }
+            },
+            elements: { center: { text: utilPct + '%', subText: 'UTILIZED' } }
+        }
+    });
+
+    // 4. Monthly Deductions Chart
+    const deductionsData = timeline.map(t => t.leavesTaken);
+    if (deductionsChartInst) deductionsChartInst.destroy();
+    const ctxDed = document.getElementById('deductionsChart').getContext('2d');
+    deductionsChartInst = new Chart(ctxDed, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Hours Deducted',
+                data: deductionsData,
+                backgroundColor: isDark ? '#fb923c' : '#f97316',
+                borderRadius: 4,
+                barThickness: 'flex',
+                maxBarThickness: 40
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { grid: { color: gridColor, drawBorder: false }, border: { dash: [4, 4] } },
+                x: { grid: { display: false, drawBorder: false } }
+            }
+        }
+    });
+};
+
+async function openOutlookEmail() {
+    if (!globalTimeline) return;
+    
+    // Auto-trigger PDF download so the user has the file ready to attach
+    await downloadPDF();
+    
+    alert("IMPORTANT:\n\nDue to browser security restrictions, webpages cannot automatically attach files to email clients.\n\nYour PDF report has been downloaded to your computer. Please manually attach it to the Outlook email window that is about to open.");
+    
+    const empName = document.getElementById('empName').value.trim() || 'Employee';
+    
+    let totalDeductedDays = 0;
+    if (globalLeavePeriods) {
+        totalDeductedDays = globalLeavePeriods.reduce((sum, p) => sum + p.days, 0);
+    }
+    
+    const subject = encodeURIComponent(`Leave Forecast Report - ${empName}`);
+    let bodyText = `Dear Team,\n\nPlease find my leave forecast details below. The detailed PDF report is attached for your reference.\n\n`;
+    bodyText += `Employee Name: ${empName}\n`;
+    bodyText += `Forecast Status: ${globalIsValid ? 'Within allowed limits' : 'Exceeds Advance Limits'}\n`;
+    bodyText += `Total Working Days Requested: ${totalDeductedDays}\n\n`;
+    
+    if (globalLeavePeriods && globalLeavePeriods.length > 0) {
+        bodyText += `Requested Leave Dates:\n`;
+        globalLeavePeriods.forEach(p => {
+            bodyText += `- From ${p.start} to ${p.end} (${p.days} working days)\n`;
+        });
+        bodyText += `\n`;
+    }
+    
+    bodyText += `Kindly review and let me know if further information is required.\n\nBest Regards,\n${empName}`;
+    
+    const body = encodeURIComponent(bodyText);
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+}
+
+// Helper to convert SVG to Data URL for jsPDF
+function svgToPng(svgString) {
+    return new Promise((resolve) => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1100; 
+        canvas.height = 240;
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        const svg = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+        const url = URL.createObjectURL(svg);
+        img.onload = function() {
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            URL.revokeObjectURL(url);
+            resolve(canvas.toDataURL('image/png'));
+        };
+        img.onerror = function() {
+            resolve(null);
+        };
+        img.src = url;
+    });
+}
+
+// 100% Native jsPDF Generation for perfect tabular data resembling the payslip
+async function downloadPDF() {
+    if (!globalTimeline) return;
+    
+    // Change button state to loading just in case
+    const btn = document.getElementById('pdfBtn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = 'Generating...';
+    btn.style.opacity = '0.7';
+
+    try {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF('p', 'pt', 'a4'); // points, A4 size: 595.28 x 841.89
+
+        const empName = document.getElementById('empName').value.trim() || 'N/A';
+        const empId = document.getElementById('empId').value.trim() || 'N/A';
+        const currentBalance = parseFloat(document.getElementById('currentBalance').value) || 0;
+        const monthlyCreditDays = parseFloat(document.getElementById('monthlyCredit').value) || 0;
+        const hoursPerDay = parseFloat(document.getElementById('hoursPerDay').value) || 8;
+        const monthlyCreditHours = monthlyCreditDays * hoursPerDay;
+
+        // 1. Logo
+        const logoSvg = `<svg viewBox="0 0 550 120" xmlns="http://www.w3.org/2000/svg" width="550" height="120">
+                <polygon points="15,55 45,35 45,85 15,115" fill="#ED1C24"/>
+                <polygon points="15,25 75,10 105,45 45,65" fill="#66C2B4"/>
+                <polygon points="45,85 105,45 105,80 15,115" fill="#9CCC45"/>
+                <text x="130" y="75" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="64" fill="#000000" letter-spacing="4">PINNACLE</text>
+                <text x="135" y="105" font-family="Arial, Helvetica, sans-serif" font-weight="normal" font-size="18" fill="#000000" letter-spacing="7">DATA-DRIVEN RELIABILITY</text>
+            </svg>`;
+
+        const imgData = await svgToPng(logoSvg);
+        if (imgData) {
+            doc.addImage(imgData, 'PNG', 30, 30, 160, 35);
+        } else {
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(18);
+            doc.text("PINNACLE", 30, 50);
+        }
+
+        // 2. Company Address (Right aligned)
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "bold");
+        doc.text("PINNACLE RELIABILITY INDIA PRIVATE LIMITED", 565, 35, { align: "right" });
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(9);
+        doc.text("No.108, Door No. 08-3-945", 565, 47, { align: "right" });
+        doc.text("Sri Nilaya Estates Ameerpet", 565, 59, { align: "right" });
+        doc.text("Srinagar Colony Khairatabad", 565, 71, { align: "right" });
+        doc.text("Hyderabad-Telangana 500073", 565, 83, { align: "right" });
+
+        // 3. Blue Banner
+        doc.setDrawColor(0, 0, 128);
+        doc.setLineWidth(1);
+        doc.rect(30, 100, 535, 18);
+        doc.setTextColor(0, 0, 128);
+        doc.setFontSize(11);
+        doc.setFont("helvetica", "bold");
+        doc.text("Leave Balance Forecast Report", 297, 113, { align: "center" });
+
+        // 4. Employee Details Table (mimicking Payslip grid)
+        doc.setTextColor(0, 0, 0);
+        const statusText = globalIsValid ? 'APPROVED' : 'EXCEEDED LIMITS';
+        
+        doc.autoTable({
+            startY: 118,
+            margin: { left: 30, right: 30 },
+            theme: 'plain',
+            styles: { fontSize: 8, cellPadding: 3, lineColor: [0, 0, 0], lineWidth: 0.5 },
+            body: [
+                [{ content: 'EmpNo', styles: { fontStyle: 'bold' } }, empId, { content: 'Location', styles: { fontStyle: 'bold', border: {left: 0.5} } }, 'Hyderabad (Telangana)'],
+                [{ content: 'Name', styles: { fontStyle: 'bold' } }, empName, { content: 'Designation', styles: { fontStyle: 'bold', border: {left: 0.5} } }, 'Reliability Data Analyst'],
+                [{ content: 'Current Balance', styles: { fontStyle: 'bold' } }, currentBalance.toFixed(2) + 'h', { content: 'Monthly Accrual', styles: { fontStyle: 'bold', border: {left: 0.5} } }, monthlyCreditHours.toFixed(2) + 'h'],
+                [{ content: 'Date Generated', styles: { fontStyle: 'bold' } }, new Date().toLocaleDateString(), { content: 'Forecast Status', styles: { fontStyle: 'bold', border: {left: 0.5} } }, statusText]
+            ],
+            columnStyles: {
+                0: { cellWidth: 80 },
+                1: { cellWidth: 187.5 },
+                2: { cellWidth: 80 },
+                3: { cellWidth: 187.5 }
+            }
+        });
+
+        // 4.5 NEW: Leave Requested Dates List
+        if (globalLeavePeriods && globalLeavePeriods.length > 0) {
+            doc.setFontSize(9);
+            doc.setFont("helvetica", "bold");
+            doc.text("Requested Leave Dates", 30, doc.lastAutoTable.finalY + 20);
+            
+            const periodData = globalLeavePeriods.map(p => [
+                p.start,
+                p.end,
+                p.days + (p.days === 1 ? ' Day Deducted' : ' Days Deducted')
+            ]);
+            
+            doc.autoTable({
+                startY: doc.lastAutoTable.finalY + 25,
+                margin: { left: 30, right: 30 },
+                theme: 'plain',
+                styles: { fontSize: 8, cellPadding: 4, lineColor: [0, 0, 0], lineWidth: 0.5 },
+                headStyles: { textColor: [0, 0, 128], fontStyle: 'bold' },
+                head: [['Start Date', 'End Date', 'Working Days Deducted']],
+                body: periodData
+            });
+        }
+
+        // 5. Main Timeline Table (mimicking Earnings/Deductions layout)
+        doc.setFontSize(9);
+        doc.setFont("helvetica", "bold");
+        doc.text("Monthly Projection Data", 30, doc.lastAutoTable.finalY + 20);
+
+        const tableData = globalTimeline.map(row => [
+            row.monthName,
+            row.startingBalance.toFixed(2),
+            row.leavesTaken > 0 ? row.leavesTaken.toFixed(2) : '-',
+            row.endOfMonthCredit.toFixed(2),
+            row.endingBalance.toFixed(2),
+            row.maxAvailableNextMonth.toFixed(2)
+        ]);
+
+        let totalDeducted = 0;
+        globalTimeline.forEach(r => totalDeducted += r.leavesTaken);
+
+        tableData.push([
+            { content: 'Total', styles: { halign: 'center', fontStyle: 'bold' } },
+            '',
+            { content: totalDeducted.toFixed(2), styles: { fontStyle: 'bold' } },
+            '',
+            '',
+            ''
+        ]);
+
+        doc.autoTable({
+            startY: doc.lastAutoTable.finalY + 25,
+            margin: { left: 30, right: 30 },
+            theme: 'plain',
+            styles: { fontSize: 8, cellPadding: 4, lineColor: [0, 0, 0], lineWidth: 0.5, halign: 'right' },
+            headStyles: { textColor: [0, 0, 128], fontStyle: 'normal', halign: 'right' },
+            columnStyles: { 0: { halign: 'left' } },
+            head: [['Period', 'Opening Balance', 'Leave Deducted', 'Monthly Accrual', 'Closing Balance', 'Available Advance']],
+            body: tableData
+        });
+
+        // 6. Footer
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "italic");
+        doc.setTextColor(0, 0, 0);
+        doc.text("*This is computer generated report hence no signature required*", 297, doc.lastAutoTable.finalY + 25, { align: "center" });
+
+        // Save PDF
+        doc.save(`Leave_Forecast_${empName.replace(/\s+/g, '_') || 'Report'}.pdf`);
+    } catch(e) {
+        console.error("PDF Generation Error: ", e);
+        alert("Failed to generate PDF. Check console for details.");
+    } finally {
+        btn.innerHTML = originalText;
+        btn.style.opacity = '1';
+    }
+}
+    </script>
+</body>
+</html>

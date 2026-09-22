@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ subject }}</title>
+  <style>
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; }
+    body { margin: 0; padding: 0; width: 100% !important; background-color: #ece8e4; font-family: 'Newsreader', Georgia, 'Times New Roman', serif; }
+    .container { max-width: 660px; margin: 0 auto; background-color: #fdfbf7; border: 1px solid #1d1d1b; box-shadow: 0 4px 20px rgba(29, 29, 27, 0.08); }
+    
+    /* Broadsheet Masthead */
+    .top-dateline { background-color: #1d1d1b; color: #ece8e4; font-family: 'JetBrains Mono', monospace, sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 16px; text-align: center; }
+    .masthead { padding: 28px 24px 20px 24px; text-align: center; border-bottom: 3px double #1d1d1b; }
+    .masthead-subtitle { font-family: 'JetBrains Mono', monospace, sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #69645f; margin-bottom: 8px; font-weight: 700; }
+    .masthead-title { font-family: 'Big Shoulders Display', 'Instrument Serif', Georgia, serif; font-size: 46px; font-weight: 900; letter-spacing: 6px; color: #1d1d1b; margin: 0; text-transform: uppercase; line-height: 1; }
+    .masthead-motto { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 13px; color: #69645f; margin: 8px 0 0 0; }
+    .sub-bar { border-top: 1px solid #1d1d1b; border-bottom: 1px solid #1d1d1b; padding: 6px 12px; margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #1d1d1b; display: flex; justify-content: space-between; }
+    
+    /* Content Layout */
+    .content { padding: 28px 26px; color: #1d1d1b; line-height: 1.7; font-size: 15px; }
+    .section-title { font-family: 'Big Shoulders Display', 'Instrument Serif', Georgia, serif; font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #1d1d1b; margin: 32px 0 16px 0; padding-bottom: 6px; border-bottom: 2px solid #1d1d1b; }
+    .section-title:first-child { margin-top: 0; }
+    
+    .card-title { font-family: 'Newsreader', Georgia, serif; font-size: 17px; font-weight: 700; color: #1d1d1b; margin: 18px 0 6px 0; }
+    .card-title a { color: #c03f13 !important; text-decoration: none; border-bottom: 1px solid #c03f13; }
+    .card-title a:hover { color: #a3340e !important; }
+    
+    p { margin: 0 0 14px 0; }
+    ul { margin: 0 0 16px 0; padding-left: 20px; }
+    li { margin-bottom: 6px; font-size: 14.5px; }
+    strong { color: #000000; font-weight: 700; }
+    
+    a { color: #c03f13; text-decoration: none; border-bottom: 1px solid rgba(192, 63, 19, 0.3); }
+    a:hover { color: #a3340e; border-bottom-color: #a3340e; }
+    
+    hr { border: 0; border-top: 1px dashed #1d1d1b; margin: 24px 0; }
+    
+    /* Broadsheet Footer */
+    .footer { background-color: #e2dedb; border-top: 2px solid #1d1d1b; padding: 24px 20px; text-align: center; font-family: 'JetBrains Mono', monospace, sans-serif; font-size: 11px; color: #69645f; }
+    .footer a { color: #1d1d1b; font-weight: 600; text-decoration: underline; border-bottom: 0; }
+    
+    @media only screen and (max-width: 660px) {
+      .container { width: 100% !important; border: 0 !important; }
+      .masthead-title { font-size: 34px !important; letter-spacing: 3px !important; }
+      .content { padding: 20px 16px !important; }
+    }
+  </style>
+</head>
+<body>
+  <div style="background-color: #ece8e4; padding: 20px 8px;">
+    <div class="container">
+      <!-- TOP DATELINE -->
+      <div class="top-dateline">
+        THE DAILY BROADSHEET • VOL. IV • HYDERABAD & GLOBAL
+      </div>
+
+      <!-- MASTHEAD -->
+      <div class="masthead">
+        <div class="masthead-subtitle">DISPATCH DESK OF MECHANICAL & MACHINE INTELLIGENCE</div>
+        <h1 class="masthead-title">E L E C T R O N</h1>
+        <p class="masthead-motto">"Rigorous technical intelligence across artificial intelligence, asset integrity, and energy infrastructure."</p>
+        <div class="sub-bar">
+          <span>{{ date_str }}</span>
+          <span>ISSUE #{{ issue_number }}</span>
+          <span>CURATED BY MUSTHAQUE ALI</span>
+        </div>
+      </div>
+
+      <!-- EDITORIAL CONTENT -->
+      <div class="content">
+        {{ body_html | safe }}
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <p style="margin: 0 0 6px 0;">ELECTRON is published daily for engineers, analysts, and tech builders.</p>
+        <p style="margin: 0;">
+          <a href="#">Editorial Desk</a> • <a href="https://musthaque.netlify.app">Portfolio</a> • <a href="{{ unsubscribe_url or '#' }}">Unsubscribe</a>
+        </p>
+        <p style="margin: 10px 0 0 0; font-size: 10px; color: #7d7872;">© 2026 ELECTRON Broadsheet. All dispatches verified.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

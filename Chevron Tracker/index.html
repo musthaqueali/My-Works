@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chevron Daily Tracker | Pinnacle Reliability Operations</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="refero-simple-theme">
+
+    <!-- TOP HEADER -->
+    <header class="app-header">
+        <div class="header-left">
+            <div class="brand-box">
+                <div class="brand-badge chevron-badge">
+                    <img src="assets/chevron_logo.png" alt="Chevron Logo" class="brand-img-chevron">
+                </div>
+                <div class="brand-badge pinnacle-badge">
+                    <img src="assets/pinnacle_logo.png" alt="Pinnacle Logo" class="brand-img-pinnacle">
+                </div>
+                <div class="brand-text-block">
+                    <span class="brand-title">Chevron Daily Tracker</span>
+                    <span class="brand-org">Pinnacle Reliability Operations</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-center">
+            <div class="date-bar">
+                <button id="btn-prev-day" class="icon-nav-btn" title="Previous Day">&larr;</button>
+                <input type="date" id="tracker-date" class="date-picker-input">
+                <button id="btn-next-day" class="icon-nav-btn" title="Next Day">&rarr;</button>
+                <button id="btn-today-shortcut" class="pill-today">Today</button>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="db-live-indicator" id="header-db-status" title="Cloud Database Status">
+                <span class="db-dot"></span>
+                <span class="db-status-text" id="header-db-text">Cloud DB Active</span>
+            </div>
+            <button id="btn-theme-toggle" class="theme-toggle-btn" title="Toggle Dark/Light Theme">
+                <span id="theme-icon">&#9789;</span>
+            </button>
+            <a href="autopcml_studio.html" target="_blank" class="action-btn primary" title="Launch AutoPCML Studio AI Digital Twin Pipeline" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; background:#001489; color:#fff;">
+                <span>⚡ AutoPCML Studio™</span>
+            </a>
+            <button id="btn-export-today-xlsx" class="action-btn success" title="Export Today's Live Entries to Excel">
+                <span>Export Today's Excel</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="simple-container">
+
+        <!-- 1. SUMMARY METRICS -->
+        <section class="metrics-summary-strip">
+            <div class="metric-tile">
+                <span class="metric-label">Total Hours Today</span>
+                <div class="metric-val-wrap">
+                    <span id="stat-total-hours" class="metric-val">0.0</span>
+                    <span class="metric-sub">hrs</span>
+                </div>
+            </div>
+            <div class="metric-tile">
+                <span class="metric-label">Active Analysts</span>
+                <div class="metric-val-wrap">
+                    <span id="stat-active-count" class="metric-val">0</span>
+                    <span class="metric-sub">/ 12</span>
+                </div>
+            </div>
+            <div class="metric-tile">
+                <span class="metric-label">Tasks Logged</span>
+                <div class="metric-val-wrap">
+                    <span id="stat-highlighted-tasks" class="metric-val">0</span>
+                    <span class="metric-sub">entries</span>
+                </div>
+            </div>
+            <div class="metric-tile">
+                <span class="metric-label">Target vs Achieved</span>
+                <div class="metric-val-wrap">
+                    <span id="stat-achieved-count" class="metric-val">0 / 0</span>
+                    <span class="metric-sub">units</span>
+                </div>
+            </div>
+            <div class="metric-tile">
+                <span id="label-efficiency" class="metric-label">Team Efficiency</span>
+                <div class="metric-val-wrap">
+                    <span id="stat-avg-efficiency" class="metric-val">-</span>
+                    <span class="metric-sub">avg</span>
+                </div>
+            </div>
+            <div class="metric-tile">
+                <span class="metric-label">Roadblocks</span>
+                <div class="metric-val-wrap">
+                    <span id="stat-roadblocks-count" class="metric-val">0</span>
+                    <span class="metric-sub">items</span>
+                </div>
+            </div>
+            <div class="metric-tile">
+                <span class="metric-label">Billable / Direct Work</span>
+                <div class="metric-val-wrap">
+                    <span id="stat-billable-hours" class="metric-val">0.0</span>
+                    <span id="stat-billable-sub" class="metric-sub">hrs (0%)</span>
+                </div>
+            </div>
+            <div class="metric-tile">
+                <span class="metric-label">Management Review</span>
+                <div class="metric-val-wrap">
+                    <span id="stat-mgmt-highlights" class="metric-val">0</span>
+                    <span class="metric-sub">flagged</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. MULTI-TASK ENTRY FORM -->
+        <section class="simple-form-card">
+            <div class="card-title-row">
+                <h2>Log Daily Tasks</h2>
+            </div>
+
+            <form id="inline-task-form" class="simple-form-grid">
+                <input type="hidden" id="form-task-id" value="">
+
+                <!-- Top: Member + Status + Priority + Asset Ref -->
+                <div class="form-col-4">
+                    <div class="form-group">
+                        <label for="form-member-id">Task Worker (Team Member) <span class="req">*</span></label>
+                        <select id="form-member-id" required class="simple-select"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-status">Status</label>
+                        <select id="form-status" class="simple-select">
+                            <option value="completed">Completed</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="blocked">On Hold / Action Item</option>
+                            <option value="review">Under Review</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-priority">Priority</label>
+                        <select id="form-priority" class="simple-select">
+                            <option value="normal">Normal</option>
+                            <option value="high">High</option>
+                            <option value="critical">Critical</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-things-required">Default Assets / Units / ISOs / PIDs</label>
+                        <input type="text" id="form-things-required" class="simple-input" placeholder="e.g. Tank X-3109, ISO-48291, P&ID-002, Unit 4">
+                    </div>
+                </div>
+
+                <!-- Multi-Task Rows -->
+                <div class="multi-task-area">
+                    <div class="multi-task-header">
+                        <div>
+                            <h3>Tasks &amp; Production Breakdown</h3>
+                            <span class="multi-task-tip">Log tasks, asset references, hours, target vs achieved counts, efficiency, and roadblocks</span>
+                        </div>
+                    </div>
+                    <div id="task-rows-container">
+                        <!-- Default first row -->
+                        <div class="task-row" data-row="0">
+                            <div class="task-row-top">
+                                <div class="form-group flex-task-desc">
+                                    <label>Task Description <span class="req">*</span></label>
+                                    <input type="text" class="simple-input task-desc-input" placeholder="What did you work on?" required>
+                                </div>
+                                <div class="form-group flex-task-assets">
+                                    <label>Assets / Units / ISOs / PIDs</label>
+                                    <input type="text" class="simple-input task-assets-input" placeholder="e.g. Tank X-3109, ISO-48291">
+                                </div>
+                                <div class="form-group w-hrs">
+                                    <label>Hrs/day <span class="req">*</span></label>
+                                    <input type="number" class="simple-input task-hours-input" step="0.25" min="0" max="24" placeholder="0" required>
+                                </div>
+                                <div class="form-group w-metric">
+                                    <label title="metric/task in hrs">Metric (hrs)</label>
+                                    <input type="number" class="simple-input task-metric-input" step="0.05" min="0" max="24" value="0.25" placeholder="0.25">
+                                </div>
+                                <div class="form-group w-count">
+                                    <label title="count per day (target)">Target Count</label>
+                                    <input type="number" class="simple-input task-count-input" step="1" min="0" placeholder="10">
+                                </div>
+                                <div class="form-group w-achieved">
+                                    <label title="achieved on the day">Achieved</label>
+                                    <input type="number" class="simple-input task-achieved-input" step="1" min="0" placeholder="6">
+                                </div>
+                                <div class="form-group w-efficiency">
+                                    <label title="Calculated as Achieved / Target Count">Efficiency</label>
+                                    <div class="task-efficiency-badge" title="Auto-calculated (Achieved / Target Count)">-</div>
+                                    <input type="hidden" class="task-efficiency-input" value="">
+                                </div>
+                                <button type="button" class="btn-remove-row" title="Remove or clear this row">&times;</button>
+                            </div>
+                            <div class="task-row-bottom">
+                                <div class="form-group flex-roadblocks">
+                                    <label>Road blocks</label>
+                                    <input type="text" class="simple-input task-roadblocks-input" placeholder="Any blockers, missing info, or impediments...">
+                                </div>
+                                <div class="form-group flex-notes">
+                                    <label>Notes</label>
+                                    <input type="text" class="simple-input task-notes-input" placeholder="Specific notes, revisions, or comments...">
+                                </div>
+                                <div class="form-group flex-category">
+                                    <label>Charge Code / Category</label>
+                                    <input type="text" class="simple-input task-category-input" list="charge-code-list" placeholder="Type or select">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="btn-add-task-row" class="btn-add-task-row">+ Add Another Task</button>
+                </div>
+
+                <!-- Charge Code Datalist (autocomplete suggestions + custom) -->
+                <datalist id="charge-code-list">
+                    <option value="Calculations &amp; Thickness Review">
+                    <option value="Visual Inspection Analysis">
+                    <option value="Tank Datamining">
+                    <option value="Drawings &amp; Traceability">
+                    <option value="Damage Mechanism Review">
+                    <option value="QA / QC Verification">
+                    <option value="Reporting &amp; Deliverables">
+                    <option value="Team Standup &amp; Coordination">
+                    <option value="Client Meeting">
+                    <option value="Training / Development">
+                    <option value="Administrative">
+                    <option value="Travel">
+                </datalist>
+
+                <!-- Footer -->
+                <div class="form-footer-row">
+                    <div class="checkbox-group">
+                        <label class="simple-checkbox">
+                            <input type="checkbox" id="form-is-highlighted">
+                            <span>Flag for Management Review</span>
+                        </label>
+                        <label class="simple-checkbox">
+                            <input type="checkbox" id="form-is-labour">
+                            <span>Billable Hours</span>
+                        </label>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" id="btn-delete-current-task" class="btn-clear" style="display:none; color: var(--status-red); border-color: rgba(239, 68, 68, 0.3);">Delete Task</button>
+                        <button type="button" id="btn-clear-form" class="btn-clear">Clear</button>
+                        <button type="submit" id="btn-submit-task" class="btn-submit-primary">
+                            <span>Submit Entry</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- 3. VIEW TABS -->
+        <section class="view-switch-row">
+            <div class="view-pill-selector">
+                <button class="pill-btn active" data-tab="feed">Tasks (<span id="count-feed-tasks">0</span>)</button>
+                <button class="pill-btn" data-tab="analytics">Analytics &amp; BI</button>
+                <button class="pill-btn" data-tab="kanban">Kanban</button>
+                <button class="pill-btn" data-tab="team">Team</button>
+                <button class="pill-btn" data-tab="timesheet">Timesheet</button>
+                <button class="pill-btn dbms-tab-btn" data-tab="dbms">Database</button>
+            </div>
+            <div class="search-filter-controls">
+                <input type="text" id="db-search-input" placeholder="Search tasks..." class="mini-search">
+                <select id="db-filter-member" class="mini-filter">
+                    <option value="all">All Members</option>
+                </select>
+                <select id="db-filter-status" class="mini-filter">
+                    <option value="all">All Statuses</option>
+                    <option value="completed">Completed</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="blocked">On Hold / Action Item</option>
+                    <option value="review">Review</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- PANEL: TASKS TABLE -->
+        <section id="panel-feed" class="view-panel active">
+            <!-- Analyst Sheet Tabs (Mirroring Excel Workbook Tabs) -->
+            <div class="excel-tabs-container">
+                <div class="excel-tabs-scroll" id="excel-member-tabs">
+                    <!-- Populated dynamically via JS: All Members, Mounika, Hana, Shiva, Priti, Savan, Soumen, Musthaque, Silvalif, Anjani, Sandip, Piyush -->
+                </div>
+            </div>
+
+            <div class="feed-table-card">
+                <table class="simple-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 48px;" class="text-center">S.No</th>
+                            <th style="width: 85px;">Date</th>
+                            <th style="width: 140px;">Task worker</th>
+                            <th style="min-width: 180px;">Task</th>
+                            <th style="min-width: 150px;">Assets/Units/ISOs/PIDs</th>
+                            <th style="width: 65px;" class="text-right">Hrs/day</th>
+                            <th style="width: 80px;" class="text-right" title="metric/task in hrs">metric/task (hrs)</th>
+                            <th style="width: 75px;" class="text-center" title="count per day (target)">count / day</th>
+                            <th style="width: 80px;" class="text-center" title="achieved on the day">achieved on day</th>
+                            <th style="width: 80px;" class="text-center">Efficiency</th>
+                            <th style="min-width: 130px;">Road blocks</th>
+                            <th style="min-width: 130px;">Notes</th>
+                            <th style="width: 100px;" class="text-center">Status</th>
+                            <th style="width: 75px;" class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="master-tasks-tbody"></tbody>
+                </table>
+                <div id="table-empty-state" class="empty-box" style="display: none;">
+                    <h3>No tasks logged for this selection</h3>
+                    <p>Use the form above to submit tasks for any team member, or switch tabs.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANEL: POWERBI / TABLEAU LEVEL ANALYTICS & BI -->
+        <section id="panel-analytics" class="view-panel">
+            <div class="bi-dashboard-container">
+                
+                <!-- BI Control Bar -->
+                <div class="bi-control-card">
+                    <div class="bi-control-left">
+                        <span class="bi-badge">EXECUTIVE BI &amp; WORKFORCE ANALYTICS</span>
+                        <h2>Tableau &amp; PowerBI Operational Intelligence</h2>
+                        <p class="bi-sub">Live visual analytics across all 12 reliability analysts, charge code allocations, and project velocity.</p>
+                    </div>
+                    <div class="bi-control-right">
+                        <div class="bi-filter-group">
+                            <label for="bi-timeframe-select">Timeframe:</label>
+                            <select id="bi-timeframe-select" class="simple-select bi-select">
+                                <option value="all">All Available Data</option>
+                                <option value="today">Today Only</option>
+                                <option value="7days" selected>Last 7 Days</option>
+                                <option value="30days">Last 30 Days</option>
+                            </select>
+                        </div>
+                        <div class="bi-filter-group">
+                            <label for="bi-member-select">Analyst Scope:</label>
+                            <select id="bi-member-select" class="simple-select bi-select">
+                                <option value="all">Entire Team (12 Members)</option>
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BI KPI Cards Row (PowerBI Cards) -->
+                <div class="bi-kpi-grid">
+                    <div class="bi-kpi-card">
+                        <span class="bi-kpi-label">TOTAL HOURS LOGGED</span>
+                        <div class="bi-kpi-val" id="bi-kpi-total-hours">0.0h</div>
+                        <span class="bi-kpi-sub" id="bi-kpi-tasks-count">0 tasks recorded</span>
+                    </div>
+                    <div class="bi-kpi-card">
+                        <span class="bi-kpi-label">BILLABLE UTILIZATION</span>
+                        <div class="bi-kpi-val" id="bi-kpi-billable-rate">0%</div>
+                        <span class="bi-kpi-sub" id="bi-kpi-billable-hours">0.0 billable hrs</span>
+                    </div>
+                    <div class="bi-kpi-card">
+                        <span class="bi-kpi-label">ACTIVE CONTRIBUTORS</span>
+                        <div class="bi-kpi-val" id="bi-kpi-active-analysts">0 / 12</div>
+                        <span class="bi-kpi-sub" id="bi-kpi-avg-hours">0.0h avg / analyst</span>
+                    </div>
+                    <div class="bi-kpi-card">
+                        <span class="bi-kpi-label">MANAGEMENT REVIEWS</span>
+                        <div class="bi-kpi-val" id="bi-kpi-review-flags">0</div>
+                        <span class="bi-kpi-sub" id="bi-kpi-onhold-count">0 on-hold items</span>
+                    </div>
+                </div>
+
+                <!-- BI Charts 2x2 Grid -->
+                <div class="bi-charts-grid">
+                    <!-- Chart 1: Charge Code / Category Allocation -->
+                    <div class="bi-chart-card">
+                        <div class="bi-chart-head">
+                            <div>
+                                <h3>Charge Code &amp; Discipline Distribution</h3>
+                                <p class="bi-chart-sub">Hours breakdown across engineering work scopes</p>
+                            </div>
+                            <span class="bi-chart-tag" id="bi-cat-total-badge">Categories</span>
+                        </div>
+                        <div class="bi-chart-canvas-wrap">
+                            <canvas id="chart-charge-codes"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Chart 2: Team Member Workload Comparison -->
+                    <div class="bi-chart-card">
+                        <div class="bi-chart-head">
+                            <div>
+                                <h3>Analyst Effort &amp; Billable Distribution</h3>
+                                <p class="bi-chart-sub">Comparative workload across team members</p>
+                            </div>
+                            <span class="bi-chart-tag">12 Analysts</span>
+                        </div>
+                        <div class="bi-chart-canvas-wrap">
+                            <canvas id="chart-team-workload"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Chart 3: Daily Timeline & Effort Velocity Trend -->
+                    <div class="bi-chart-card">
+                        <div class="bi-chart-head">
+                            <div>
+                                <h3>Daily Effort &amp; Output Trend</h3>
+                                <p class="bi-chart-sub">Daily logged hours velocity over time</p>
+                            </div>
+                            <span class="bi-chart-tag">Daily Trend</span>
+                        </div>
+                        <div class="bi-chart-canvas-wrap">
+                            <canvas id="chart-velocity-trend"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Chart 4: Status & Priority Matrix -->
+                    <div class="bi-chart-card">
+                        <div class="bi-chart-head">
+                            <div>
+                                <h3>Operational Status &amp; Priority Matrix</h3>
+                                <p class="bi-chart-sub">Task completion and priority distribution</p>
+                            </div>
+                            <span class="bi-chart-tag">Status Mix</span>
+                        </div>
+                        <div class="bi-chart-canvas-wrap">
+                            <canvas id="chart-status-priority"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Individual Drilldown Card (Appears/updates dynamically) -->
+                <div class="bi-drilldown-card" id="bi-individual-card">
+                    <div class="bi-drilldown-head">
+                        <div class="bi-analyst-profile">
+                            <div class="avatar-large" id="bi-analyst-avatar"></div>
+                            <div>
+                                <h3 id="bi-analyst-name">Musthaque Ali</h3>
+                                <p id="bi-analyst-role" class="bi-sub">Reliability Data Analyst • Global</p>
+                            </div>
+                        </div>
+                        <div class="bi-analyst-quick-stats">
+                            <div class="bi-stat-pill">
+                                <span>Total Logged:</span>
+                                <strong id="bi-analyst-total-hrs">0.0h</strong>
+                            </div>
+                            <div class="bi-stat-pill">
+                                <span>Billable Hours:</span>
+                                <strong id="bi-analyst-billable-hrs">0.0h</strong>
+                            </div>
+                            <div class="bi-stat-pill">
+                                <span>Tasks Logged:</span>
+                                <strong id="bi-analyst-task-count">0</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bi-drilldown-table-wrap">
+                        <table class="simple-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px;">Date</th>
+                                    <th>Task Description</th>
+                                    <th style="width: 180px;">Charge Code</th>
+                                    <th style="width: 150px;">Work Order / Ref</th>
+                                    <th style="width: 70px;" class="text-right">Hours</th>
+                                    <th style="width: 80px;" class="text-center">Priority</th>
+                                    <th style="width: 100px;" class="text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bi-analyst-tasks-tbody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PANEL: KANBAN -->
+        <section id="panel-kanban" class="view-panel">
+            <div class="kanban-grid-4">
+                <div class="kanban-col">
+                    <div class="kanban-col-head blue"><span>In Progress</span><span id="count-in_progress" class="badge-num">0</span></div>
+                    <div class="kanban-cards" id="kanban-list-in_progress"></div>
+                </div>
+                <div class="kanban-col">
+                    <div class="kanban-col-head red"><span>On Hold / Action Items</span><span id="count-blocked" class="badge-num">0</span></div>
+                    <div class="kanban-cards" id="kanban-list-blocked"></div>
+                </div>
+                <div class="kanban-col">
+                    <div class="kanban-col-head amber"><span>Under Review</span><span id="count-review" class="badge-num">0</span></div>
+                    <div class="kanban-cards" id="kanban-list-review"></div>
+                </div>
+                <div class="kanban-col">
+                    <div class="kanban-col-head green"><span>Completed</span><span id="count-completed" class="badge-num">0</span></div>
+                    <div class="kanban-cards" id="kanban-list-completed"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANEL: ML (hidden, kept for JS compat) -->
+        <section id="panel-ml" class="view-panel" style="display:none;"></section>
+
+        <!-- PANEL: TEAM -->
+        <section id="panel-team" class="view-panel">
+            <div class="team-grid-12" id="team-roster-grid"></div>
+        </section>
+
+        <!-- PANEL: TIMESHEET -->
+        <section id="panel-timesheet" class="view-panel">
+            <div class="timesheet-card">
+                <div class="ts-head-row">
+                    <div>
+                        <h2>Weekly Timesheet</h2>
+                        <span id="timesheet-week-label" class="ts-label"></span>
+                    </div>
+                    <div class="ts-actions">
+                        <select id="ts-member-filter" class="simple-select bi-select" style="min-width: 200px;">
+                            <option value="all">Entire Team Summary</option>
+                        </select>
+                        <button id="btn-ts-prev-week" class="icon-nav-btn" title="Previous Week">&larr;</button>
+                        <button id="btn-ts-next-week" class="icon-nav-btn" title="Next Week">&rarr;</button>
+                        <button id="btn-generate-timesheet-pdf" class="btn-submit-primary">Download PDF</button>
+                        <button id="btn-export-timesheet-xlsx" class="btn-clear">Export Excel</button>
+                    </div>
+                </div>
+                <div id="timesheet-preview-area" class="ts-table-wrap"></div>
+            </div>
+        </section>
+
+        <!-- PANEL: DATABASE -->
+        <section id="panel-dbms" class="view-panel">
+            <div class="dbms-container">
+                <div class="dbms-header-card">
+                    <div class="dbms-header-left">
+                        <span class="dbms-badge">DATABASE MANAGEMENT</span>
+                        <h2>Cloud Database</h2>
+                        <p class="dbms-sub">Manage your cloud database — export backups, restore data, and deploy for team access.</p>
+                    </div>
+                    <div class="dbms-header-right">
+                        <div class="dbms-status-tile">
+                            <span class="dbms-status-title">Engine</span>
+                            <span id="dbms-engine-label" class="dbms-engine-val">Firebase Realtime DB</span>
+                            <span id="dbms-sync-badge" class="dbms-live-badge">Realtime Sync Active</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dbms-actions-grid">
+                    <div class="dbms-action-card">
+                        <h3>Export Backup</h3>
+                        <p>Download a complete snapshot of all records as a JSON file.</p>
+                        <button id="btn-dbms-export-json" class="btn-submit-primary full-btn">Download Backup (.json)</button>
+                    </div>
+                    <div class="dbms-action-card">
+                        <h3>Restore / Import</h3>
+                        <p>Upload a JSON backup file to restore records from another environment.</p>
+                        <button id="btn-dbms-trigger-import" class="btn-clear full-btn">Upload &amp; Restore</button>
+                        <input type="file" id="dbms-import-file-input" accept=".json" style="display: none;">
+                    </div>
+                    <div class="dbms-action-card">
+                        <h3>Seed Team Data</h3>
+                        <p>Reset and populate the 12 Chevron Reliability Analysts.</p>
+                        <button id="btn-dbms-seed" class="btn-clear full-btn">Seed Default Data</button>
+                    </div>
+                </div>
+                <div class="dbms-table-card">
+                    <div class="dbms-table-header">
+                        <div>
+                            <h3>Records (<span id="dbms-total-records-count">0</span>)</h3>
+                            <p class="table-sub-text">Inspect and manage records stored in the cloud database.</p>
+                        </div>
+                        <div class="dbms-search-bar">
+                            <input type="text" id="dbms-search-input" placeholder="Search records..." class="mini-search">
+                        </div>
+                    </div>
+                    <div class="dbms-table-scroll">
+                        <table class="simple-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 130px;">Record ID</th>
+                                    <th style="width: 140px;">Member</th>
+                                    <th style="width: 100px;">Date</th>
+                                    <th>Task Description</th>
+                                    <th style="width: 150px;">Charge Code</th>
+                                    <th style="width: 160px;">Work Order / Ref</th>
+                                    <th style="width: 60px;" class="text-right">Hours</th>
+                                    <th style="width: 90px;" class="text-center">Status</th>
+                                    <th style="width: 70px;" class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dbms-raw-records-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="dbms-deploy-guide-card">
+                    <div class="guide-header">
+                        <div>
+                            <h3>How to Publish Online</h3>
+                            <p>Host this application online so your team can access it 24/7.</p>
+                        </div>
+                    </div>
+                    <div class="guide-steps-grid">
+                        <div class="guide-step-box">
+                            <span class="step-badge">STEP 1</span>
+                            <h4>Cloud Database</h4>
+                            <p>Already configured with <strong>Google Firebase Realtime Database</strong>. All entries sync automatically.</p>
+                        </div>
+                        <div class="guide-step-box">
+                            <span class="step-badge">STEP 2</span>
+                            <h4>Deploy</h4>
+                            <p>Deploy the <code>public/</code> folder to <strong>Vercel</strong>, <strong>Netlify</strong>, or <strong>Firebase Hosting</strong>.</p>
+                        </div>
+                        <div class="guide-step-box">
+                            <span class="step-badge">STEP 3</span>
+                            <h4>Share URL</h4>
+                            <p>Send the live URL to all 12 analysts. Entries are stored permanently and visible to everyone.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Standup Modal (hidden, JS compat) -->
+    <div id="standup-modal" class="modal-backdrop" style="display:none;">
+        <div class="modal-box">
+            <header class="modal-head"><h3>Standup</h3><button id="btn-close-standup-modal" class="modal-close">&times;</button></header>
+            <div class="modal-body">
+                <div class="standup-bar"><label>Format:</label><select id="standup-format-style" class="mini-filter"><option value="slack">Slack</option><option value="bullet">Bullet</option></select></div>
+                <textarea id="standup-text-output" rows="10" readonly class="standup-code"></textarea>
+                <div class="modal-footer"><button type="button" id="btn-copy-standup" class="btn-submit-primary">Copy</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden elements for JS compatibility -->
+    <input type="file" id="hidden-avatar-input" accept="image/*" style="display: none;">
+    <span id="form-ml-tag-preview" style="display:none;"></span>
+    <span id="stat-ml-health" style="display:none;">Optimal</span>
+    <span id="stat-ml-alert" style="display:none;"></span>
+    <button id="btn-open-ai-standup" style="display:none;"></button>
+    <!-- Hidden legacy fields for JS compat -->
+    <input type="hidden" id="form-description" value="">
+    <input type="hidden" id="form-hours" value="">
+    <select id="form-category" style="display:none;"><option value="General">General</option></select>
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+    <!-- Firebase Compat SDK (Works seamlessly in local file:/// protocol and web servers) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

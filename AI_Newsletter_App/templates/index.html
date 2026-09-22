@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ config.NEWSLETTER_NAME }} — Cutting-Edge AI, Asset Integrity & Energy Intel</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="h-full flex flex-col font-sans antialiased bg-slate-950 text-slate-100 selection:bg-brand-500 selection:text-white">
+
+  <!-- TOP DISPATCH NOTIFICATION BANNER -->
+  <div class="bg-indigo-950/80 border-b border-indigo-900/60 px-4 py-1.5 text-center text-xs font-mono text-indigo-300 flex items-center justify-between">
+    <div class="flex items-center gap-2 mx-auto">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span>AUTOMATED DAILY AT 08:00 AM • ARXIV LIVE API • VERIFIED X DEBATES • PRODUCT HUNT TOP PICKS • API 580/581</span>
+    </div>
+    <div class="hidden md:flex items-center gap-3 pr-2">
+      <a href="https://musthaque.netlify.app" target="_blank" class="text-amber-400 hover:underline text-[11px] font-semibold">musthaque.netlify.app ↗</a>
+    </div>
+  </div>
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="border-b border-slate-800/80 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center font-bold text-lg shadow-lg shadow-indigo-500/20">
+          ⚡
+        </div>
+        <div>
+          <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">{{ config.NEWSLETTER_NAME }}</span>
+          <span class="hidden sm:inline-block ml-2 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-800 text-indigo-400 border border-slate-700">Daily Intelligence Platform</span>
+        </div>
+      </div>
+
+      <!-- VIEW MODE SWITCHER -->
+      <nav class="flex items-center gap-1.5 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700/60 text-xs font-medium">
+        <button id="nav-landing-btn" onclick="switchView('landing')" class="px-3.5 py-1.5 rounded-lg transition-all text-slate-300 hover:text-white flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+          Reader Landing
+        </button>
+        <button id="nav-admin-btn" onclick="switchView('admin')" class="px-3.5 py-1.5 rounded-lg bg-brand-600 text-white font-semibold shadow-md shadow-brand-600/30 transition-all flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          Editorial Studio
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============================================================= -->
+  <!-- VIEW 1: PUBLIC SUBSCRIBER LANDING PAGE (Dark High-Tech UI)    -->
+  <!-- ============================================================= -->
+  <main id="view-landing" class="hidden flex-1 overflow-y-auto">
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden pt-20 pb-28 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
+      <!-- Ambient Glow -->
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-3xl mx-auto text-center relative z-10">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs font-semibold text-indigo-300 mb-8 shadow-inner">
+          <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Daily Curated Intelligence
+        </div>
+        
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+          Cutting-edge AI intel, <br class="hidden sm:inline">
+          <span class="bg-gradient-to-r from-brand-500 via-indigo-400 to-sky-400 bg-clip-text text-transparent">zero fluff.</span>
+        </h1>
+        
+        <p class="text-lg text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+          High-signal intelligence for engineers, reliability analysts, and tech builders. Every day we scan arXiv API, Product Hunt, GitHub, X verified posts, and refinery energy infrastructure so you stay ahead.
+        </p>
+
+        <!-- Subscription Form -->
+        <form id="public-subscribe-form" onsubmit="handlePublicSubscribe(event)" class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+          <input 
+            type="email" 
+            id="public-email" 
+            required 
+            placeholder="Enter your email..." 
+            class="flex-1 px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm shadow-inner"
+          >
+          <button 
+            type="submit" 
+            class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 text-white font-semibold text-sm hover:from-brand-500 hover:to-indigo-500 transition-all shadow-lg shadow-brand-600/30 flex items-center justify-center gap-2 whitespace-nowrap"
+          >
+            <span>Subscribe Free</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </button>
+        </form>
+        <div id="public-subscribe-feedback" class="mt-4 text-xs font-medium"></div>
+
+        <!-- Trust Badges -->
+        <div class="mt-14 pt-10 border-t border-slate-800/80 flex flex-wrap justify-center gap-6 text-xs text-slate-400">
+          <div class="flex items-center gap-1.5"><svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> No Spam Ever</div>
+          <div class="flex items-center gap-1.5"><svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> 5-Minute Read Time</div>
+          <div class="flex items-center gap-1.5"><svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> 1-Click Unsubscribe</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sourcing Pillars Grid -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <h2 class="text-xs uppercase tracking-widest font-bold text-center text-slate-500 mb-10">What We Scan & Filter Every Day</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-center hover:border-slate-700 transition-all">
+          <div class="text-2xl mb-2">⚡</div>
+          <div class="font-semibold text-sm text-white">AI Infrastructure</div>
+          <div class="text-xs text-slate-400 mt-1">Hyperscaler compute, power & PPAs</div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-center hover:border-slate-700 transition-all">
+          <div class="text-2xl mb-2">🛢️</div>
+          <div class="font-semibold text-sm text-white">Oil & Gas Energy</div>
+          <div class="text-xs text-slate-400 mt-1">Chevron digital twins & refining</div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-center hover:border-slate-700 transition-all">
+          <div class="text-2xl mb-2">🛡️</div>
+          <div class="font-semibold text-sm text-white">Reliability & RBI</div>
+          <div class="text-xs text-slate-400 mt-1">API 580/581, CUI & PCMLs</div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-center hover:border-slate-700 transition-all">
+          <div class="text-2xl mb-2">🔬</div>
+          <div class="font-semibold text-sm text-white">ArXiv Research</div>
+          <div class="text-xs text-slate-400 mt-1">Live Atom API preprints</div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-center hover:border-slate-700 transition-all">
+          <div class="text-2xl mb-2">🚀</div>
+          <div class="font-semibold text-sm text-white">Product Hunt</div>
+          <div class="text-xs text-slate-400 mt-1">Trending tools from producthunt.com</div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-center hover:border-slate-700 transition-all">
+          <div class="text-2xl mb-2">💬</div>
+          <div class="font-semibold text-sm text-white">Verified X Debates</div>
+          <div class="text-xs text-slate-400 mt-1">Karpathy, LeCun & Altman status links</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================= -->
+  <!-- VIEW 2: EDITORIAL STUDIO (Full Control Dashboard)              -->
+  <!-- ============================================================= -->
+  <main id="view-admin" class="flex-1 flex flex-col overflow-hidden">
+    
+    <!-- Top Stats & Daily Scheduler Bar -->
+    <div class="bg-slate-900/80 border-b border-slate-800 px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400 font-medium">Active Subscribers:</span>
+          <span id="stat-subscribers" class="font-bold text-sm text-white bg-slate-800 px-2.5 py-0.5 rounded-lg border border-slate-700">0</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400 font-medium">Issues Sent:</span>
+          <span id="stat-issues" class="font-bold text-sm text-white bg-slate-800 px-2.5 py-0.5 rounded-lg border border-slate-700">0</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400 font-medium">Daily Scheduler:</span>
+          <span id="stat-scheduler" class="inline-flex items-center gap-1.5 font-bold text-xs px-2.5 py-0.5 rounded-lg bg-emerald-950/80 text-emerald-300 border border-emerald-800 uppercase tracking-wider">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            ACTIVE (08:00 AM)
+          </span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2">
+        <button onclick="runSchedulerNow()" class="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg text-xs font-semibold shadow transition-all flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          Run Daily Broadcast Now
+        </button>
+        <button onclick="triggerSynthesis()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 shadow-sm">
+          <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+          Re-Synthesize Issue
+        </button>
+        <button onclick="openTestModal()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 shadow-sm">
+          <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          Send Test Email
+        </button>
+        <button onclick="confirmBroadcast()" class="px-4 py-1.5 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold shadow-md shadow-brand-600/30 transition-all flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+          Broadcast to All
+        </button>
+      </div>
+    </div>
+
+    <!-- Admin Sub-Navigation Tabs -->
+    <div class="border-b border-slate-800 px-4 sm:px-6 lg:px-8 bg-slate-950 flex gap-4 text-xs font-semibold">
+      <button onclick="switchAdminTab('preview')" id="tab-btn-preview" class="py-3 border-b-2 border-brand-500 text-white flex items-center gap-1.5">
+        📱 Live Email Previewer (Broadsheet Mail Layout)
+      </button>
+      <button onclick="switchAdminTab('streams')" id="tab-btn-streams" class="py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
+        📂 6 Research Streams (.md)
+      </button>
+      <button onclick="switchAdminTab('subscribers')" id="tab-btn-subscribers" class="py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
+        👥 Subscribers List
+      </button>
+      <button onclick="switchAdminTab('logs')" id="tab-btn-logs" class="py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
+        📋 Broadcast Delivery Logs
+      </button>
+    </div>
+
+    <!-- TAB 1: LIVE EMAIL PREVIEWER (Renders musthaque.netlify.app Broadsheet Layout) -->
+    <div id="tab-preview" class="flex-1 flex flex-col md:flex-row overflow-hidden bg-slate-900/50">
+      <!-- Left sidebar: Issue metadata -->
+      <div class="w-full md:w-80 border-r border-slate-800 p-5 overflow-y-auto space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Subject Line</label>
+          <input type="text" id="draft-subject" class="w-full text-xs font-mono px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Issue Title</label>
+          <input type="text" id="draft-title" class="w-full text-xs font-mono px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500">
+        </div>
+
+        <!-- View Device Toggle -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Device Simulation</label>
+          <div class="flex gap-2">
+            <button onclick="setSimDevice('desktop')" id="device-btn-desktop" class="flex-1 py-1.5 bg-slate-800 text-white rounded-lg text-xs font-semibold border border-slate-700">Desktop (660px)</button>
+            <button onclick="setSimDevice('mobile')" id="device-btn-mobile" class="flex-1 py-1.5 bg-slate-950 text-slate-400 rounded-lg text-xs font-semibold border border-slate-800 hover:text-white">Mobile (375px)</button>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400 space-y-2">
+          <div class="font-semibold text-indigo-400">🗞️ Broadsheet Email Architecture:</div>
+          <p>The email template renders in the editorial broadsheet aesthetic of <strong>musthaque.netlify.app</strong> (warm parchment, double rules, terracotta accents, Newsreader & Big Shoulders typography).</p>
+        </div>
+      </div>
+
+      <!-- Right: Embedded Iframe Email Preview -->
+      <div class="flex-1 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-slate-950/80">
+        <div id="sim-frame-wrapper" class="w-full max-w-[660px] h-full transition-all duration-300 shadow-2xl rounded-xl overflow-hidden border border-slate-800 bg-[#ece8e4]">
+          <iframe id="newsletter-preview-frame" class="w-full h-full border-0"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: RESEARCH STREAMS -->
+    <div id="tab-streams" class="hidden flex-1 flex flex-col md:flex-row overflow-hidden">
+      <!-- File Selector Sidebar -->
+      <div class="w-full md:w-72 border-r border-slate-800 bg-slate-950/80 p-4 space-y-2 overflow-y-auto">
+        <h3 class="text-xs uppercase tracking-wider font-bold text-slate-500 mb-3">Intelligence Streams</h3>
+        <button onclick="loadStreamFile('newsletter_web_research_results.md')" class="stream-btn w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:bg-slate-800 flex items-center gap-2" data-file="newsletter_web_research_results.md">
+          <span>⚡</span> newsletter_web_research_results.md
+        </button>
+        <button onclick="loadStreamFile('newsletter_reliability_rbi.md')" class="stream-btn w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:bg-slate-800 flex items-center gap-2" data-file="newsletter_reliability_rbi.md">
+          <span>🛡️</span> newsletter_reliability_rbi.md
+        </button>
+        <button onclick="loadStreamFile('newsletter_research_papers.md')" class="stream-btn w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:bg-slate-800 flex items-center gap-2" data-file="newsletter_research_papers.md">
+          <span>🔬</span> newsletter_research_papers.md
+        </button>
+        <button onclick="loadStreamFile('newsletter_ai_products.md')" class="stream-btn w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:bg-slate-800 flex items-center gap-2" data-file="newsletter_ai_products.md">
+          <span>🚀</span> newsletter_ai_products.md (Product Hunt)
+        </button>
+        <button onclick="loadStreamFile('newsletter_github_repos.md')" class="stream-btn w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:bg-slate-800 flex items-center gap-2" data-file="newsletter_github_repos.md">
+          <span>💻</span> newsletter_github_repos.md
+        </button>
+        <button onclick="loadStreamFile('newsletter_twitter_highlights.md')" class="stream-btn w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:bg-slate-800 flex items-center gap-2" data-file="newsletter_twitter_highlights.md">
+          <span>💬</span> newsletter_twitter_highlights.md (Verified X)
+        </button>
+      </div>
+
+      <!-- File Content Editor -->
+      <div class="flex-1 flex flex-col overflow-hidden bg-slate-900/60 p-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-mono font-bold text-indigo-400" id="current-stream-filename">newsletter_web_research_results.md</span>
+          </div>
+          <button onclick="saveCurrentStreamFile()" class="px-4 py-1.5 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold shadow transition-all">
+            Save Stream
+          </button>
+        </div>
+        <textarea id="stream-editor" class="flex-1 w-full bg-slate-950 font-mono text-xs text-slate-200 p-4 rounded-xl border border-slate-800 focus:outline-none focus:border-brand-500 resize-none leading-relaxed"></textarea>
+      </div>
+    </div>
+
+    <!-- TAB 3: SUBSCRIBERS LIST -->
+    <div id="tab-subscribers" class="hidden flex-1 p-6 overflow-y-auto bg-slate-950">
+      <div class="max-w-5xl mx-auto space-y-6">
+        <!-- Add Subscriber Card -->
+        <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h3 class="font-bold text-sm text-white">Add New Subscriber</h3>
+            <p class="text-xs text-slate-400">Enroll a recipient for daily broadcast dispatches</p>
+          </div>
+          <form onsubmit="handleManualAddSubscriber(event)" class="flex gap-2 w-full sm:w-auto">
+            <input type="email" id="manual-email" required placeholder="reader@example.com" class="px-3.5 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <input type="text" id="manual-name" placeholder="Name (Optional)" class="px-3.5 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <button type="submit" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold whitespace-nowrap shadow">Add</button>
+          </form>
+        </div>
+
+        <!-- Subscribers Table -->
+        <div class="rounded-2xl border border-slate-800 overflow-hidden bg-slate-900/50">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-900 text-slate-400 uppercase tracking-wider font-semibold border-b border-slate-800">
+              <tr>
+                <th class="px-6 py-3.5">Email Address</th>
+                <th class="px-6 py-3.5">Name</th>
+                <th class="px-6 py-3.5">Status</th>
+                <th class="px-6 py-3.5">Subscribed Date</th>
+                <th class="px-6 py-3.5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="subscribers-table-body" class="divide-y divide-slate-800/80 text-slate-300">
+              <!-- Loaded via AJAX -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: BROADCAST DELIVERY LOGS -->
+    <div id="tab-logs" class="hidden flex-1 p-6 overflow-y-auto bg-slate-950">
+      <div class="max-w-4xl mx-auto space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-bold text-white">System Delivery Event Log</h3>
+          <button onclick="refreshLogs()" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold">Refresh</button>
+        </div>
+        <div id="delivery-logs-container" class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 font-mono text-xs space-y-1.5 text-slate-300 h-96 overflow-y-auto">
+          <!-- Logs will load here -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL: SEND TEST EMAIL -->
+  <div id="test-email-modal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <h3 class="font-bold text-base text-white">Send Preview Test Email</h3>
+      <p class="text-xs text-slate-400">Receive a live test copy of this draft in your inbox before broadcasting to subscribers.</p>
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Your Email</label>
+        <input type="email" id="test-email-input" placeholder="you@domain.com" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeTestModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl">Cancel</button>
+        <button onclick="dispatchTestEmail()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold rounded-xl shadow">Send Preview</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

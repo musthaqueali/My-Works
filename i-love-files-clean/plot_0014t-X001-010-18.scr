@@ -1,0 +1,32 @@
+FILEDIA 0
+-LAYER
+T
+*
+ON
+*
+U
+*
+
+REGENALL
+ZOOM
+E
+-PLOT
+Yes
+Model
+AutoCAD PDF (High Quality Print).pc3
+ANSI full bleed B (17.00 x 11.00 Inches)
+Inches
+Landscape
+No
+Extents
+Fit
+Center
+Yes
+monochrome.ctb
+Yes
+Wireframe
+./0014t-X001-010-18.pdf
+No
+Yes
+QUIT
+Y

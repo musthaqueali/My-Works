@@ -1,0 +1,22 @@
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090d16;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Stream button active state */
+.stream-btn.active {
+  background-color: #1e1b4b;
+  color: #818cf8;
+  border: 1px solid #3730a3;
+}

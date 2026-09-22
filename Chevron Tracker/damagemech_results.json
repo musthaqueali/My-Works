@@ -1,0 +1,2677 @@
+{
+  "metadata": {
+    "filename": "temp_04.dwg",
+    "drawing_id": "temp_04",
+    "plant": "0014t",
+    "system": "X001",
+    "circuit": "010",
+    "sheet_num": "04",
+    "full_circuit": "0014t-X001-010",
+    "line_tag": "14-CRUDE-L001 PG. 2 OF 15",
+    "service": "Crude Oil / Hydrocarbon Process",
+    "operating_temp": 320.0,
+    "operating_press": 150.0,
+    "metallurgy": "Carbon Steel (A106-B)",
+    "insulation": "NO",
+    "pwht": "NO",
+    "components": [
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 2.23,
+        "y": 9.93,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 2.66,
+        "y": 9.68,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 3.1,
+        "y": 9.43,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 3.53,
+        "y": 9.18,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 3.96,
+        "y": 8.93,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 4.39,
+        "y": 8.68,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 5.17,
+        "y": 8.23,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 5.61,
+        "y": 7.98,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 2.79,
+        "y": 9.61,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 2.53,
+        "y": 9.76,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 3.66,
+        "y": 9.11,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 4.52,
+        "y": 8.61,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 5.3,
+        "y": 8.16,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 6.43,
+        "y": 7.51,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 6.86,
+        "y": 7.26,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 7.3,
+        "y": 7.01,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 7.73,
+        "y": 6.76,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 7.08,
+        "y": 7.13,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 7.51,
+        "y": 6.88,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 8.6,
+        "y": 6.26,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 9.03,
+        "y": 6.01,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 9.46,
+        "y": 5.76,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 9.89,
+        "y": 5.51,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 10.33,
+        "y": 5.26,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 8.81,
+        "y": 6.13,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 10.11,
+        "y": 5.38,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "3_VALVE_FLANGE_GATE_30",
+        "type": "VALVE",
+        "x": 10.76,
+        "y": 5.72,
+        "nps": "14\"",
+        "desc": "Flanged Gate Valve Body"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 10.76,
+        "y": 5.21,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 11.19,
+        "y": 4.76,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 11.63,
+        "y": 4.51,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 12.06,
+        "y": 4.26,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 12.49,
+        "y": 4.01,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 12.93,
+        "y": 3.76,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 13.36,
+        "y": 3.51,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 10.98,
+        "y": 4.88,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 11.84,
+        "y": 4.38,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 12.71,
+        "y": 3.88,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 13.14,
+        "y": 3.63,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 14.74,
+        "y": 2.88,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "3_VALVE_FLANGE_GATE_00",
+        "type": "VALVE",
+        "x": 14.63,
+        "y": 3.27,
+        "nps": "14\"",
+        "desc": "Flanged Gate Valve Body"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 14.34,
+        "y": 3.62,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "Bleeder 3",
+        "type": "DEADLEG",
+        "x": 14.04,
+        "y": 3.45,
+        "nps": "2\"",
+        "desc": "Stagnant Bleeder / Drain Branch Deadleg"
+      },
+      {
+        "name": "DL_Vert_330",
+        "type": "DEADLEG",
+        "x": 14.25,
+        "y": 3.65,
+        "nps": "2\"",
+        "desc": "Stagnant Bleeder / Drain Branch Deadleg"
+      },
+      {
+        "name": "4_SUPPORT_I-BEAM_30",
+        "type": "SUPPORT",
+        "x": 15.0,
+        "y": 2.56,
+        "nps": "20\"",
+        "desc": "Structural I-Beam Pipe Support Touchpoint"
+      },
+      {
+        "name": "2_ELBOW_WELD_30",
+        "type": "ELBOW",
+        "x": 12.52,
+        "y": 2.57,
+        "nps": "20\"",
+        "desc": "Butt-Weld Long Radius Elbow"
+      },
+      {
+        "name": "3_VALVE_FLANGE_GATE_30",
+        "type": "VALVE",
+        "x": 13.24,
+        "y": 2.99,
+        "nps": "14\"",
+        "desc": "Flanged Gate Valve Body"
+      },
+      {
+        "name": "DL_Vert_30",
+        "type": "DEADLEG",
+        "x": 11.0,
+        "y": 5.06,
+        "nps": "2\"",
+        "desc": "Stagnant Bleeder / Drain Branch Deadleg"
+      },
+      {
+        "name": "3_VALVE_FLANGE_GATE_30",
+        "type": "VALVE",
+        "x": 5.95,
+        "y": 8.53,
+        "nps": "14\"",
+        "desc": "Flanged Gate Valve Body"
+      },
+      {
+        "name": "3_VALVE_FLANGE_GATE_30",
+        "type": "VALVE",
+        "x": 9.46,
+        "y": 6.47,
+        "nps": "14\"",
+        "desc": "Flanged Gate Valve Body"
+      },
+      {
+        "name": "3_VALVE_FLANGE_GATE_30",
+        "type": "VALVE",
+        "x": 5.97,
+        "y": 6.33,
+        "nps": "14\"",
+        "desc": "Flanged Gate Valve Body"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 5.58,
+        "y": 5.9,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "3_VALVE_FLANGE_GATE_30",
+        "type": "VALVE",
+        "x": 5.97,
+        "y": 5.41,
+        "nps": "14\"",
+        "desc": "Flanged Gate Valve Body"
+      },
+      {
+        "name": "2_WELD_SINGLE_00",
+        "type": "WELD",
+        "x": 5.58,
+        "y": 5.39,
+        "nps": "20\"",
+        "desc": "Circumferential Butt Weld & HAZ"
+      },
+      {
+        "name": "2_BLIND_THREAD_PADDLE_30",
+        "type": "BLIND_FLANGE",
+        "x": 5.82,
+        "y": 5.33,
+        "nps": "14\"",
+        "desc": "Threaded / Paddle Blind Flange Cavity"
+      },
+      {
+        "name": "2_BLIND_THREAD_PADDLE_30",
+        "type": "BLIND_FLANGE",
+        "x": 5.34,
+        "y": 5.05,
+        "nps": "14\"",
+        "desc": "Threaded / Paddle Blind Flange Cavity"
+      },
+      {
+        "name": "2_BLIND_THREAD_PADDLE_30",
+        "type": "BLIND_FLANGE",
+        "x": 5.82,
+        "y": 6.24,
+        "nps": "14\"",
+        "desc": "Threaded / Paddle Blind Flange Cavity"
+      }
+    ],
+    "pcml_blocks": [
+      {
+        "name": "PART_PCML",
+        "x": 10.64,
+        "y": 5.36,
+        "dm": "85",
+        "dmdisp": "85A",
+        "type": "A"
+      },
+      {
+        "name": "PART_PCML",
+        "x": 13.9,
+        "y": 3.62,
+        "dm": "85",
+        "dmdisp": "85A",
+        "type": "A"
+      },
+      {
+        "name": "PART_PCML",
+        "x": 6.78,
+        "y": 6.94,
+        "dm": "85",
+        "dmdisp": "85A",
+        "type": "A"
+      },
+      {
+        "name": "PART_PCML",
+        "x": 5.54,
+        "y": 5.03,
+        "dm": "85",
+        "dmdisp": "85A",
+        "type": "A"
+      },
+      {
+        "name": "PART_PCML",
+        "x": 5.53,
+        "y": 4.86,
+        "dm": "51",
+        "dmdisp": "51A",
+        "type": "A"
+      }
+    ]
+  },
+  "screened_threats": [
+    {
+      "section": "API 571 Section 3.27",
+      "id": "3.27",
+      "name": "Erosion / Erosion-Corrosion",
+      "category": "Internal Thinning",
+      "susceptibility": "MEDIUM",
+      "sort_dm": "85A",
+      "key_driver": "Dynamic fluid flow in Crude Oil / Hydrocarbon Process service; turbulence and impingement velocity at directional turns.",
+      "failure_mode": "Localized wall thinning, scallop marks, horseshoe depressions, sudden rupture.",
+      "recommended_ndt": "Grid UT (Ultrasonic Thickness), Automated PAUT, Profile Radiography (RT).",
+      "where_to_inspect": "Fitting Extrados (Outer Curvature of Elbows), Branch Connection Crotches, and Reducer Necks.",
+      "applicable_components": [
+        "Elbow",
+        "Tee",
+        "Reducer",
+        "Control Valve Bypass",
+        "Downstream Orifice"
+      ]
+    },
+    {
+      "section": "API 571 Section 3.44",
+      "id": "3.44",
+      "name": "Deadleg & Stagnant Invert Corrosion",
+      "category": "Internal Under-Deposit / Thinning",
+      "susceptibility": "MEDIUM",
+      "sort_dm": "51A",
+      "key_driver": "Stagnant aqueous fluid / water dropout in dead ends, bleeders, and low points.",
+      "failure_mode": "Under-deposit pitting, bottom-of-line groove thinning, pinhole perforation.",
+      "recommended_ndt": "6 o'clock Spot UT, High-Density Scanning UT, Profile RT, Video Borescope.",
+      "where_to_inspect": "6 o'clock bottom invert of horizontal runs, drain pots, and bleeder deadleg sumps.",
+      "applicable_components": [
+        "Deadleg",
+        "Bleeder",
+        "Drain",
+        "Bypass Loop",
+        "Horizontal Pipe Run"
+      ]
+    },
+    {
+      "section": "API 571 Section 3.43",
+      "id": "3.43",
+      "name": "Mechanical Vibration Fatigue Cracking",
+      "category": "Mechanical Damage",
+      "susceptibility": "MEDIUM",
+      "sort_dm": "43A",
+      "key_driver": "Piping system pulsations and cyclic flow fluctuations acting on cantilever small-bore branches.",
+      "failure_mode": "Transgranular fatigue cleavage cracks at stress concentrations, high-energy snap rupture.",
+      "recommended_ndt": "Dye Penetrant (PT), Magnetic Particle (MT), Small-bore vibration monitoring and bracing inspection.",
+      "where_to_inspect": "Small Bore Piping connections (NPS <= 2 in), bleeder valve socket welds, and drain nipple attachments.",
+      "applicable_components": [
+        "Small Bore Branch (NPS <= 2 in)",
+        "Bleeder",
+        "Thermowell",
+        "Drain"
+      ]
+    }
+  ],
+  "mapped_components": [
+    {
+      "component_id": "COMP-001",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 2.23,
+      "coord_y": 9.93,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-02"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-002",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 2.66,
+      "coord_y": 9.68,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-03"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-003",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 3.1,
+      "coord_y": 9.43,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-04"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-004",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 3.53,
+      "coord_y": 9.18,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-05"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-005",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 3.96,
+      "coord_y": 8.93,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-06"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-006",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 4.39,
+      "coord_y": 8.68,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-07"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-007",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 5.17,
+      "coord_y": 8.23,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-08"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-008",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 5.61,
+      "coord_y": 7.98,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-09"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-009",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 2.79,
+      "coord_y": 9.61,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-10"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-010",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 2.53,
+      "coord_y": 9.76,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-11"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-011",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 3.66,
+      "coord_y": 9.11,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-12"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-012",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 4.52,
+      "coord_y": 8.61,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-13"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-013",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 5.3,
+      "coord_y": 8.16,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-14"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-014",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 6.43,
+      "coord_y": 7.51,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-15"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-015",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 6.86,
+      "coord_y": 7.26,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-16"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-016",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 7.3,
+      "coord_y": 7.01,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-17"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-017",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 7.73,
+      "coord_y": 6.76,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-18"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-018",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 7.08,
+      "coord_y": 7.13,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-19"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-019",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 7.51,
+      "coord_y": 6.88,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-20"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-020",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 8.6,
+      "coord_y": 6.26,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-21"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-021",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 9.03,
+      "coord_y": 6.01,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-22"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-022",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 9.46,
+      "coord_y": 5.76,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-23"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-023",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 9.89,
+      "coord_y": 5.51,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-24"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-024",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 10.33,
+      "coord_y": 5.26,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-25"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-025",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 8.81,
+      "coord_y": 6.13,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-26"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-026",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 10.11,
+      "coord_y": 5.38,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-27"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-027",
+      "component_name": "3_VALVE_FLANGE_GATE_30",
+      "component_type": "VALVE",
+      "desc": "Flanged Gate Valve Body",
+      "nps": "14\"",
+      "coord_x": 10.76,
+      "coord_y": 5.72,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Erosion / Erosion-Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Flow turbulence impingement and cavity wear",
+          "ndt": "Point UT on Body Belly & Downstream Flange",
+          "exact_location": "Valve Internal Throat & Downstream Spool Neck",
+          "cml_code": "CML-VLV-28"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-028",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 10.76,
+      "coord_y": 5.21,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-29"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-029",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 11.19,
+      "coord_y": 4.76,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-30"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-030",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 11.63,
+      "coord_y": 4.51,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-31"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-031",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 12.06,
+      "coord_y": 4.26,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-32"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-032",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 12.49,
+      "coord_y": 4.01,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-33"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-033",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 12.93,
+      "coord_y": 3.76,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-34"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-034",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 13.36,
+      "coord_y": 3.51,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-35"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-035",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 10.98,
+      "coord_y": 4.88,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-36"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-036",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 11.84,
+      "coord_y": 4.38,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-37"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-037",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 12.71,
+      "coord_y": 3.88,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-38"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-038",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 13.14,
+      "coord_y": 3.63,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-39"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-039",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 14.74,
+      "coord_y": 2.88,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-40"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-040",
+      "component_name": "3_VALVE_FLANGE_GATE_00",
+      "component_type": "VALVE",
+      "desc": "Flanged Gate Valve Body",
+      "nps": "14\"",
+      "coord_x": 14.63,
+      "coord_y": 3.27,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Erosion / Erosion-Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Flow turbulence impingement and cavity wear",
+          "ndt": "Point UT on Body Belly & Downstream Flange",
+          "exact_location": "Valve Internal Throat & Downstream Spool Neck",
+          "cml_code": "CML-VLV-41"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-041",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 14.34,
+      "coord_y": 3.62,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-42"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-042",
+      "component_name": "Bleeder 3",
+      "component_type": "DEADLEG",
+      "desc": "Stagnant Bleeder / Drain Branch Deadleg",
+      "nps": "2\"",
+      "coord_x": 14.04,
+      "coord_y": 3.45,
+      "threats": [
+        {
+          "dm_id": "3.44",
+          "dm_name": "Deadleg & Stagnant Invert Corrosion",
+          "sort_dm": "51A",
+          "susceptibility": "HIGH",
+          "failure_mode": "Stagnant under-deposit bottom corrosion & pinhole leak",
+          "ndt": "6 o'clock Spot UT + Profile RT",
+          "exact_location": "6 o'clock Invert of Stagnant Sump & Blind Cavity",
+          "cml_code": "CML-DL-43"
+        },
+        {
+          "dm_id": "3.43",
+          "dm_name": "Mechanical Vibration Fatigue Cracking",
+          "sort_dm": "43A",
+          "susceptibility": "HIGH",
+          "failure_mode": "Vibration fatigue at branch fillet weld",
+          "ndt": "Liquid Penetrant (PT) / Visual Vibration Survey",
+          "exact_location": "Branch-to-Header Welded Tee Crotch & Socket Root",
+          "cml_code": "CML-VIB-43"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-043",
+      "component_name": "DL_Vert_330",
+      "component_type": "DEADLEG",
+      "desc": "Stagnant Bleeder / Drain Branch Deadleg",
+      "nps": "2\"",
+      "coord_x": 14.25,
+      "coord_y": 3.65,
+      "threats": [
+        {
+          "dm_id": "3.44",
+          "dm_name": "Deadleg & Stagnant Invert Corrosion",
+          "sort_dm": "51A",
+          "susceptibility": "HIGH",
+          "failure_mode": "Stagnant under-deposit bottom corrosion & pinhole leak",
+          "ndt": "6 o'clock Spot UT + Profile RT",
+          "exact_location": "6 o'clock Invert of Stagnant Sump & Blind Cavity",
+          "cml_code": "CML-DL-44"
+        },
+        {
+          "dm_id": "3.43",
+          "dm_name": "Mechanical Vibration Fatigue Cracking",
+          "sort_dm": "43A",
+          "susceptibility": "HIGH",
+          "failure_mode": "Vibration fatigue at branch fillet weld",
+          "ndt": "Liquid Penetrant (PT) / Visual Vibration Survey",
+          "exact_location": "Branch-to-Header Welded Tee Crotch & Socket Root",
+          "cml_code": "CML-VIB-44"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-044",
+      "component_name": "4_SUPPORT_I-BEAM_30",
+      "component_type": "SUPPORT",
+      "desc": "Structural I-Beam Pipe Support Touchpoint",
+      "nps": "20\"",
+      "coord_x": 15.0,
+      "coord_y": 2.56,
+      "threats": [
+        {
+          "dm_id": "Atmospheric",
+          "dm_name": "Touchpoint Crevice Corrosion",
+          "sort_dm": "22A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Atmospheric water-trapping crevice corrosion",
+          "ndt": "EMAT / Profile RT / Lift-off Visual",
+          "exact_location": "Pipe resting surface on I-Beam flange (6 o'clock)",
+          "cml_code": "CML-SUP-45"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-045",
+      "component_name": "2_ELBOW_WELD_30",
+      "component_type": "ELBOW",
+      "desc": "Butt-Weld Long Radius Elbow",
+      "nps": "20\"",
+      "coord_x": 12.52,
+      "coord_y": 2.57,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Erosion / Erosion-Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Localized wall thinning, scallop marks, horseshoe depressions, sudden rupture.",
+          "ndt": "Grid UT (Radial 4-point on Extrados) / PAUT",
+          "exact_location": "Elbow Extrados (Outer Bend Curvature)",
+          "cml_code": "CML-ELB-46"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-046",
+      "component_name": "3_VALVE_FLANGE_GATE_30",
+      "component_type": "VALVE",
+      "desc": "Flanged Gate Valve Body",
+      "nps": "14\"",
+      "coord_x": 13.24,
+      "coord_y": 2.99,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Erosion / Erosion-Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Flow turbulence impingement and cavity wear",
+          "ndt": "Point UT on Body Belly & Downstream Flange",
+          "exact_location": "Valve Internal Throat & Downstream Spool Neck",
+          "cml_code": "CML-VLV-47"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-047",
+      "component_name": "DL_Vert_30",
+      "component_type": "DEADLEG",
+      "desc": "Stagnant Bleeder / Drain Branch Deadleg",
+      "nps": "2\"",
+      "coord_x": 11.0,
+      "coord_y": 5.06,
+      "threats": [
+        {
+          "dm_id": "3.44",
+          "dm_name": "Deadleg & Stagnant Invert Corrosion",
+          "sort_dm": "51A",
+          "susceptibility": "HIGH",
+          "failure_mode": "Stagnant under-deposit bottom corrosion & pinhole leak",
+          "ndt": "6 o'clock Spot UT + Profile RT",
+          "exact_location": "6 o'clock Invert of Stagnant Sump & Blind Cavity",
+          "cml_code": "CML-DL-48"
+        },
+        {
+          "dm_id": "3.43",
+          "dm_name": "Mechanical Vibration Fatigue Cracking",
+          "sort_dm": "43A",
+          "susceptibility": "HIGH",
+          "failure_mode": "Vibration fatigue at branch fillet weld",
+          "ndt": "Liquid Penetrant (PT) / Visual Vibration Survey",
+          "exact_location": "Branch-to-Header Welded Tee Crotch & Socket Root",
+          "cml_code": "CML-VIB-48"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-048",
+      "component_name": "3_VALVE_FLANGE_GATE_30",
+      "component_type": "VALVE",
+      "desc": "Flanged Gate Valve Body",
+      "nps": "14\"",
+      "coord_x": 5.95,
+      "coord_y": 8.53,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Erosion / Erosion-Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Flow turbulence impingement and cavity wear",
+          "ndt": "Point UT on Body Belly & Downstream Flange",
+          "exact_location": "Valve Internal Throat & Downstream Spool Neck",
+          "cml_code": "CML-VLV-49"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-049",
+      "component_name": "3_VALVE_FLANGE_GATE_30",
+      "component_type": "VALVE",
+      "desc": "Flanged Gate Valve Body",
+      "nps": "14\"",
+      "coord_x": 9.46,
+      "coord_y": 6.47,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Erosion / Erosion-Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Flow turbulence impingement and cavity wear",
+          "ndt": "Point UT on Body Belly & Downstream Flange",
+          "exact_location": "Valve Internal Throat & Downstream Spool Neck",
+          "cml_code": "CML-VLV-50"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-050",
+      "component_name": "3_VALVE_FLANGE_GATE_30",
+      "component_type": "VALVE",
+      "desc": "Flanged Gate Valve Body",
+      "nps": "14\"",
+      "coord_x": 5.97,
+      "coord_y": 6.33,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Erosion / Erosion-Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Flow turbulence impingement and cavity wear",
+          "ndt": "Point UT on Body Belly & Downstream Flange",
+          "exact_location": "Valve Internal Throat & Downstream Spool Neck",
+          "cml_code": "CML-VLV-51"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-051",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 5.58,
+      "coord_y": 5.9,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-52"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-052",
+      "component_name": "3_VALVE_FLANGE_GATE_30",
+      "component_type": "VALVE",
+      "desc": "Flanged Gate Valve Body",
+      "nps": "14\"",
+      "coord_x": 5.97,
+      "coord_y": 5.41,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Erosion / Erosion-Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Flow turbulence impingement and cavity wear",
+          "ndt": "Point UT on Body Belly & Downstream Flange",
+          "exact_location": "Valve Internal Throat & Downstream Spool Neck",
+          "cml_code": "CML-VLV-53"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-053",
+      "component_name": "2_WELD_SINGLE_00",
+      "component_type": "WELD",
+      "desc": "Circumferential Butt Weld & HAZ",
+      "nps": "20\"",
+      "coord_x": 5.58,
+      "coord_y": 5.39,
+      "threats": [
+        {
+          "dm_id": "3.27",
+          "dm_name": "Localized Weld Erosion / Step Corrosion",
+          "sort_dm": "85A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Internal root groove thinning",
+          "ndt": "Angle Beam PAUT / Profile RT",
+          "exact_location": "Internal Weld Root & Downstream Toe",
+          "cml_code": "CML-WLD-54"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-054",
+      "component_name": "2_BLIND_THREAD_PADDLE_30",
+      "component_type": "BLIND_FLANGE",
+      "desc": "Threaded / Paddle Blind Flange Cavity",
+      "nps": "14\"",
+      "coord_x": 5.82,
+      "coord_y": 5.33,
+      "threats": [
+        {
+          "dm_id": "3.44",
+          "dm_name": "Deadleg & Stagnant Invert Corrosion",
+          "sort_dm": "51A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Under-deposit pitting, bottom-of-line groove thinning, pinhole perforation.",
+          "ndt": "6 o'clock Spot UT",
+          "exact_location": "Pipe Bottom Invert (6 o'clock position)",
+          "cml_code": "CML-SPL-55"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-055",
+      "component_name": "2_BLIND_THREAD_PADDLE_30",
+      "component_type": "BLIND_FLANGE",
+      "desc": "Threaded / Paddle Blind Flange Cavity",
+      "nps": "14\"",
+      "coord_x": 5.34,
+      "coord_y": 5.05,
+      "threats": [
+        {
+          "dm_id": "3.44",
+          "dm_name": "Deadleg & Stagnant Invert Corrosion",
+          "sort_dm": "51A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Under-deposit pitting, bottom-of-line groove thinning, pinhole perforation.",
+          "ndt": "6 o'clock Spot UT",
+          "exact_location": "Pipe Bottom Invert (6 o'clock position)",
+          "cml_code": "CML-SPL-56"
+        }
+      ]
+    },
+    {
+      "component_id": "COMP-056",
+      "component_name": "2_BLIND_THREAD_PADDLE_30",
+      "component_type": "BLIND_FLANGE",
+      "desc": "Threaded / Paddle Blind Flange Cavity",
+      "nps": "14\"",
+      "coord_x": 5.82,
+      "coord_y": 6.24,
+      "threats": [
+        {
+          "dm_id": "3.44",
+          "dm_name": "Deadleg & Stagnant Invert Corrosion",
+          "sort_dm": "51A",
+          "susceptibility": "MEDIUM",
+          "failure_mode": "Under-deposit pitting, bottom-of-line groove thinning, pinhole perforation.",
+          "ndt": "6 o'clock Spot UT",
+          "exact_location": "Pipe Bottom Invert (6 o'clock position)",
+          "cml_code": "CML-SPL-57"
+        }
+      ]
+    }
+  ],
+  "cml_points": [
+    {
+      "cml_id": "CML-01",
+      "source": "DWG Native Callout",
+      "component_id": "COMP-001",
+      "sort_dm": "85A",
+      "dm_name": "Erosion-Corrosion / Impingement",
+      "location_desc": "Drawing Callout Point (85A)",
+      "exact_where": "Coordinate (10.64, 5.36)",
+      "x": 10.64,
+      "y": 5.36,
+      "nps": "20\"",
+      "ndt_method": "Grid UT (Radial 4-Point)",
+      "susceptibility": "HIGH"
+    },
+    {
+      "cml_id": "CML-02",
+      "source": "DWG Native Callout",
+      "component_id": "COMP-001",
+      "sort_dm": "85A",
+      "dm_name": "Erosion-Corrosion / Impingement",
+      "location_desc": "Drawing Callout Point (85A)",
+      "exact_where": "Coordinate (13.9, 3.62)",
+      "x": 13.9,
+      "y": 3.62,
+      "nps": "20\"",
+      "ndt_method": "Grid UT (Radial 4-Point)",
+      "susceptibility": "HIGH"
+    },
+    {
+      "cml_id": "CML-03",
+      "source": "DWG Native Callout",
+      "component_id": "COMP-001",
+      "sort_dm": "85A",
+      "dm_name": "Erosion-Corrosion / Impingement",
+      "location_desc": "Drawing Callout Point (85A)",
+      "exact_where": "Coordinate (6.78, 6.94)",
+      "x": 6.78,
+      "y": 6.94,
+      "nps": "20\"",
+      "ndt_method": "Grid UT (Radial 4-Point)",
+      "susceptibility": "HIGH"
+    },
+    {
+      "cml_id": "CML-04",
+      "source": "DWG Native Callout",
+      "component_id": "COMP-001",
+      "sort_dm": "85A",
+      "dm_name": "Erosion-Corrosion / Impingement",
+      "location_desc": "Drawing Callout Point (85A)",
+      "exact_where": "Coordinate (5.54, 5.03)",
+      "x": 5.54,
+      "y": 5.03,
+      "nps": "20\"",
+      "ndt_method": "Grid UT (Radial 4-Point)",
+      "susceptibility": "HIGH"
+    },
+    {
+      "cml_id": "CML-05",
+      "source": "DWG Native Callout",
+      "component_id": "COMP-001",
+      "sort_dm": "51A",
+      "dm_name": "Deadleg / Invert Thinning",
+      "location_desc": "Drawing Callout Point (51A)",
+      "exact_where": "Coordinate (5.53, 4.86)",
+      "x": 5.53,
+      "y": 4.86,
+      "nps": "20\"",
+      "ndt_method": "Spot UT (6 o'clock Invert)",
+      "susceptibility": "HIGH"
+    },
+    {
+      "cml_id": "CML-06",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-001",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (2.23, 9.93)",
+      "x": 2.23,
+      "y": 9.93,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-07",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-002",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (2.66, 9.68)",
+      "x": 2.66,
+      "y": 9.68,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-08",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-003",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (3.1, 9.43)",
+      "x": 3.1,
+      "y": 9.43,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-09",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-004",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (3.53, 9.18)",
+      "x": 3.53,
+      "y": 9.18,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-10",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-005",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (3.96, 8.93)",
+      "x": 3.96,
+      "y": 8.93,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-11",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-006",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (4.39, 8.68)",
+      "x": 4.39,
+      "y": 8.68,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-12",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-007",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (5.17, 8.23)",
+      "x": 5.17,
+      "y": 8.23,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-13",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-008",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (5.61, 7.98)",
+      "x": 5.61,
+      "y": 7.98,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-14",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-009",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (2.79, 9.61)",
+      "x": 2.79,
+      "y": 9.61,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-15",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-010",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (2.53, 9.76)",
+      "x": 2.53,
+      "y": 9.76,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-16",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-011",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (3.66, 9.11)",
+      "x": 3.66,
+      "y": 9.11,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-17",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-012",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (4.52, 8.61)",
+      "x": 4.52,
+      "y": 8.61,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-18",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-013",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (5.3, 8.16)",
+      "x": 5.3,
+      "y": 8.16,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-19",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-014",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (6.43, 7.51)",
+      "x": 6.43,
+      "y": 7.51,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-20",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-015",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (6.86, 7.26)",
+      "x": 6.86,
+      "y": 7.26,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-21",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-016",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (7.3, 7.01)",
+      "x": 7.3,
+      "y": 7.01,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-22",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-017",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (7.73, 6.76)",
+      "x": 7.73,
+      "y": 6.76,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-23",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-018",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (7.08, 7.13)",
+      "x": 7.08,
+      "y": 7.13,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-24",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-019",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (7.51, 6.88)",
+      "x": 7.51,
+      "y": 6.88,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-25",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-020",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (8.6, 6.26)",
+      "x": 8.6,
+      "y": 6.26,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-26",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-021",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (9.03, 6.01)",
+      "x": 9.03,
+      "y": 6.01,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-27",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-022",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (9.46, 5.76)",
+      "x": 9.46,
+      "y": 5.76,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-28",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-023",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (9.89, 5.51)",
+      "x": 9.89,
+      "y": 5.51,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-29",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-024",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (10.33, 5.26)",
+      "x": 10.33,
+      "y": 5.26,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-30",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-025",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (8.81, 6.13)",
+      "x": 8.81,
+      "y": 6.13,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-31",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-026",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (10.11, 5.38)",
+      "x": 10.11,
+      "y": 5.38,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-32",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-027",
+      "sort_dm": "85A",
+      "dm_name": "Erosion / Erosion-Corrosion",
+      "location_desc": "VALVE - Valve Internal Throat & Downstream Spool Neck",
+      "exact_where": "Flanged Gate Valve Body at (10.76, 5.72)",
+      "x": 10.76,
+      "y": 5.72,
+      "nps": "14\"",
+      "ndt_method": "Point UT on Body Belly & Downstream Flange",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-33",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-028",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (10.76, 5.21)",
+      "x": 10.76,
+      "y": 5.21,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-34",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-029",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (11.19, 4.76)",
+      "x": 11.19,
+      "y": 4.76,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-35",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-030",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (11.63, 4.51)",
+      "x": 11.63,
+      "y": 4.51,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-36",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-031",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (12.06, 4.26)",
+      "x": 12.06,
+      "y": 4.26,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-37",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-032",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (12.49, 4.01)",
+      "x": 12.49,
+      "y": 4.01,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-38",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-033",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (12.93, 3.76)",
+      "x": 12.93,
+      "y": 3.76,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-39",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-034",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (13.36, 3.51)",
+      "x": 13.36,
+      "y": 3.51,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-40",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-035",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (10.98, 4.88)",
+      "x": 10.98,
+      "y": 4.88,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-41",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-036",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (11.84, 4.38)",
+      "x": 11.84,
+      "y": 4.38,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-42",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-037",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (12.71, 3.88)",
+      "x": 12.71,
+      "y": 3.88,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-43",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-038",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (13.14, 3.63)",
+      "x": 13.14,
+      "y": 3.63,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-44",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-039",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (14.74, 2.88)",
+      "x": 14.74,
+      "y": 2.88,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-45",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-040",
+      "sort_dm": "85A",
+      "dm_name": "Erosion / Erosion-Corrosion",
+      "location_desc": "VALVE - Valve Internal Throat & Downstream Spool Neck",
+      "exact_where": "Flanged Gate Valve Body at (14.63, 3.27)",
+      "x": 14.63,
+      "y": 3.27,
+      "nps": "14\"",
+      "ndt_method": "Point UT on Body Belly & Downstream Flange",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-46",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-041",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (14.34, 3.62)",
+      "x": 14.34,
+      "y": 3.62,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-47",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-042",
+      "sort_dm": "51A",
+      "dm_name": "Deadleg & Stagnant Invert Corrosion",
+      "location_desc": "DEADLEG - 6 o'clock Invert of Stagnant Sump & Blind Cavity",
+      "exact_where": "Stagnant Bleeder / Drain Branch Deadleg at (14.04, 3.45)",
+      "x": 14.04,
+      "y": 3.45,
+      "nps": "2\"",
+      "ndt_method": "6 o'clock Spot UT + Profile RT",
+      "susceptibility": "HIGH"
+    },
+    {
+      "cml_id": "CML-48",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-042",
+      "sort_dm": "43A",
+      "dm_name": "Mechanical Vibration Fatigue Cracking",
+      "location_desc": "DEADLEG - Branch-to-Header Welded Tee Crotch & Socket Root",
+      "exact_where": "Stagnant Bleeder / Drain Branch Deadleg at (14.04, 3.45)",
+      "x": 14.04,
+      "y": 3.45,
+      "nps": "2\"",
+      "ndt_method": "Liquid Penetrant (PT) / Visual Vibration Survey",
+      "susceptibility": "HIGH"
+    },
+    {
+      "cml_id": "CML-49",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-043",
+      "sort_dm": "51A",
+      "dm_name": "Deadleg & Stagnant Invert Corrosion",
+      "location_desc": "DEADLEG - 6 o'clock Invert of Stagnant Sump & Blind Cavity",
+      "exact_where": "Stagnant Bleeder / Drain Branch Deadleg at (14.25, 3.65)",
+      "x": 14.25,
+      "y": 3.65,
+      "nps": "2\"",
+      "ndt_method": "6 o'clock Spot UT + Profile RT",
+      "susceptibility": "HIGH"
+    },
+    {
+      "cml_id": "CML-50",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-043",
+      "sort_dm": "43A",
+      "dm_name": "Mechanical Vibration Fatigue Cracking",
+      "location_desc": "DEADLEG - Branch-to-Header Welded Tee Crotch & Socket Root",
+      "exact_where": "Stagnant Bleeder / Drain Branch Deadleg at (14.25, 3.65)",
+      "x": 14.25,
+      "y": 3.65,
+      "nps": "2\"",
+      "ndt_method": "Liquid Penetrant (PT) / Visual Vibration Survey",
+      "susceptibility": "HIGH"
+    },
+    {
+      "cml_id": "CML-51",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-044",
+      "sort_dm": "22A",
+      "dm_name": "Touchpoint Crevice Corrosion",
+      "location_desc": "SUPPORT - Pipe resting surface on I-Beam flange (6 o'clock)",
+      "exact_where": "Structural I-Beam Pipe Support Touchpoint at (15.0, 2.56)",
+      "x": 15.0,
+      "y": 2.56,
+      "nps": "20\"",
+      "ndt_method": "EMAT / Profile RT / Lift-off Visual",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-52",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-045",
+      "sort_dm": "85A",
+      "dm_name": "Erosion / Erosion-Corrosion",
+      "location_desc": "ELBOW - Elbow Extrados (Outer Bend Curvature)",
+      "exact_where": "Butt-Weld Long Radius Elbow at (12.52, 2.57)",
+      "x": 12.52,
+      "y": 2.57,
+      "nps": "20\"",
+      "ndt_method": "Grid UT (Radial 4-point on Extrados) / PAUT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-53",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-046",
+      "sort_dm": "85A",
+      "dm_name": "Erosion / Erosion-Corrosion",
+      "location_desc": "VALVE - Valve Internal Throat & Downstream Spool Neck",
+      "exact_where": "Flanged Gate Valve Body at (13.24, 2.99)",
+      "x": 13.24,
+      "y": 2.99,
+      "nps": "14\"",
+      "ndt_method": "Point UT on Body Belly & Downstream Flange",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-54",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-047",
+      "sort_dm": "51A",
+      "dm_name": "Deadleg & Stagnant Invert Corrosion",
+      "location_desc": "DEADLEG - 6 o'clock Invert of Stagnant Sump & Blind Cavity",
+      "exact_where": "Stagnant Bleeder / Drain Branch Deadleg at (11.0, 5.06)",
+      "x": 11.0,
+      "y": 5.06,
+      "nps": "2\"",
+      "ndt_method": "6 o'clock Spot UT + Profile RT",
+      "susceptibility": "HIGH"
+    },
+    {
+      "cml_id": "CML-55",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-047",
+      "sort_dm": "43A",
+      "dm_name": "Mechanical Vibration Fatigue Cracking",
+      "location_desc": "DEADLEG - Branch-to-Header Welded Tee Crotch & Socket Root",
+      "exact_where": "Stagnant Bleeder / Drain Branch Deadleg at (11.0, 5.06)",
+      "x": 11.0,
+      "y": 5.06,
+      "nps": "2\"",
+      "ndt_method": "Liquid Penetrant (PT) / Visual Vibration Survey",
+      "susceptibility": "HIGH"
+    },
+    {
+      "cml_id": "CML-56",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-048",
+      "sort_dm": "85A",
+      "dm_name": "Erosion / Erosion-Corrosion",
+      "location_desc": "VALVE - Valve Internal Throat & Downstream Spool Neck",
+      "exact_where": "Flanged Gate Valve Body at (5.95, 8.53)",
+      "x": 5.95,
+      "y": 8.53,
+      "nps": "14\"",
+      "ndt_method": "Point UT on Body Belly & Downstream Flange",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-57",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-049",
+      "sort_dm": "85A",
+      "dm_name": "Erosion / Erosion-Corrosion",
+      "location_desc": "VALVE - Valve Internal Throat & Downstream Spool Neck",
+      "exact_where": "Flanged Gate Valve Body at (9.46, 6.47)",
+      "x": 9.46,
+      "y": 6.47,
+      "nps": "14\"",
+      "ndt_method": "Point UT on Body Belly & Downstream Flange",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-58",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-050",
+      "sort_dm": "85A",
+      "dm_name": "Erosion / Erosion-Corrosion",
+      "location_desc": "VALVE - Valve Internal Throat & Downstream Spool Neck",
+      "exact_where": "Flanged Gate Valve Body at (5.97, 6.33)",
+      "x": 5.97,
+      "y": 6.33,
+      "nps": "14\"",
+      "ndt_method": "Point UT on Body Belly & Downstream Flange",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-59",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-051",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (5.58, 5.9)",
+      "x": 5.58,
+      "y": 5.9,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-60",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-052",
+      "sort_dm": "85A",
+      "dm_name": "Erosion / Erosion-Corrosion",
+      "location_desc": "VALVE - Valve Internal Throat & Downstream Spool Neck",
+      "exact_where": "Flanged Gate Valve Body at (5.97, 5.41)",
+      "x": 5.97,
+      "y": 5.41,
+      "nps": "14\"",
+      "ndt_method": "Point UT on Body Belly & Downstream Flange",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-61",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-053",
+      "sort_dm": "85A",
+      "dm_name": "Localized Weld Erosion / Step Corrosion",
+      "location_desc": "WELD - Internal Weld Root & Downstream Toe",
+      "exact_where": "Circumferential Butt Weld & HAZ at (5.58, 5.39)",
+      "x": 5.58,
+      "y": 5.39,
+      "nps": "20\"",
+      "ndt_method": "Angle Beam PAUT / Profile RT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-62",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-054",
+      "sort_dm": "51A",
+      "dm_name": "Deadleg & Stagnant Invert Corrosion",
+      "location_desc": "BLIND_FLANGE - Pipe Bottom Invert (6 o'clock position)",
+      "exact_where": "Threaded / Paddle Blind Flange Cavity at (5.82, 5.33)",
+      "x": 5.82,
+      "y": 5.33,
+      "nps": "14\"",
+      "ndt_method": "6 o'clock Spot UT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-63",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-055",
+      "sort_dm": "51A",
+      "dm_name": "Deadleg & Stagnant Invert Corrosion",
+      "location_desc": "BLIND_FLANGE - Pipe Bottom Invert (6 o'clock position)",
+      "exact_where": "Threaded / Paddle Blind Flange Cavity at (5.34, 5.05)",
+      "x": 5.34,
+      "y": 5.05,
+      "nps": "14\"",
+      "ndt_method": "6 o'clock Spot UT",
+      "susceptibility": "MEDIUM"
+    },
+    {
+      "cml_id": "CML-64",
+      "source": "DamageMech AI Location Engine",
+      "component_id": "COMP-056",
+      "sort_dm": "51A",
+      "dm_name": "Deadleg & Stagnant Invert Corrosion",
+      "location_desc": "BLIND_FLANGE - Pipe Bottom Invert (6 o'clock position)",
+      "exact_where": "Threaded / Paddle Blind Flange Cavity at (5.82, 6.24)",
+      "x": 5.82,
+      "y": 6.24,
+      "nps": "14\"",
+      "ndt_method": "6 o'clock Spot UT",
+      "susceptibility": "MEDIUM"
+    }
+  ],
+  "total_components": 56,
+  "total_threats": 3,
+  "total_cmls": 64
+}

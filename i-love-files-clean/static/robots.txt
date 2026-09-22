@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ilovefiles.southindia.cloudapp.azure.com/sitemap.xml

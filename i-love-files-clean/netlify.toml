@@ -1,0 +1,22 @@
+[build]
+  publish = static
+
+# Proxy backend API requests directly to your Azure Windows Cloud Server
+[[redirects]]
+  from = "/api/*"
+  to = "http://ilovefiles.southindia.cloudapp.azure.com/api/:splat"
+  status = 200
+  force = true
+
+# Rewrite /static/* to root so all asset links work seamlessly on Netlify
+[[redirects]]
+  from = /static/*
+  to = /:splat
+  status = 200
+
+[[headers]]
+  for = /*
+  [headers.values]
+    X-Frame-Options = DENY
+    X-Content-Type-Options = nosniff
+    Referrer-Policy = strict-origin-when-cross-origin

@@ -1,0 +1,708 @@
+/* ==========================================================================
+   MIRANDA DESIGN SYSTEM — COMPONENTS & INTERACTIVE WIDGETS
+   ========================================================================== */
+
+/* ==========================================================================
+   1. BUTTONS & INTERACTIVE BADGES
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  padding: 0.65rem 1.25rem;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid var(--border-ink);
+  background-color: var(--bg-parchment);
+  color: var(--text-ink);
+  box-shadow: var(--shadow-press);
+  transition: all var(--transition-fast);
+  border-radius: 0px;
+  min-height: 42px;
+}
+
+.btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-press-lg);
+  background-color: var(--bg-bone-light);
+}
+
+.btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px var(--border-ink);
+}
+
+.btn-primary {
+  background-color: var(--text-ink);
+  color: var(--bg-parchment);
+}
+
+.btn-primary:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.btn-ember {
+  background-color: var(--accent-ember);
+  color: #ffffff;
+  border-color: var(--accent-ember-hover);
+  box-shadow: 2px 2px 0px #792509;
+}
+
+.btn-ember:hover {
+  background-color: var(--accent-ember-hover);
+  box-shadow: 4px 4px 0px #792509;
+  color: #ffffff;
+}
+
+.btn-whatsapp {
+  background-color: #128c7e;
+  color: #ffffff;
+  border-color: #075e54;
+  box-shadow: 2px 2px 0px #075e54;
+}
+
+.btn-whatsapp:hover {
+  background-color: #075e54;
+  color: #ffffff;
+  box-shadow: 4px 4px 0px #043832;
+}
+
+.btn-sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.72rem;
+  min-height: 32px;
+}
+
+/* ==========================================================================
+   2. SPECIAL REPORTS — PROJECTS GRID & CARDS
+   ========================================================================== */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-gap);
+  margin-bottom: 2.5rem;
+}
+
+.project-card {
+  border: 1px solid var(--border-ink);
+  background-color: var(--bg-parchment);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: background-color var(--transition-smooth), transform var(--transition-fast);
+}
+
+.project-card:hover {
+  background-color: var(--bg-bone-subtle);
+}
+
+/* Card sizing spans */
+.project-card-featured {
+  grid-column: span 12;
+}
+
+.project-card-secondary {
+  grid-column: span 6;
+}
+
+.project-card-half {
+  grid-column: span 6;
+}
+
+.project-card-full {
+  grid-column: span 12;
+}
+
+.card-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 1rem;
+  background-color: var(--bg-bone);
+  border-bottom: 1px solid var(--border-ink);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-charcoal);
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.card-body {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.project-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-ember);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: 0.35rem;
+}
+
+.project-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  color: var(--text-ink);
+  margin-bottom: 0.65rem;
+}
+
+.project-desc {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  color: var(--text-charcoal);
+  line-height: 1.55;
+  margin-bottom: 1.15rem;
+}
+
+.project-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--border-light);
+}
+
+.tech-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  background-color: var(--bg-bone);
+  border: 1px solid var(--border-light);
+  color: var(--text-ink);
+}
+
+.card-kpis-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.5rem;
+  margin: 0.85rem 0;
+  padding: 0.75rem;
+  background-color: var(--bg-bone);
+  border: 1px solid var(--border-light);
+}
+
+.kpi-chip-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.kpi-chip-val {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text-ink);
+}
+
+.card-action-footer {
+  padding: 0.75rem 1.5rem;
+  border-top: 1px solid var(--border-ink);
+  background-color: var(--bg-bone-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ==========================================================================
+   3. CAREER DISPATCHES (Experience Timeline)
+   ========================================================================== */
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 1.25rem 0 2.5rem 0;
+}
+
+.experience-entry {
+  border: 1px solid var(--border-ink);
+  background-color: var(--bg-parchment);
+  padding: 1.35rem 1.75rem;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 1.75rem;
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.experience-entry.current-role {
+  border: 2px solid var(--border-ink);
+  background-color: var(--bg-bone-subtle);
+  box-shadow: var(--shadow-press);
+}
+
+.experience-entry:hover {
+  background-color: var(--bg-bone-subtle);
+  border-left: 6px solid var(--accent-ember);
+}
+
+.exp-meta {
+  border-right: 1px solid var(--border-light);
+  padding-right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.exp-date {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-ember);
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.exp-company {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: var(--text-ink);
+  margin-bottom: 0.25rem;
+}
+
+.exp-location {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.exp-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.exp-role-title {
+  font-family: var(--font-serif-hero);
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--text-black);
+  margin-bottom: 0.65rem;
+}
+
+.exp-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.exp-bullets li {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  color: var(--text-charcoal);
+  position: relative;
+  padding-left: 1.2rem;
+  line-height: 1.5;
+}
+
+.exp-bullets li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  font-size: 0.75rem;
+  color: var(--accent-ember);
+}
+
+/* ==========================================================================
+   4. CLASSIFIEDS & TECHNICAL INDEX (Skills)
+   ========================================================================== */
+.skills-classifieds {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.15rem;
+  margin: 1.25rem 0 2.5rem 0;
+}
+
+.classified-box {
+  border: 1px solid var(--border-ink);
+  background-color: var(--bg-bone);
+  padding: 1.15rem;
+  position: relative;
+}
+
+.classified-category {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--accent-ember);
+  border-bottom: 2px solid var(--border-ink);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.classified-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.skill-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  gap: 0.5rem;
+}
+
+.skill-name {
+  font-weight: 600;
+  color: var(--text-ink);
+}
+
+.skill-badge {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.45rem;
+  background-color: var(--bg-parchment);
+  border: 1px solid var(--border-light);
+  color: var(--text-charcoal);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   5. EDUCATION & ATHLETICS GAZETTE
+   ========================================================================== */
+.gazette-dual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--grid-gap);
+  margin: 1.25rem 0 2.5rem 0;
+}
+
+.gazette-card {
+  border: 1px solid var(--border-ink);
+  background-color: var(--bg-parchment);
+  padding: 1.5rem;
+}
+
+.gazette-card-header {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  font-weight: 800;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--text-ink);
+  border-bottom: var(--border-rule);
+  padding-bottom: 0.65rem;
+  margin-bottom: 1.15rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gazette-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  margin: 0;
+  padding: 0;
+}
+
+.gazette-item-title {
+  font-family: var(--font-serif-hero);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-black);
+}
+
+.gazette-item-sub {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-ember);
+  margin: 0.2rem 0;
+}
+
+.gazette-item-desc {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: var(--text-charcoal);
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   6. DISPATCH DESK & CONTACT TELEGRAM
+   ========================================================================== */
+.dispatch-desk {
+  background-color: var(--inverted-bg);
+  color: var(--inverted-text);
+  padding: 2.5rem var(--container-padding);
+  margin-top: var(--section-gap);
+  border-top: 4px solid var(--accent-ember);
+}
+
+.desk-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 2.5rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.desk-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 0.85rem;
+}
+
+.desk-lead {
+  font-family: var(--font-serif-editorial);
+  font-size: 1.05rem;
+  color: var(--inverted-muted);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.contact-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.contact-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1.15rem;
+  background-color: #262624;
+  border: 1px solid var(--inverted-border);
+  text-decoration: none;
+  color: var(--inverted-text);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  transition: all var(--transition-fast);
+}
+
+.contact-pill:hover {
+  background-color: #333330;
+  border-color: var(--accent-ember);
+  color: #ffffff;
+}
+
+.contact-pill.whatsapp-pill {
+  background-color: #0b2b24;
+  border-color: #128c7e;
+}
+.contact-pill.whatsapp-pill:hover {
+  background-color: #128c7e;
+  color: #ffffff;
+}
+
+.form-group {
+  margin-bottom: 0.85rem;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--inverted-muted);
+  margin-bottom: 0.35rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  background-color: #121211;
+  border: 1px solid var(--inverted-border);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  transition: border-color var(--transition-fast);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent-ember);
+}
+
+/* ==========================================================================
+   7. INTERACTIVE MODAL (Project Drill-down)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(29, 29, 27, 0.8);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-smooth);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-container {
+  background-color: var(--bg-parchment);
+  border: 2px solid var(--border-ink);
+  max-width: 850px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.85);
+  position: relative;
+  transform: translateY(20px);
+  transition: transform var(--transition-bounce);
+}
+
+.modal-overlay.active .modal-container {
+  transform: translateY(0);
+}
+
+.modal-header {
+  background-color: var(--bg-bone);
+  border-bottom: 1px solid var(--border-ink);
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.modal-close-btn {
+  background: none;
+  border: 1px solid var(--border-ink);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  transition: background-color var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+  background-color: var(--accent-ember);
+  color: #ffffff;
+}
+
+.modal-content {
+  padding: 1.5rem;
+}
+
+/* Toast Notifications */
+.toast-notice {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background-color: var(--text-ink);
+  color: var(--bg-parchment);
+  border: 1px solid var(--accent-ember);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 0.65rem 1.25rem;
+  box-shadow: var(--shadow-press-ember);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all var(--transition-bounce);
+  max-width: 90vw;
+}
+
+.toast-notice.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS RULES FOR COMPONENTS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .project-card-secondary,
+  .project-card-half {
+    grid-column: span 12;
+  }
+  .desk-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .experience-entry {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .exp-meta {
+    border-right: none;
+    border-bottom: 1px dashed var(--border-light);
+    padding-right: 0;
+    padding-bottom: 0.75rem;
+  }
+  .gazette-dual-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-action-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .card-action-footer .btn {
+    width: 100%;
+  }
+  .card-body {
+    padding: 1rem;
+  }
+  .modal-content {
+    padding: 1rem;
+  }
+}

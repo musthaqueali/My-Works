@@ -1,0 +1,561 @@
+/* ==========================================================================
+   MIRANDA DESIGN SYSTEM — BROADSHEET EDITORIAL LAYOUT & MASTHEAD
+   ========================================================================== */
+
+/* Outer Layout Container */
+.broadsheet-wrapper {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   1. TOP DISPATCH & MASTHEAD (The Newspaper Header)
+   ========================================================================== */
+.broadsheet-top-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0.75rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  border-bottom: 1px solid var(--border-ink);
+  color: var(--text-charcoal);
+}
+
+.top-strip-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #16a34a;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.25);
+  animation: pulse-dot 2s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* Broadsheet Masthead */
+.masthead {
+  text-align: center;
+  padding: 1.25rem 0 0.75rem 0;
+  position: relative;
+}
+
+.masthead-meta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  padding-bottom: 0.6rem;
+  color: var(--text-charcoal);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.masthead-title-link {
+  text-decoration: none;
+  color: var(--text-ink);
+  display: block;
+}
+
+.masthead-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 12vw, 8.5rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: var(--tracking-tightest);
+  text-transform: uppercase;
+  margin: 0.75rem 0 0.5rem 0;
+  color: var(--text-ink);
+  transform-origin: center;
+  transition: transform var(--transition-fast);
+  word-break: break-word;
+}
+
+.masthead-title:hover {
+  color: var(--text-black);
+}
+
+.masthead-subline {
+  font-family: var(--font-serif-hero);
+  font-size: clamp(0.95rem, 2vw, 1.45rem);
+  font-style: italic;
+  letter-spacing: var(--tracking-normal);
+  color: var(--text-charcoal);
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+}
+
+/* Double rule below masthead */
+.masthead-rule-double {
+  border-top: var(--border-double);
+  margin: 0.75rem 0;
+}
+
+/* Navigation Bar inside broadsheet header */
+.broadsheet-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border-ink);
+  border-top: 1px solid var(--border-ink);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 2rem);
+  list-style: none;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-ink);
+  text-decoration: none;
+  position: relative;
+  padding: 0.25rem 0;
+  transition: color var(--transition-fast);
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-ember);
+  transition: width var(--transition-fast);
+}
+
+.nav-links a:hover {
+  color: var(--accent-ember);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   2. BREAKING NEWS MARQUEE TICKER
+   ========================================================================== */
+.ticker-container {
+  background-color: var(--inverted-bg);
+  color: var(--inverted-text);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0.55rem 0;
+  margin: 1.25rem 0 2rem 0;
+  border: 1px solid var(--border-ink);
+  display: flex;
+  align-items: center;
+}
+
+.ticker-badge {
+  background-color: var(--accent-ember);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  margin-left: 0.5rem;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.ticker-track {
+  display: inline-flex;
+  animation: ticker-scroll 35s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+.ticker-item {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  padding: 0 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.ticker-bullet {
+  color: var(--accent-ember);
+  font-size: 0.9rem;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   3. EDITORIAL LEAD & FRONT PAGE GRID
+   ========================================================================== */
+.frontpage-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 0.9fr;
+  gap: var(--grid-gap);
+  padding: 1.5rem 0 2.5rem 0;
+  border-bottom: 1px solid var(--border-ink);
+  position: relative;
+}
+
+/* Vertical column dividers */
+.col-divider-left {
+  position: relative;
+}
+.col-divider-left::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: calc(var(--grid-gap) * -0.5);
+  width: 1px;
+  height: 100%;
+  background-color: var(--border-light);
+}
+
+.col-divider-right {
+  position: relative;
+}
+.col-divider-right::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: calc(var(--grid-gap) * -0.5);
+  width: 1px;
+  height: 100%;
+  background-color: var(--border-light);
+}
+
+/* Headline Banner */
+.lead-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--accent-ember);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lead-kicker::before {
+  content: "■";
+  font-size: 0.65rem;
+}
+
+.lead-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.2vw, 3.9rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: var(--tracking-tighter);
+  text-transform: uppercase;
+  color: var(--text-ink);
+  margin-bottom: 1.15rem;
+}
+
+.lead-standfirst {
+  font-family: var(--font-serif-editorial);
+  font-size: clamp(1.05rem, 1.6vw, 1.22rem);
+  line-height: 1.45;
+  font-weight: 500;
+  color: var(--text-black);
+  margin-bottom: 1.15rem;
+}
+
+.lead-standfirst .drop-cap {
+  float: left;
+  font-family: var(--font-serif-hero);
+  font-size: 3.5rem;
+  line-height: 0.75;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-bottom: 2px;
+  color: var(--accent-ember);
+  font-weight: 700;
+}
+
+.editorial-body-p {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-charcoal);
+  margin-bottom: 0.95rem;
+}
+
+/* Rubber Stamp Badges */
+.rubber-stamp {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--accent-ember);
+  color: var(--accent-ember);
+  padding: 0.65rem 1.15rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-wider);
+  text-align: center;
+  transform: rotate(-3deg);
+  background-color: var(--accent-ember-bg);
+  box-shadow: inset 0 0 0 1px var(--accent-ember-border);
+  transition: transform var(--transition-bounce);
+  user-select: none;
+}
+
+.rubber-stamp:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+
+/* Portrait Card in Frontpage Column 2 */
+.portrait-box {
+  background-color: var(--bg-bone);
+  border: 1px solid var(--border-ink);
+  padding: 1.15rem;
+  position: relative;
+}
+
+.portrait-photo-frame {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background-color: #121211;
+  border: 1px solid var(--border-ink);
+  margin-bottom: 1rem;
+}
+
+.portrait-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(100%) contrast(110%);
+  transition: filter var(--transition-smooth), transform var(--transition-smooth);
+}
+
+.portrait-photo-frame:hover .portrait-photo {
+  filter: grayscale(20%) contrast(105%);
+  transform: scale(1.02);
+}
+
+.portrait-caption {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-charcoal);
+  line-height: 1.4;
+  border-top: 1px dashed var(--border-charcoal);
+  padding-top: 0.5rem;
+}
+
+/* Quick Metrics / Lead Column 3 */
+.side-dispatch-card {
+  border: 1px solid var(--border-ink);
+  background-color: var(--bg-bone-subtle);
+  padding: 1.15rem;
+  margin-bottom: 1.15rem;
+}
+
+.dispatch-header {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-ink);
+  border-bottom: 1px solid var(--border-ink);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-item {
+  margin-bottom: 0.85rem;
+}
+.stat-item:last-child {
+  margin-bottom: 0;
+}
+
+.stat-big {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.7rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-ink);
+}
+
+.stat-label {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--text-charcoal);
+  line-height: 1.35;
+  margin-top: 0.2rem;
+}
+
+/* ==========================================================================
+   4. SECTION HEADERS & EDITORIAL BANNERS
+   ========================================================================== */
+.section-masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: var(--border-double);
+  border-bottom: 1px solid var(--border-ink);
+  padding: 0.85rem 0;
+  margin: var(--section-gap) 0 1.75rem 0;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 5.5vw, 4rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: var(--tracking-tighter);
+  text-transform: uppercase;
+  color: var(--text-ink);
+}
+
+.section-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--text-charcoal);
+}
+
+/* ==========================================================================
+   MOBILE & TABLET RESPONSIVE ADAPTATIONS (100% COMPATIBILITY)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .frontpage-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .col-divider-right::after {
+    display: none;
+  }
+  .side-dispatch-card {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .frontpage-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .col-divider-left::after,
+  .col-divider-right::after {
+    display: none;
+  }
+  .side-dispatch-card {
+    grid-column: span 1;
+    display: block;
+  }
+  .broadsheet-top-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+  .masthead-meta-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  .broadsheet-nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  .nav-links {
+    gap: 0.85rem;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.35rem;
+    white-space: nowrap;
+  }
+  .nav-actions {
+    width: 100%;
+  }
+  .nav-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --container-padding: 1rem;
+  }
+  .masthead-title {
+    font-size: clamp(2.2rem, 14vw, 3.8rem);
+  }
+  .lead-headline {
+    font-size: 2rem;
+  }
+  .lead-standfirst {
+    font-size: 1rem;
+  }
+  .lead-standfirst .drop-cap {
+    font-size: 2.8rem;
+  }
+  .btn {
+    width: 100%;
+    padding: 0.65rem 1rem;
+  }
+}

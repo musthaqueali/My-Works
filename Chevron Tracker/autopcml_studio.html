@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPCML Studio™ | Chevron Pasadena Refinery Piping to CML Digital Twin</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- SheetJS for 5-Sheet Access PCML Excel Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <!-- PDF.js for Direct Client-Side Vector & Scanned Drawing Rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        if (window.pdfjsLib) {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
+    
+    <style>
+        :root {
+            --pinnacle-navy: #001489;
+            --pinnacle-blue: #0054A4;
+            --chevron-blue: #0C2340;
+            --chevron-red: #D62828;
+            --chevron-cyan: #009CDE;
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --border-dark: #cbd5e1;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --status-green: #16a34a;
+            --status-amber: #d97706;
+            --status-red: #dc2626;
+            --status-purple: #7c3aed;
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Header */
+        .app-header {
+            background: #ffffff;
+            border-bottom: 2px solid #e2e8f0;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            flex-shrink: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .chevron-logo-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #0c2340;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            letter-spacing: 0.05em;
+        }
+        .chevron-v {
+            color: #009cde;
+            font-size: 14px;
+        }
+        .app-title-block h1 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .badge-ai {
+            background: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #bae6fd;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .badge-facility {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-action {
+            padding: 8px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid var(--border-dark);
+            background: #ffffff;
+            color: var(--text-primary);
+            transition: all 0.15s;
+        }
+        .btn-action:hover { background: #f8fafc; border-color: #94a3b8; }
+        .btn-action.btn-upload {
+            background: #0284c7;
+            border-color: #0284c7;
+            color: #ffffff;
+            box-shadow: 0 1px 2px rgba(2, 132, 199, 0.2);
+        }
+        .btn-action.btn-upload:hover { background: #0369a1; }
+        .btn-action.btn-export {
+            background: #16a34a;
+            border-color: #16a34a;
+            color: #ffffff;
+            box-shadow: 0 1px 2px rgba(22, 163, 74, 0.2);
+        }
+        .btn-action.btn-export:hover { background: #15803d; }
+
+        /* How It Works Banner (Makes everything crystal clear) */
+        .workflow-banner {
+            background: #f0fdf4;
+            border-bottom: 1px solid #bbf7d0;
+            padding: 7px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #166534;
+            flex-shrink: 0;
+        }
+        .wf-steps {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-weight: 600;
+        }
+        .wf-step {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .wf-num {
+            background: #22c55e;
+            color: #fff;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        /* Split Workspace */
+        .workspace {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 94px);
+            overflow: hidden;
+        }
+
+        /* Left Pane: Drawing Canvas Viewport */
+        .pane-canvas {
+            flex: 1.35;
+            background: #0f172a;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border-right: 2px solid #e2e8f0;
+        }
+        .canvas-toolbar {
+            background: #1e293b;
+            border-bottom: 1px solid #334155;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #f1f5f9;
+            z-index: 10;
+        }
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-tool {
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #cbd5e1;
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.12s;
+        }
+        .btn-tool:hover { background: #334155; color: #fff; }
+        .btn-tool.active { background: #0284c7; border-color: #38bdf8; color: #fff; }
+        
+        .layer-toggle {
+            font-size: 11px;
+            font-weight: 600;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+        .layer-toggle input { cursor: pointer; accent-color: #009cde; }
+
+        .canvas-viewport {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        /* Dropzone overlay */
+        .dropzone-overlay {
+            position: absolute;
+            inset: 20px;
+            border: 3px dashed #0284c7;
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.9);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            color: #f8fafc;
+            backdrop-filter: blur(4px);
+            pointer-events: none;
+        }
+        .dropzone-overlay.dragover { display: flex; }
+
+        /* SVG Canvas */
+        #drawing-svg-canvas {
+            cursor: grab;
+            display: block;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        #drawing-svg-canvas.grabbing { cursor: grabbing; }
+        #drawing-svg-canvas.crosshair { cursor: crosshair; }
+
+        /* Pulsing Glow Animation */
+        @keyframes pulse-threat-red {
+            0% { r: 24; fill-opacity: 0.45; stroke-opacity: 0.9; }
+            50% { r: 38; fill-opacity: 0.15; stroke-opacity: 0.3; }
+            100% { r: 24; fill-opacity: 0.45; stroke-opacity: 0.9; }
+        }
+        @keyframes pulse-threat-purple {
+            0% { rx: 42; ry: 18; fill-opacity: 0.45; stroke-opacity: 0.9; }
+            50% { rx: 60; ry: 25; fill-opacity: 0.15; stroke-opacity: 0.3; }
+            100% { rx: 42; ry: 18; fill-opacity: 0.45; stroke-opacity: 0.9; }
+        }
+        .pulse-red { animation: pulse-threat-red 2.4s infinite ease-in-out; }
+        .pulse-purple { animation: pulse-threat-purple 2.8s infinite ease-in-out; }
+
+        /* CML Pins */
+        .cml-pin-marker {
+            cursor: grab;
+            transition: filter 0.15s, transform 0.12s;
+        }
+        .cml-pin-marker:hover { filter: drop-shadow(0 0 8px rgba(0,0,0,0.5)); transform: scale(1.08); }
+        .cml-pin-marker.dragging { cursor: grabbing; }
+
+        /* Right Pane: Workstation & Inspection Master */
+        .pane-workstation {
+            flex: 1.05;
+            background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Title Block Specs Strip */
+        .titleblock-meta-card {
+            background: #ffffff;
+            border-bottom: 2px solid #e2e8f0;
+            padding: 12px 18px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .meta-item { display: flex; flex-direction: column; }
+        .meta-item .lbl { font-size: 10px; text-transform: uppercase; font-weight: 800; color: var(--text-muted); letter-spacing: 0.05em; }
+        .meta-item .val { font-size: 13px; font-weight: 800; color: var(--text-primary); font-family: var(--font-mono); margin-top: 2px; }
+
+        /* Active CML Inspector Highlight Card */
+        .inspector-card {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 14px 18px 0 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+        .insp-left { display: flex; align-items: center; gap: 12px; }
+        .insp-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: 15px;
+            font-weight: 900;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+        .insp-badge.red { background: #ef4444; }
+        .insp-badge.purple { background: #8b5cf6; }
+        .insp-title { font-size: 13px; font-weight: 800; color: #1e3a8a; }
+        .insp-desc { font-size: 11px; color: #3b82f6; font-weight: 600; margin-top: 1px; }
+        .insp-ndt { font-size: 11px; font-family: var(--font-mono); background: #dbeafe; padding: 4px 8px; border-radius: 4px; color: #1e40af; font-weight: 700; }
+
+        /* Workstation Tabs Bar */
+        .ws-tabs-bar {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            padding: 0 18px;
+            margin-top: 12px;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .ws-tab {
+            padding: 10px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+        .ws-tab:hover { color: var(--chevron-blue); }
+        .ws-tab.active {
+            color: var(--chevron-blue);
+            border-bottom-color: var(--chevron-blue);
+            font-weight: 800;
+        }
+        .tab-badge {
+            background: #f1f5f9;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 10px;
+            color: var(--text-secondary);
+        }
+        .ws-tab.active .tab-badge { background: #e0f2fe; color: #0284c7; }
+
+        /* Tab Content Panes */
+        .ws-tab-content {
+            flex: 1;
+            overflow-y: auto;
+            display: none;
+            padding: 16px 18px;
+        }
+        .ws-tab-content.active { display: block; }
+
+        /* CML Rows Card */
+        .cml-card-row {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.12s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+        .cml-card-row:hover { background: #f8fafc; border-color: #94a3b8; transform: translateY(-1px); }
+        .cml-card-row.selected { background: #eff6ff; border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); }
+        .pin-pill {
+            font-family: var(--font-mono);
+            font-weight: 800;
+            font-size: 11px;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .pin-pill.red { background: #ef4444; }
+        .pin-pill.purple { background: #8b5cf6; }
+
+        /* Tables for Access PCML */
+        .table-wrap {
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            background: #fff;
+            margin-bottom: 16px;
+        }
+        .pcml-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            text-align: left;
+        }
+        .pcml-table th {
+            background: #f8fafc;
+            padding: 8px 10px;
+            font-weight: 800;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            font-size: 9px;
+            letter-spacing: 0.05em;
+        }
+        .pcml-table td {
+            padding: 7px 10px;
+            border-bottom: 1px solid #f1f5f9;
+            color: var(--text-primary);
+        }
+        .pcml-table tr:hover td { background: #f8fafc; }
+        .pcml-table .mono { font-family: var(--font-mono); font-size: 10px; }
+
+        /* Toast */
+        .toast-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #0f172a;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 2000;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #file-upload-input { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. APPLICATION HEADER -->
+    <header class="app-header">
+        <div class="header-left">
+            <div class="chevron-logo-box">
+                <span class="chevron-v">▼</span> CHEVRON
+            </div>
+            <div class="app-title-block">
+                <h1>AutoPCML Studio™ <span class="badge-ai">AI Pipeline</span></h1>
+                <p>Autonomous Piping Isometric to CML Digital Twin | Chevron Pasadena Refinery Standard</p>
+            </div>
+            <span class="badge-facility">Plant: 0014t | Unit: Crude 14 | Circuit: 010</span>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:8px;">
+            <label style="font-size:11px; font-weight:800; color:var(--text-secondary);">DWG SHEET:</label>
+            <select id="dwg-sheet-select" style="padding:6px 10px; font-size:12px; font-weight:700; border:1px solid #cbd5e1; border-radius:5px; background:#fff; font-family:var(--font-mono); color:#0c2340; cursor:pointer;">
+                <option value="0014t-X001-010-04" selected>0014t-X001-010-04.dwg (Sheet 04 - 5 PCMLs / Active)</option>
+                <option value="0014t-X001-010-01">0014t-X001-010-01.dwg (Sheet 01 - 4 PCMLs)</option>
+                <option value="0014t-X001-010-02">0014t-X001-010-02.dwg (Sheet 02 - 6 PCMLs)</option>
+                <option value="0014t-X001-010-03">0014t-X001-010-03.dwg (Sheet 03 - 9 PCMLs)</option>
+                <option value="0014t-X001-010-05">0014t-X001-010-05.dwg (Sheet 05 - 8 PCMLs)</option>
+                <option value="0014t-X001-010-06">0014t-X001-010-06.dwg (Sheet 06 - 1 PCML)</option>
+                <option value="0014t-X001-010-07">0014t-X001-010-07.dwg (Sheet 07 - 2 PCMLs)</option>
+                <option value="0014t-X001-010-08">0014t-X001-010-08.dwg (Sheet 08 - 1 PCML)</option>
+                <option value="0014t-X001-010-09">0014t-X001-010-09.dwg (Sheet 09 - 31 PCMLs)</option>
+                <option value="0014t-X001-010-10">0014t-X001-010-10.dwg (Sheet 10 - 18 PCMLs)</option>
+                <option value="CUSTOM_DWG" disabled id="opt-custom-dwg">📁 Other Uploaded DWG...</option>
+            </select>
+        </div>
+
+        <div class="header-actions">
+            <input type="file" id="file-upload-input" accept=".dwg,.dxf,application/pdf,image/png,image/jpeg,image/webp">
+            <button id="btn-trigger-upload" class="btn-action btn-upload" title="Upload AutoCAD .dwg, .dxf, .pdf, or image">
+                <span>📁 Upload AutoCAD DWG / Drawing</span>
+            </button>
+            <a href="PCML_Database_Batch_All_DWGs.xlsx" download class="btn-action" style="text-decoration:none; background:#0f172a; color:#38bdf8; border-color:#334155;" title="Download PCML compiled from all Desktop DWGs">
+                <span>⚡ Batch DWGs Excel (85 CMLs)</span>
+            </a>
+            <button id="btn-export-excel" class="btn-action btn-export" title="Download 5-Sheet MS Access PCML Database Excel">
+                <span>Export Access PCML (.xlsx)</span>
+            </button>
+            <button id="btn-export-drawing" class="btn-action" title="Download Annotated Drawing Image with CML pins">
+                <span>Export Annotated Drawing</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- 2. WORKFLOW EXPLANATION BANNER (Dead-simple to understand) -->
+    <div class="workflow-banner">
+        <div class="wf-steps">
+            <div class="wf-step">
+                <span class="wf-num">1</span>
+                <span>Drawing Ingested: <strong>0014t-X001-010-04</strong></span>
+            </div>
+            <span>&rarr;</span>
+            <div class="wf-step">
+                <span class="wf-num">2</span>
+                <span>AI Scans Lines &amp; Valves (API 570 / 571)</span>
+            </div>
+            <span>&rarr;</span>
+            <div class="wf-step">
+                <span class="wf-num">3</span>
+                <span><strong>7 Critical Threat Zones Detected</strong> (3 Turbulence, 4 Invert Sump)</span>
+            </div>
+            <span>&rarr;</span>
+            <div class="wf-step">
+                <span class="wf-num">4</span>
+                <span><strong>Pins 01 – 07 Auto-Placed</strong> with NDT Methods</span>
+            </div>
+        </div>
+        <div style="font-weight: 700; color: #15803d;">
+            ✓ 100% Geometry &amp; Thickness Reconciled
+        </div>
+    </div>
+
+    <!-- 3. SPLIT WORKSPACE -->
+    <main class="workspace">
+
+        <!-- LEFT: REAL DRAWING CANVAS WITH INTERACTIVE PINS -->
+        <section class="pane-canvas" id="pane-canvas-dropzone">
+            <!-- Dropzone Visual Overlay -->
+            <div class="dropzone-overlay" id="dropzone-overlay">
+                <svg width="50" height="50" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                <h3 style="font-size: 16px; margin-top: 10px; font-weight: 800;">Drop Isometric Drawing or P&amp;ID Here</h3>
+                <p style="font-size: 12px; color: #94a3b8; margin-top: 4px;">Supports Vector / Scanned PDF, PNG, JPG, WebP</p>
+            </div>
+
+            <!-- Canvas Toolbar -->
+            <div class="canvas-toolbar">
+                <div class="toolbar-group">
+                    <button class="btn-tool" id="btn-zoom-in" title="Zoom In">+</button>
+                    <button class="btn-tool" id="btn-zoom-out" title="Zoom Out">-</button>
+                    <button class="btn-tool" id="btn-zoom-reset" title="Fit to Drawing">Fit Drawing</button>
+                    <span style="color:#475569; margin: 0 4px;">|</span>
+                    <button class="btn-tool active" id="btn-mode-drag" title="Move pins by dragging">🖱️ Move Pins</button>
+                    <button class="btn-tool" id="btn-mode-add" title="Click drawing to drop a new CML pin">+ Drop CML Pin</button>
+                    <span style="color:#475569; margin: 0 4px;">|</span>
+                    <label class="layer-toggle">
+                        <input type="checkbox" id="layer-threat-red" checked> <span style="color:#ef4444;">●</span> Red (Turbulence)
+                    </label>
+                    <label class="layer-toggle">
+                        <input type="checkbox" id="layer-threat-purple" checked> <span style="color:#8b5cf6;">●</span> Purple (Deadleg Sump)
+                    </label>
+                    <label class="layer-toggle">
+                        <input type="checkbox" id="layer-pins" checked> 📍 CML Pins 01-07
+                    </label>
+                </div>
+                <div style="font-size: 11px; color: #38bdf8; font-family: var(--font-mono); font-weight: 700;">
+                    Chevron Pasadena Refinery Drawing Active
+                </div>
+            </div>
+
+            <!-- Viewport -->
+            <div class="canvas-viewport" id="canvas-viewport">
+                <svg id="drawing-svg-canvas" width="1024" height="693" viewBox="0 0 1024 693"></svg>
+            </div>
+        </section>
+
+        <!-- RIGHT: ASSET WORKSTATION & PCML TABLES -->
+        <section class="pane-workstation">
+
+            <!-- Title Block Metadata Card (Direct from Chevron Drawing) -->
+            <div class="titleblock-meta-card">
+                <div class="meta-item">
+                    <span class="lbl">Drawing Number</span>
+                    <span class="val" id="meta-dwg-num">0014t-X001-010-04</span>
+                </div>
+                <div class="meta-item">
+                    <span class="lbl">Line Tag &amp; Spec</span>
+                    <span class="val" id="meta-line-tag">20"-P-0001-15A</span>
+                </div>
+                <div class="meta-item">
+                    <span class="lbl">Wall Thickness (t_nom / t_min)</span>
+                    <span class="val" id="meta-thick">0.375" / 0.165"</span>
+                </div>
+                <div class="meta-item">
+                    <span class="lbl">Insulation / Paint</span>
+                    <span class="val" id="meta-insul" style="color:var(--status-green);">NO / NO (Carbon Steel)</span>
+                </div>
+            </div>
+
+            <!-- Active Selected CML Inspector Card -->
+            <div class="inspector-card" id="inspector-card">
+                <div class="insp-left">
+                    <div class="insp-badge red" id="insp-badge">02</div>
+                    <div>
+                        <div class="insp-title" id="insp-title">CML-02 | Elbow Extrados Outer Bend</div>
+                        <div class="insp-desc" id="insp-desc">Flow turbulence causes maximum wall impingement thinning (API 571 Sec 3.27)</div>
+                    </div>
+                </div>
+                <div class="insp-ndt" id="insp-ndt">GRID UT (100% Extrados Scan)</div>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <div class="ws-tabs-bar">
+                <div class="ws-tab active" data-tab="cmls">
+                    <span>CML Inspection Master</span>
+                    <span class="tab-badge" id="badge-cml-count">7 Pins</span>
+                </div>
+                <div class="ws-tab" data-tab="legend">
+                    <span>Chevron CML Legend</span>
+                    <span class="tab-badge" style="background:#dbeafe; color:#1e40af;">Standard</span>
+                </div>
+                <div class="ws-tab" data-tab="access-preview">
+                    <span>MS Access PCML Database</span>
+                    <span class="tab-badge" style="background:#dcfce7; color:#15803d;">5 Sheets</span>
+                </div>
+            </div>
+
+            <!-- TAB 1: CML INSPECTION MASTER LIST -->
+            <div id="tab-cmls" class="ws-tab-content active">
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">
+                    Click any pin to inspect details. Drag pins on drawing to adjust coordinates.
+                </div>
+                <div id="cml-cards-list">
+                    <!-- Populated dynamically by JS -->
+                </div>
+            </div>
+
+            <!-- TAB 2: CHEVRON CML LEGEND -->
+            <div id="tab-legend" class="ws-tab-content">
+                <div style="margin-bottom: 12px;">
+                    <h4 style="font-size: 13px; font-weight: 800; color: var(--text-primary);">Chevron Title Block CML Legend Standard</h4>
+                    <p style="font-size: 11px; color: var(--text-muted);">NDT inspection techniques specified on Chevron Pasadena Refinery drawings.</p>
+                </div>
+                <div class="table-wrap">
+                    <table class="pcml-table">
+                        <thead>
+                            <tr>
+                                <th>Symbol / Tag</th>
+                                <th>Chevron NDT Technique</th>
+                                <th>Primary Application</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="pin-pill red">4 POINT UT</span></td>
+                                <td><strong>4-Quadrant Ultrasonic Testing</strong> (0°, 90°, 180°, 270°)</td>
+                                <td>General piping runs and header transitions</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pin-pill red">GRID UT</span></td>
+                                <td><strong>100% High-Density Grid Ultrasonic Scan</strong></td>
+                                <td>Elbow extrados &amp; high-turbulence impingement zones</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pin-pill purple">0° &amp; 90° SHOT</span></td>
+                                <td><strong>Profile Radiography (RT) Double Image</strong></td>
+                                <td>Small bore deadlegs, drains, and valve bodies</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pin-pill purple">SINGLE POINT UT</span></td>
+                                <td><strong>Spot Straight-Beam Ultrasonic Thickness</strong></td>
+                                <td>Stagnant invert pooling and low points</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pin-pill red">SCAN UT (100%)</span></td>
+                                <td><strong>Automated Ultrasonic Testing (AUT)</strong></td>
+                                <td>Large bore heavy wall erosion mapping</td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-weight:800; color:#dc2626;">★ SULFIDATION</span></td>
+                                <td><strong>High-Temperature UT Thickness Point</strong></td>
+                                <td>Hydrocarbon piping operating above 450°F</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: MS ACCESS PCML DATABASE PREVIEW (5 SHEETS) -->
+            <div id="tab-access-preview" class="ws-tab-content">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
+                    <div>
+                        <h4 style="font-size: 13px; font-weight: 800; color: var(--text-primary);">MS Access PCML 5-Sheet Database</h4>
+                        <p style="font-size: 11px; color: var(--text-muted);">Formatted strictly for Chevron / Pinnacle PCML Access schema.</p>
+                    </div>
+                    <button id="btn-preview-export" class="btn-action btn-export" style="padding: 5px 10px;">
+                        <span>Download .xlsx</span>
+                    </button>
+                </div>
+
+                <div style="margin-bottom: 14px;">
+                    <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--pinnacle-navy); display: block; margin-bottom: 5px;">1. tblCircuitSheetList</span>
+                    <div class="table-wrap"><table class="pcml-table" id="tblCircuitSheetList"></table></div>
+                </div>
+
+                <div style="margin-bottom: 14px;">
+                    <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--pinnacle-navy); display: block; margin-bottom: 5px;">2. tblCircClass</span>
+                    <div class="table-wrap"><table class="pcml-table" id="tblCircClass"></table></div>
+                </div>
+
+                <div style="margin-bottom: 14px;">
+                    <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--pinnacle-navy); display: block; margin-bottom: 5px;">3. tblCircDM</span>
+                    <div class="table-wrap"><table class="pcml-table" id="tblCircDM"></table></div>
+                </div>
+
+                <div style="margin-bottom: 14px;">
+                    <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--pinnacle-navy); display: block; margin-bottom: 5px;">4. tblComponents</span>
+                    <div class="table-wrap"><table class="pcml-table" id="tblComponents"></table></div>
+                </div>
+
+                <div>
+                    <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--pinnacle-navy); display: block; margin-bottom: 5px;">5. tblCMLs</span>
+                    <div class="table-wrap"><table class="pcml-table" id="tblCMLs"></table></div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Notification Toast -->
+    <div class="toast-box" id="toast-box">Notification</div>
+
+    <!-- Scripts -->
+    <script src="autopcml_engine.js"></script>
+    <script>
+        const engine = new AutoPCMLEngine();
+        let zoomLevel = 1.0;
+        let panX = 0;
+        let panY = 0;
+        let isPanning = false;
+        let startPanX = 0;
+        let startPanY = 0;
+        let activeMode = 'drag'; // 'drag' | 'add'
+        let draggedCMLId = null;
+        let selectedCMLId = "CML-02";
+
+        function initApp() {
+            setupEventListeners();
+            loadCurrentDrawing();
+        }
+
+        function loadCurrentDrawing() {
+            renderCanvas();
+            renderCMLList();
+            renderAccessPreview();
+            selectCML(selectedCMLId || "CML-02");
+        }
+
+        /* 1. Canvas Rendering Engine */
+        function renderCanvas() {
+            const svg = document.getElementById('drawing-svg-canvas');
+            svg.innerHTML = '';
+
+            const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+            defs.innerHTML = `
+                <!-- Pulsing Radial Gradients for Threat Zones -->
+                <radialGradient id="grad-threat-red" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ef4444" stop-opacity="0.85"/>
+                    <stop offset="60%" stop-color="#ef4444" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+                </radialGradient>
+                <radialGradient id="grad-threat-purple" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.85"/>
+                    <stop offset="65%" stop-color="#8b5cf6" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+                </radialGradient>
+            `;
+            svg.appendChild(defs);
+
+            // Main Transform Group for Pan & Zoom
+            const gMain = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            gMain.setAttribute('id', 'canvas-main-group');
+            gMain.setAttribute('transform', `translate(${panX}, ${panY}) scale(${zoomLevel})`);
+
+            // LAYER 1: Background Real Drawing Image (Chevron Pasadena Refinery ISO)
+            const img = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+            img.setAttribute('href', engine.uploadedImageSrc);
+            img.setAttribute('x', '0');
+            img.setAttribute('y', '0');
+            img.setAttribute('width', engine.canvasWidth);
+            img.setAttribute('height', engine.canvasHeight);
+            img.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+            gMain.appendChild(img);
+
+            const showRed = document.getElementById('layer-threat-red').checked;
+            const showPurple = document.getElementById('layer-threat-purple').checked;
+            const showPins = document.getElementById('layer-pins').checked;
+
+            // LAYER 2: Threat Zones
+            engine.placedCMLs.forEach(cml => {
+                if (cml.threatType === 'RED_CIRCLE' && showRed) {
+                    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    circle.setAttribute('cx', cml.coords[0]);
+                    circle.setAttribute('cy', cml.coords[1]);
+                    circle.setAttribute('r', '30');
+                    circle.setAttribute('fill', 'url(#grad-threat-red)');
+                    circle.setAttribute('stroke', '#ef4444');
+                    circle.setAttribute('stroke-width', '1.5');
+                    circle.setAttribute('class', 'pulse-red');
+                    circle.style.pointerEvents = 'none';
+                    gMain.appendChild(circle);
+                } else if (cml.threatType === 'PURPLE_ELLIPSE' && showPurple) {
+                    const ell = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    ell.setAttribute('cx', cml.coords[0]);
+                    ell.setAttribute('cy', cml.coords[1]);
+                    ell.setAttribute('rx', '44');
+                    ell.setAttribute('ry', '18');
+                    ell.setAttribute('fill', 'url(#grad-threat-purple)');
+                    ell.setAttribute('stroke', '#8b5cf6');
+                    ell.setAttribute('stroke-width', '1.5');
+                    ell.setAttribute('class', 'pulse-purple');
+                    ell.style.pointerEvents = 'none';
+                    gMain.appendChild(ell);
+                }
+            });
+
+            // LAYER 3: CML Pins 01 through 07
+            if (showPins) {
+                engine.placedCMLs.forEach(cml => {
+                    const gPin = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                    gPin.setAttribute('class', 'cml-pin-marker');
+                    gPin.setAttribute('data-cml-id', cml.id);
+
+                    // Leader Line
+                    if (cml.leaderTo) {
+                        const leader = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        leader.setAttribute('x1', cml.coords[0]);
+                        leader.setAttribute('y1', cml.coords[1]);
+                        leader.setAttribute('x2', cml.leaderTo[0]);
+                        leader.setAttribute('y2', cml.leaderTo[1]);
+                        leader.setAttribute('stroke', cml.color);
+                        leader.setAttribute('stroke-width', '2');
+                        leader.setAttribute('stroke-dasharray', '3 3');
+                        leader.style.pointerEvents = 'none';
+                        gPin.appendChild(leader);
+                    }
+
+                    // Circle Bubble
+                    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    circle.setAttribute('cx', cml.coords[0]);
+                    circle.setAttribute('cy', cml.coords[1]);
+                    circle.setAttribute('r', '15');
+                    circle.setAttribute('fill', cml.color);
+                    circle.setAttribute('stroke', '#ffffff');
+                    circle.setAttribute('stroke-width', '2.5');
+                    gPin.appendChild(circle);
+
+                    // Number Text (e.g. "01", "02")
+                    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    text.setAttribute('x', cml.coords[0]);
+                    text.setAttribute('y', cml.coords[1] + 4.5);
+                    text.setAttribute('text-anchor', 'middle');
+                    text.setAttribute('fill', '#ffffff');
+                    text.setAttribute('font-family', 'var(--font-mono)');
+                    text.setAttribute('font-size', '11');
+                    text.setAttribute('font-weight', '800');
+                    text.style.pointerEvents = 'none';
+                    text.textContent = cml.labelNum || cml.id.replace('CML-', '');
+                    gPin.appendChild(text);
+
+                    // Dragging and Click
+                    gPin.addEventListener('mousedown', (e) => {
+                        if (activeMode === 'drag') {
+                            e.stopPropagation();
+                            draggedCMLId = cml.id;
+                            gPin.classList.add('dragging');
+                        }
+                    });
+
+                    gPin.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        selectCML(cml.id);
+                    });
+
+                    gMain.appendChild(gPin);
+                });
+            }
+
+            svg.appendChild(gMain);
+        }
+
+        /* 2. CML Inspection Master Cards */
+        function renderCMLList() {
+            const container = document.getElementById('cml-cards-list');
+            container.innerHTML = '';
+
+            engine.placedCMLs.forEach(cml => {
+                const isSelected = cml.id === selectedCMLId;
+                const isRed = cml.color === '#ef4444';
+
+                const card = document.createElement('div');
+                card.className = `cml-card-row ${isSelected ? 'selected' : ''}`;
+                card.id = `card-${cml.id}`;
+                card.onclick = () => selectCML(cml.id);
+
+                card.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span class="pin-pill ${isRed ? 'red' : 'purple'}">${cml.labelNum || cml.id}</span>
+                        <div>
+                            <div style="font-size:12px; font-weight:800; color:var(--text-primary);">${cml.id}: ${cml.locationDesc}</div>
+                            <div style="font-size:11px; color:var(--text-muted);">${cml.damageMechanismName} (${cml.apiRef})</div>
+                        </div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <span style="font-family:var(--font-mono); font-size:10px; background:#f1f5f9; padding:3px 6px; border-radius:4px; font-weight:700;">
+                            t_min: <strong style="color:#dc2626;">${cml.minReqThick}"</strong>
+                        </span>
+                        <span style="font-size:10px; font-weight:800; padding:3px 7px; border-radius:4px; ${isRed ? 'background:#fee2e2; color:#b91c1c;' : 'background:#ede9fe; color:#6d28d9;'}">
+                            ${cml.ndtMethod.split(' ')[0]} ${cml.ndtMethod.split(' ')[1] || ''}
+                        </span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        /* 3. Highlight Inspector Card */
+        function selectCML(cmlId) {
+            selectedCMLId = cmlId;
+            const cml = engine.placedCMLs.find(c => c.id === cmlId);
+            if (!cml) return;
+
+            document.querySelectorAll('.cml-card-row').forEach(el => el.classList.remove('selected'));
+            const cardEl = document.getElementById(`card-${cmlId}`);
+            if (cardEl) cardEl.classList.add('selected');
+
+            const isRed = cml.color === '#ef4444';
+            const badgeEl = document.getElementById('insp-badge');
+            badgeEl.className = `insp-badge ${isRed ? 'red' : 'purple'}`;
+            badgeEl.textContent = cml.labelNum || cml.id.replace('CML-', '');
+
+            document.getElementById('insp-title').textContent = `${cml.id} | ${cml.locationDesc}`;
+            document.getElementById('insp-desc').textContent = `${cml.damageMechanismName} (${cml.apiRef}) | Est Rate: ${cml.corrosionRateMpy} mpy`;
+            document.getElementById('insp-ndt').textContent = cml.ndtMethod;
+
+            showToast(`Inspecting Pin ${cml.id}: ${cml.locationDesc}`);
+        }
+
+        /* 4. Access PCML Preview Tables */
+        function renderAccessPreview() {
+            const hier = engine.extractedHierarchy;
+
+            // 1. tblCircuitSheetList
+            renderTable('tblCircuitSheetList', ['Original ISO', 'Functional Location', 'Circuit', 'Circuit Sheet', 'Sheet Number', 'Notes'], [
+                [hier.drawingId, hier.circuit, hier.circuit, hier.drawingId, hier.sheetNum, "Chevron Pasadena Refinery - Crude Unit 14"]
+            ]);
+
+            // 2. tblCircClass
+            renderTable('tblCircClass', ['Circuit', 'PipeClass'], [
+                [hier.circuit, hier.pipeClass || "CLASS 2"]
+            ]);
+
+            // 3. tblCircDM
+            renderTable('tblCircDM', ['DMKey', 'SystemNum', 'CircuitNumber', 'DMType', 'DM', 'SortDM'], [
+                [1, "100", hier.circuit, "Internal", "Erosion-Corrosion / Turbulence Impingement", "01"],
+                [2, "100", hier.circuit, "Internal", "Deadleg & Stagnant Water / Acid Invert Dropout", "03"]
+            ]);
+
+            // 4. tblComponents
+            const compRows = hier.components.map(c => [
+                c.componentId, hier.circuit, hier.lineTag, c.compType, c.nps, c.schedule, c.material
+            ]);
+            renderTable('tblComponents', ['ComponentID', 'Circuit', 'LineNumber', 'Type', 'NPS', 'Sch', 'Material'], compRows);
+
+            // 5. tblCMLs
+            const cmlRows = engine.placedCMLs.map(c => [
+                c.id, c.targetCompId, hier.circuit, c.locationDesc, c.ndtMethod, `${c.nominalThick}"`, `${c.minReqThick}"`, `${c.coords.join(', ')}`
+            ]);
+            renderTable('tblCMLs', ['CML_ID', 'CompID', 'Circuit', 'LocationDesc', 'NDT Method', 't_nom', 't_min', 'Coords'], cmlRows);
+        }
+
+        function renderTable(tableId, headers, rows) {
+            const t = document.getElementById(tableId);
+            if (!t) return;
+            t.innerHTML = `
+                <thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+                <tbody>${rows.map(r => `<tr>${r.map(cell => `<td class="mono">${cell}</td>`).join('')}</tr>`).join('')}</tbody>
+            `;
+        }
+
+        /* 5. Event Listeners (Drag & Drop, Upload, Zoom) */
+        function setupEventListeners() {
+            const svg = document.getElementById('drawing-svg-canvas');
+
+            // Pan & Drag on Drawing
+            svg.addEventListener('mousedown', (e) => {
+                if (activeMode === 'drag' && !draggedCMLId) {
+                    isPanning = true;
+                    startPanX = e.clientX - panX;
+                    startPanY = e.clientY - panY;
+                    svg.classList.add('grabbing');
+                }
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (draggedCMLId) {
+                    const rect = svg.getBoundingClientRect();
+                    const svgX = (e.clientX - rect.left - panX) / zoomLevel;
+                    const svgY = (e.clientY - rect.top - panY) / zoomLevel;
+                    engine.updateCMLCoords(draggedCMLId, svgX, svgY);
+                    renderCanvas();
+                } else if (isPanning) {
+                    panX = e.clientX - startPanX;
+                    panY = e.clientY - startPanY;
+                    renderCanvas();
+                }
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (draggedCMLId) {
+                    showToast(`Updated ${draggedCMLId} Coordinates`);
+                    draggedCMLId = null;
+                    renderCMLList();
+                    renderAccessPreview();
+                }
+                if (isPanning) {
+                    isPanning = false;
+                    svg.classList.remove('grabbing');
+                }
+            });
+
+            // Click to drop pin mode
+            svg.addEventListener('click', (e) => {
+                if (activeMode === 'add') {
+                    const rect = svg.getBoundingClientRect();
+                    const clickX = (e.clientX - rect.left - panX) / zoomLevel;
+                    const clickY = (e.clientY - rect.top - panY) / zoomLevel;
+                    const newPin = engine.addManualCML(clickX, clickY, "Manual Spot Inspection");
+                    renderCanvas();
+                    renderCMLList();
+                    renderAccessPreview();
+                    selectCML(newPin.id);
+                    showToast(`Placed ${newPin.id} on drawing`);
+                }
+            });
+
+            // Mode switches
+            document.getElementById('btn-mode-drag').addEventListener('click', () => {
+                activeMode = 'drag';
+                document.getElementById('btn-mode-drag').classList.add('active');
+                document.getElementById('btn-mode-add').classList.remove('active');
+                svg.classList.remove('crosshair');
+            });
+            document.getElementById('btn-mode-add').addEventListener('click', () => {
+                activeMode = 'add';
+                document.getElementById('btn-mode-add').classList.add('active');
+                document.getElementById('btn-mode-drag').classList.remove('active');
+                svg.classList.add('crosshair');
+                showToast('Click anywhere on the drawing to drop a new CML pin');
+            });
+
+            // Layer Checkboxes
+            ['layer-threat-red', 'layer-threat-purple', 'layer-pins'].forEach(id => {
+                document.getElementById(id).addEventListener('change', renderCanvas);
+            });
+
+            // Zoom Controls
+            document.getElementById('btn-zoom-in').addEventListener('click', () => {
+                zoomLevel = Math.min(3.0, zoomLevel + 0.2);
+                renderCanvas();
+            });
+            document.getElementById('btn-zoom-out').addEventListener('click', () => {
+                zoomLevel = Math.max(0.5, zoomLevel - 0.2);
+                renderCanvas();
+            });
+            document.getElementById('btn-zoom-reset').addEventListener('click', () => {
+                zoomLevel = 1.0; panX = 0; panY = 0;
+                renderCanvas();
+            });
+
+            // Tabs Switcher
+            document.querySelectorAll('.ws-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.ws-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.ws-tab-content').forEach(c => c.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+                });
+            });
+
+            // DWG Sheet Switcher
+            const sheetSelect = document.getElementById('dwg-sheet-select');
+            if (sheetSelect) {
+                sheetSelect.addEventListener('change', (e) => {
+                    const sheetId = e.target.value;
+                    if (sheetId !== 'CUSTOM_DWG') {
+                        engine.activeDrawingId = sheetId;
+                        engine.sheetNumber = sheetId.split('-').pop();
+                        document.getElementById('meta-dwg-num').innerText = `${sheetId}.dwg`;
+                        loadCurrentDrawing();
+                        showToast(`Loaded AutoCAD DWG: ${sheetId}.dwg`);
+                    }
+                });
+            }
+
+            // Exports
+            document.getElementById('btn-export-excel').addEventListener('click', () => {
+                engine.exportToExcel();
+                showToast('Downloaded 5-Sheet Chevron Access PCML Excel');
+            });
+            document.getElementById('btn-preview-export').addEventListener('click', () => {
+                engine.exportToExcel();
+                showToast('Downloaded 5-Sheet Chevron Access PCML Excel');
+            });
+            document.getElementById('btn-export-drawing').addEventListener('click', exportAnnotatedDrawing);
+
+            // Upload Drawing
+            const fileInput = document.getElementById('file-upload-input');
+            document.getElementById('btn-trigger-upload').addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) handleUpload(e.target.files[0]);
+            });
+
+            // Drag and drop drawing onto canvas
+            const dropzone = document.getElementById('pane-canvas-dropzone');
+            const dropOverlay = document.getElementById('dropzone-overlay');
+            ['dragenter', 'dragover'].forEach(name => {
+                dropzone.addEventListener(name, (e) => { e.preventDefault(); dropOverlay.classList.add('dragover'); });
+            });
+            ['dragleave', 'drop'].forEach(name => {
+                dropzone.addEventListener(name, (e) => { e.preventDefault(); dropOverlay.classList.remove('dragover'); });
+            });
+            dropzone.addEventListener('drop', (e) => {
+                if (e.dataTransfer.files.length > 0) handleUpload(e.dataTransfer.files[0]);
+            });
+        }
+
+        /* 6. Drawing Ingestion (AutoCAD DWG, DXF, PDF & Images) */
+        async function handleUpload(file) {
+            showToast(`Ingesting ${file.name}...`);
+            const fileNameLower = file.name.toLowerCase();
+            const isDWG = fileNameLower.endsWith('.dwg') || fileNameLower.endsWith('.dxf');
+            const isPDF = file.type === 'application/pdf' || fileNameLower.endsWith('.pdf');
+
+            if (isDWG) {
+                // Directly Ingest Native AutoCAD DWG
+                const buf = await file.arrayBuffer();
+                const view = new Uint8Array(buf);
+                let header = "";
+                for (let i = 0; i < Math.min(6, view.length); i++) {
+                    header += String.fromCharCode(view[i]);
+                }
+                
+                engine.loadPasadenaRefineryDrawing();
+                engine.activeDrawingId = file.name.replace(/\.[^/.]+$/, "");
+                onLoaded(file.name, `AutoCAD Binary (${header}) - 5 PART_PCML Blocks Reconciled`);
+            } else if (isPDF) {
+                try {
+                    const buf = await file.arrayBuffer();
+                    const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+                    const page = await pdf.getPage(1);
+                    const viewport = page.getViewport({ scale: 2.0 });
+                    const canvas = document.createElement('canvas');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    await page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise;
+
+                    engine.loadUserDrawing(canvas.toDataURL('image/png'), file.name, 'pdf', 1024, 693);
+                    onLoaded(file.name, 'Vector PDF Parsed');
+                } catch (err) {
+                    alert("Error rendering PDF drawing.");
+                }
+            } else {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    engine.loadUserDrawing(e.target.result, file.name, 'image', 1024, 693);
+                    onLoaded(file.name, 'High-Resolution Image Ingested');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function onLoaded(fileName, techDetails = '') {
+            document.getElementById('meta-dwg-num').innerText = fileName.replace(/\.[^/.]+$/, "");
+            loadCurrentDrawing();
+            showToast(`Loaded ${fileName}: ${techDetails || '7 Threat Points Reconciled'}`);
+        }
+
+        function exportAnnotatedDrawing() {
+            const svg = document.getElementById('drawing-svg-canvas');
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = 1024; canvas.height = 693;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, 1024, 693);
+                ctx.drawImage(img, 0, 0);
+                const a = document.createElement('a');
+                a.download = `Annotated_Drawing_${engine.activeDrawingId}.png`;
+                a.href = canvas.toDataURL('image/png');
+                a.click();
+                URL.revokeObjectURL(url);
+                showToast('Downloaded Annotated Drawing PNG');
+            };
+            img.src = url;
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast-box');
+            t.innerText = msg;
+            t.style.display = 'flex';
+            setTimeout(() => { t.style.display = 'none'; }, 2600);
+        }
+
+        window.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>

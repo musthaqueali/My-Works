@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="author" content="Musthaque Ali">
+  <meta name="copyright" content="Musthaque Ali">
+  <title>I LOVE FILES — Fast, Private File Converter &amp; CAD Studio (Made by Musthaque Ali)</title>
+  <meta name="description" content="Free universal online file converter and CAD studio. Batch convert AutoCAD DWG &amp; DXF to PDF with exact CTB plot styles, TrueColor layers, plus PDF, Office, audio, and video conversion.">
+  <meta name="keywords" content="dwg to pdf, convert dwg to pdf online, autocad batch plot online, dwg converter, dxf to pdf, pdf to word, universal file converter, ctb plot styles, cad to pdf">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ilovefiles.southindia.cloudapp.azure.com/">
+
+  <!-- Google Search Console Verification -->
+  <meta name="google-site-verification" content="googlef55b91c8df10fa26">
+
+  <!-- OpenGraph / Social Media SEO -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ilovefiles.southindia.cloudapp.azure.com/">
+  <meta property="og:title" content="I LOVE FILES — Fast, Private File Converter &amp; CAD Studio">
+  <meta property="og:description" content="Batch convert AutoCAD DWG to PDF with exact colors, CTB plot styles, plus 84+ document, image, and media formats.">
+  <meta property="og:image" content="/static/logo-icon.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="I LOVE FILES — Fast, Private File Converter &amp; CAD Studio">
+  <meta name="twitter:description" content="Universal online converter with native AutoCAD batch plotting, exact CTB pen tables, and document studio.">
+
+  <!-- Schema.org Structured Data for Google Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "I LOVE FILES",
+    "url": "https://ilovefiles.southindia.cloudapp.azure.com/",
+    "description": "Universal online file converter and AutoCAD CAD studio supporting DWG, DXF, PDF, Word, Excel, and media files.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "author": {
+      "@type": "Person",
+      "name": "Musthaque Ali"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <link rel="icon" type="image/png" href="/static/favicon.png">
+  <link rel="shortcut icon" href="/static/favicon.ico">
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('ilovefiles_theme');
+        var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved || (sysDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@1,900&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="/static/broadsheet-skin.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- App Header & Navigation (Modern High-Standard SaaS Header) -->
+  <header class="app-header">
+    <div class="header-top">
+      <!-- Brand Logo (FCB 2015 Jersey Wordmark with Terracotta Trademark) -->
+      <a href="#" class="brand-wrap" onclick="switchTab('convert')" title="ILOVEFILES™ — Universal & CAD File Engine">
+        <span class="fcb-wordmark">
+          ILOVEFILES<span class="stitch-trademark">™</span>
+        </span>
+      </a>
+
+      <div class="header-actions">
+        <!-- Interactive Pricing Header Button -->
+        <button class="header-link-btn header-pricing-pill" onclick="openPricingModal()" title="View Pricing & Plans">
+          <i data-lucide="sparkles" class="pricing-sparkle-icon" style="width: 14px; height: 14px; color: #2383e2;"></i>
+          <span>Pricing</span>
+          <span class="pricing-pro-tag">PRO</span>
+        </button>
+
+        <!-- Theme Switcher -->
+        <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="toggleTheme()" title="Switch Light / Dark Theme" aria-label="Toggle Theme">
+          <div class="theme-icon-container">
+            <i data-lucide="moon" class="theme-icon-moon" style="width: 14px; height: 14px;"></i>
+            <i data-lucide="sun" class="theme-icon-sun" style="width: 14px; height: 14px;"></i>
+          </div>
+          <span id="theme-btn-text">Dark</span>
+        </button>
+
+        <!-- Logged Out State -->
+        <div id="auth-logged-out" class="auth-btn-group">
+          <button class="btn btn-ghost-nav" onclick="openAuthModal('signin')">Sign In</button>
+          <button class="btn btn-primary-nav" onclick="openAuthModal('signup')">Get Started Free</button>
+        </div>
+
+        <!-- Logged In State (User Profile & Quota Dropdown) -->
+        <div id="auth-logged-in" class="user-profile-wrap" style="display: none;">
+          <button id="user-menu-btn" class="user-menu-trigger" onclick="toggleUserDropdown()" aria-label="User Account Menu">
+            <div class="avatar-ring-wrap">
+              <span class="user-avatar-initials" id="user-avatar-initials">M</span>
+              <span class="avatar-online-dot"></span>
+            </div>
+            <span class="user-display-name" id="user-display-name">Musthaque</span>
+            <span class="badge-plan-tier badge-tier-pro" id="user-tier-badge">PRO</span>
+            <i data-lucide="chevron-down" class="user-chevron-icon" style="width: 13px; height: 13px;"></i>
+          </button>
+          
+          <div id="user-dropdown-menu" class="user-dropdown-card" style="display: none;">
+            <div class="user-dropdown-header">
+              <div class="user-dropdown-name" id="user-dropdown-full-name">My Account</div>
+              <div class="user-dropdown-email" id="user-dropdown-email">user@example.com</div>
+              <div class="user-dropdown-badge" id="user-dropdown-tier-badge">FREE PLAN</div>
+            </div>
+
+            <!-- Daily Quota Tracker -->
+            <div class="user-quota-section">
+              <div class="quota-meta">
+                <span class="quota-label">Daily Tasks</span>
+                <span class="quota-val" id="user-quota-text">0 / 5 used</span>
+              </div>
+              <div class="quota-bar-track">
+                <div class="quota-bar-fill" id="user-quota-fill" style="width: 0%;"></div>
+              </div>
+            </div>
+
+            <div class="user-dropdown-divider"></div>
+
+            <button class="user-dropdown-item pro-highlight" id="menu-upgrade-btn" onclick="openPricingModal()">
+              <i data-lucide="zap" style="width: 15px; height: 15px; color: #2383e2;"></i>
+              <span>Upgrade to Pro (Unlimited)</span>
+            </button>
+            <button class="user-dropdown-item" id="menu-portal-btn" onclick="openBillingPortal()">
+              <i data-lucide="credit-card" style="width: 15px; height: 15px;"></i>
+              <span>Manage Subscription</span>
+            </button>
+            <button class="user-dropdown-item" onclick="openApiKeyModal()">
+              <i data-lucide="key" style="width: 15px; height: 15px;"></i>
+              <span>Developer API Key</span>
+            </button>
+            <div class="user-dropdown-divider"></div>
+            <button class="user-dropdown-item text-danger" onclick="handleSignOut()">
+              <i data-lucide="log-out" style="width: 15px; height: 15px;"></i>
+              <span>Sign Out</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Navigation Segmented Bar (Modern SaaS Tabs) -->
+    <nav class="nav-tab-container" aria-label="Main Navigation">
+      <div class="nav-segmented-track">
+        <button class="nav-tab-btn active" id="tab-btn-convert" onclick="switchTab('convert')">
+          <i data-lucide="layers" style="width: 15px; height: 15px;"></i>
+          <span>File Converter</span>
+          <span class="nav-pill-badge">84+</span>
+        </button>
+        <button class="nav-tab-btn" id="tab-btn-plot" onclick="switchTab('plot')">
+          <i data-lucide="printer" style="width: 15px; height: 15px;"></i>
+          <span>AutoCAD Batch Plot</span>
+          <span class="nav-pill-badge badge-cad">CTB Engine</span>
+        </button>
+        <button class="nav-tab-btn" id="tab-btn-merge" onclick="switchTab('merge')">
+          <i data-lucide="combine" style="width: 15px; height: 15px;"></i>
+          <span>Merge Files</span>
+          <span class="nav-pill-badge">Multi</span>
+        </button>
+        <button class="nav-tab-btn" id="tab-btn-resize" onclick="switchTab('resize')">
+          <i data-lucide="minimize-2" style="width: 15px; height: 15px;"></i>
+          <span>Compress &amp; Resize</span>
+        </button>
+        <button class="nav-tab-btn" id="tab-btn-faq" onclick="switchTab('faq')">
+          <i data-lucide="help-circle" style="width: 15px; height: 15px;"></i>
+          <span>Help &amp; FAQs</span>
+        </button>
+        <button class="nav-tab-btn nav-tab-pricing-btn" id="tab-btn-pricing" onclick="openPricingModal()">
+          <i data-lucide="sparkles" style="width: 15px; height: 15px; color: #2383e2;"></i>
+          <span>Pricing &amp; Plans</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-wrapper">
+
+    <!-- ======================================================================
+         1. CONVERT VIEW (FILE CONVERTER & PDF TOOLS)
+         ====================================================================== -->
+    <div id="view-convert" class="studio-view active">
+
+      <!-- HERO SECTION FROM STITCH (Forest & Emerald Aesthetic) -->
+      <section class="stitch-hero-showcase">
+        <!-- Overline Pill Badge -->
+        <div class="stitch-hero-badge">
+          <span class="stitch-badge-ping"></span>
+          <span>100% Client-Side WebAssembly Vector Engine</span>
+        </div>
+        <!-- Headline with Reference Styled Pill -->
+        <h1 class="stitch-hero-headline">
+          Where files and drawings
+          <span class="stitch-headline-pill">
+            <span class="stitch-pill-dot"></span>
+            Convert.
+          </span>
+          instantly.
+        </h1>
+        <!-- Subtitle -->
+        <p class="stitch-hero-subheadline">
+          Drop any office file or AutoCAD blueprint. Universal file translation, smart batch CTB pen plotting, and compression — processed securely on your hardware.
+        </p>
+        <!-- Trust Features Row -->
+        <div class="stitch-trust-row">
+          <div class="stitch-trust-item">
+            <span class="material-symbols-outlined text-emerald-accent">verified_user</span>
+            <span>Zero cloud uploads</span>
+          </div>
+          <div class="stitch-trust-item">
+            <span class="material-symbols-outlined text-emerald-accent">bolt</span>
+            <span>&lt;0.4s local compile</span>
+          </div>
+          <div class="stitch-trust-item">
+            <span class="material-symbols-outlined text-emerald-accent">architecture</span>
+            <span>Exact DWG/DXF layer fidelity</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI Smart Suggestion Banner -->
+      <section class="ai-suggestion-box" id="ai-smart-suggestion" style="display: block;">
+        <div class="ai-suggestion-badge">
+          <span class="ai-loading-dot"></span>
+          <span>AI Smart Suggestion</span>
+        </div>
+        <p class="ai-suggestion-text" id="ai-suggestion-msg">Tip: Drop a DWG drawing to batch plot with CTB styles, or drop a document to convert to vector PDF.</p>
+      </section>
+      
+      <!-- Step Progression Bar -->
+      <div class="zapier-step-strip">
+        <div class="zapier-step active" id="step-node-1">
+          <span class="step-num">1</span>
+          <div class="step-meta">
+            <span class="step-title">Select Tool or File</span>
+            <span class="step-sub">Choose a tool or drop a file to convert</span>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="zapier-step" id="step-node-2">
+          <span class="step-num">2</span>
+          <div class="step-meta">
+            <span class="step-title">Settings &amp; Options</span>
+            <span class="step-sub">Review parameters and convert</span>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="zapier-step" id="step-node-3">
+          <span class="step-num">3</span>
+          <div class="step-meta">
+            <span class="step-title">Download</span>
+            <span class="step-sub">Your file is ready</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="broadsheet-card">
+        <h2 class="card-title">File Converter &amp; PDF Tools</h2>
+        <p class="card-desc">
+          Convert documents, spreadsheets, CAD drawings, audio, video, and images with full precision. Select a tool below or search to get started.
+        </p>
+
+        <!-- Search & Filter Bar -->
+        <div class="hub-search-container">
+          <div class="hub-search-box">
+            <i data-lucide="search" style="width: 18px; height: 18px; color: var(--zapier-orange);"></i>
+            <input 
+              type="search" 
+              id="hub-search-input" 
+              name="search_catalog_query" 
+              autocomplete="off" 
+              autocorrect="off" 
+              autocapitalize="off" 
+              spellcheck="false" 
+              data-lpignore="true" 
+              data-form-type="other"
+              readonly
+              onfocus="this.removeAttribute('readonly');"
+              placeholder="Search tools (e.g. Word to PDF, Split PDF, Excel, Protect, Compress...)" 
+              oninput="filterToolCards(this.value)">
+          </div>
+          <div class="hub-filter-pills">
+            <button class="filter-pill active" id="pill-all" onclick="filterCategory('all')">All Tools</button>
+            <button class="filter-pill" id="pill-pdf-suite" onclick="filterCategory('pdf-suite')">PDF Tools</button>
+            <button class="filter-pill" id="pill-office" onclick="filterCategory('office')">Office</button>
+            <button class="filter-pill" id="pill-cad" onclick="filterCategory('cad')">CAD</button>
+            <button class="filter-pill" id="pill-audio" onclick="filterCategory('audio')">Audio &amp; Music</button>
+            <button class="filter-pill" id="pill-video" onclick="filterCategory('video')">Video</button>
+            <button class="filter-pill" id="pill-image" onclick="filterCategory('image')">Images</button>
+          </div>
+        </div>
+
+        <!-- Tool Catalog Grid -->
+        <div class="tool-grid" id="tools-catalog-grid">
+          <div class="tool-card" id="card-word-to-pdf" data-tool="word-to-pdf" data-category="office" data-ext=".docx,.doc" onclick="selectQuickTool('word-to-pdf', 'Word to PDF', '.docx,.doc')">
+            <div class="tool-icon-wrap icon-blue"><span>W</span></div>
+            <div class="tool-label">Word to PDF</div>
+          </div>
+          <div class="tool-card" id="card-excel-to-pdf" data-tool="excel-to-pdf" data-category="office" data-ext=".xlsx,.xls,.csv" onclick="selectQuickTool('excel-to-pdf', 'Excel to PDF', '.xlsx,.xls,.csv')">
+            <div class="tool-icon-wrap icon-green"><span>X</span></div>
+            <div class="tool-label">Excel to PDF</div>
+          </div>
+          <div class="tool-card" id="card-ppt-to-pdf" data-tool="ppt-to-pdf" data-category="office" data-ext=".pptx,.ppt" onclick="selectQuickTool('ppt-to-pdf', 'PowerPoint to PDF', '.pptx,.ppt')">
+            <div class="tool-icon-wrap icon-orange"><span>P</span></div>
+            <div class="tool-label">PowerPoint to PDF</div>
+          </div>
+          <div class="tool-card" id="card-jpg-to-pdf" data-tool="jpg-to-pdf" data-category="image" data-ext=".jpg,.jpeg" onclick="selectQuickTool('jpg-to-pdf', 'JPG to PDF', '.jpg,.jpeg')">
+            <div class="tool-icon-wrap icon-purple"><span>IMG</span></div>
+            <div class="tool-label">JPG to PDF</div>
+          </div>
+          <div class="tool-card" id="card-png-to-pdf" data-tool="png-to-pdf" data-category="image" data-ext=".png" onclick="selectQuickTool('png-to-pdf', 'PNG to PDF', '.png')">
+            <div class="tool-icon-wrap icon-purple"><span>PNG</span></div>
+            <div class="tool-label">PNG to PDF</div>
+          </div>
+          <div class="tool-card" id="card-heic-to-pdf" data-tool="heic-to-pdf" data-category="image" data-ext=".heic,.heif" onclick="selectQuickTool('heic-to-pdf', 'HEIC to PDF', '.heic,.heif')">
+            <div class="tool-icon-wrap icon-purple"><span>HEIC</span></div>
+            <div class="tool-label">HEIC to PDF</div>
+          </div>
+          <div class="tool-card" id="card-autocad-to-pdf" data-tool="autocad-to-pdf" data-category="cad" data-ext=".dwg,.dxf" onclick="selectQuickTool('autocad-to-pdf', 'AutoCAD to PDF', '.dwg,.dxf')">
+            <div class="tool-icon-wrap icon-red"><span>A</span></div>
+            <div class="tool-label">AutoCAD to PDF</div>
+          </div>
+          <div class="tool-card" id="card-dwg-to-dwf" data-tool="dwg-to-dwf" data-category="cad" data-ext=".dwg" onclick="selectQuickTool('dwg-to-dwf', 'DWG to DWF', '.dwg')">
+            <div class="tool-icon-wrap icon-red"><span>DWF</span></div>
+            <div class="tool-label">DWG to DWF / DWFx</div>
+          </div>
+          <div class="tool-card" id="card-dwf-to-dwg" data-tool="dwf-to-dwg" data-category="cad" data-ext=".dwf,.dwfx" onclick="selectQuickTool('dwf-to-dwg', 'DWF to DWG', '.dwf,.dwfx')">
+            <div class="tool-icon-wrap icon-red"><span>DWG</span></div>
+            <div class="tool-label">DWF to AutoCAD DWG</div>
+          </div>
+          <div class="tool-card" id="card-dwg-to-dxf" data-tool="dwg-to-dxf" data-category="cad" data-ext=".dwg" onclick="selectQuickTool('dwg-to-dxf', 'DWG to DXF', '.dwg')">
+            <div class="tool-icon-wrap icon-red"><span>DXF</span></div>
+            <div class="tool-label">DWG to DXF</div>
+          </div>
+          <div class="tool-card" id="card-dxf-to-dwg" data-tool="dxf-to-dwg" data-category="cad" data-ext=".dxf" onclick="selectQuickTool('dxf-to-dwg', 'DXF to DWG', '.dxf')">
+            <div class="tool-icon-wrap icon-red"><span>CAD</span></div>
+            <div class="tool-label">DXF to DWG</div>
+          </div>
+          <div class="tool-card" id="card-pdf-to-cad" data-tool="pdf-to-cad" data-category="cad" data-ext=".pdf" onclick="selectQuickTool('pdf-to-cad', 'PDF to AutoCAD DWG', '.pdf')">
+            <div class="tool-icon-wrap icon-teal"><span>VEC</span></div>
+            <div class="tool-label">PDF to AutoCAD DWG</div>
+          </div>
+
+          <!-- Audio & Music Converters -->
+          <div class="tool-card" id="card-audio-to-mp3" data-tool="audio-to-mp3" data-category="audio" data-ext=".wav,.flac,.aac,.ogg,.m4a,.opus,.wma,.aiff,.ac3,.amr,.m4r,.mp2,.caf,.au" onclick="selectQuickTool('audio-to-mp3', 'Audio to MP3', '.wav,.flac,.aac,.ogg,.m4a,.opus,.wma,.aiff,.ac3,.amr,.m4r,.mp2,.caf,.au')">
+            <div class="tool-icon-wrap icon-teal"><span>MP3</span></div>
+            <div class="tool-label">Audio to MP3</div>
+          </div>
+          <div class="tool-card" id="card-audio-to-wav" data-tool="audio-to-wav" data-category="audio" data-ext=".mp3,.flac,.aac,.ogg,.m4a,.wma,.opus,.aiff" onclick="selectQuickTool('audio-to-wav', 'Audio to WAV', '.mp3,.flac,.aac,.ogg,.m4a,.wma,.opus,.aiff')">
+            <div class="tool-icon-wrap icon-teal"><span>WAV</span></div>
+            <div class="tool-label">Audio to WAV</div>
+          </div>
+          <div class="tool-card" id="card-audio-to-flac" data-tool="audio-to-flac" data-category="audio" data-ext=".mp3,.wav,.aac,.ogg,.m4a,.wma" onclick="selectQuickTool('audio-to-flac', 'Audio to FLAC', '.mp3,.wav,.aac,.ogg,.m4a,.wma')">
+            <div class="tool-icon-wrap icon-teal"><span>FLAC</span></div>
+            <div class="tool-label">Audio to FLAC (Lossless)</div>
+          </div>
+          <div class="tool-card" id="card-audio-to-m4a" data-tool="audio-to-m4a" data-category="audio" data-ext=".mp3,.wav,.flac,.ogg,.wma" onclick="selectQuickTool('audio-to-m4a', 'Audio to M4A / AAC', '.mp3,.wav,.flac,.ogg,.wma')">
+            <div class="tool-icon-wrap icon-teal"><span>M4A</span></div>
+            <div class="tool-label">Audio to M4A / AAC</div>
+          </div>
+
+          <!-- Video Converters -->
+          <div class="tool-card" id="card-video-to-mp4" data-tool="video-to-mp4" data-category="video" data-ext=".mkv,.avi,.mov,.webm,.flv,.wmv,.m4v,.3gp,.ts,.vob,.mpg" onclick="selectQuickTool('video-to-mp4', 'Video to MP4', '.mkv,.avi,.mov,.webm,.flv,.wmv,.m4v,.3gp,.ts,.vob,.mpg')">
+            <div class="tool-icon-wrap icon-dark"><span>MP4</span></div>
+            <div class="tool-label">Video to MP4</div>
+          </div>
+          <div class="tool-card" id="card-video-to-mp3" data-tool="video-to-mp3" data-category="video" data-ext=".mp4,.mkv,.avi,.mov,.webm,.flv,.wmv,.m4v,.3gp,.ts" onclick="selectQuickTool('video-to-mp3', 'Video to MP3 (Audio Extraction)', '.mp4,.mkv,.avi,.mov,.webm,.flv,.wmv,.m4v,.3gp,.ts')">
+            <div class="tool-icon-wrap icon-teal"><span>AUDIO</span></div>
+            <div class="tool-label">Video to MP3 (Extract)</div>
+          </div>
+          <div class="tool-card" id="card-video-to-gif" data-tool="video-to-gif" data-category="video" data-ext=".mp4,.mov,.avi,.webm,.mkv" onclick="selectQuickTool('video-to-gif', 'Video to Animated GIF', '.mp4,.mov,.avi,.webm,.mkv')">
+            <div class="tool-icon-wrap icon-purple"><span>GIF</span></div>
+            <div class="tool-label">Video to Animated GIF</div>
+          </div>
+          <div class="tool-card" id="card-gif-to-mp4" data-tool="gif-to-mp4" data-category="video" data-ext=".gif" onclick="selectQuickTool('gif-to-mp4', 'GIF to MP4 Video', '.gif')">
+            <div class="tool-icon-wrap icon-dark"><span>V-GIF</span></div>
+            <div class="tool-label">GIF to MP4 Video</div>
+          </div>
+          <div class="tool-card" id="card-video-to-webm" data-tool="video-to-webm" data-category="video" data-ext=".mp4,.mov,.avi,.mkv" onclick="selectQuickTool('video-to-webm', 'Video to WebM', '.mp4,.mov,.avi,.mkv')">
+            <div class="tool-icon-wrap icon-dark"><span>WEBM</span></div>
+            <div class="tool-label">Video to WebM</div>
+          </div>
+          <div class="tool-card" id="card-openoffice-to-pdf" data-tool="openoffice-to-pdf" data-category="office" data-ext=".odt,.ods,.odp" onclick="selectQuickTool('openoffice-to-pdf', 'OpenOffice to PDF', '.odt,.ods,.odp')">
+            <div class="tool-icon-wrap icon-blue"><span>ODT</span></div>
+            <div class="tool-label">OpenOffice to PDF</div>
+          </div>
+          <div class="tool-card" id="card-ebook-to-pdf" data-tool="ebook-to-pdf" data-category="office" data-ext=".epub,.mobi,.fb2" onclick="selectQuickTool('ebook-to-pdf', 'eBooks to PDF', '.epub,.mobi,.fb2')">
+            <div class="tool-icon-wrap icon-orange"><span>EPUB</span></div>
+            <div class="tool-label">eBooks to PDF</div>
+          </div>
+          <div class="tool-card" id="card-iwork-to-pdf" data-tool="iwork-to-pdf" data-category="office" data-ext=".pages,.numbers,.keynote" onclick="selectQuickTool('iwork-to-pdf', 'iWork to PDF', '.pages,.numbers,.keynote')">
+            <div class="tool-icon-wrap icon-dark"><span>iWork</span></div>
+            <div class="tool-label">iWork to PDF</div>
+          </div>
+          <div class="tool-card" id="card-publisher-to-pdf" data-tool="publisher-to-pdf" data-category="office" data-ext=".pub" onclick="selectQuickTool('publisher-to-pdf', 'Publisher to PDF', '.pub')">
+            <div class="tool-icon-wrap icon-green"><span>PUB</span></div>
+            <div class="tool-label">Publisher to PDF</div>
+          </div>
+          <div class="tool-card" id="card-dicom-to-pdf" data-tool="dicom-to-pdf" data-category="image" data-ext=".dcm,.dicom" onclick="selectQuickTool('dicom-to-pdf', 'DICOM to PDF', '.dcm,.dicom')">
+            <div class="tool-icon-wrap icon-teal"><span>DCM</span></div>
+            <div class="tool-label">DICOM to PDF</div>
+          </div>
+          <div class="tool-card" id="card-pdf-to-word" data-tool="pdf-to-word" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('pdf-to-word', 'PDF to Word', '.pdf')">
+            <div class="tool-icon-wrap icon-blue"><span>DOCX</span></div>
+            <div class="tool-label">PDF to Word</div>
+          </div>
+          <div class="tool-card" id="card-pdf-to-excel" data-tool="pdf-to-excel" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('pdf-to-excel', 'PDF to Excel', '.pdf')">
+            <div class="tool-icon-wrap icon-green"><span>XLSX</span></div>
+            <div class="tool-label">PDF to Excel</div>
+          </div>
+          <div class="tool-card" id="card-pdf-to-pptx" data-tool="pdf-to-pptx" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('pdf-to-pptx', 'PDF to PowerPoint', '.pdf')">
+            <div class="tool-icon-wrap icon-orange"><span>PPTX</span></div>
+            <div class="tool-label">PDF to PowerPoint</div>
+          </div>
+          <div class="tool-card" id="card-pdf-to-jpg" data-tool="pdf-to-jpg" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('pdf-to-jpg', 'PDF to JPG', '.pdf')">
+            <div class="tool-icon-wrap icon-purple"><span>JPG</span></div>
+            <div class="tool-label">PDF to JPG</div>
+          </div>
+          <div class="tool-card" id="card-pdf-to-png" data-tool="pdf-to-png" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('pdf-to-png', 'PDF to PNG', '.pdf')">
+            <div class="tool-icon-wrap icon-purple"><span>PNG</span></div>
+            <div class="tool-label">PDF to PNG</div>
+          </div>
+          <div class="tool-card" id="card-extract-images" data-tool="extract-images" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('extract-images', 'Extract Images', '.pdf')">
+            <div class="tool-icon-wrap icon-purple"><span>EXT</span></div>
+            <div class="tool-label">Extract Images</div>
+          </div>
+          <div class="tool-card" id="card-pdf-to-pdfa" data-tool="pdf-to-pdfa" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('pdf-to-pdfa', 'PDF to PDF/A', '.pdf')">
+            <div class="tool-icon-wrap icon-dark"><span>PDF/A</span></div>
+            <div class="tool-label">PDF to PDF/A</div>
+          </div>
+          <div class="tool-card" id="card-merge-pdf" data-tool="merge-pdf" data-category="pdf-suite" data-ext=".pdf" onclick="switchTab('merge')">
+            <div class="tool-icon-wrap icon-orange"><span>PDF</span></div>
+            <div class="tool-label">Merge PDF</div>
+          </div>
+          <div class="tool-card" id="card-split-pdf" data-tool="split-pdf" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('split-pdf', 'Split PDF', '.pdf')">
+            <div class="tool-icon-wrap icon-orange"><span>CUT</span></div>
+            <div class="tool-label">Split PDF</div>
+          </div>
+          <div class="tool-card" id="card-protect-pdf" data-tool="protect-pdf" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('protect-pdf', 'Protect PDF', '.pdf')">
+            <div class="tool-icon-wrap icon-teal"><span>AES</span></div>
+            <div class="tool-label">Protect PDF</div>
+          </div>
+          <div class="tool-card" id="card-unlock-pdf" data-tool="unlock-pdf" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('unlock-pdf', 'Unlock PDF', '.pdf')">
+            <div class="tool-icon-wrap icon-teal"><span>KEY</span></div>
+            <div class="tool-label">Unlock PDF</div>
+          </div>
+          <div class="tool-card" id="card-redact-pdf" data-tool="redact-pdf" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('redact-pdf', 'Redact PDF', '.pdf')">
+            <div class="tool-icon-wrap icon-teal"><span>BLK</span></div>
+            <div class="tool-label">Redact PDF</div>
+          </div>
+          <div class="tool-card" id="card-pdf-converter" data-tool="pdf-converter" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('pdf-converter', 'PDF Converter', '.pdf')">
+            <div class="tool-icon-wrap icon-red"><span>ALL</span></div>
+            <div class="tool-label">PDF Converter</div>
+          </div>
+          <div class="tool-card" id="card-compress-pdf" data-tool="compress-pdf" data-category="pdf-suite" data-ext=".pdf" onclick="switchTab('resize')">
+            <div class="tool-icon-wrap icon-red"><span>ZIP</span></div>
+            <div class="tool-label">Compress PDF</div>
+          </div>
+          <div class="tool-card" id="card-delete-pages" data-tool="delete-pages" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('delete-pages', 'Delete PDF Pages', '.pdf')">
+            <div class="tool-icon-wrap icon-red"><span>DEL</span></div>
+            <div class="tool-label">Delete PDF Pages</div>
+          </div>
+          <div class="tool-card" id="card-rotate-pdf" data-tool="rotate-pdf" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('rotate-pdf', 'Rotate PDF', '.pdf')">
+            <div class="tool-icon-wrap icon-red"><span>90°</span></div>
+            <div class="tool-label">Rotate PDF</div>
+          </div>
+          <div class="tool-card" id="card-flatten-pdf" data-tool="flatten-pdf" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('flatten-pdf', 'Flatten PDF', '.pdf')">
+            <div class="tool-icon-wrap icon-red"><span>FLT</span></div>
+            <div class="tool-label">Flatten PDF</div>
+          </div>
+          <div class="tool-card" id="card-repair-pdf" data-tool="repair-pdf" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('repair-pdf', 'Repair PDF', '.pdf')">
+            <div class="tool-icon-wrap icon-red"><span>FIX</span></div>
+            <div class="tool-label">Repair PDF</div>
+          </div>
+          <div class="tool-card" id="card-print-ready-pdf" data-tool="print-ready-pdf" data-category="pdf-suite" data-ext=".pdf" onclick="selectQuickTool('print-ready-pdf', 'Print-Ready PDF', '.pdf')">
+            <div class="tool-icon-wrap icon-red"><span>300DPI</span></div>
+            <div class="tool-label">Print-Ready PDF</div>
+          </div>
+        </div>
+
+        <!-- Step 2: Contextual Configuration Drawer -->
+        <div id="context-config-drawer" class="context-panel" style="display: none;">
+          <div class="context-header">
+            <div class="context-title">
+              <i data-lucide="sliders" style="width: 20px; height: 20px; color: var(--zapier-orange);"></i>
+              <span id="drawer-tool-title">Tool Configuration</span>
+            </div>
+            <span id="drawer-tool-badge" class="badge" style="margin-bottom: 0; background: var(--bg-stone); color: var(--text-muted); font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; font-weight: 600;">Step 2</span>
+          </div>
+          
+          <p id="drawer-tool-desc" class="context-desc">
+            Choose or drop your file below to proceed.
+          </p>
+
+          <!-- Dropzone -->
+          <div class="broadsheet-dropzone" id="convert-dropzone" onclick="document.getElementById('convert-file-input').click()">
+            <input type="file" id="convert-file-input" style="display: none;" onchange="handleConvertFileSelect(this.files)">
+            <div class="drop-icon">
+              <i data-lucide="upload-cloud" style="width: 26px; height: 26px;"></i>
+            </div>
+            <div class="drop-title" id="drawer-drop-title">Choose a file or drag it here</div>
+            <div class="drop-desc" id="drawer-drop-desc">Supports PDF, Word, Excel, PowerPoint, CAD drawings, Audio, Video, and images</div>
+          </div>
+
+          <!-- File Loaded Strip (Dynamically shown when a file is dropped or selected) -->
+          <div id="convert-file-info" class="file-loaded-strip" style="display: none; margin-top: 1rem;">
+            <div class="file-loaded-left">
+              <div class="file-loaded-icon">
+                <i data-lucide="file-check" style="width: 22px; height: 22px;"></i>
+              </div>
+              <div>
+                <div id="convert-filename" class="file-loaded-name"></div>
+                <div id="convert-filesize" class="file-loaded-meta"></div>
+              </div>
+            </div>
+            <button class="file-loaded-remove" onclick="clearConvertFile(event)" title="Remove File">
+              <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+            </button>
+          </div>
+
+          <!-- Contextual Tool Options -->
+          <div id="dynamic-tool-options" style="margin-top: 1rem;">
+            
+            <!-- Split PDF Options -->
+            <div id="opt-split-pdf" class="tool-opt-panel" style="display: none;">
+              <label class="control-label">SPLIT MODE &amp; PAGE RANGES</label>
+              <div style="display: flex; gap: 1rem; margin-bottom: 0.6rem;">
+                <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-size: 0.88rem;">
+                  <input type="radio" name="split_mode" value="range" checked onchange="toggleSplitMode()"> Page Ranges (e.g. 1-3, 5)
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-size: 0.88rem;">
+                  <input type="radio" name="split_mode" value="burst" onchange="toggleSplitMode()"> Split Every Page
+                </label>
+              </div>
+              <input type="text" id="split-range-input" class="broadsheet-input" placeholder="e.g. 1-3, 5, 8-10">
+            </div>
+
+            <!-- Rotate PDF Options -->
+            <div id="opt-rotate-pdf" class="tool-opt-panel" style="display: none;">
+              <label class="control-label">ROTATION ANGLE</label>
+              <div style="display: flex; gap: 0.75rem; margin-top: 0.35rem;">
+                <button type="button" class="btn btn-secondary opt-angle-btn active" onclick="setRotateAngle(90, this)">90° Clockwise</button>
+                <button type="button" class="btn btn-secondary opt-angle-btn" onclick="setRotateAngle(180, this)">180° Flip</button>
+                <button type="button" class="btn btn-secondary opt-angle-btn" onclick="setRotateAngle(270, this)">270° Counter-Clockwise</button>
+              </div>
+            </div>
+
+            <!-- Delete Pages Options -->
+            <div id="opt-delete-pages" class="tool-opt-panel" style="display: none;">
+              <label class="control-label">PAGE NUMBERS TO REMOVE</label>
+              <input type="text" id="delete-pages-input" class="broadsheet-input" placeholder="e.g. 2, 4, 6-8">
+            </div>
+
+            <!-- Protect PDF Options -->
+            <div id="opt-protect-pdf" class="tool-opt-panel" style="display: none;">
+              <label class="control-label">SET PASSWORD</label>
+              <input type="password" id="protect-password-input" class="broadsheet-input" placeholder="Enter secure password to protect PDF...">
+            </div>
+
+            <!-- Unlock PDF Options -->
+            <div id="opt-unlock-pdf" class="tool-opt-panel" style="display: none;">
+              <label class="control-label">CURRENT PASSWORD</label>
+              <input type="password" id="unlock-password-input" class="broadsheet-input" placeholder="Enter password to unlock...">
+            </div>
+
+            <!-- Redact PDF Options -->
+            <div id="opt-redact-pdf" class="tool-opt-panel" style="display: none;">
+              <label class="control-label">WORDS TO BLACKOUT (REDACT)</label>
+              <input type="text" id="redact-keywords-input" class="broadsheet-input" placeholder="e.g. Confidential, Internal, SSN">
+            </div>
+
+            <!-- Print-Ready PDF Options -->
+            <div id="opt-print-ready-pdf" class="tool-opt-panel" style="display: none;">
+              <label class="control-label">PRINT RESOLUTION (DPI)</label>
+              <select id="print-dpi-select" class="broadsheet-select">
+                <option value="300" selected>300 DPI (High Quality Print Standard)</option>
+                <option value="600">600 DPI (Ultra-HD Vector Blueprint Quality)</option>
+                <option value="150">150 DPI (Fast Proofing Quality)</option>
+              </select>
+            </div>
+
+            <!-- Target Format Preset Banner (For dedicated tools like Excel to PDF) -->
+            <div id="convert-target-preset" class="use-case-note" style="display: none; background-color: #ecfdf5; border-left: 3px solid #16a34a; color: #15803d;">
+              <i data-lucide="check-circle" style="width: 16px; height: 16px; flex-shrink: 0; color: #16a34a;"></i>
+              <span id="convert-target-preset-text">Target Format: <strong>PDF Document (.pdf)</strong></span>
+            </div>
+
+            <!-- Target Format Selector (For general conversions ONLY) -->
+            <div id="convert-target-wrap" class="control-group" style="display: none;">
+              <label class="control-label">TARGET FORMAT</label>
+              <select id="convert-target-select" class="broadsheet-select" onchange="onTargetFormatChange()">
+                <option value="">Select format...</option>
+              </select>
+              <div id="convert-use-case-note" class="use-case-note" style="display: none; margin-top: 0.5rem;">
+                <i data-lucide="info" style="width: 16px; height: 16px; flex-shrink: 0; color: var(--zapier-orange);"></i>
+                <span id="convert-use-case-text"></span>
+              </div>
+            </div>
+
+            <!-- PDF Page Selector (When converting multi-page PDF to images) -->
+            <div id="pdf-page-selector-wrap" class="control-group" style="display: none; margin-top: 1rem;">
+              <label class="control-label" for="pdf-page-select">PAGES TO CONVERT</label>
+              <select id="pdf-page-select" class="broadsheet-select">
+                <option value="all">All Pages (Download as ZIP Archive)</option>
+              </select>
+            </div>
+
+            <!-- CAD Drawing Plot Style Selector (When converting DWG/DXF in Converter tab) -->
+            <div id="cad-plot-style-wrap" class="control-group" style="display: none; margin-top: 1rem;">
+              <label class="control-label" for="convert-cad-plot-style">CAD PLOT STYLE &amp; COLORS</label>
+              <select id="convert-cad-plot-style" class="broadsheet-select">
+                <option value="acad.ctb" selected>acad.ctb (Exact Native AutoCAD Drawing Colors - As in AutoCAD)</option>
+                <option value="Circuitizer.ctb">Circuitizer.ctb (Circuitizer Standard Plot Style)</option>
+                <option value="monochrome.ctb">monochrome.ctb (Monochrome Black &amp; White)</option>
+                <option value="BW.ctb">BW.ctb (High-Contrast Black &amp; White)</option>
+                <option value="CVX-CML-PASC.ctb">CVX-CML-PASC.ctb (Chevron CML Inspection Colors)</option>
+                <option value="None">None (Unassigned / Drawing Default)</option>
+              </select>
+              <div class="use-case-note" style="margin-top: 0.5rem; background: var(--bg-bone-subtle);">
+                <i data-lucide="palette" style="width: 15px; height: 15px; flex-shrink: 0; color: var(--accent-ember);"></i>
+                <span style="font-size: 0.8rem; color: var(--text-ink);">Selected plot style controls vector pen colors and lineweights matching native AutoCAD drafting.</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Execute Button -->
+          <div style="margin-top: 1.5rem;">
+            <button id="convert-submit-btn" class="btn btn-ember" disabled onclick="executeConvert()">
+              <i data-lucide="zap" style="width: 16px; height: 16px;"></i>
+              <span id="convert-btn-text">Convert File</span>
+            </button>
+          </div>
+
+          <!-- Progress -->
+          <div id="convert-progress-wrap" class="progress-container" style="display: none; margin-top: 1rem;">
+            <div class="progress-meta">
+              <span id="convert-progress-stage">Processing...</span>
+              <span id="convert-progress-percent">0%</span>
+            </div>
+            <div class="progress-track">
+              <div id="convert-progress-bar" class="progress-bar"></div>
+            </div>
+          </div>
+
+          <!-- Error Banner -->
+          <div id="convert-error-banner" class="error-banner" style="display: none; margin-top: 1rem;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="alert-circle" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
+              <span id="convert-error-text">Operation failed</span>
+            </div>
+            <button onclick="document.getElementById('convert-error-banner').style.display='none'" style="background: none; border: none; color: inherit; cursor: pointer;">
+              <i data-lucide="x" style="width: 15px; height: 15px;"></i>
+            </button>
+          </div>
+
+          <!-- Result Card -->
+          <div id="convert-result-card" class="result-card" style="display: none; margin-top: 1rem;">
+            <div class="result-header">
+              <i data-lucide="check-circle-2" style="width: 22px; height: 22px; color: #16a34a;"></i>
+              <span>Conversion Complete</span>
+            </div>
+            <div class="result-metrics">
+              <span id="convert-result-metrics">Processed in 120ms</span>
+              <span id="convert-result-savings" class="badge" style="display: none; margin-left: 0.5rem; background: #ecfdf5; color: #15803d; border: 1px solid #bbf7d0; font-size: 0.75rem; padding: 2px 8px; border-radius: 9999px;"></span>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a id="convert-download-btn" href="#" class="btn btn-primary" download>
+                <i data-lucide="download" style="width: 16px; height: 16px;"></i> Download File
+              </a>
+              <button class="btn btn-secondary" onclick="clearConvertFile()">
+                <i data-lucide="rotate-ccw" style="width: 14px; height: 14px;"></i> Convert Another File
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- METRICS TICKER (Clean Forest Theme from Stitch) -->
+      <section class="stitch-metrics-ticker">
+        <div class="stitch-metric-card">
+          <span class="stitch-metric-label">ENGINE SPEED</span>
+          <div class="stitch-metric-val">420 MB/s</div>
+          <span class="stitch-metric-sub text-emerald-accent">Wasm SIMD active</span>
+        </div>
+        <div class="stitch-metric-card">
+          <span class="stitch-metric-label">CTB FIDELITY</span>
+          <div class="stitch-metric-val">100%</div>
+          <span class="stitch-metric-sub">Exact vector line weight</span>
+        </div>
+        <div class="stitch-metric-card">
+          <span class="stitch-metric-label">FILE FORMATS</span>
+          <div class="stitch-metric-val">84+</div>
+          <span class="stitch-metric-sub">CAD, 3D, Office, Vector</span>
+        </div>
+        <div class="stitch-metric-card">
+          <span class="stitch-metric-label">CLOUD EGRESS</span>
+          <div class="stitch-metric-val text-emerald-bright">0.00 KB</div>
+          <span class="stitch-metric-sub">Zero data uploaded</span>
+        </div>
+      </section>
+
+      <!-- ARCHITECTURAL BLUEPRINT ACCURACY SHOWCASE -->
+      <section class="stitch-blueprint-section">
+        <div class="stitch-blueprint-card">
+          <div class="stitch-blueprint-info">
+            <div class="stitch-hero-badge" style="margin-bottom: 1rem;">
+              <span class="material-symbols-outlined text-emerald-accent" style="font-size: 16px;">draw</span>
+              <span>AutoCAD Plot Engine</span>
+            </div>
+            <h3 class="stitch-blueprint-title">
+              True architectural output. No clipped viewports, no missing SHX fonts.
+            </h3>
+            <p class="stitch-blueprint-desc">
+              Standard browser converters fail on technical blueprints because they lack SHX vector font mapping and CTB pen weight definitions. ILoveFiles integrates an offline rasterizer and native AutoCAD Core Console engine right on your system.
+            </p>
+            <div class="stitch-blueprint-features">
+              <div class="stitch-bp-item">
+                <span class="material-symbols-outlined text-emerald-accent" style="font-size: 20px;">check_circle</span>
+                <div>
+                  <strong>Automatic SHX Font Replacement:</strong> Simplex, Romand, and custom BigFonts resolve cleanly without question marks.
+                </div>
+              </div>
+              <div class="stitch-bp-item">
+                <span class="material-symbols-outlined text-emerald-accent" style="font-size: 20px;">check_circle</span>
+                <div>
+                  <strong>Native CTB Color Mapping:</strong> Indices 1 to 255 map to millimeter pen thickness for sharp architectural linework.
+                </div>
+              </div>
+              <div class="stitch-bp-item">
+                <span class="material-symbols-outlined text-emerald-accent" style="font-size: 20px;">check_circle</span>
+                <div>
+                  <strong>Paper Space Layout Batching:</strong> Automatically export all viewport tabs into a single unified multi-page PDF set.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Architectural Blueprint Mockup SVG -->
+          <div class="stitch-blueprint-mockup">
+            <div class="stitch-mockup-inner">
+              <div class="stitch-mockup-header">
+                <div style="display: flex; align-items: center; gap: 5px;">
+                  <span style="width: 9px; height: 9px; border-radius: 50%; background: #d1d5db; display: inline-block;"></span>
+                  <span style="width: 9px; height: 9px; border-radius: 50%; background: #d1d5db; display: inline-block;"></span>
+                  <span style="width: 9px; height: 9px; border-radius: 50%; background: #059669; display: inline-block;"></span>
+                  <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-left: 6px;">ARCH_A101_PLANS.dwg</span>
+                </div>
+                <span class="stitch-a1-badge">A1 Plot</span>
+              </div>
+              <div class="stitch-mockup-svg-wrap">
+                <svg class="stitch-floorplan-svg" viewBox="0 0 380 200" xmlns="http://www.w3.org/2000/svg" fill="none">
+                  <rect x="12" y="12" width="356" height="176" stroke="currentColor" stroke-width="2.2"></rect>
+                  <rect x="22" y="22" width="336" height="156" stroke="currentColor" stroke-dasharray="3 3" stroke-width="0.8" opacity="0.6"></rect>
+                  <line x1="140" y1="22" x2="140" y2="178" stroke="currentColor" stroke-width="1.8"></line>
+                  <line x1="250" y1="22" x2="250" y2="178" stroke="currentColor" stroke-width="1.8"></line>
+                  <line x1="22" y1="100" x2="250" y2="100" stroke="currentColor" stroke-width="1.8"></line>
+                  <path d="M 140 100 A 30 30 0 0 1 170 130" stroke="currentColor" stroke-width="1.2" fill="none"></path>
+                  <line x1="140" y1="130" x2="140" y2="100" stroke="currentColor" stroke-width="1.2"></line>
+                  <path d="M 250 50 A 25 25 0 0 0 225 75" stroke="currentColor" stroke-width="1.2" fill="none"></path>
+                  <line x1="250" y1="75" x2="250" y2="50" stroke="currentColor" stroke-width="1.2"></line>
+                  <text x="35" y="60" fill="currentColor" font-family="monospace" font-size="9" font-weight="600">CONFERENCE ROOM [A1]</text>
+                  <text x="35" y="74" fill="#71756e" font-family="monospace" font-size="8">4500 x 6200 mm</text>
+                  <text x="35" y="140" fill="currentColor" font-family="monospace" font-size="9" font-weight="600">EXECUTIVE SUITE [B2]</text>
+                  <text x="160" y="60" fill="currentColor" font-family="monospace" font-size="9" font-weight="600">OPEN STUDIO</text>
+                  <text x="270" y="95" fill="currentColor" font-family="monospace" font-size="9" font-weight="600">HVAC SHAFT</text>
+                  <line x1="30" y1="168" x2="130" y2="168" stroke="#059669" stroke-width="0.8"></line>
+                  <line x1="30" y1="164" x2="30" y2="172" stroke="#059669" stroke-width="0.8"></line>
+                  <line x1="130" y1="164" x2="130" y2="172" stroke="#059669" stroke-width="0.8"></line>
+                  <text x="80" y="165" fill="#059669" font-family="monospace" font-size="7" text-anchor="middle">8,400 mm</text>
+                  <rect x="260" y="138" width="92" height="36" stroke="currentColor" stroke-width="1" fill="var(--bg-paper)"></rect>
+                  <text x="265" y="150" fill="currentColor" font-family="sans-serif" font-size="6.5" font-weight="bold">PROJECT: NEXUS TOWER</text>
+                  <text x="265" y="160" fill="#71756e" font-family="sans-serif" font-size="6">SCALE 1:100 @ A1</text>
+                  <text x="265" y="168" fill="#059669" font-family="sans-serif" font-size="6" font-weight="bold">MONOCHROME.CTB</text>
+                </svg>
+              </div>
+              <div class="stitch-mockup-footer">
+                <span style="display: flex; align-items: center; gap: 6px; color: var(--forest-main); font-weight: 600;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #059669; display: inline-block;"></span>
+                  Vector Accuracy: 100%
+                </span>
+                <span>1:1 Scale Output</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECURITY PILLARS (Engineered for absolute privacy) -->
+      <section class="stitch-security-section">
+        <div class="stitch-security-header">
+          <h2>Engineered for absolute privacy</h2>
+          <p>Your confidential drawings and contracts belong strictly to you.</p>
+        </div>
+        <div class="stitch-security-grid">
+          <div class="stitch-security-card">
+            <div class="stitch-sec-icon">
+              <span class="material-symbols-outlined" style="font-size: 24px;">shield</span>
+            </div>
+            <h4>100% On-Device Isolation</h4>
+            <p>Files never travel to third parties. All parsing and rasterization runs locally on your system.</p>
+          </div>
+          <div class="stitch-security-card">
+            <div class="stitch-sec-icon">
+              <span class="material-symbols-outlined" style="font-size: 24px;">devices</span>
+            </div>
+            <h4>No Heavy CAD Software</h4>
+            <p>Forget expensive CAD workstation licenses. View, convert, and plot blueprints effortlessly.</p>
+          </div>
+          <div class="stitch-security-card">
+            <div class="stitch-sec-icon">
+              <span class="material-symbols-outlined" style="font-size: 24px;">speed</span>
+            </div>
+            <h4>Instant Turnaround</h4>
+            <p>No waiting in cloud conversion queues or entering email addresses. Process blueprints immediately.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ======================================================================
+         2. AUTOCAD BATCH PLOT & PUBLISHING STUDIO
+         ====================================================================== -->
+    <div id="view-plot" class="studio-view">
+      <div class="broadsheet-card">
+        <h2 class="card-title">AutoCAD Batch Plotting</h2>
+        <p class="card-desc">
+          Plot multiple DWG and DXF drawings with your preferred CTB plot styles, paper sizes, and orientations into continuous multi-page PDF sets or ZIP archives.
+        </p>
+
+        <!-- AutoCAD Plot Settings Grid -->
+        <div class="grid-2col">
+          
+          <!-- Left Column -->
+          <div>
+            <div class="control-group">
+              <label class="control-label" for="plot-printer">PLOTTER / QUALITY</label>
+              <select id="plot-printer" class="broadsheet-select">
+                <option value="AutoCAD PDF (High Quality Print).pc3" selected>AutoCAD PDF (High Quality Print)</option>
+                <option value="AutoCAD PDF (General Documentation).pc3">AutoCAD PDF (General Documentation)</option>
+                <option value="AutoCAD PDF (Smallest File).pc3">AutoCAD PDF (Smallest File)</option>
+                <option value="AutoCAD PDF (Web and Mobile).pc3">AutoCAD PDF (Web and Mobile)</option>
+                <option value="DWG To PDF.pc3">DWG To PDF</option>
+                <option value="DWF6 ePlot.pc3">DWF6 ePlot (Autodesk DWF)</option>
+                <option value="DWFx ePlot (XPS Compatible).pc3">DWFx ePlot (XPS Compatible)</option>
+                <option value="PublishToWeb PNG.pc3">PublishToWeb PNG (Raster)</option>
+                <option value="PublishToWeb JPG.pc3">PublishToWeb JPG (Raster)</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="plot-paper-size">PAPER SIZE</label>
+              <select id="plot-paper-size" class="broadsheet-select">
+                <optgroup label="ANSI Standard Sheets">
+                  <option value="ANSI full bleed B (17.00 x 11.00 Inches)" selected>ANSI full bleed B (17.00 x 11.00 Inches)</option>
+                  <option value="ANSI full bleed A (11.00 x 8.50 Inches)">ANSI full bleed A (11.00 x 8.50 Inches)</option>
+                  <option value="ANSI A (8.50 x 11.00 Inches)">ANSI A (8.50 x 11.00 Inches)</option>
+                  <option value="ANSI B (11.00 x 17.00 Inches)">ANSI B (11.00 x 17.00 Inches)</option>
+                  <option value="ANSI C (17.00 x 22.00 Inches)">ANSI C (17.00 x 22.00 Inches)</option>
+                  <option value="ANSI D (22.00 x 34.00 Inches)">ANSI D (22.00 x 34.00 Inches)</option>
+                  <option value="ANSI E (34.00 x 44.00 Inches)">ANSI E (34.00 x 44.00 Inches)</option>
+                </optgroup>
+                <optgroup label="ISO International Metric Sheets">
+                  <option value="ISO full bleed A4 (210.00 x 297.00 mm)">ISO full bleed A4 (210.00 x 297.00 mm)</option>
+                  <option value="ISO full bleed A3 (297.00 x 420.00 mm)">ISO full bleed A3 (297.00 x 420.00 mm)</option>
+                  <option value="ISO full bleed A2 (420.00 x 594.00 mm)">ISO full bleed A2 (420.00 x 594.00 mm)</option>
+                  <option value="ISO full bleed A1 (841.00 x 594.00 mm)">ISO full bleed A1 (841.00 x 594.00 mm)</option>
+                  <option value="ISO full bleed A0 (1189.00 x 841.00 mm)">ISO full bleed A0 (1189.00 x 841.00 mm)</option>
+                </optgroup>
+                <optgroup label="Architectural Sheets">
+                  <option value="ARCH full bleed D (24.00 x 36.00 Inches)">ARCH full bleed D (24.00 x 36.00 Inches)</option>
+                  <option value="ARCH E (36.00 x 48.00 Inches)">ARCH E (36.00 x 48.00 Inches)</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-subgrid-2col">
+              <div>
+                <label class="control-label" for="plot-area">WHAT TO PLOT</label>
+                <select id="plot-area" class="broadsheet-select">
+                  <option value="Extents" selected>Extents (Standard)</option>
+                  <option value="Display">Display</option>
+                  <option value="Limits">Limits</option>
+                  <option value="Layout">Layout (Paper Space)</option>
+                </select>
+              </div>
+              <div>
+                <label class="control-label" for="plot-shade">SHADE PLOT</label>
+                <select id="plot-shade" class="broadsheet-select">
+                  <option value="Wireframe" selected>Wireframe</option>
+                  <option value="As displayed">As Displayed</option>
+                  <option value="Hidden">Hidden</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1.25rem; margin-top: 1rem; flex-wrap: wrap;">
+              <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-size: 0.88rem;">
+                <input type="checkbox" id="plot-fit" checked>
+                <strong>Fit to Paper</strong>
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-size: 0.88rem;">
+                <input type="checkbox" id="plot-center" checked>
+                <strong>Center the Plot</strong>
+              </label>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div>
+            <div class="control-group">
+              <label class="control-label" for="plot-style">PLOT STYLE (CTB PEN ASSIGNMENTS)</label>
+              <select id="plot-style" class="broadsheet-select">
+                <option value="acad.ctb" selected>acad.ctb (Exact Native AutoCAD Drawing Colors - As in AutoCAD)</option>
+                <option value="Circuitizer.ctb">Circuitizer.ctb (Circuitizer Standard Plot Style)</option>
+                <option value="monochrome.ctb">monochrome.ctb (Standard Black &amp; White)</option>
+                <option value="BW.ctb">BW.ctb (High Contrast Black &amp; White)</option>
+                <option value="CVX-CML-PASC.ctb">CVX-CML-PASC.ctb (Chevron CML Inspection Colors)</option>
+                <option value="Grayscale.ctb">Grayscale.ctb</option>
+                <option value="DWF Virtual Pens.ctb">DWF Virtual Pens.ctb</option>
+                <option value="Screening 100%.ctb">Screening 100%</option>
+                <option value="Screening 50%.ctb">Screening 50%</option>
+                <option value="Screening 25%.ctb">Screening 25%</option>
+                <option value="None">None (Unassigned / Drawing Default)</option>
+              </select>
+            </div>
+
+            <!-- Custom CTB Upload -->
+            <div style="margin-top: 1rem; padding: 1rem; border: 1px dashed var(--border-ash); border-radius: var(--radius-md); background: var(--bg-stone-subtle);">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                <div>
+                  <div style="font-weight: 700; font-size: 0.85rem;">CUSTOM .CTB STYLE</div>
+                  <div style="font-size: 0.76rem; color: var(--text-muted);">Optional: upload a custom company plot style</div>
+                </div>
+                <button type="button" class="btn btn-secondary" style="padding: 0.4rem 0.85rem; font-size: 0.78rem;" onclick="document.getElementById('plot-ctb-file').click()">
+                  <i data-lucide="upload" style="width: 14px; height: 14px;"></i> Attach .CTB
+                </button>
+                <input type="file" id="plot-ctb-file" accept=".ctb" style="display: none;" onchange="handleCtbFileSelect(this.files)">
+              </div>
+              <div id="plot-ctb-loaded-badge" style="display: none; margin-top: 0.5rem; font-size: 0.78rem; color: var(--zapier-orange); font-weight: 700;">
+                <i data-lucide="check-circle" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i> Attached: <span id="plot-ctb-filename">Circuitizer.ctb</span>
+                <button type="button" onclick="clearCustomCtb()" style="background: none; border: none; cursor: pointer; color: var(--text-ink); margin-left: 0.5rem; text-decoration: underline;">Remove</button>
+              </div>
+            </div>
+
+            <div class="form-subgrid-2col">
+              <div>
+                <label class="control-label">ORIENTATION</label>
+                <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                  <label style="display: flex; align-items: center; gap: 0.45rem; cursor: pointer; font-size: 0.85rem;">
+                    <input type="radio" name="plot_orientation" value="Landscape" checked id="plot-orient-land">
+                    <span>Landscape</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 0.45rem; cursor: pointer; font-size: 0.85rem;">
+                    <input type="radio" name="plot_orientation" value="Portrait" id="plot-orient-port">
+                    <span>Portrait</span>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label class="control-label">OPTIONS</label>
+                <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                  <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-size: 0.85rem;">
+                    <input type="checkbox" id="plot-lineweights" checked>
+                    <span>Plot Lineweights</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-size: 0.85rem;">
+                    <input type="checkbox" id="plot-styles-enabled" checked>
+                    <span>Use Plot Styles</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Batch Drawing Dropzone -->
+        <div style="margin-top: 1.5rem;">
+          <div class="broadsheet-dropzone" id="plot-dropzone" onclick="document.getElementById('plot-file-input').click()">
+            <input type="file" id="plot-file-input" multiple accept=".dwg,.dxf" style="display: none;" onchange="handlePlotFilesSelect(this.files)">
+            <div class="drop-icon">
+              <i data-lucide="files" style="width: 26px; height: 26px;"></i>
+            </div>
+            <div class="drop-title">Choose or drop AutoCAD drawings here</div>
+            <div class="drop-desc">Select DWG or DXF files to batch plot</div>
+          </div>
+
+          <!-- Batch Queue File Strip -->
+          <div id="plot-queue-container" style="display: none; margin-top: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <span style="font-size: 0.85rem; font-weight: 700;" id="plot-queue-count-label">Batch Drawing Queue (0 Drawings)</span>
+              <button type="button" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;" onclick="document.getElementById('plot-file-input').click()">
+                <i data-lucide="plus" style="width: 14px; height: 14px;"></i> Add More Drawings
+              </button>
+            </div>
+            <div id="plot-queue-list" style="display: flex; flex-direction: column; gap: 0.5rem; max-height: 220px; overflow-y: auto;"></div>
+          </div>
+
+          <!-- Output Packaging Options -->
+          <div style="margin-top: 1.25rem; padding: 1rem; border: 1px solid var(--border-ash); border-radius: var(--radius-md); background: var(--bg-stone-subtle);">
+            <label class="control-label">OUTPUT PACKAGING</label>
+            <div style="display: flex; gap: 1.5rem; margin-top: 0.45rem; flex-wrap: wrap;">
+              <label style="display: flex; align-items: center; gap: 0.45rem; cursor: pointer; font-size: 0.88rem;">
+                <input type="radio" name="plot_packaging" value="unified" checked id="plot-pack-unified">
+                <strong>Combined Multi-Page Document (PDF / DWF)</strong>
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.45rem; cursor: pointer; font-size: 0.88rem;">
+                <input type="radio" name="plot_packaging" value="zip" id="plot-pack-zip">
+                <span>Separate Files (Download as ZIP Archive)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Error Banner -->
+          <div id="plot-error-banner" class="error-banner" style="display: none; margin-top: 1rem;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="alert-triangle" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
+              <span id="plot-error-text">An error occurred during plotting.</span>
+            </div>
+            <button type="button" onclick="document.getElementById('plot-error-banner').style.display='none'" style="background: none; border: none; color: inherit; cursor: pointer; display: flex; align-items: center; padding: 2px;" aria-label="Dismiss error">
+              <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+            </button>
+          </div>
+
+          <!-- Action Button -->
+          <div style="margin-top: 1.25rem;">
+            <button class="btn btn-ember" id="plot-submit-btn" onclick="submitAutoCadBatchPlot()" disabled>
+              <i data-lucide="printer" style="width: 18px; height: 18px;"></i>
+              <span id="plot-submit-btn-text">Execute AutoCAD Batch Plot</span>
+            </button>
+          </div>
+
+          <!-- Progress Track -->
+          <div id="plot-progress-wrap" class="progress-container" style="display: none; margin-top: 1.25rem;">
+            <div class="progress-meta">
+              <span id="plot-prog-status">Plotting...</span>
+              <span id="plot-prog-percent">0%</span>
+            </div>
+            <div class="progress-track">
+              <div id="plot-progress-fill" class="progress-bar"></div>
+            </div>
+          </div>
+
+          <!-- Result Card (with all required result IDs) -->
+          <div id="plot-result-card" class="result-card" style="display: none; margin-top: 1.5rem;">
+            <div class="result-header">
+              <i data-lucide="check-circle" style="width: 22px; height: 22px; color: #16a34a;"></i>
+              <span>Batch Plot Complete</span>
+            </div>
+
+            <div class="result-metrics" style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; font-size: 0.88rem; color: var(--text-muted);">
+              <div>Sheets: <strong id="plot-res-sheets" style="color: var(--text-ink);">1</strong></div>
+              <div>File Size: <strong id="plot-res-size" style="color: var(--text-ink);">0 KB</strong></div>
+              <div>Plot Style: <strong id="plot-res-ctb" style="color: var(--text-ink);">acad.ctb</strong></div>
+              <div>Duration: <strong id="plot-res-duration" style="color: var(--text-ink);">0s</strong></div>
+            </div>
+
+            <!-- Live Sheet 1 Preview -->
+            <div id="plot-preview-container" style="display: none; margin: 1rem 0; border: 1px solid var(--border-ash); border-radius: var(--radius-md); background: #ffffff; padding: 0.75rem; text-align: center;">
+              <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; text-align: left;">
+                Drawing Preview (Sheet 1)
+              </div>
+              <img id="plot-preview-img" src="" alt="Sheet 1 Preview" style="max-width: 100%; max-height: 420px; object-fit: contain; border-radius: var(--radius-sm);">
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+              <a id="plot-download-btn" href="#" class="btn btn-primary" download>
+                <i data-lucide="download" style="width: 16px; height: 16px;"></i> Download Plotted Drawing Set
+              </a>
+              <button class="btn btn-secondary" onclick="resetPlotStudio()">
+                <i data-lucide="rotate-ccw" style="width: 14px; height: 14px;"></i> Plot Another Batch
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         3. DOCUMENT MERGER VIEW
+         ====================================================================== -->
+    <div id="view-merge" class="studio-view">
+      <div class="broadsheet-card">
+        <h2 class="card-title">Merge Documents</h2>
+        <p class="card-desc">
+          Combine multiple PDF files, Word documents (.docx), and images (.png, .jpg, .webp, .tiff) into a single PDF. Drag and drop entries to arrange page sequence.
+        </p>
+
+        <!-- Dropzone -->
+        <div class="broadsheet-dropzone" id="merge-dropzone" onclick="document.getElementById('merge-file-input').click()">
+          <input type="file" id="merge-file-input" style="display: none;" multiple onchange="handleMergeFilesSelect(this.files)">
+          <div class="drop-icon">
+            <i data-lucide="layers" style="width: 26px; height: 26px;"></i>
+          </div>
+          <div class="drop-title">Choose files to merge</div>
+          <div class="drop-desc">Select 2 or more files (PDF, DOCX, PNG, JPG, WebP, TIFF)</div>
+        </div>
+
+        <!-- Merge Queue List -->
+        <div id="merge-queue-container" style="display: none; margin-top: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-ash); padding-bottom: 0.5rem;">
+            <span style="font-size: 0.85rem; font-weight: 700;" id="merge-count-label">Queue (0 Files)</span>
+            <button class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;" onclick="clearMergeQueue()">
+              <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> Clear All
+            </button>
+          </div>
+          <div id="merge-file-list" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
+        </div>
+
+        <!-- Error Banner -->
+        <div id="merge-error-banner" class="error-banner" style="display: none; margin-top: 1rem;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="alert-circle" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
+            <span id="merge-error-text">An error occurred.</span>
+          </div>
+          <button type="button" onclick="document.getElementById('merge-error-banner').style.display='none'" style="background: none; border: none; color: inherit; cursor: pointer; display: flex; align-items: center; padding: 2px;" aria-label="Dismiss error">
+            <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+          </button>
+        </div>
+
+        <!-- Action Button -->
+        <div style="margin-top: 1.25rem;">
+          <button class="btn btn-ember" id="merge-submit-btn" disabled onclick="executeMerge()">
+            <i data-lucide="combine" style="width: 16px; height: 16px;"></i>
+            <span id="merge-btn-text">Merge Files into Single PDF</span>
+          </button>
+        </div>
+
+        <!-- Progress Track -->
+        <div id="merge-progress-wrap" class="progress-container" style="display: none; margin-top: 1.25rem;">
+          <div class="progress-meta">
+            <span id="merge-prog-status">Merging files...</span>
+            <span id="merge-prog-percent">0%</span>
+          </div>
+          <div class="progress-track">
+            <div id="merge-progress-bar" class="progress-bar"></div>
+          </div>
+        </div>
+
+        <!-- Result Card -->
+        <div id="merge-result-card" class="result-card" style="display: none; margin-top: 1.5rem;">
+          <div class="result-header">
+            <i data-lucide="check-circle" style="width: 22px; height: 22px; color: #16a34a;"></i>
+            <span>Merge Complete</span>
+          </div>
+          <div class="result-metrics">
+            <span id="merge-result-metrics">Merged 0 files</span>
+          </div>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+            <a id="merge-download-btn" href="#" class="btn btn-primary" download>
+              <i data-lucide="download" style="width: 16px; height: 16px;"></i> Download Merged PDF
+            </a>
+            <button class="btn btn-secondary" onclick="clearMergeQueue()">
+              <i data-lucide="rotate-ccw" style="width: 14px; height: 14px;"></i> Merge Another Set
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         4. RESIZE & COMPRESS VIEW
+         ====================================================================== -->
+    <div id="view-resize" class="studio-view">
+      <div class="broadsheet-card">
+        <h2 class="card-title">Compress &amp; Resize Files</h2>
+        <p class="card-desc">
+          Reduce PDF document size, optimize and resize images, or downscale video files.
+        </p>
+
+        <!-- Sub-tabs -->
+        <div class="hub-filter-pills" style="margin-bottom: 1.25rem;">
+          <button class="filter-pill active" id="resize-subtab-pdf" onclick="switchResizeSubTab('pdf')">
+            <i data-lucide="file-text" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i> PDF Document
+          </button>
+          <button class="filter-pill" id="resize-subtab-image" onclick="switchResizeSubTab('image')">
+            <i data-lucide="image" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i> Images
+          </button>
+          <button class="filter-pill" id="resize-subtab-video" onclick="switchResizeSubTab('video')">
+            <i data-lucide="video" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle;"></i> Video
+          </button>
+        </div>
+
+        <!-- Controls: PDF -->
+        <div id="controls-pdf" class="resize-controls-panel">
+          <div class="form-subgrid-2col">
+            <div>
+              <label class="control-label" for="pdf-page-size">PAGE SIZE NORMALIZATION</label>
+              <select id="pdf-page-size" class="broadsheet-select">
+                <option value="keep" selected>Keep Original Page Size</option>
+                <option value="a4">Standard A4 (210 x 297 mm)</option>
+                <option value="letter">US Letter (8.5 x 11 in)</option>
+                <option value="a3">Standard A3 (297 x 420 mm)</option>
+              </select>
+            </div>
+            <div>
+              <label class="control-label" for="pdf-target-kb">TARGET FILE SIZE</label>
+              <div style="display: flex; gap: 0.5rem;">
+                <input type="number" id="pdf-target-kb" class="broadsheet-input" placeholder="e.g. 500">
+                <select id="pdf-size-unit" class="broadsheet-select" style="width: 90px;">
+                  <option value="kb" selected>KB</option>
+                  <option value="mb">MB</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls: Image -->
+        <div id="controls-image" class="resize-controls-panel" style="display: none;">
+          <div class="form-subgrid-3col">
+            <div>
+              <label class="control-label" for="img-width">MAX WIDTH (PX)</label>
+              <input type="number" id="img-width" class="broadsheet-input" placeholder="e.g. 1920">
+            </div>
+            <div>
+              <label class="control-label" for="img-height">MAX HEIGHT (PX)</label>
+              <input type="number" id="img-height" class="broadsheet-input" placeholder="e.g. 1080">
+            </div>
+            <div>
+              <label class="control-label" for="img-quality">QUALITY (%)</label>
+              <input type="number" id="img-quality" class="broadsheet-input" value="85" min="10" max="100">
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls: Video -->
+        <div id="controls-video" class="resize-controls-panel" style="display: none;">
+          <div class="form-subgrid-2col">
+            <div>
+              <label class="control-label" for="video-resolution">RESOLUTION</label>
+              <select id="video-resolution" class="broadsheet-select">
+                <option value="720p" selected>720p HD (1280x720)</option>
+                <option value="480p">480p SD (854x480)</option>
+                <option value="360p">360p Low (640x360)</option>
+                <option value="1080p">1080p Full HD (1920x1080)</option>
+              </select>
+            </div>
+            <div>
+              <label class="control-label" for="video-bitrate">TARGET BITRATE</label>
+              <select id="video-bitrate" class="broadsheet-select">
+                <option value="1M" selected>1.0 Mbps (Recommended)</option>
+                <option value="500k">500 Kbps (Maximum Compression)</option>
+                <option value="2M">2.0 Mbps (High Quality)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dropzone -->
+        <div class="broadsheet-dropzone" id="resize-dropzone" style="margin-top: 1.25rem;" onclick="document.getElementById('resize-file-input').click()">
+          <input type="file" id="resize-file-input" style="display: none;" onchange="handleResizeFileSelect(this.files)">
+          <div class="drop-icon">
+            <i data-lucide="minimize-2" style="width: 26px; height: 26px;"></i>
+          </div>
+          <div class="drop-title" id="resize-drop-title">Choose a file to compress or resize</div>
+          <div class="drop-desc" id="resize-drop-desc">Select PDF, image, or video file</div>
+        </div>
+
+        <!-- File Loaded Strip (Dynamically shown when a file is selected) -->
+        <div id="resize-file-info" class="file-loaded-strip" style="display: none; margin-top: 1rem;">
+          <div class="file-loaded-left">
+            <div class="file-loaded-icon">
+              <i data-lucide="file-check" style="width: 22px; height: 22px;"></i>
+            </div>
+            <div>
+              <div id="resize-filename" class="file-loaded-name"></div>
+              <div id="resize-filesize" class="file-loaded-meta"></div>
+            </div>
+          </div>
+          <button class="file-loaded-remove" onclick="clearResizeFile(event)" title="Remove File">
+            <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+          </button>
+        </div>
+
+        <!-- Error Banner -->
+        <div id="resize-error-banner" class="error-banner" style="display: none; margin-top: 1rem;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="alert-circle" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
+            <span id="resize-error-text">An error occurred.</span>
+          </div>
+          <button type="button" onclick="document.getElementById('resize-error-banner').style.display='none'" style="background: none; border: none; color: inherit; cursor: pointer; display: flex; align-items: center; padding: 2px;" aria-label="Dismiss error">
+            <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+          </button>
+        </div>
+
+        <!-- Action Button -->
+        <div style="margin-top: 1.25rem;">
+          <button class="btn btn-ember" id="resize-submit-btn" disabled onclick="executeResize()">
+            <i data-lucide="minimize-2" style="width: 16px; height: 16px;"></i>
+            <span id="resize-btn-text">Compress &amp; Optimize File</span>
+          </button>
+        </div>
+
+        <!-- Progress Track -->
+        <div id="resize-progress-wrap" class="progress-container" style="display: none; margin-top: 1.25rem;">
+          <div class="progress-meta">
+            <span id="resize-prog-status">Optimizing file...</span>
+            <span id="resize-prog-percent">0%</span>
+          </div>
+          <div class="progress-track">
+            <div id="resize-progress-bar" class="progress-bar"></div>
+          </div>
+        </div>
+
+        <!-- Result Card -->
+        <div id="resize-result-card" class="result-card" style="display: none; margin-top: 1.5rem;">
+          <div class="result-header">
+            <i data-lucide="check-circle" style="width: 22px; height: 22px; color: #16a34a;"></i>
+            <span>File Optimization Complete</span>
+          </div>
+          <div class="result-metrics">
+            <span id="resize-result-metrics">Saved</span>
+            <span id="resize-result-savings" class="badge" style="display: none; margin-left: 0.5rem; background: #ecfdf5; color: #15803d; border: 1px solid #bbf7d0; font-size: 0.75rem; padding: 2px 8px; border-radius: 9999px;"></span>
+          </div>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+            <a id="resize-download-btn" href="#" class="btn btn-primary" download>
+              <i data-lucide="download" style="width: 16px; height: 16px;"></i> Download Optimized File
+            </a>
+            <button class="btn btn-secondary" onclick="clearResizeFile()">
+              <i data-lucide="rotate-ccw" style="width: 14px; height: 14px;"></i> Optimize Another File
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         5. HELP & FAQS VIEW
+         ====================================================================== -->
+    <div id="view-faq" class="studio-view">
+      <div class="broadsheet-card">
+        <h2 class="card-title">Help &amp; Frequently Asked Questions</h2>
+        <p class="card-desc">
+          Quick guides and answers to common questions about file conversions, security, and AutoCAD batch plotting.
+        </p>
+
+        <div class="faq-container" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i data-lucide="file-spreadsheet" style="width: 18px; height: 18px; color: var(--zapier-orange);"></i>
+                <span>How do I convert an Excel spreadsheet directly to PDF?</span>
+              </div>
+              <i data-lucide="chevron-down" class="faq-chevron" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="faq-answer">
+              Click the <strong>Excel to PDF</strong> card in the File Converter tab. Drop your <code>.xlsx</code> or <code>.xls</code> workbook, and click <strong>Convert to PDF</strong>. The table headers, borders, and rows are automatically rendered into a crisp vector PDF.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i data-lucide="printer" style="width: 18px; height: 18px; color: var(--zapier-orange);"></i>
+                <span>How does AutoCAD Batch Plotting work?</span>
+              </div>
+              <i data-lucide="chevron-down" class="faq-chevron" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="faq-answer">
+              Switch to the <strong>AutoCAD Batch Plot</strong> tab. Select your plotter, paper size (ANSI/ISO), and plot style (e.g. <code>Circuitizer.ctb</code> or <code>monochrome.ctb</code>). Drop 1 to 50+ DWG drawings and click <strong>Execute AutoCAD Batch Plot</strong>. The installed AutoCAD 2026 Core Console plots them with true lineweights, all layers turned on, and zooms to extents.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i data-lucide="lock" style="width: 18px; height: 18px; color: var(--zapier-orange);"></i>
+                <span>Are my files private and secure?</span>
+              </div>
+              <i data-lucide="chevron-down" class="faq-chevron" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="faq-answer">
+              Yes. 100% of conversions, batch plots, and merges run locally on your system. No files are ever sent to third-party cloud servers.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i data-lucide="layers" style="width: 18px; height: 18px; color: var(--zapier-orange);"></i>
+                <span>How can I merge multiple documents and drawings into one PDF?</span>
+              </div>
+              <i data-lucide="chevron-down" class="faq-chevron" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="faq-answer">
+              Switch to the <strong>Merge Files</strong> tab. Drop PDF specifications, Word documents (<code>.docx</code>), and architectural images. You can reorder the files in the queue and merge them into a single PDF portfolio.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i data-lucide="shield-check" style="width: 18px; height: 18px; color: var(--zapier-orange);"></i>
+                <span>How do I protect or redact a PDF?</span>
+              </div>
+              <i data-lucide="chevron-down" class="faq-chevron" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="faq-answer">
+              In the File Converter tab, select <strong>Protect PDF</strong> to lock the file with AES-256 encryption. Or choose <strong>Redact PDF</strong> and enter sensitive keywords to permanently black them out and purge them from the document.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i data-lucide="award" style="width: 18px; height: 18px; color: var(--zapier-orange);"></i>
+                <span>Who designed, engineered and built I LOVE FILES?</span>
+              </div>
+              <i data-lucide="chevron-down" class="faq-chevron" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="faq-answer">
+              <strong>I LOVE FILES</strong> is designed, engineered, and maintained by <strong>Musthaque Ali</strong> (&copy; 2026 Musthaque Ali. All Rights Reserved). Built with native AutoCAD Core Console plotting, resilient 3-tier Office/PDF engines, and zero cloud data leakage.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i data-lucide="cpu" style="width: 18px; height: 18px; color: var(--zapier-orange);"></i>
+                <span>How does the 100% Client-Side WebAssembly Vector Engine work?</span>
+              </div>
+              <i data-lucide="chevron-down" class="faq-chevron" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="faq-answer">
+              Our WebAssembly (WASM SIMD) pipeline compiles high-performance vector rendering and document manipulation libraries directly to run inside your web browser sandbox. Conversions like PDF page extraction, splitting, rotation, rasterization, and compression run at near-native CPU speeds (up to 420 MB/s) entirely on your device with 0 KB cloud network egress.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i data-lucide="palette" style="width: 18px; height: 18px; color: var(--zapier-orange);"></i>
+                <span>What are CTB Pen Tables and why do AutoCAD drawings need them?</span>
+              </div>
+              <i data-lucide="chevron-down" class="faq-chevron" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="faq-answer">
+              Color-Dependent Plot Style Tables (<code>.ctb</code>) assign physical pen widths, line screening, and vector ink colors to AutoCAD's 255 ACI color indexes. Without a CTB table, drawings plot with faint hair-thin colors or illegible yellow text. ILOVEFILES supports standard plot tables (<code>monochrome.ctb</code>, <code>acad.ctb</code>, <code>grayscale.ctb</code>) and custom pen tables so your prints always match official architectural drawing standards.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i data-lucide="hard-drive" style="width: 18px; height: 18px; color: var(--zapier-orange);"></i>
+                <span>What is the maximum file size limit for AutoCAD drawings and PDFs?</span>
+              </div>
+              <i data-lucide="chevron-down" class="faq-chevron" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="faq-answer">
+              Free users can upload single or batch files up to 100 MB each with 5 free daily tasks. PRO and Enterprise accounts enjoy generous file allowances up to 2 GB per file, unlimited daily operations, and priority AutoCAD Core Console worker threads.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i data-lucide="cookie" style="width: 18px; height: 18px; color: var(--zapier-orange);"></i>
+                <span>What cookies does ILOVEFILES use?</span>
+              </div>
+              <i data-lucide="chevron-down" class="faq-chevron" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="faq-answer">
+              We exclusively use essential cookies and browser LocalStorage required for system functionality: remembering your Light/Dark theme preference, preserving your cookie consent status, and maintaining secure login sessions. We do not use third-party marketing or cross-site tracking cookies.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i data-lucide="code" style="width: 18px; height: 18px; color: var(--zapier-orange);"></i>
+                <span>Can I integrate ILOVEFILES conversions into my backend or CI/CD?</span>
+              </div>
+              <i data-lucide="chevron-down" class="faq-chevron" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="faq-answer">
+              Yes! Click <strong>Developer API Key</strong> in your account dropdown or footer to generate your secret API key. Our REST API supports simple cURL, Python, and Node.js requests to programmatically batch plot DWG/DXF drawings, convert Office docs, and compress PDF portfolios.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MINIMAL FOOTER WITH PRESERVED ATTRIBUTION (From Stitch) -->
+  <footer class="stitch-app-footer">
+    <div class="stitch-footer-container">
+      <!-- Top Row -->
+      <div class="stitch-footer-top">
+        <div>
+          <div class="stitch-footer-brand">
+            <span class="fcb-wordmark text-lg">ILOVEFILES<span class="text-terracotta not-italic ml-0.5">™</span></span>
+            <span class="stitch-footer-version">Engine v4.2</span>
+          </div>
+          <p class="stitch-footer-desc">
+            High-performance WebAssembly client runtime &amp; native AutoCAD core for engineering and universal files.
+          </p>
+        </div>
+        <!-- Attribution Banner Preserved -->
+        <div class="stitch-attribution-pill">
+          <span class="material-symbols-outlined text-forest" style="font-size: 17px;">terminal</span>
+          <span class="text-xs font-mono">
+            Designed &amp; Engineered by <strong class="text-forest">Musthaque Ali</strong>
+          </span>
+          <span class="stitch-pill-dot animate-pulse"></span>
+        </div>
+      </div>
+      <!-- Links & Copyright Row -->
+      <div class="stitch-footer-bottom">
+        <div>
+          &copy; 2026 ILoveFiles &bull; Designed by <strong>Musthaque Ali</strong>. 100% Private, Local &amp; Secure.
+        </div>
+        <div class="stitch-footer-links">
+          <a href="#" class="stitch-footer-link" onclick="openModal('modal-privacy')">Privacy Policy</a>
+          <a href="#" class="stitch-footer-link" onclick="switchTab('faq')">Security Standards</a>
+          <a href="#" class="stitch-footer-link" onclick="openApiKeyModal()">API Docs</a>
+          <button class="stitch-back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <span>Back to top</span>
+            <span class="material-symbols-outlined" style="font-size: 14px;">arrow_upward</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ====================================================================== -->
+  <!-- MODAL: Authentication (Sign In / Sign Up)                             -->
+  <!-- ====================================================================== -->
+  <div class="modal-backdrop" id="modal-auth" style="display: none;" onclick="handleBackdropClick(event, 'modal-auth')">
+    <div class="modal-dialog modal-dialog-sm" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="auth-icon-badge">
+            <i data-lucide="user-check" style="width: 20px; height: 20px; color: var(--zapier-orange);"></i>
+          </div>
+          <div>
+            <h3 class="modal-title" id="auth-modal-title">Welcome to I LOVE FILES</h3>
+            <p class="modal-subtitle" id="auth-modal-subtitle">Sign in or create an account for free conversions</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modal-auth')" aria-label="Close modal">
+          <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+        </button>
+      </div>
+
+      <!-- Tab Switcher -->
+      <div class="auth-tab-switch">
+        <button type="button" class="auth-tab-pill active" id="auth-tab-signin-btn" onclick="switchAuthTab('signin')">Sign In</button>
+        <button type="button" class="auth-tab-pill" id="auth-tab-signup-btn" onclick="switchAuthTab('signup')">Create Account</button>
+      </div>
+
+      <!-- Google One-Click Sign-In -->
+      <div class="google-auth-container">
+        <button type="button" class="btn-google-auth" id="btn-google-auth" onclick="triggerGoogleSignIn()">
+          <svg class="google-icon" width="18" height="18" viewBox="0 0 48 48">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          <span id="google-btn-text">Continue with Google</span>
+        </button>
+        <div id="google-native-btn-wrap" style="display: none;"></div>
+      </div>
+
+      <div class="auth-divider">
+        <span>or continue with email</span>
+      </div>
+
+      <!-- Dynamic Error Banner -->
+      <div id="auth-error-msg" class="auth-error-alert" style="display: none;"></div>
+
+      <!-- Sign In Form -->
+      <form id="auth-signin-form" onsubmit="handleSignInSubmit(event)" autocomplete="on">
+        <div class="form-group-saas">
+          <label class="form-label-saas" for="auth-signin-email">Email Address</label>
+          <input type="email" id="auth-signin-email" name="email" class="form-input-saas" placeholder="alex@company.com" required autocomplete="username">
+        </div>
+        <div class="form-group-saas">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+            <label class="form-label-saas" for="auth-signin-password" style="margin-bottom: 0;">Password</label>
+          </div>
+          <input type="password" id="auth-signin-password" name="password" class="form-input-saas" placeholder="••••••••••••" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-ember btn-saas-block" id="btn-submit-signin">
+          <span>Sign In</span>
+          <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+        </button>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="auth-signup-form" onsubmit="handleSignUpSubmit(event)" autocomplete="on" style="display: none;">
+        <div class="form-group-saas">
+          <label class="form-label-saas" for="auth-signup-name">Full Name</label>
+          <input type="text" id="auth-signup-name" name="name" class="form-input-saas" placeholder="Alex Morgan" required autocomplete="name">
+        </div>
+        <div class="form-group-saas">
+          <label class="form-label-saas" for="auth-signup-email">Email Address</label>
+          <input type="email" id="auth-signup-email" name="email" class="form-input-saas" placeholder="alex@company.com" required autocomplete="email">
+        </div>
+        <div class="form-group-saas">
+          <label class="form-label-saas" for="auth-signup-password">Password</label>
+          <input type="password" id="auth-signup-password" name="password" class="form-input-saas" placeholder="At least 8 characters" minlength="8" required autocomplete="new-password">
+          <span class="form-hint">Must be at least 8 characters long</span>
+        </div>
+        <button type="submit" class="btn btn-ember btn-saas-block" id="btn-submit-signup">
+          <span>Create Free Account</span>
+          <i data-lucide="check" style="width: 16px; height: 16px;"></i>
+        </button>
+      </form>
+
+      <div class="auth-modal-footer">
+        <span>By continuing you agree to our 100% private, local-first terms. No cloud data harvesting.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================== -->
+  <!-- MODAL: Pricing Plans & Subscriptions                                  -->
+  <!-- ====================================================================== -->
+  <div class="modal-backdrop" id="modal-pricing" style="display: none;" onclick="handleBackdropClick(event, 'modal-pricing')">
+    <div class="modal-dialog modal-dialog-lg" role="dialog" aria-modal="true" aria-labelledby="pricing-modal-title">
+      <div class="modal-header">
+        <div>
+          <div class="saas-badge-pill" style="margin-bottom: 0.5rem;">
+            <i data-lucide="zap" style="width: 13px; height: 13px; color: var(--zapier-orange);"></i>
+            <span>TRANSPARENT, ZERO-SURPRISE PRICING</span>
+          </div>
+          <h2 class="modal-title" id="pricing-modal-title" style="font-size: 1.5rem; font-weight: 700;">Simple Pricing for Professionals</h2>
+          <p class="modal-subtitle">Pick the plan that powers your document and CAD workflow. Upgrade or cancel anytime.</p>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modal-pricing')" aria-label="Close modal">
+          <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+        </button>
+      </div>
+
+      <!-- Billing Cycle Toggle (Monthly vs Annual) -->
+      <div class="pricing-toggle-wrap">
+        <span class="billing-cycle-label active" id="label-cycle-monthly">Monthly Billing</span>
+        <button type="button" class="billing-toggle-switch" id="billing-cycle-switch" onclick="toggleBillingCycle()" aria-label="Toggle Monthly or Annual Billing">
+          <span class="billing-toggle-thumb"></span>
+        </button>
+        <span class="billing-cycle-label" id="label-cycle-annual">
+          Annual Billing
+          <span class="discount-chip">SAVE 20%</span>
+        </span>
+      </div>
+
+      <!-- Pricing Cards 3-Column Grid -->
+      <div class="pricing-cards-grid">
+        
+        <!-- FREE TIER -->
+        <div class="pricing-card" id="card-tier-free">
+          <div class="pricing-card-header">
+            <h4 class="plan-name">Free Starter</h4>
+            <p class="plan-desc">For casual users and occasional document conversion.</p>
+            <div class="plan-price-wrap">
+              <span class="plan-price">₹0</span>
+              <span class="plan-period">/ month</span>
+            </div>
+          </div>
+          <ul class="plan-features">
+            <li><i data-lucide="check" class="feat-check"></i><span><strong>5 free conversions</strong> per day</span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span>Max file size: <strong>25 MB</strong></span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span>All 45+ formats supported</span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span>Standard conversion speed</span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span>100% Private local processing</span></li>
+            <li class="feat-disabled"><i data-lucide="minus" class="feat-dash"></i><span>AutoCAD Batch Plotting</span></li>
+            <li class="feat-disabled"><i data-lucide="minus" class="feat-dash"></i><span>Developer API access</span></li>
+          </ul>
+          <div class="pricing-card-footer">
+            <button class="btn btn-secondary btn-saas-block" id="btn-plan-free" onclick="handleFreePlanAction()">Current Plan</button>
+          </div>
+        </div>
+
+        <!-- PRO TIER (Featured) -->
+        <div class="pricing-card popular" id="card-tier-pro">
+          <div class="popular-ribbon">
+            <i data-lucide="sparkles" style="width: 12px; height: 12px;"></i>
+            <span>RECOMMENDED</span>
+          </div>
+          <div class="pricing-card-header">
+            <h4 class="plan-name">Pro Professional</h4>
+            <p class="plan-desc">For architects, engineers, designers &amp; high-volume teams.</p>
+            <div class="plan-price-wrap">
+              <span class="plan-price" id="price-pro-amt">₹499</span>
+              <span class="plan-period" id="price-pro-sub">/ month</span>
+            </div>
+            <div class="annual-subtext" id="price-pro-annual-sub" style="display: none;">Billed annually as ₹3,999/year (Save ₹1,989)</div>
+          </div>
+          <ul class="plan-features">
+            <li><i data-lucide="check" class="feat-check"></i><span><strong>Unlimited</strong> daily conversions</span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span>Max file size: <strong>500 MB</strong></span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span><strong>AutoCAD DWG/DXF Batch Plotting</strong></span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span><strong>Custom CTB Plot Style Tables</strong></span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span><strong>Ultra-HD 600 DPI Print Vectors</strong></span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span><strong>PDF Redaction &amp; AES-256 Encryption</strong></span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span><strong>Fast Priority Processing Queue</strong></span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span><strong>Developer REST API Access</strong></span></li>
+          </ul>
+          <div class="pricing-card-footer">
+            <button class="btn btn-ember btn-saas-block" id="btn-plan-pro" onclick="startCheckout('pro')">
+              <span>Upgrade to Pro</span>
+              <i data-lucide="zap" style="width: 16px; height: 16px;"></i>
+            </button>
+            <button class="btn btn-ghost-nav btn-saas-block" style="margin-top: 0.5rem; font-size: 0.78rem; justify-content: center; width: 100%;" onclick="instantDemoUpgrade('pro')">
+              <i data-lucide="sparkles" style="width: 13px; height: 13px;"></i>
+              <span>Instant 30-Day Pro Trial (Demo / Sandbox)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ENTERPRISE TIER -->
+        <div class="pricing-card" id="card-tier-enterprise">
+          <div class="pricing-card-header">
+            <h4 class="plan-name">Enterprise</h4>
+            <p class="plan-desc">For engineering firms and organizations needing dedicated scale.</p>
+            <div class="plan-price-wrap">
+              <span class="plan-price" id="price-enterprise-amt">₹1,999</span>
+              <span class="plan-period" id="price-enterprise-sub">/ month</span>
+            </div>
+            <div class="annual-subtext" id="price-enterprise-annual-sub" style="display: none;">Billed annually as ₹15,999/year</div>
+          </div>
+          <ul class="plan-features">
+            <li><i data-lucide="check" class="feat-check"></i><span>Everything included in <strong>Pro</strong></span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span><strong>Unlimited</strong> file size processing</span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span>Dedicated conversion workers</span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span>Custom CTB font &amp; xref auto-loading</span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span>Automated Webhook callbacks</span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span>99.9% Uptime SLA guarantee</span></li>
+            <li><i data-lucide="check" class="feat-check"></i><span>Direct priority developer support</span></li>
+          </ul>
+          <div class="pricing-card-footer">
+            <button class="btn btn-secondary btn-saas-block" id="btn-plan-enterprise" onclick="startCheckout('enterprise')">
+              <span>Choose Enterprise</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Test / Cashfree Notice -->
+      <div class="saas-demo-banner">
+        <i data-lucide="shield-check" style="width: 16px; height: 16px; flex-shrink: 0; color: var(--zapier-orange);"></i>
+        <span><strong>Cashfree Payments Gateway:</strong> Instant checkout supporting UPI (Google Pay, PhonePe, Paytm), Debit/Credit Cards, and Net Banking.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================== -->
+  <!-- MODAL: Daily Quota Limit Alert                                         -->
+  <!-- ====================================================================== -->
+  <div class="modal-backdrop" id="modal-quota-limit" style="display: none;" onclick="handleBackdropClick(event, 'modal-quota-limit')">
+    <div class="modal-dialog modal-dialog-sm modal-center-content" role="dialog" aria-modal="true">
+      <div class="quota-limit-icon-circle">
+        <i data-lucide="alert-circle" style="width: 32px; height: 32px; color: var(--zapier-orange);"></i>
+      </div>
+      <h3 class="modal-title" style="font-size: 1.35rem; margin-top: 1rem; margin-bottom: 0.5rem;" id="quota-limit-title">Daily Conversion Limit Reached</h3>
+      <p class="modal-subtitle" style="text-align: center; margin-bottom: 1.5rem;" id="quota-limit-msg">
+        You have reached your daily free conversion limit. Upgrade to <strong>Pro</strong> for unlimited daily conversions, 500MB uploads, and AutoCAD batch plotting.
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; width: 100%;">
+        <button class="btn btn-ember btn-saas-block" onclick="closeModal('modal-quota-limit'); openPricingModal();">
+          <i data-lucide="zap" style="width: 16px; height: 16px;"></i>
+          <span>Upgrade to Pro (Unlimited)</span>
+        </button>
+        <button class="btn btn-secondary btn-saas-block" id="quota-modal-signin-btn" onclick="closeModal('modal-quota-limit'); openAuthModal('signin');">
+          <span>Sign In to Existing Account</span>
+        </button>
+        <button class="btn btn-ghost-nav" style="justify-content: center;" onclick="closeModal('modal-quota-limit')">
+          Maybe Later
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================== -->
+  <!-- MODAL: Developer API Key                                               -->
+  <!-- ====================================================================== -->
+  <div class="modal-backdrop" id="modal-api-key" style="display: none;" onclick="handleBackdropClick(event, 'modal-api-key')">
+    <div class="modal-dialog modal-dialog-md" role="dialog" aria-modal="true" aria-labelledby="api-key-modal-title">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="auth-icon-badge">
+            <i data-lucide="code" style="width: 20px; height: 20px; color: var(--zapier-orange);"></i>
+          </div>
+          <div>
+            <h3 class="modal-title" id="api-key-modal-title">Developer REST API</h3>
+            <p class="modal-subtitle">Automate your file conversions from Python, Node.js, or cURL</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modal-api-key')" aria-label="Close modal">
+          <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+        </button>
+      </div>
+
+      <div class="form-group-saas" style="margin-top: 1rem;">
+        <label class="form-label-saas">Your Secret API Key</label>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="text" id="user-api-key-input" class="form-input-saas" readonly style="font-family: var(--font-mono); font-size: 0.85rem;" value="Sign in to view your API Key">
+          <button type="button" class="btn btn-secondary" onclick="copyApiKey()" id="btn-copy-api-key" style="white-space: nowrap;">
+            <i data-lucide="copy" style="width: 15px; height: 15px;"></i>
+            <span>Copy</span>
+          </button>
+        </div>
+      </div>
+
+      <div style="margin-top: 1.25rem;">
+        <label class="form-label-saas">Example cURL Request</label>
+        <div class="code-snippet-box">
+          <pre><code>curl -X POST https://your-domain.com/api/convert \
+  -H "X-API-Key: <span id="curl-key-placeholder">YOUR_API_KEY</span>" \
+  -F "file=@floorplan.dwg" \
+  -F "target_format=pdf"</code></pre>
+        </div>
+      </div>
+
+      <div style="margin-top: 1.5rem; text-align: right;">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modal-api-key')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================== -->
+  <!-- MODAL: Privacy Policy & Data Protection (Local-First Guarantee)        -->
+  <!-- ====================================================================== -->
+  <div class="modal-backdrop" id="modal-privacy" style="display: none;" onclick="handleBackdropClick(event, 'modal-privacy')">
+    <div class="modal-dialog modal-dialog-lg" role="dialog" aria-modal="true" aria-labelledby="privacy-modal-title">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="auth-icon-badge" style="background: rgba(16, 185, 129, 0.12); color: #059669;">
+            <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+          </div>
+          <div>
+            <h3 class="modal-title" id="privacy-modal-title">Privacy Policy &amp; Security Guarantee</h3>
+            <p class="modal-subtitle">100% In-Browser Isolation • Zero Cloud Telemetry • Compliant with Global Privacy</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modal-privacy')" aria-label="Close modal">
+          <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+        </button>
+      </div>
+
+      <div class="privacy-modal-body" style="max-height: 60vh; overflow-y: auto; padding-right: 0.5rem; display: flex; flex-direction: column; gap: 1.25rem; font-size: 0.88rem; line-height: 1.6; color: var(--text-ink);">
+        <div>
+          <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--forest-main);">1. Architectural Overview &amp; Local Execution</h4>
+          <p style="color: var(--text-muted);">
+            ILOVEFILES is engineered with a strict <strong>local-first architectural paradigm</strong>. When converting, splitting, compressing, or plotting files, all parsing and vector transformations occur directly inside your browser sandbox using WebAssembly (WASM SIMD) or your connected local AutoCAD Core Console. Your documents, CAD drawings, spreadsheets, and private intellectual property never leave your machine without your explicit request.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--forest-main);">2. Zero Cloud Data Retention &amp; Auto-Purging</h4>
+          <p style="color: var(--text-muted);">
+            For complex multi-sheet batch plotting that utilizes our backend AutoCAD console daemon, all staged temporary drawing files and generated outputs are kept strictly in ephemeral storage isolated to your session ID and automatically purged within 10 minutes. We maintain zero archival copies, zero backups of your drawings, and zero permanent cloud retention.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--forest-main);">3. Cookies &amp; Local Browser Storage</h4>
+          <p style="color: var(--text-muted);">
+            We use strictly necessary cookies and browser LocalStorage to remember your user interface settings (such as Light or Dark theme preference), store your accepted cookie consent status, and preserve authenticated session tokens. We never load third-party ad trackers, cross-site beacons, or marketing cookies.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--forest-main);">4. Payment Processing Security</h4>
+          <p style="color: var(--text-muted);">
+            Subscriptions and one-off PRO upgrades are processed through Cashfree Payments Gateway using bank-grade 256-bit SSL encryption. We never store, process, or have access to your credit card numbers, UPI PINs, or bank account credentials.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--forest-main);">5. Contact &amp; Data Rights</h4>
+          <p style="color: var(--text-muted);">
+            Designed, engineered, and maintained by <strong>Musthaque Ali</strong>. You retain 100% intellectual property ownership of any file converted or processed using ILOVEFILES.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.75rem; border-top: 1px solid var(--border-ash); padding-top: 1rem;">
+        <button type="button" class="btn btn-primary-nav" onclick="closeModal('modal-privacy')">I Understand &amp; Agree</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================== -->
+  <!-- COOKIE CONSENT BANNER WINDOW                                            -->
+  <!-- ====================================================================== -->
+  <div id="cookie-consent-banner" class="cookie-banner-wrap" style="display: none;">
+    <div class="cookie-banner-content">
+      <div class="cookie-banner-icon">
+        <i data-lucide="cookie" style="width: 22px; height: 22px; color: var(--terracotta, #ea580c);"></i>
+      </div>
+      <div class="cookie-banner-text">
+        <div class="cookie-banner-title">Cookie &amp; Local Storage Notice</div>
+        <p class="cookie-banner-desc">
+          We use strictly functional cookies and local memory to guarantee fast conversions, preserve your theme, and safeguard private local-first processing. No third-party ad tracking.
+        </p>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" class="cookie-btn cookie-btn-policy" onclick="openModal('modal-privacy')">Read Policy</button>
+        <button type="button" class="cookie-btn cookie-btn-accept" onclick="acceptCookieConsent()">Accept &amp; Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cashfree Checkout SDK v3 -->
+  <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+  <!-- Google Identity Services SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="/static/app.js"></script>
+  <script src="/static/broadsheet-speed.js"></script>
+</body>
+</html>

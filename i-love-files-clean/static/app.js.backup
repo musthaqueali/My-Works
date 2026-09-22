@@ -1,0 +1,2611 @@
+/**
+ * 'I LOVE FILES' - Clean & Simple Frontend
+ * Direct, fast, zero fluff.
+ */
+
+let globalCatalog = {};
+let selectedConvertFile = null;
+let selectedConvertFiles = [];
+let selectedResizeFile = null;
+let activeResizeType = "pdf";
+let inspectedPdfPageCount = 1;
+
+let selectedPlotFiles = [];
+let selectedCustomCtb = null;
+
+document.addEventListener("DOMContentLoaded", async () => {
+  initTheme();
+  if (window.location.protocol === 'file:') {
+    const banner = document.createElement('div');
+    banner.style.cssText = "background: #fff3cd; color: #856404; padding: 12px 20px; text-align: center; font-weight: 500; font-size: 0.9rem; border-bottom: 1px solid #ffeeba; position: sticky; top: 0; z-index: 9999;";
+    banner.innerHTML = "⚠️ <strong>Notice:</strong> You opened index.html directly from file explorer. For real account creation, Google Sign-In, and conversions, please launch <code>run_app.bat</code> and open <a href='http://localhost:8000' style='color:#0d6efd;font-weight:700;'>http://localhost:8000</a>.";
+    document.body.insertBefore(banner, document.body.firstChild);
+  }
+  clearSearchInputAutofill();
+  await fetchCatalog();
+  await initAuth();
+  setupDragAndDrop();
+  lucide.createIcons();
+});
+
+function clearSearchInputAutofill() {
+  const searchInput = document.getElementById('hub-search-input');
+  if (searchInput) {
+    if (searchInput.value && (searchInput.value.includes('@') || searchInput.value.includes('.com') || searchInput.value.trim() === 'musthaqueali42@gmail.com')) {
+      searchInput.value = '';
+      if (typeof filterToolCards === 'function') filterToolCards('');
+    }
+  }
+}
+
+window.addEventListener('pageshow', clearSearchInputAutofill);
+window.addEventListener('DOMContentLoaded', () => {
+  setupHeroInstantDropzone();
+  handleRoute();
+});
+window.addEventListener('load', () => {
+  clearSearchInputAutofill();
+  setupHeroInstantDropzone();
+  handleRoute();
+  setTimeout(clearSearchInputAutofill, 100);
+  setTimeout(clearSearchInputAutofill, 400);
+  setTimeout(clearSearchInputAutofill, 1000);
+});
+
+async function fetchCatalog() {
+  try {
+    const res = await fetch("/api/formats");
+    const data = await res.json();
+    globalCatalog = data.catalog || {};
+  } catch (err) {
+    console.error("Failed to load catalog:", err);
+  }
+}
+
+// -------------------------------------------------------------
+// Dedicated Tool Router & Page Management (iLovePDF Style)
+// -------------------------------------------------------------
+const DEDICATED_TOOL_CONFIGS = {
+  '/dwg-to-pdf': {
+    title: 'AutoCAD DWG to PDF Converter',
+    badge: 'BATCH PLOT & CTB PEN TABLES',
+    desc: 'Batch plot AutoCAD DWG drawings to vector PDF with authentic monochrome CTB styles, TrueColor layers, and custom layouts.',
+    view: 'plot',
+    accept: '.dwg,.dxf'
+  },
+  '/autocad-plot': {
+    title: 'AutoCAD Batch Plotting Studio',
+    badge: 'CORE CONSOLE 600 DPI',
+    desc: 'Batch plot multiple AutoCAD drawings with exact line weights, pen tables, and page configurations.',
+    view: 'plot',
+    accept: '.dwg,.dxf'
+  },
+  '/dxf-to-pdf': {
+    title: 'DXF to Vector PDF Converter',
+    badge: '2D & 3D CAD VECTORS',
+    desc: 'Convert AutoCAD DXF ASCII and binary drawing files directly to print-ready vector PDF with full layer preservation.',
+    view: 'plot',
+    accept: '.dxf,.dwg'
+  },
+  '/merge-pdf': {
+    title: 'Merge PDF & Documents',
+    badge: 'DOCUMENT COMBINER',
+    desc: 'Combine multiple PDF files, Word documents, Excel spreadsheets, and images into a single clean PDF in your preferred order.',
+    view: 'merge',
+    accept: '.pdf,.docx,.doc,.xlsx,.xls,.pptx,.ppt,.png,.jpg,.jpeg'
+  },
+  '/merge': {
+    title: 'Merge PDF & Documents',
+    badge: 'DOCUMENT COMBINER',
+    desc: 'Combine multiple PDF files, Word documents, Excel spreadsheets, and images into a single clean PDF in your preferred order.',
+    view: 'merge',
+    accept: '.pdf,.docx,.doc,.xlsx,.xls,.pptx,.ppt,.png,.jpg,.jpeg'
+  },
+  '/compress-pdf': {
+    title: 'Compress & Resize Studio',
+    badge: 'GHOSTSCRIPT 10 & PYMUPDF',
+    desc: 'Reduce PDF file size with precision compression presets, normalize page dimensions, or resize images and videos.',
+    view: 'resize',
+    accept: '.pdf,.png,.jpg,.jpeg,.webp,.mp4,.mkv,.mov'
+  },
+  '/compress': {
+    title: 'Compress & Resize Studio',
+    badge: 'GHOSTSCRIPT 10 & PYMUPDF',
+    desc: 'Reduce PDF file size with precision compression presets, normalize page dimensions, or resize images and videos.',
+    view: 'resize',
+    accept: '.pdf,.png,.jpg,.jpeg,.webp,.mp4,.mkv,.mov'
+  },
+  '/pdf-to-word': {
+    title: 'PDF to Word Converter',
+    badge: 'EDITABLE DOCX',
+    desc: 'Convert PDF documents into editable Microsoft Word DOCX files with formatting, tables, and paragraphs intact.',
+    view: 'convert',
+    quickTool: 'pdf-to-word',
+    dropTitle: 'Choose PDF to convert to Word (DOCX)',
+    dropDesc: 'Converts PDF pages into fully editable Microsoft Word DOCX format'
+  },
+  '/word-to-pdf': {
+    title: 'Word to PDF Converter',
+    badge: 'VECTOR PDF',
+    desc: 'Convert Microsoft Word DOCX and DOC documents into clean, professional PDF files with exact typography.',
+    view: 'convert',
+    quickTool: 'word-to-pdf',
+    dropTitle: 'Choose Word document to convert to PDF',
+    dropDesc: 'Converts DOCX and DOC files into clean vector PDF documents'
+  },
+  '/excel-to-pdf': {
+    title: 'Excel to PDF Converter',
+    badge: 'PRINT-READY TABLES',
+    desc: 'Convert Microsoft Excel XLSX and XLS spreadsheets into perfectly formatted, print-ready PDF tables.',
+    view: 'convert',
+    quickTool: 'excel-to-pdf',
+    dropTitle: 'Choose Excel spreadsheet to convert to PDF',
+    dropDesc: 'Converts XLSX and XLS spreadsheets into high-quality PDF tables'
+  },
+  '/powerpoint-to-pdf': {
+    title: 'PowerPoint to PDF Converter',
+    badge: 'PRESENTATION SLIDES',
+    desc: 'Convert PowerPoint PPTX and PPT presentation slide decks into high-resolution PDF pages.',
+    view: 'convert',
+    quickTool: 'ppt-to-pdf',
+    dropTitle: 'Choose PowerPoint presentation to convert to PDF',
+    dropDesc: 'Converts PPTX and PPT slide decks into high-resolution PDF pages'
+  },
+  '/pdf-to-jpg': {
+    title: 'PDF to JPG / PNG Converter',
+    badge: 'SLIDE EXTRACTION',
+    desc: 'Extract every page of your PDF as high-resolution PNG or JPG image slides with zero quality degradation.',
+    view: 'convert',
+    quickTool: 'pdf-to-jpg',
+    dropTitle: 'Choose PDF to extract as images',
+    dropDesc: 'Extracts every page as high-resolution JPG or PNG image files'
+  },
+  '/jpg-to-pdf': {
+    title: 'JPG / Images to PDF Converter',
+    badge: 'COMPILE PHOTOS TO PDF',
+    desc: 'Convert and compile multiple images, photos, and scans into a single consolidated PDF document.',
+    view: 'convert',
+    quickTool: 'jpg-to-pdf',
+    dropTitle: 'Choose Images to compile into PDF',
+    dropDesc: 'Converts JPG, PNG, WebP, and BMP images into a clean PDF document'
+  },
+  '/image-converter': {
+    title: 'Universal Image Converter & Resizer',
+    badge: 'MULTI-FORMAT IMAGE SUITE',
+    desc: 'Convert between PNG, JPG, WebP, SVG, TIFF, BMP, and ICO, or customize dimensions and compression quality.',
+    view: 'convert',
+    dropTitle: 'Choose Image to convert or resize',
+    dropDesc: 'Convert between PNG, JPG, WebP, SVG, TIFF, BMP, and ICO'
+  },
+  '/video-converter': {
+    title: 'Video & Audio Converter & Downscaler',
+    badge: 'FFMPEG MEDIA SUITE',
+    desc: 'Convert, downscale 4K/1080p video, or compress bitrate for MP4, MKV, MOV, MP3, and WAV.',
+    view: 'convert',
+    dropTitle: 'Choose Video or Audio file to convert',
+    dropDesc: 'Convert MP4, MKV, MOV, MP3, WAV or downscale 4K/1080p footage'
+  }
+};
+
+let currentMountedView = null;
+
+function navigateTo(path, pushState = true) {
+  if (pushState && window.location.pathname !== path) {
+    try {
+      window.history.pushState({ path }, '', path);
+    } catch (e) {}
+  }
+  handleRoute();
+}
+
+function handleRoute() {
+  const rawPath = window.location.pathname.toLowerCase().replace(/\/+$/, '') || '/';
+  const hash = window.location.hash.toLowerCase();
+
+  // Hash navigation
+  if (hash === '#studio-bento' || hash === '#convert') {
+    switchTab('convert', false);
+    return;
+  } else if (hash === '#plot' || hash === '#autocad-plot') {
+    switchTab('plot', true);
+    return;
+  } else if (hash === '#merge') {
+    switchTab('merge', true);
+    return;
+  } else if (hash === '#resize' || hash === '#compress') {
+    switchTab('resize', true);
+    return;
+  }
+
+  // If root or unknown route, ensure default title and convert tab
+  if (rawPath === '/' || rawPath === '' || !DEDICATED_TOOL_CONFIGS[rawPath]) {
+    document.title = 'I LOVE FILES — Fast, Private File Converter & CAD Studio (Made by Musthaque Ali)';
+    return;
+  }
+
+  // Dedicated tool route mapping
+  const config = DEDICATED_TOOL_CONFIGS[rawPath];
+  if (config) {
+    document.title = `${config.title} — I LOVE FILES`;
+    switchTab(config.view, true);
+    if (config.view === 'convert') {
+      if (config.quickTool && typeof setQuickTool === 'function') {
+        setQuickTool(config.quickTool);
+      }
+      if (config.dropTitle) {
+        const dt = document.getElementById('convert-drop-title');
+        if (dt) dt.innerText = config.dropTitle;
+      }
+      if (config.dropDesc) {
+        const dd = document.getElementById('convert-drop-desc');
+        if (dd) dd.innerText = config.dropDesc;
+      }
+    }
+  }
+
+  if (window.lucide) lucide.createIcons();
+}
+
+window.addEventListener('popstate', handleRoute);
+
+function setupHeroInstantDropzone() {
+  const dropzone = document.getElementById('hero-instant-dropzone');
+  const fileInput = document.getElementById('hero-instant-input');
+  if (!dropzone) return;
+
+  ['dragenter', 'dragover'].forEach(evt => {
+    dropzone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+  });
+
+  ['dragleave', 'drop'].forEach(evt => {
+    dropzone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+    });
+  });
+
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (e.dataTransfer.files.length) {
+      handleHeroInstantFiles(e.dataTransfer.files);
+    }
+  });
+
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length) {
+        handleHeroInstantFiles(e.target.files);
+      }
+    });
+  }
+}
+
+function handleHeroInstantFiles(files) {
+  if (!files || !files.length) return;
+  const file = files[0];
+  const ext = getFileExtension(file.name).toLowerCase();
+
+  if (files.length > 1) {
+    navigateTo('/merge-pdf');
+    setTimeout(() => {
+      if (typeof handleMergeFilesSelect === 'function') handleMergeFilesSelect(files);
+    }, 120);
+    return;
+  }
+
+  if (ext === 'dwg' || ext === 'dxf') {
+    navigateTo('/dwg-to-pdf');
+    setTimeout(() => {
+      if (typeof handlePlotFilesSelect === 'function') handlePlotFilesSelect(files);
+    }, 120);
+  } else if (ext === 'pdf') {
+    navigateTo('/compress-pdf');
+    setTimeout(() => {
+      if (typeof handleResizeFileSelect === 'function') handleResizeFileSelect(files);
+    }, 120);
+  } else if (['doc', 'docx'].includes(ext)) {
+    navigateTo('/word-to-pdf');
+    setTimeout(() => {
+      if (typeof handleConvertFileSelect === 'function') handleConvertFileSelect(files);
+    }, 120);
+  } else if (['xls', 'xlsx'].includes(ext)) {
+    navigateTo('/excel-to-pdf');
+    setTimeout(() => {
+      if (typeof handleConvertFileSelect === 'function') handleConvertFileSelect(files);
+    }, 120);
+  } else if (['ppt', 'pptx'].includes(ext)) {
+    navigateTo('/powerpoint-to-pdf');
+    setTimeout(() => {
+      if (typeof handleConvertFileSelect === 'function') handleConvertFileSelect(files);
+    }, 120);
+  } else if (['jpg', 'jpeg', 'png', 'webp', 'gif', 'bmp', 'tiff', 'svg'].includes(ext)) {
+    navigateTo('/image-converter');
+    setTimeout(() => {
+      if (typeof handleConvertFileSelect === 'function') handleConvertFileSelect(files);
+    }, 120);
+  } else if (['mp4', 'mkv', 'mov', 'avi', 'mp3', 'wav', 'flac'].includes(ext)) {
+    navigateTo('/video-converter');
+    setTimeout(() => {
+      if (typeof handleConvertFileSelect === 'function') handleConvertFileSelect(files);
+    }, 120);
+  } else {
+    navigateTo('/pdf-to-word');
+    setTimeout(() => {
+      if (typeof handleConvertFileSelect === 'function') handleConvertFileSelect(files);
+    }, 120);
+  }
+}
+
+// -------------------------------------------------------------
+// Tab Switching
+// -------------------------------------------------------------
+function switchTab(tabId, shouldScroll = false) {
+  ["convert", "plot", "merge", "resize"].forEach(t => {
+    const view = document.getElementById(`view-${t}`);
+    const btn = document.getElementById(`tab-btn-${t}`);
+    if (view) {
+      view.style.display = (t === tabId) ? "block" : "none";
+      view.classList.toggle("active", t === tabId);
+    }
+    if (btn) btn.classList.toggle("active", t === tabId);
+  });
+  if (shouldScroll) {
+    const bento = document.getElementById("studio-bento");
+    if (bento) bento.scrollIntoView({ behavior: "smooth" });
+  }
+  lucide.createIcons();
+}
+
+function switchResizeSubTab(type) {
+  activeResizeType = type;
+  ["pdf", "image", "video"].forEach(st => {
+    const btn = document.getElementById(`resize-subtab-${st}`);
+    const ctrl = document.getElementById(`controls-${st}`);
+    if (btn) btn.classList.toggle("active", st === type);
+    if (ctrl) ctrl.style.display = (st === type) ? "block" : "none";
+  });
+
+  const title = document.getElementById("resize-drop-title");
+  const desc = document.getElementById("resize-drop-desc");
+  if (type === "pdf") {
+    title.innerText = "Choose PDF to resize";
+    desc.innerText = "Normalizes page dimensions (A4, Letter) and compresses file size";
+  } else if (type === "image") {
+    title.innerText = "Choose Image to resize";
+    desc.innerText = "Custom width, height, and quality compression (PNG, JPG, WebP)";
+  } else if (type === "video") {
+    title.innerText = "Choose Video to downscale";
+    desc.innerText = "Scales 4K/1080p to 720p/480p and compresses bitrate (MP4, MKV, MOV)";
+  }
+  lucide.createIcons();
+}
+
+// -------------------------------------------------------------
+// Drag and Drop
+// -------------------------------------------------------------
+function setupDragAndDrop() {
+  const convertZone = document.getElementById("convert-dropzone");
+  const plotZone = document.getElementById("plot-dropzone");
+  const mergeZone = document.getElementById("merge-dropzone");
+  const resizeZone = document.getElementById("resize-dropzone");
+
+  [convertZone, plotZone, mergeZone, resizeZone].forEach(zone => {
+    if (!zone) return;
+    ['dragenter', 'dragover'].forEach(evt => {
+      zone.addEventListener(evt, (e) => { e.preventDefault(); zone.classList.add('dragover'); });
+    });
+    ['dragleave', 'drop'].forEach(evt => {
+      zone.addEventListener(evt, (e) => { e.preventDefault(); zone.classList.remove('dragover'); });
+    });
+  });
+
+  if (convertZone) {
+    convertZone.addEventListener('drop', (e) => {
+      if (e.dataTransfer.files.length) handleConvertFileSelect(e.dataTransfer.files);
+    });
+  }
+  if (plotZone) {
+    plotZone.addEventListener('drop', (e) => {
+      if (e.dataTransfer.files.length) handlePlotFilesSelect(e.dataTransfer.files);
+    });
+  }
+  if (mergeZone) {
+    mergeZone.addEventListener('drop', (e) => {
+      if (e.dataTransfer.files.length) handleMergeFilesSelect(e.dataTransfer.files);
+    });
+  }
+  if (resizeZone) {
+    resizeZone.addEventListener('drop', (e) => {
+      if (e.dataTransfer.files.length) handleResizeFileSelect(e.dataTransfer.files);
+    });
+  }
+}
+
+// -------------------------------------------------------------
+// UI Error Notifications
+// -------------------------------------------------------------
+function showError(prefix, message) {
+  const banner = document.getElementById(`${prefix}-error-banner`);
+  const text = document.getElementById(`${prefix}-error-text`);
+  if (banner && text) {
+    text.innerText = message;
+    banner.style.display = "flex";
+    lucide.createIcons();
+  }
+}
+
+function hideError(prefix) {
+  const banner = document.getElementById(`${prefix}-error-banner`);
+  if (banner) banner.style.display = "none";
+}
+
+// -------------------------------------------------------------
+// Convert Logic
+// -------------------------------------------------------------
+const DIRECT_PDF_TOOLS = [
+  'word-to-pdf', 'excel-to-pdf', 'ppt-to-pdf', 'jpg-to-pdf', 'png-to-pdf',
+  'heic-to-pdf', 'autocad-to-pdf', 'openoffice-to-pdf', 'ebook-to-pdf',
+  'iwork-to-pdf', 'publisher-to-pdf', 'dicom-to-pdf'
+];
+
+const DIRECT_TARGET_MAP = {
+  'word-to-pdf': 'pdf',
+  'excel-to-pdf': 'pdf',
+  'ppt-to-pdf': 'pdf',
+  'jpg-to-pdf': 'pdf',
+  'png-to-pdf': 'pdf',
+  'heic-to-pdf': 'pdf',
+  'autocad-to-pdf': 'pdf',
+  'openoffice-to-pdf': 'pdf',
+  'ebook-to-pdf': 'pdf',
+  'iwork-to-pdf': 'pdf',
+  'publisher-to-pdf': 'pdf',
+  'dicom-to-pdf': 'pdf',
+  'pdf-to-word': 'docx',
+  'pdf-to-excel': 'xlsx',
+  'pdf-to-pptx': 'pptx',
+  'pdf-to-jpg': 'jpg',
+  'pdf-to-png': 'png',
+  'pdf-to-pdfa': 'pdf',
+  'dwg-to-dwf': 'dwf',
+  'dwf-to-dwg': 'dwg',
+  'dwg-to-dxf': 'dxf',
+  'dxf-to-dwg': 'dwg',
+  'pdf-to-cad': 'dwg',
+  'audio-to-mp3': 'mp3',
+  'audio-to-wav': 'wav',
+  'audio-to-flac': 'flac',
+  'audio-to-m4a': 'm4a',
+  'video-to-mp4': 'mp4',
+  'video-to-mp3': 'mp3',
+  'video-to-gif': 'gif',
+  'gif-to-mp4': 'mp4',
+  'video-to-webm': 'webm'
+};
+
+async function handleConvertFileSelect(files) {
+  if (!files || !files.length) return;
+  hideError("convert");
+  document.getElementById("convert-progress-wrap").style.display = "none";
+  document.getElementById("convert-result-card").style.display = "none";
+
+  selectedConvertFiles = Array.from(files);
+  selectedConvertFile = selectedConvertFiles[0];
+
+  const ext = getFileExtension(selectedConvertFile.name).toLowerCase();
+  
+  if (selectedConvertFiles.length > 1) {
+    const totalBytes = selectedConvertFiles.reduce((sum, f) => sum + f.size, 0);
+    document.getElementById("convert-filename").innerText = `${selectedConvertFiles.length} Files Selected (Batch)`;
+    document.getElementById("convert-filesize").innerText = `${formatBytes(totalBytes)} • ${ext.toUpperCase()}`;
+  } else {
+    document.getElementById("convert-filename").innerText = selectedConvertFile.name;
+    document.getElementById("convert-filesize").innerText = `${formatBytes(selectedConvertFile.size)} • ${ext.toUpperCase()}`;
+  }
+
+  document.getElementById("convert-file-info").style.display = "flex";
+  document.getElementById("convert-dropzone").style.display = "none";
+
+  // If PDF, inspect page count
+  if (ext === "pdf" && selectedConvertFiles.length === 1) {
+    await inspectPdfPages(selectedConvertFile);
+  } else {
+    document.getElementById("pdf-page-selector-wrap").style.display = "none";
+  }
+
+  // If CAD (DWG / DXF), show CAD plot style selector
+  const cadWrap = document.getElementById("cad-plot-style-wrap");
+  if (cadWrap) {
+    if (ext === "dwg" || ext === "dxf") {
+      cadWrap.style.display = "block";
+    } else {
+      cadWrap.style.display = "none";
+    }
+  }
+
+  // Update step indicators: Step 1 completed, Step 2 active
+  const step1 = document.getElementById('step-node-1');
+  const step2 = document.getElementById('step-node-2');
+  if (step1) { step1.classList.remove('active'); step1.classList.add('completed'); }
+  if (step2) { step2.classList.add('active'); }
+
+  const targetPresetBanner = document.getElementById("convert-target-preset");
+  const targetPresetText = document.getElementById("convert-target-preset-text");
+  const targetWrap = document.getElementById("convert-target-wrap");
+  const btn = document.getElementById("convert-submit-btn");
+  const btnText = document.getElementById("convert-btn-text");
+
+  const isDirectPdf = activeQuickTool && DIRECT_PDF_TOOLS.includes(activeQuickTool);
+  const isDirectTarget = activeQuickTool && DIRECT_TARGET_MAP[activeQuickTool];
+  const isPdfStudioOp = activeQuickTool && [
+    'split-pdf', 'rotate-pdf', 'delete-pages', 'protect-pdf', 'unlock-pdf',
+    'redact-pdf', 'flatten-pdf', 'repair-pdf', 'extract-images', 'print-ready-pdf'
+  ].includes(activeQuickTool);
+
+  if (isDirectPdf) {
+    if (targetPresetBanner) targetPresetBanner.style.display = "flex";
+    if (targetPresetText) targetPresetText.innerHTML = `Target Format: <strong>PDF Document (.pdf)</strong>`;
+    if (targetWrap) targetWrap.style.display = "none";
+    btn.disabled = false;
+    if (btnText) {
+      btnText.innerText = selectedConvertFiles.length > 1
+        ? `Convert ${selectedConvertFiles.length} Files to PDF (ZIP)`
+        : "Convert to PDF";
+    }
+  } else if (isDirectTarget) {
+    const tgt = DIRECT_TARGET_MAP[activeQuickTool];
+    if (targetPresetBanner) targetPresetBanner.style.display = "flex";
+    if (targetPresetText) targetPresetText.innerHTML = `Target Format: <strong>${tgt.toUpperCase()} (.${tgt})</strong>`;
+    if (targetWrap) targetWrap.style.display = "none";
+    btn.disabled = false;
+    if (btnText) {
+      btnText.innerText = selectedConvertFiles.length > 1
+        ? `Convert ${selectedConvertFiles.length} Files to ${tgt.toUpperCase()} (ZIP)`
+        : `Convert to ${tgt.toUpperCase()}`;
+    }
+  } else if (isPdfStudioOp) {
+    if (targetPresetBanner) targetPresetBanner.style.display = "none";
+    if (targetWrap) targetWrap.style.display = "none";
+    btn.disabled = false;
+    if (btnText) {
+      const toolTitle = activeQuickTool.replace(/-/g, ' ').replace(/pdf/g, 'PDF').toUpperCase();
+      btnText.innerText = `Execute ${toolTitle}`;
+    }
+  } else {
+    // Generic / Universal Converter
+    if (targetPresetBanner) targetPresetBanner.style.display = "none";
+    populateTargetFormats(ext);
+    if (targetWrap) targetWrap.style.display = "block";
+    btn.disabled = false;
+    if (btnText) {
+      btnText.innerText = selectedConvertFiles.length > 1
+        ? `Convert ${selectedConvertFiles.length} Files (Download ZIP)`
+        : "Convert File";
+    }
+  }
+
+  lucide.createIcons();
+}
+
+async function inspectPdfPages(file) {
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await fetch("/api/inspect", { method: "POST", body: formData });
+    if (res.ok) {
+      const data = await res.json();
+      inspectedPdfPageCount = data.page_count || 1;
+      updatePdfPageSelector(inspectedPdfPageCount);
+    }
+  } catch (err) {
+    console.warn("Inspect failed:", err);
+  }
+}
+
+function updatePdfPageSelector(pageCount) {
+  const wrap = document.getElementById("pdf-page-selector-wrap");
+  const select = document.getElementById("pdf-page-select");
+  if (!select) return;
+  select.innerHTML = "";
+
+  if (pageCount > 1) {
+    // Add "All Pages (ZIP)" option
+    const optAll = document.createElement("option");
+    optAll.value = "all";
+    optAll.innerText = `All ${pageCount} Pages (Download as ZIP Archive)`;
+    select.appendChild(optAll);
+
+    // Add individual page options
+    for (let i = 1; i <= pageCount; i++) {
+      const opt = document.createElement("option");
+      opt.value = String(i);
+      opt.innerText = `Page ${i} of ${pageCount}`;
+      select.appendChild(opt);
+    }
+    wrap.style.display = "block";
+  } else {
+    wrap.style.display = "none";
+  }
+}
+
+function clearConvertFile(e) {
+  if (e) e.stopPropagation();
+  selectedConvertFile = null;
+  selectedConvertFiles = [];
+  document.getElementById("convert-file-info").style.display = "none";
+  document.getElementById("convert-dropzone").style.display = "block";
+  document.getElementById("convert-file-input").value = "";
+  
+  if (!activeQuickTool || !DIRECT_PDF_TOOLS.includes(activeQuickTool)) {
+    const preset = document.getElementById("convert-target-preset");
+    if (preset) preset.style.display = "none";
+    const targetWrap = document.getElementById("convert-target-wrap");
+    if (targetWrap) targetWrap.style.display = "none";
+  }
+  
+  document.getElementById("pdf-page-selector-wrap").style.display = "none";
+  const cadWrap = document.getElementById("cad-plot-style-wrap");
+  if (cadWrap) cadWrap.style.display = "none";
+  document.getElementById("convert-submit-btn").disabled = true;
+  document.getElementById("convert-result-card").style.display = "none";
+  document.getElementById("convert-progress-wrap").style.display = "none";
+  hideError("convert");
+}
+
+function populateTargetFormats(ext) {
+  const select = document.getElementById("convert-target-select");
+  select.innerHTML = '<option value="">Select target format...</option>';
+
+  const formatData = globalCatalog[ext];
+  if (formatData && formatData.targets) {
+    formatData.targets.forEach(tgt => {
+      const opt = document.createElement("option");
+      opt.value = tgt;
+      const targetMeta = globalCatalog[tgt];
+      const targetName = targetMeta ? targetMeta.name : tgt.toUpperCase();
+      opt.innerText = `${tgt.toUpperCase()} — ${targetName}`;
+      select.appendChild(opt);
+    });
+
+    if (formatData.targets.length > 0) {
+      select.value = formatData.targets[0];
+      onTargetFormatChange();
+    }
+  }
+}
+
+function onTargetFormatChange() {
+  const select = document.getElementById("convert-target-select");
+  const target = select.value;
+  if (!selectedConvertFile || !target) return;
+
+  const srcExt = getFileExtension(selectedConvertFile.name).toLowerCase();
+  const srcData = globalCatalog[srcExt];
+
+  // Show or hide PDF page selector depending on target
+  if (srcExt === "pdf") {
+    const isImgTarget = ["jpg", "jpeg", "png"].includes(target.toLowerCase());
+    const wrap = document.getElementById("pdf-page-selector-wrap");
+    if (isImgTarget && inspectedPdfPageCount > 1) {
+      wrap.style.display = "block";
+    } else {
+      wrap.style.display = "none";
+    }
+  }
+
+  // Update Use Case note
+  const noteBox = document.getElementById("convert-use-case-note");
+  const noteText = document.getElementById("convert-use-case-text");
+
+  let useCase = "";
+  if (srcData && srcData.use_cases && srcData.use_cases[target]) {
+    useCase = srcData.use_cases[target];
+  } else if (globalCatalog[target]) {
+    useCase = globalCatalog[target].description;
+  }
+
+  if (useCase) {
+    noteText.innerText = `Why convert: ${useCase}`;
+    noteBox.style.display = "flex";
+  } else {
+    noteBox.style.display = "none";
+  }
+}
+
+async function executeConvert() {
+  if (!selectedConvertFiles || !selectedConvertFiles.length) return;
+  
+  // Check if active tool is a specialized PDF Studio operation
+  if (activeQuickTool) {
+    const pdfToolMap = {
+      'split-pdf': 'split',
+      'rotate-pdf': 'rotate',
+      'delete-pages': 'delete-pages',
+      'protect-pdf': 'protect',
+      'unlock-pdf': 'unlock',
+      'redact-pdf': 'redact',
+      'flatten-pdf': 'flatten',
+      'repair-pdf': 'repair',
+      'extract-images': 'extract-images',
+      'pdf-to-word': 'to-word',
+      'pdf-to-excel': 'to-excel',
+      'pdf-to-pptx': 'to-pptx',
+      'pdf-to-jpg': 'to-images',
+      'pdf-to-png': 'to-images',
+      'pdf-to-pdfa': 'pdfa',
+      'print-ready-pdf': 'print-ready'
+    };
+
+    if (pdfToolMap[activeQuickTool]) {
+      return executePdfToolOperation(pdfToolMap[activeQuickTool]);
+    }
+  }
+
+  let targetFormat = "";
+  if (activeQuickTool && DIRECT_PDF_TOOLS.includes(activeQuickTool)) {
+    targetFormat = "pdf";
+  } else if (activeQuickTool && DIRECT_TARGET_MAP[activeQuickTool]) {
+    targetFormat = DIRECT_TARGET_MAP[activeQuickTool];
+  } else {
+    targetFormat = document.getElementById("convert-target-select")?.value;
+  }
+
+  if (!targetFormat) {
+    showError("convert", "Please select a target conversion format.");
+    return;
+  }
+
+  const isBatch = selectedConvertFiles.length > 1;
+  const btn = document.getElementById("convert-submit-btn");
+  const btnText = document.getElementById("convert-btn-text");
+  const progWrap = document.getElementById("convert-progress-wrap");
+  const progBar = document.getElementById("convert-progress-bar");
+  const progStage = document.getElementById("convert-progress-stage");
+  const progPercent = document.getElementById("convert-progress-percent");
+  const resultCard = document.getElementById("convert-result-card");
+
+  hideError("convert");
+  btn.disabled = true;
+  if (btnText) btnText.innerText = isBatch ? `Converting ${selectedConvertFiles.length} Files...` : "Converting...";
+  progWrap.style.display = "block";
+  resultCard.style.display = "none";
+  progBar.style.width = "20%";
+  progPercent.innerText = "20%";
+  progStage.innerText = isBatch ? `Processing batch of ${selectedConvertFiles.length} files...` : "Processing conversion...";
+
+  let p = 20;
+  const timer = setInterval(() => {
+    if (p < 85) {
+      p += 15;
+      progBar.style.width = `${p}%`;
+      progPercent.innerText = `${p}%`;
+    }
+  }, 180);
+
+  try {
+    let res;
+    const cadPlotStyle = document.getElementById("convert-cad-plot-style")?.value || "acad.ctb";
+    const convertOptions = {
+      page_option: document.getElementById("pdf-page-select")?.value || "all",
+      plot_style: cadPlotStyle,
+      plot_with_styles: true,
+      plot_lineweights: true
+    };
+
+    if (isBatch) {
+      const formData = new FormData();
+      selectedConvertFiles.forEach(f => formData.append("files", f));
+      formData.append("target_format", targetFormat);
+      formData.append("options", JSON.stringify(convertOptions));
+      res = await fetch("/api/convert-batch", { method: "POST", body: formData });
+    } else {
+      const formData = new FormData();
+      formData.append("file", selectedConvertFiles[0]);
+      formData.append("target_format", targetFormat);
+      formData.append("options", JSON.stringify(convertOptions));
+      res = await fetch("/api/convert", { method: "POST", body: formData });
+    }
+
+    clearInterval(timer);
+    progBar.style.width = "100%";
+    progPercent.innerText = "100%";
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      if (res.status === 429) {
+        showQuotaLimitModal(err.detail || "You have reached your daily free conversion limit.");
+      }
+      throw new Error(err.detail || "Conversion failed");
+    }
+
+    const data = await res.json();
+    if (data.quota) {
+      updateUserQuotaUI(data.quota);
+    }
+    if (isBatch) {
+      document.getElementById("convert-result-metrics").innerText =
+        `Batch converted ${data.file_count} of ${data.total_files} files (${formatBytes(data.original_bytes)} ➔ ${formatBytes(data.converted_bytes)}) in ${data.duration_ms}ms`;
+    } else {
+      document.getElementById("convert-result-metrics").innerText =
+        `${formatBytes(data.original_size)} ➔ ${formatBytes(data.converted_size)} (${data.duration_ms}ms)`;
+    }
+
+    const savingsBadge = document.getElementById("convert-result-savings");
+    if (savingsBadge) {
+      if (data.savings_percent > 0) {
+        savingsBadge.innerText = `-${data.savings_percent}% Size`;
+        savingsBadge.style.display = "inline-block";
+      } else {
+        savingsBadge.style.display = "none";
+      }
+    }
+
+    const dlBtn = document.getElementById("convert-download-btn");
+    dlBtn.href = data.download_url;
+    dlBtn.setAttribute("download", data.output_filename);
+    dlBtn.innerText = `Download ${data.output_filename}`;
+
+    // Update step indicators: Step 2 completed, Step 3 active
+    const step2 = document.getElementById('step-node-2');
+    const step3 = document.getElementById('step-node-3');
+    if (step2) { step2.classList.remove('active'); step2.classList.add('completed'); }
+    if (step3) { step3.classList.add('active'); }
+
+    // Hide progress wrap immediately so it never lingers
+    progWrap.style.display = "none";
+    resultCard.style.display = "block";
+  } catch (err) {
+    clearInterval(timer);
+    progWrap.style.display = "none";
+    showError("convert", `Conversion Error: ${err.message}`);
+  } finally {
+    btn.disabled = false;
+    if (btnText) {
+      if (activeQuickTool && DIRECT_PDF_TOOLS.includes(activeQuickTool)) {
+        btnText.innerText = isBatch ? `Convert ${selectedConvertFiles.length} Files to PDF (ZIP)` : "Convert to PDF";
+      } else {
+        btnText.innerText = isBatch ? `Convert ${selectedConvertFiles.length} Files (Download ZIP)` : "Convert File";
+      }
+    }
+    lucide.createIcons();
+  }
+}
+
+// -------------------------------------------------------------
+// Document Merger Logic
+// -------------------------------------------------------------
+let mergeFilesQueue = [];
+
+function handleMergeFilesSelect(files) {
+  if (!files || !files.length) return;
+  hideError("merge");
+  document.getElementById("merge-progress-wrap").style.display = "none";
+  document.getElementById("merge-result-card").style.display = "none";
+
+  for (let i = 0; i < files.length; i++) {
+    mergeFilesQueue.push(files[i]);
+  }
+  renderMergeQueue();
+}
+
+function renderMergeQueue() {
+  const queueContainer = document.getElementById("merge-queue-container");
+  const list = document.getElementById("merge-file-list");
+  const submitBtn = document.getElementById("merge-submit-btn");
+  const countLabel = document.getElementById("merge-count-label");
+
+  if (mergeFilesQueue.length === 0) {
+    queueContainer.style.display = "none";
+    submitBtn.disabled = true;
+    return;
+  }
+
+  queueContainer.style.display = "block";
+  countLabel.innerText = `Files to Merge (${mergeFilesQueue.length})`;
+  submitBtn.disabled = mergeFilesQueue.length < 2;
+
+  list.innerHTML = "";
+  mergeFilesQueue.forEach((file, index) => {
+    const ext = getFileExtension(file.name).toLowerCase();
+    const item = document.createElement("div");
+    item.className = "cb-queue-item";
+    item.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 10px; overflow: hidden; flex: 1;">
+        <div style="color: var(--cb-blue); flex-shrink: 0;">
+          <i data-lucide="${getFileIcon(ext)}" style="width: 18px; height: 18px;"></i>
+        </div>
+        <div style="overflow: hidden;">
+          <div style="font-weight: 700; font-size: 0.88rem; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" title="${file.name}">
+            ${index + 1}. ${file.name}
+          </div>
+          <div style="font-size: 0.74rem; color: var(--text-secondary);">
+            ${formatBytes(file.size)} • ${ext.toUpperCase()}
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 4px; flex-shrink: 0;">
+        <button class="cb-icon-btn" title="Move Up" ${index === 0 ? "disabled" : ""} onclick="moveMergeQueueItem(${index}, -1)">
+          <i data-lucide="chevron-up" style="width: 16px; height: 16px;"></i>
+        </button>
+        <button class="cb-icon-btn" title="Move Down" ${index === mergeFilesQueue.length - 1 ? "disabled" : ""} onclick="moveMergeQueueItem(${index}, 1)">
+          <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+        </button>
+        <button class="cb-icon-btn" title="Remove" onclick="removeMergeQueueItem(${index})" style="color: #EF4444;">
+          <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+        </button>
+      </div>
+    `;
+    list.appendChild(item);
+  });
+  lucide.createIcons();
+}
+
+function moveMergeQueueItem(index, direction) {
+  const newIndex = index + direction;
+  if (newIndex < 0 || newIndex >= mergeFilesQueue.length) return;
+  const temp = mergeFilesQueue[index];
+  mergeFilesQueue[index] = mergeFilesQueue[newIndex];
+  mergeFilesQueue[newIndex] = temp;
+  renderMergeQueue();
+}
+
+function removeMergeQueueItem(index) {
+  mergeFilesQueue.splice(index, 1);
+  renderMergeQueue();
+}
+
+function clearMergeQueue() {
+  mergeFilesQueue = [];
+  const fileInput = document.getElementById("merge-file-input");
+  if (fileInput) fileInput.value = "";
+  document.getElementById("merge-result-card").style.display = "none";
+  document.getElementById("merge-progress-wrap").style.display = "none";
+  hideError("merge");
+  renderMergeQueue();
+}
+
+async function executeMerge() {
+  if (mergeFilesQueue.length < 2) return;
+
+  const btn = document.getElementById("merge-submit-btn");
+  const btnText = document.getElementById("merge-btn-text");
+  const progWrap = document.getElementById("merge-progress-wrap");
+  const progBar = document.getElementById("merge-progress-bar");
+  const resultCard = document.getElementById("merge-result-card");
+
+  hideError("merge");
+  btn.disabled = true;
+  btnText.innerText = "Merging Files...";
+  progWrap.style.display = "block";
+  resultCard.style.display = "none";
+  progBar.style.width = "25%";
+
+  const formData = new FormData();
+  mergeFilesQueue.forEach(f => {
+    formData.append("files", f);
+  });
+
+  let p = 25;
+  const timer = setInterval(() => {
+    if (p < 85) {
+      p += 15;
+      progBar.style.width = `${p}%`;
+    }
+  }, 200);
+
+  try {
+    const res = await fetch("/api/merge", { method: "POST", body: formData });
+    clearInterval(timer);
+    progBar.style.width = "100%";
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.detail || "Merge failed");
+    }
+
+    const data = await res.json();
+    document.getElementById("merge-result-metrics").innerText =
+      `Merged ${data.file_count} files (${data.pages} pages, ${formatBytes(data.merged_bytes)}) in ${data.duration_ms}ms`;
+
+    const dlBtn = document.getElementById("merge-download-btn");
+    dlBtn.href = data.download_url;
+    dlBtn.setAttribute("download", data.output_filename);
+    dlBtn.innerText = `Download ${data.output_filename}`;
+
+    // Hide progress bar immediately upon showing results
+    progWrap.style.display = "none";
+    resultCard.style.display = "block";
+  } catch (err) {
+    clearInterval(timer);
+    progWrap.style.display = "none";
+    showError("merge", `Merge Error: ${err.message}`);
+  } finally {
+    btn.disabled = false;
+    btnText.innerText = "Merge Into Single PDF";
+    lucide.createIcons();
+  }
+}
+
+// -------------------------------------------------------------
+// Resize Logic
+// -------------------------------------------------------------
+function handleResizeFileSelect(files) {
+  if (!files || !files.length) return;
+  hideError("resize");
+  document.getElementById("resize-progress-wrap").style.display = "none";
+  document.getElementById("resize-result-card").style.display = "none";
+
+  selectedResizeFile = files[0];
+
+  const ext = getFileExtension(selectedResizeFile.name).toLowerCase();
+  document.getElementById("resize-filename").innerText = selectedResizeFile.name;
+  document.getElementById("resize-filesize").innerText = `${formatBytes(selectedResizeFile.size)} • ${ext.toUpperCase()}`;
+  document.getElementById("resize-file-info").style.display = "flex";
+  document.getElementById("resize-dropzone").style.display = "none";
+  document.getElementById("resize-submit-btn").disabled = false;
+
+  if (ext === "pdf") switchResizeSubTab("pdf");
+  else if (["png", "jpg", "jpeg", "webp"].includes(ext)) switchResizeSubTab("image");
+  else if (["mp4", "mkv", "mov", "avi"].includes(ext)) switchResizeSubTab("video");
+  lucide.createIcons();
+}
+
+function clearResizeFile(e) {
+  if (e) e.stopPropagation();
+  selectedResizeFile = null;
+  document.getElementById("resize-file-info").style.display = "none";
+  document.getElementById("resize-dropzone").style.display = "block";
+  document.getElementById("resize-file-input").value = "";
+  document.getElementById("resize-submit-btn").disabled = true;
+  document.getElementById("resize-result-card").style.display = "none";
+  document.getElementById("resize-progress-wrap").style.display = "none";
+  hideError("resize");
+}
+
+async function executeResize() {
+  if (!selectedResizeFile) return;
+
+  const btn = document.getElementById("resize-submit-btn");
+  const btnText = document.getElementById("resize-btn-text");
+  const progWrap = document.getElementById("resize-progress-wrap");
+  const progBar = document.getElementById("resize-progress-bar");
+  const resultCard = document.getElementById("resize-result-card");
+
+  hideError("resize");
+  btn.disabled = true;
+  btnText.innerText = "Optimizing...";
+  progWrap.style.display = "block";
+  resultCard.style.display = "none";
+  progBar.style.width = "25%";
+
+  const formData = new FormData();
+  formData.append("file", selectedResizeFile);
+  formData.append("tool_type", activeResizeType);
+
+  const opts = {};
+  if (activeResizeType === "pdf") {
+    opts.target_size = document.getElementById("pdf-page-size")?.value || document.getElementById("pdf-target-size")?.value || "keep";
+    const targetVal = document.getElementById("pdf-target-kb")?.value || document.getElementById("pdf-target-size-val")?.value;
+    const targetUnit = document.getElementById("pdf-size-unit")?.value || document.getElementById("pdf-target-size-unit")?.value || "kb";
+    if (targetVal && parseFloat(targetVal) > 0) {
+      opts.target_size_val = parseFloat(targetVal);
+      opts.target_size_unit = targetUnit;
+    }
+  } else if (activeResizeType === "image") {
+    const w = parseInt(document.getElementById("img-width")?.value);
+    const h = parseInt(document.getElementById("img-height")?.value);
+    const q = parseInt(document.getElementById("img-quality")?.value);
+    if (!isNaN(w)) opts.width = w;
+    if (!isNaN(h)) opts.height = h;
+    opts.quality = !isNaN(q) ? q : 85;
+  } else if (activeResizeType === "video") {
+    opts.resolution = document.getElementById("video-resolution").value;
+  }
+  formData.append("options", JSON.stringify(opts));
+
+  let p = 25;
+  const timer = setInterval(() => {
+    if (p < 85) { p += 15; progBar.style.width = `${p}%`; }
+  }, 180);
+
+  try {
+    const res = await fetch("/api/resize", { method: "POST", body: formData });
+    clearInterval(timer);
+    progBar.style.width = "100%";
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.detail || "Resize failed");
+    }
+
+    const data = await res.json();
+    const stats = data.stats || {};
+    document.getElementById("resize-result-metrics").innerText =
+      `${formatBytes(stats.original_bytes)} ➔ ${formatBytes(stats.new_bytes)} (${data.duration_ms}ms)`;
+
+    const savingsBadge = document.getElementById("resize-result-savings");
+    if (stats.savings_percent > 0) {
+      savingsBadge.innerText = `-${stats.savings_percent}% Size`;
+      savingsBadge.style.display = "inline-block";
+    } else {
+      savingsBadge.style.display = "none";
+    }
+
+    const dlBtn = document.getElementById("resize-download-btn");
+    dlBtn.href = data.download_url;
+    dlBtn.setAttribute("download", data.output_filename);
+    dlBtn.innerText = `Download ${data.output_filename}`;
+
+    // Hide progress bar immediately when showing results
+    progWrap.style.display = "none";
+    resultCard.style.display = "block";
+  } catch (err) {
+    clearInterval(timer);
+    progWrap.style.display = "none";
+    showError("resize", `Resize failed: ${err.message}`);
+  } finally {
+    btn.disabled = false;
+    btnText.innerText = "Resize & Compress";
+    lucide.createIcons();
+  }
+}
+
+// -------------------------------------------------------------
+// Helpers
+// -------------------------------------------------------------
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute("data-theme");
+  const next = current === "dark" ? "light" : "dark";
+  html.setAttribute("data-theme", next);
+  const icon = document.getElementById("theme-icon");
+  const text = document.getElementById("theme-text");
+  if (icon) {
+    icon.setAttribute("data-lucide", next === "dark" ? "sun" : "moon");
+    lucide.createIcons();
+  }
+  if (text) {
+    text.innerText = next === "dark" ? "PARCHMENT VIEW" : "INVERT VIEW";
+  }
+}
+
+function getFileExtension(name) {
+  return name.slice((name.lastIndexOf(".") - 1 >>> 0) + 2);
+}
+
+function formatBytes(bytes, decimals = 1) {
+  if (!bytes) return '0 B';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['B', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+function getFileIcon(ext) {
+  if (ext === "pdf") return "file-text";
+  if (["png", "jpg", "jpeg", "webp", "gif", "tiff", "bmp"].includes(ext)) return "image";
+  if (["docx", "doc", "txt", "md"].includes(ext)) return "file-text";
+  if (["mp4", "mkv", "mov", "avi"].includes(ext)) return "video";
+  if (["mp3", "wav", "flac"].includes(ext)) return "music";
+  return "file";
+}
+
+// -------------------------------------------------------------
+// AutoCAD Batch Plot & Publish Studio
+// -------------------------------------------------------------
+function handlePlotFilesSelect(files) {
+  if (!files || files.length === 0) return;
+  for (let i = 0; i < files.length; i++) {
+    const f = files[i];
+    const ext = getFileExtension(f.name).toLowerCase();
+    if (ext === "dwg" || ext === "dxf") {
+      selectedPlotFiles.push(f);
+    }
+  }
+  renderPlotQueue();
+  lucide.createIcons();
+}
+
+function renderPlotQueue() {
+  const container = document.getElementById("plot-queue-container");
+  const list = document.getElementById("plot-queue-list");
+  const countLabel = document.getElementById("plot-queue-count-label");
+  const submitBtn = document.getElementById("plot-submit-btn");
+
+  if (!container || !list) return;
+
+  if (selectedPlotFiles.length === 0) {
+    container.style.display = "none";
+    if (submitBtn) submitBtn.disabled = true;
+    return;
+  }
+
+  container.style.display = "block";
+  if (countLabel) countLabel.innerText = `Batch Drawing Queue (${selectedPlotFiles.length} Drawing${selectedPlotFiles.length > 1 ? 's' : ''})`;
+  if (submitBtn) submitBtn.disabled = false;
+
+  list.innerHTML = selectedPlotFiles.map((file, idx) => `
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.85rem; border: 1px solid var(--border-ink); background: var(--bg-bone-subtle); box-shadow: 1px 1px 0px rgba(0,0,0,0.5);">
+      <div style="display: flex; align-items: center; gap: 0.6rem; overflow: hidden;">
+        <i data-lucide="layers" style="width: 14px; height: 14px; color: var(--accent-ember); flex-shrink: 0;"></i>
+        <span style="font-size: 0.82rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${file.name}</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted);">(${formatBytes(file.size)})</span>
+      </div>
+      <button type="button" class="file-loaded-remove" style="width: 24px; height: 24px;" onclick="removePlotFile(${idx})" title="Remove drawing">
+        <i data-lucide="x" style="width: 12px; height: 12px;"></i>
+      </button>
+    </div>
+  `).join("");
+
+  lucide.createIcons();
+}
+
+function removePlotFile(idx) {
+  selectedPlotFiles.splice(idx, 1);
+  renderPlotQueue();
+}
+
+function handleCtbFileSelect(files) {
+  if (!files || files.length === 0) return;
+  selectedCustomCtb = files[0];
+  const badge = document.getElementById("plot-ctb-loaded-badge");
+  const filenameSpan = document.getElementById("plot-ctb-filename");
+  if (badge && filenameSpan) {
+    filenameSpan.innerText = selectedCustomCtb.name;
+    badge.style.display = "block";
+  }
+  lucide.createIcons();
+}
+
+function clearCustomCtb() {
+  selectedCustomCtb = null;
+  const badge = document.getElementById("plot-ctb-loaded-badge");
+  const input = document.getElementById("plot-ctb-file");
+  if (badge) badge.style.display = "none";
+  if (input) input.value = "";
+}
+
+async function submitAutoCadBatchPlot() {
+  if (selectedPlotFiles.length === 0) return;
+
+  const btn = document.getElementById("plot-submit-btn");
+  const btnText = document.getElementById("plot-submit-btn-text");
+  const progWrap = document.getElementById("plot-progress-wrap");
+  const progFill = document.getElementById("plot-progress-fill");
+  const progStatus = document.getElementById("plot-prog-status");
+  const progPercent = document.getElementById("plot-prog-percent");
+  const resultCard = document.getElementById("plot-result-card");
+  const errBanner = document.getElementById("plot-error-banner");
+
+  if (errBanner) errBanner.style.display = "none";
+  if (resultCard) resultCard.style.display = "none";
+  btn.disabled = true;
+  btnText.innerText = "Executing AutoCAD Batch Plot...";
+  progWrap.style.display = "block";
+  progFill.style.width = "10%";
+  progPercent.innerText = "10%";
+  progStatus.innerText = "Initializing Autodesk AutoCAD 2026 Core Console...";
+
+  let pct = 8;
+  const numFiles = selectedPlotFiles.length;
+  // Estimate ~12 seconds per drawing with minimum 20s
+  const estTotalSec = Math.max(20, numFiles * 12);
+  const stepMs = Math.round((estTotalSec * 1000) / 85);
+
+  const timer = setInterval(() => {
+    if (pct < 94) {
+      pct += 1;
+      progFill.style.width = `${pct}%`;
+      progPercent.innerText = `${pct}%`;
+      if (pct === 15) progStatus.innerText = "Staging DWG models & applying CTB pen table...";
+      if (pct === 35) progStatus.innerText = `AutoCAD 2026 Core Console vector plotting in progress (${numFiles} file${numFiles > 1 ? 's' : ''})...`;
+      if (pct === 60) progStatus.innerText = "Extracting crisp vector lineweights & layers...";
+      if (pct === 80) progStatus.innerText = "Assembling multi-sheet drawing set & booklet...";
+      if (pct === 90) progStatus.innerText = "Finalizing high-resolution output...";
+    }
+  }, stepMs);
+
+  const fd = new FormData();
+  selectedPlotFiles.forEach(f => fd.append("files", f));
+  if (selectedCustomCtb) {
+    fd.append("ctb_file", selectedCustomCtb);
+  }
+
+  const printer = document.getElementById("plot-printer").value;
+  const paperSize = document.getElementById("plot-paper-size").value;
+  const plotStyle = document.getElementById("plot-style").value;
+  const plotArea = document.getElementById("plot-area").value;
+  const centerPlot = document.getElementById("plot-center").checked;
+  const fitPaper = document.getElementById("plot-fit").checked;
+  const orientation = document.querySelector('input[name="plot_orientation"]:checked')?.value || "Landscape";
+  const plotLineweights = document.getElementById("plot-lineweights").checked;
+  const plotWithStyles = document.getElementById("plot-styles-enabled").checked;
+  const shadePlot = document.getElementById("plot-shade").value;
+  const isUnified = document.getElementById("plot-pack-unified").checked;
+
+  fd.append("printer", printer);
+  fd.append("paper_size", paperSize);
+  fd.append("plot_style", plotStyle);
+  fd.append("plot_area", plotArea);
+  fd.append("center_plot", centerPlot);
+  fd.append("fit_to_paper", fitPaper);
+  fd.append("orientation", orientation);
+  fd.append("plot_lineweights", plotLineweights);
+  fd.append("plot_with_styles", plotWithStyles);
+  fd.append("shade_plot", shadePlot);
+  fd.append("merge_output", isUnified);
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 180000); // 3-minute safety timeout
+
+  try {
+    const res = await fetch("/api/cad/batch-plot", {
+      method: "POST",
+      body: fd,
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+
+    clearInterval(timer);
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      if (res.status === 429 || res.status === 403) {
+        showQuotaLimitModal(err.detail || "AutoCAD batch plotting requires a Pro subscription.");
+      }
+      throw new Error(err.detail || "Batch plot failed.");
+    }
+
+    const data = await res.json();
+    if (data.quota) {
+      updateUserQuotaUI(data.quota);
+    }
+    progFill.style.width = "100%";
+    progPercent.innerText = "100%";
+    progStatus.innerText = "Batch plot complete!";
+
+    const sheetsEl = document.getElementById("plot-res-sheets");
+    if (sheetsEl) sheetsEl.innerText = data.sheets_plotted;
+    const sizeEl = document.getElementById("plot-res-size");
+    if (sizeEl) sizeEl.innerText = formatBytes(data.file_size);
+    const ctbEl = document.getElementById("plot-res-ctb");
+    if (ctbEl) ctbEl.innerText = data.plot_style;
+    const durEl = document.getElementById("plot-res-duration");
+    if (durEl) durEl.innerText = `${(data.duration_ms / 1000).toFixed(1)}s`;
+
+    const dlBtn = document.getElementById("plot-download-btn");
+    if (dlBtn) {
+      dlBtn.href = data.download_url;
+      dlBtn.setAttribute("download", data.output_filename);
+      dlBtn.innerText = `Download ${data.output_filename}`;
+    }
+
+    const previewContainer = document.getElementById("plot-preview-container");
+    const previewImg = document.getElementById("plot-preview-img");
+    const previewSource = data.preview_data_url || data.preview_url;
+    if (previewSource && previewContainer && previewImg) {
+      previewImg.src = previewSource;
+      previewContainer.style.display = "block";
+    } else if (previewContainer) {
+      previewContainer.style.display = "none";
+    }
+
+    if (progWrap) progWrap.style.display = "none";
+    if (resultCard) resultCard.style.display = "block";
+  } catch (err) {
+    clearInterval(timer);
+    progWrap.style.display = "none";
+    if (errBanner) {
+      document.getElementById("plot-error-text").innerText = `Plotting failed: ${err.message}`;
+      errBanner.style.display = "flex";
+    }
+  } finally {
+    btn.disabled = false;
+    btnText.innerText = "Execute AutoCAD Batch Plot";
+    lucide.createIcons();
+  }
+}
+
+function resetPlotStudio() {
+  selectedPlotFiles = [];
+  renderPlotQueue();
+  const resCard = document.getElementById("plot-result-card");
+  if (resCard) resCard.style.display = "none";
+  const errBanner = document.getElementById("plot-error-banner");
+  if (errBanner) errBanner.style.display = "none";
+}
+
+
+
+// =============================================================
+// ZAPIER SETTINGS & OFF+BRAND 324+ CONVERTER & PDF STUDIO
+// =============================================================
+let activeQuickTool = null;
+let activeRotateAngle = 90;
+
+function selectQuickTool(toolId, title, acceptedExt) {
+  activeQuickTool = toolId;
+  
+  // Highlight active card
+  document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
+  const card = document.getElementById(`card-${toolId}`);
+  if (card) card.classList.add('active');
+
+  // Update step indicators
+  const step1 = document.getElementById('step-node-1');
+  const step2 = document.getElementById('step-node-2');
+  if (step1) { step1.classList.remove('active'); step1.classList.add('completed'); }
+  if (step2) { step2.classList.add('active'); }
+
+  // Open contextual drawer
+  const drawer = document.getElementById('context-config-drawer');
+  if (drawer) {
+    drawer.style.display = 'block';
+    const titleElem = document.getElementById('drawer-tool-title');
+    if (titleElem) titleElem.innerText = title.toUpperCase();
+
+    const badgeElem = document.getElementById('drawer-tool-badge');
+    if (badgeElem) badgeElem.innerText = "Step 2: Settings";
+
+    const descElem = document.getElementById('drawer-tool-desc');
+    if (descElem) descElem.innerText = `Drop your files below to convert with ${title}.`;
+
+    const btnText = document.getElementById('convert-btn-text');
+    
+    // Set file input accept filter
+    const fileInput = document.getElementById('convert-file-input');
+    if (fileInput) fileInput.setAttribute('accept', acceptedExt || '*');
+
+    // Hide all option panels first
+    document.querySelectorAll('.tool-opt-panel').forEach(p => p.style.display = 'none');
+    
+    const targetWrap = document.getElementById('convert-target-wrap');
+    const targetPreset = document.getElementById('convert-target-preset');
+    const targetPresetText = document.getElementById('convert-target-preset-text');
+
+    if (DIRECT_PDF_TOOLS.includes(toolId)) {
+      if (targetWrap) targetWrap.style.display = 'none';
+      if (targetPreset) {
+        targetPreset.style.display = 'flex';
+        if (targetPresetText) targetPresetText.innerHTML = 'Target Format: <strong>PDF Document (.pdf)</strong>';
+      }
+      if (btnText) btnText.innerText = 'Convert to PDF';
+    } else if (DIRECT_TARGET_MAP[toolId]) {
+      const tgt = DIRECT_TARGET_MAP[toolId];
+      if (targetWrap) targetWrap.style.display = 'none';
+      if (targetPreset) {
+        targetPreset.style.display = 'flex';
+        if (targetPresetText) targetPresetText.innerHTML = `Target Format Preset: <strong>${tgt.toUpperCase()} (.${tgt})</strong>`;
+      }
+      if (btnText) btnText.innerText = `Convert to ${tgt.toUpperCase()}`;
+    } else if (toolId === 'split-pdf') {
+      if (targetWrap) targetWrap.style.display = 'none';
+      if (targetPreset) targetPreset.style.display = 'none';
+      const p = document.getElementById('opt-split-pdf');
+      if (p) p.style.display = 'block';
+      if (btnText) btnText.innerText = 'Split PDF';
+    } else if (toolId === 'rotate-pdf') {
+      if (targetWrap) targetWrap.style.display = 'none';
+      if (targetPreset) targetPreset.style.display = 'none';
+      const p = document.getElementById('opt-rotate-pdf');
+      if (p) p.style.display = 'block';
+      if (btnText) btnText.innerText = 'Rotate PDF';
+    } else if (toolId === 'delete-pages') {
+      if (targetWrap) targetWrap.style.display = 'none';
+      if (targetPreset) targetPreset.style.display = 'none';
+      const p = document.getElementById('opt-delete-pages');
+      if (p) p.style.display = 'block';
+      if (btnText) btnText.innerText = 'Delete Selected Pages';
+    } else if (toolId === 'protect-pdf') {
+      if (targetWrap) targetWrap.style.display = 'none';
+      if (targetPreset) targetPreset.style.display = 'none';
+      const p = document.getElementById('opt-protect-pdf');
+      if (p) p.style.display = 'block';
+      if (btnText) btnText.innerText = 'Protect PDF';
+    } else if (toolId === 'unlock-pdf') {
+      if (targetWrap) targetWrap.style.display = 'none';
+      if (targetPreset) targetPreset.style.display = 'none';
+      const p = document.getElementById('opt-unlock-pdf');
+      if (p) p.style.display = 'block';
+      if (btnText) btnText.innerText = 'Unlock PDF';
+    } else if (toolId === 'redact-pdf') {
+      if (targetWrap) targetWrap.style.display = 'none';
+      if (targetPreset) targetPreset.style.display = 'none';
+      const p = document.getElementById('opt-redact-pdf');
+      if (p) p.style.display = 'block';
+      if (btnText) btnText.innerText = 'Redact & Purge Keywords';
+    } else if (toolId === 'print-ready-pdf') {
+      if (targetWrap) targetWrap.style.display = 'none';
+      if (targetPreset) targetPreset.style.display = 'none';
+      const p = document.getElementById('opt-print-ready-pdf');
+      if (p) p.style.display = 'block';
+      if (btnText) btnText.innerText = 'Generate Print-Ready PDF';
+    } else {
+      if (targetPreset) targetPreset.style.display = 'none';
+      if (targetWrap) targetWrap.style.display = 'block';
+      if (btnText) btnText.innerText = 'Convert File';
+    }
+
+    drawer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Update button state if file already selected
+  const btn = document.getElementById('convert-submit-btn');
+  if (btn && selectedConvertFiles && selectedConvertFiles.length > 0) {
+    btn.disabled = false;
+  }
+  lucide.createIcons();
+}
+
+function setRotateAngle(angle, btn) {
+  activeRotateAngle = angle;
+  document.querySelectorAll('.opt-angle-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+function toggleSplitMode() {
+  const mode = document.querySelector('input[name="split_mode"]:checked')?.value;
+  const input = document.getElementById('split-range-input');
+  if (input) {
+    input.style.display = (mode === 'burst') ? 'none' : 'block';
+  }
+}
+
+function filterToolCards(query) {
+  const q = (query || '').toLowerCase().trim();
+  if (q.includes('@') || q.endsWith('.com')) {
+    const searchInput = document.getElementById('hub-search-input');
+    if (searchInput) searchInput.value = '';
+    document.querySelectorAll('.tool-card').forEach(card => {
+      card.style.display = 'flex';
+    });
+    return;
+  }
+  document.querySelectorAll('.tool-card').forEach(card => {
+    const title = (card.querySelector('.tool-label')?.innerText || '').toLowerCase();
+    const cat = (card.getAttribute('data-category') || '').toLowerCase();
+    const ext = (card.getAttribute('data-ext') || '').toLowerCase();
+    const matches = !q || title.includes(q) || cat.includes(q) || ext.includes(q);
+    card.style.display = matches ? 'flex' : 'none';
+  });
+}
+
+function filterCategory(cat) {
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  const pill = document.getElementById(`pill-${cat}`);
+  if (pill) pill.classList.add('active');
+
+  document.querySelectorAll('.tool-card').forEach(card => {
+    const cardCat = card.getAttribute('data-category');
+    if (cat === 'all' || cardCat === cat) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+function toggleFaq(elem) {
+  const item = elem.closest('.faq-item');
+  if (item) {
+    item.classList.toggle('open');
+    lucide.createIcons();
+  }
+}
+
+
+async function executePdfToolOperation(operation) {
+  const file = selectedConvertFiles[0];
+  if (!file) return;
+
+  const btn = document.getElementById("convert-submit-btn");
+  const btnText = document.getElementById("convert-btn-text");
+  const progWrap = document.getElementById("convert-progress-wrap");
+  const progBar = document.getElementById("convert-progress-bar");
+  const progStage = document.getElementById("convert-progress-stage");
+  const progPercent = document.getElementById("convert-progress-percent");
+  const resultCard = document.getElementById("convert-result-card");
+
+  hideError("convert");
+  btn.disabled = true;
+  if (btnText) btnText.innerText = "Executing...";
+  progWrap.style.display = "block";
+  resultCard.style.display = "none";
+  progBar.style.width = "25%";
+  progPercent.innerText = "25%";
+  progStage.innerText = `Executing ${operation} locally via PyMuPDF...`;
+
+  let p = 25;
+  const timer = setInterval(() => {
+    if (p < 85) { p += 15; progBar.style.width = `${p}%`; progPercent.innerText = `${p}%`; }
+  }, 150);
+
+  const fd = new FormData();
+  fd.append("file", file);
+
+  const opts = {};
+  if (operation === "split") {
+    const mode = document.querySelector('input[name="split_mode"]:checked')?.value;
+    opts.burst = (mode === "burst");
+    opts.ranges = document.getElementById("split-range-input")?.value || "1";
+  } else if (operation === "rotate") {
+    opts.angle = activeRotateAngle || 90;
+  } else if (operation === "delete-pages") {
+    opts.pages = document.getElementById("delete-pages-input")?.value || "";
+  } else if (operation === "protect") {
+    const pwd = document.getElementById("protect-password-input")?.value || "";
+    if (!pwd) {
+      showError("convert", "Please enter a password to protect this PDF.");
+      btn.disabled = false;
+      progWrap.style.display = "none";
+      if (btnText) btnText.innerText = "Protect PDF";
+      return;
+    }
+    opts.password = pwd;
+  } else if (operation === "unlock") {
+    opts.password = document.getElementById("unlock-password-input")?.value || "";
+  } else if (operation === "redact") {
+    opts.keywords = document.getElementById("redact-keywords-input")?.value || "";
+  } else if (operation === "to-images") {
+    opts.format = activeQuickTool === "pdf-to-jpg" ? "jpg" : "png";
+  } else if (operation === "print-ready") {
+    opts.dpi = parseInt(document.getElementById("print-dpi-select")?.value || "300");
+  }
+
+  fd.append("options", JSON.stringify(opts));
+
+  try {
+    const res = await fetch(`/api/pdf/${operation}`, {
+      method: "POST",
+      body: fd
+    });
+    clearInterval(timer);
+    progBar.style.width = "100%";
+    progPercent.innerText = "100%";
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      if (res.status === 429) {
+        showQuotaLimitModal(err.detail || "You have reached your daily free conversion limit.");
+      }
+      throw new Error(err.detail || "Operation failed");
+    }
+
+    const data = await res.json();
+    if (data.quota) {
+      updateUserQuotaUI(data.quota);
+    }
+    document.getElementById("convert-result-metrics").innerText =
+      `${data.output_filename} (${formatBytes(data.file_size)}) generated in ${data.duration_ms}ms`;
+
+    const dlBtn = document.getElementById("convert-download-btn");
+    dlBtn.href = data.download_url;
+    dlBtn.setAttribute("download", data.output_filename);
+    dlBtn.innerText = `Download ${data.output_filename}`;
+
+    // Update step strip to Step 3
+    const step2 = document.getElementById('step-node-2');
+    const step3 = document.getElementById('step-node-3');
+    if (step2) { step2.classList.remove('active'); step2.classList.add('completed'); }
+    if (step3) { step3.classList.add('active'); }
+
+    progWrap.style.display = "none";
+    resultCard.style.display = "block";
+  } catch (err) {
+    clearInterval(timer);
+    progWrap.style.display = "none";
+    showError("convert", `Error: ${err.message}`);
+  } finally {
+    btn.disabled = false;
+    if (btnText) btnText.innerText = "Execute Operation";
+    lucide.createIcons();
+  }
+}
+
+// ==========================================================================
+// THEME MANAGEMENT (LIGHT & DARK THEME)
+// ==========================================================================
+function getSystemTheme() {
+  return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+}
+
+function getCurrentTheme() {
+  return document.documentElement.getAttribute('data-theme') || localStorage.getItem('ilovefiles_theme') || getSystemTheme();
+}
+
+function applyTheme(theme, animate = false) {
+  if (animate) {
+    document.documentElement.classList.add('theme-transitioning');
+    window.setTimeout(() => {
+      document.documentElement.classList.remove('theme-transitioning');
+    }, 300);
+  }
+  document.documentElement.setAttribute('data-theme', theme);
+  try {
+    localStorage.setItem('ilovefiles_theme', theme);
+  } catch (e) {}
+
+  const btnText = document.getElementById('theme-btn-text');
+  const btn = document.getElementById('theme-toggle-btn');
+  if (btnText) {
+    btnText.innerText = (theme === 'dark') ? 'Light' : 'Dark';
+  }
+  if (btn) {
+    btn.setAttribute('aria-label', `Switch to ${(theme === 'dark') ? 'Light' : 'Dark'} Mode`);
+    btn.setAttribute('title', `Switch to ${(theme === 'dark') ? 'Light' : 'Dark'} Mode`);
+  }
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+}
+
+function toggleTheme() {
+  const current = getCurrentTheme();
+  const next = (current === 'dark') ? 'light' : 'dark';
+  applyTheme(next, true);
+}
+
+function initTheme() {
+  try {
+    const saved = localStorage.getItem('ilovefiles_theme');
+    const theme = saved || getSystemTheme();
+    applyTheme(theme, false);
+
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('ilovefiles_theme')) {
+          applyTheme(e.matches ? 'dark' : 'light', true);
+        }
+      });
+    }
+  } catch (e) {
+    applyTheme('light', false);
+  }
+}
+
+// ==========================================================================
+// SAAS AUTHENTICATION, SUBSCRIPTIONS & QUOTA LOGIC
+// ==========================================================================
+let currentUser = null;
+let billingAnnual = false;
+let googleAuthInitialized = false;
+let googleClientId = "357128299790-1cqd2nr1lj4859t3q5mf8ok6c3bmonm8.apps.googleusercontent.com";
+
+async function fetchWithTimeout(url, options = {}, timeoutMs = 12000) {
+  if (window.location.protocol === 'file:') {
+    throw new Error("You opened index.html directly from disk (file://). Please start the backend server with run_app.bat and open http://localhost:8000 in your browser.");
+  }
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, { ...options, signal: controller.signal });
+    return res;
+  } catch (err) {
+    if (err.name === 'AbortError') {
+      throw new Error(`Server request timed out (${Math.round(timeoutMs / 1000)}s). Please ensure the backend server is running.`);
+    }
+    if (err.message && (err.message.includes("Failed to fetch") || err.message.includes("NetworkError"))) {
+      throw new Error(`Cannot connect to server at ${window.location.origin}. Please ensure the backend server is running.`);
+    }
+    throw err;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function initAuth() {
+  try {
+    // Check if returning from a Cashfree checkout redirect
+    const urlParams = new URLSearchParams(window.location.search);
+    const returnOrderId = urlParams.get("order_id");
+    if (returnOrderId) {
+      await verifyCashfreePayment(returnOrderId);
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // Initialize Google One-Click Auth SDK
+    initGoogleAuth();
+
+    const res = await fetchWithTimeout("/api/auth/me", {}, 6000);
+    if (res.ok) {
+      const data = await res.json();
+      currentUser = data.user;
+      renderAuthUI(currentUser);
+    } else {
+      currentUser = null;
+      renderAuthUI(null);
+    }
+  } catch (err) {
+    console.warn("Auth check failed:", err);
+    currentUser = null;
+    renderAuthUI(null);
+  }
+}
+
+function renderAuthUI(user) {
+  const loggedOutGroup = document.getElementById("auth-logged-out");
+  const loggedInGroup = document.getElementById("auth-logged-in");
+  const quotaSignInBtn = document.getElementById("quota-modal-signin-btn");
+
+  if (user) {
+    if (loggedOutGroup) loggedOutGroup.style.display = "none";
+    if (loggedInGroup) loggedInGroup.style.display = "flex";
+    if (quotaSignInBtn) quotaSignInBtn.style.display = "none";
+
+    const name = user.full_name || (user.email ? user.email.split("@")[0] : "User");
+    const initials = name.split(" ").map(p => p[0]).join("").toUpperCase().slice(0, 2) || "U";
+    const avatarEl = document.getElementById("user-avatar-initials");
+    const nameEl = document.getElementById("user-display-name");
+    const dropNameEl = document.getElementById("user-dropdown-full-name");
+    const dropEmailEl = document.getElementById("user-dropdown-email");
+    const tierBadge = document.getElementById("user-tier-badge");
+    const dropTierBadge = document.getElementById("user-dropdown-tier-badge");
+    const upgradeBtn = document.getElementById("menu-upgrade-btn");
+    const portalBtn = document.getElementById("menu-portal-btn");
+
+    if (avatarEl) {
+      if (user.avatar_url) {
+        avatarEl.innerHTML = `<img src="${user.avatar_url}" alt="${name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" referrerpolicy="no-referrer">`;
+      } else {
+        avatarEl.innerText = initials;
+      }
+    }
+    if (nameEl) nameEl.innerText = name.split(" ")[0];
+    if (dropNameEl) dropNameEl.innerText = name;
+    if (dropEmailEl) dropEmailEl.innerText = user.email;
+
+    const isPro = (user.tier === "pro" || user.tier === "enterprise");
+    if (tierBadge) {
+      tierBadge.innerText = user.tier.toUpperCase();
+      tierBadge.classList.toggle("pro", isPro);
+    }
+    if (dropTierBadge) {
+      dropTierBadge.innerText = `${user.tier.toUpperCase()} PLAN`;
+      dropTierBadge.classList.toggle("pro", isPro);
+    }
+
+    if (upgradeBtn) upgradeBtn.style.display = isPro ? "none" : "flex";
+    if (portalBtn) portalBtn.style.display = isPro ? "flex" : "none";
+
+    updateUserQuotaUI({
+      tier: user.tier,
+      used_today: user.used_today,
+      limit: isPro ? "Unlimited" : 5,
+      remaining: isPro ? "Unlimited" : Math.max(0, 5 - (user.used_today || 0))
+    });
+
+    const apiKeyInput = document.getElementById("user-api-key-input");
+    const curlKeyPlaceholder = document.getElementById("curl-key-placeholder");
+    if (apiKeyInput) apiKeyInput.value = user.api_key || "ilf_live_demo_key";
+    if (curlKeyPlaceholder) curlKeyPlaceholder.innerText = user.api_key || "ilf_live_demo_key";
+
+    const freeCardBtn = document.getElementById("btn-plan-free");
+    const proCardBtn = document.getElementById("btn-plan-pro");
+    if (freeCardBtn) {
+      if (user.tier === "free") {
+        freeCardBtn.innerText = "Current Plan";
+        freeCardBtn.disabled = true;
+      } else {
+        freeCardBtn.innerText = "Downgrade";
+        freeCardBtn.disabled = false;
+      }
+    }
+    if (proCardBtn) {
+      if (user.tier === "pro") {
+        proCardBtn.innerText = "Active Plan (Pro)";
+        proCardBtn.disabled = true;
+      } else {
+        proCardBtn.innerHTML = `<span>Upgrade to Pro</span><i data-lucide="zap" style="width: 16px; height: 16px;"></i>`;
+        proCardBtn.disabled = false;
+      }
+    }
+  } else {
+    if (loggedOutGroup) loggedOutGroup.style.display = "inline-flex";
+    if (loggedInGroup) loggedInGroup.style.display = "none";
+    if (quotaSignInBtn) quotaSignInBtn.style.display = "block";
+
+    const freeCardBtn = document.getElementById("btn-plan-free");
+    if (freeCardBtn) {
+      freeCardBtn.innerText = "Start Free";
+      freeCardBtn.disabled = false;
+    }
+  }
+  if (window.lucide) lucide.createIcons();
+}
+
+function updateUserQuotaUI(quota) {
+  const quotaText = document.getElementById("user-quota-text");
+  const quotaFill = document.getElementById("user-quota-fill");
+  if (!quotaText || !quotaFill) return;
+
+  const isPro = (quota.tier === "pro" || quota.tier === "enterprise" || quota.limit === "Unlimited" || quota.limit === null);
+  if (isPro) {
+    quotaText.innerText = "Unlimited Tasks";
+    quotaFill.style.width = "100%";
+    quotaFill.classList.add("unlimited");
+  } else {
+    const used = quota.used_today || 0;
+    const limit = quota.limit || 5;
+    quotaText.innerText = `${used} / ${limit} used`;
+    const pct = Math.min(100, Math.round((used / limit) * 100));
+    quotaFill.style.width = `${pct}%`;
+    quotaFill.classList.remove("unlimited");
+  }
+}
+
+// User Menu Dropdown Toggle
+function toggleUserDropdown(forceState) {
+  const menu = document.getElementById("user-dropdown-menu");
+  if (!menu) return;
+  const isHidden = (menu.style.display === "none" || menu.style.display === "");
+  const newState = (forceState !== undefined) ? forceState : isHidden;
+  menu.style.display = newState ? "block" : "none";
+
+  if (newState) {
+    setTimeout(() => {
+      const closeHandler = (e) => {
+        if (!e.target.closest(".user-profile-wrap")) {
+          menu.style.display = "none";
+          document.removeEventListener("click", closeHandler);
+        }
+      };
+      document.addEventListener("click", closeHandler);
+    }, 10);
+  }
+}
+
+// Modals Handling
+function openModal(modalId) {
+  const el = document.getElementById(modalId);
+  if (el) {
+    el.style.display = "flex";
+    document.body.style.overflow = "hidden";
+    if (window.lucide) lucide.createIcons();
+  }
+}
+
+function closeModal(modalId) {
+  const el = document.getElementById(modalId);
+  if (el) {
+    el.style.display = "none";
+    document.body.style.overflow = "";
+  }
+}
+
+function handleBackdropClick(event, modalId) {
+  if (event.target && event.target.id === modalId) {
+    closeModal(modalId);
+  }
+}
+
+// Auth Modal
+function openAuthModal(tab = 'signin') {
+  openModal('modal-auth');
+  switchAuthTab(tab);
+}
+
+function switchAuthTab(tab) {
+  const signinBtn = document.getElementById('auth-tab-signin-btn');
+  const signupBtn = document.getElementById('auth-tab-signup-btn');
+  const signinForm = document.getElementById('auth-signin-form');
+  const signupForm = document.getElementById('auth-signup-form');
+  const modalTitle = document.getElementById('auth-modal-title');
+  const modalSubtitle = document.getElementById('auth-modal-subtitle');
+  const errorMsg = document.getElementById('auth-error-msg');
+
+  if (errorMsg) errorMsg.style.display = 'none';
+
+  if (tab === 'signin') {
+    if (signinBtn) signinBtn.classList.add('active');
+    if (signupBtn) signupBtn.classList.remove('active');
+    if (signinForm) signinForm.style.display = 'block';
+    if (signupForm) signupForm.style.display = 'none';
+    if (modalTitle) modalTitle.innerText = "Welcome back to I LOVE FILES";
+    if (modalSubtitle) modalSubtitle.innerText = "Sign in to access your free daily conversions & history";
+  } else {
+    if (signinBtn) signinBtn.classList.remove('active');
+    if (signupBtn) signupBtn.classList.add('active');
+    if (signinForm) signinForm.style.display = 'none';
+    if (signupForm) signupForm.style.display = 'block';
+    if (modalTitle) modalTitle.innerText = "Create Your Free Account";
+    if (modalSubtitle) modalSubtitle.innerText = "Get 5 free conversions every day & local-first privacy";
+  }
+  if (window.lucide) lucide.createIcons();
+}
+
+function showAuthError(msg) {
+  const banner = document.getElementById('auth-error-msg');
+  if (banner) {
+    banner.innerText = msg;
+    banner.style.display = 'block';
+  }
+}
+
+// Google One-Click OAuth Implementation
+async function initGoogleAuth() {
+  try {
+    const cfgRes = await fetchWithTimeout("/api/auth/config", {}, 4000);
+    if (cfgRes.ok) {
+      const cfg = await cfgRes.json();
+      if (cfg.google_client_id) googleClientId = cfg.google_client_id;
+    }
+  } catch (e) {}
+
+  function setupGSI() {
+    if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) return;
+    try {
+      google.accounts.id.initialize({
+        client_id: googleClientId,
+        callback: handleGoogleCredentialResponse,
+        auto_select: false,
+        cancel_on_tap_outside: true
+      });
+      googleAuthInitialized = true;
+      const wrap = document.getElementById('google-native-btn-wrap');
+      if (wrap) {
+        google.accounts.id.renderButton(wrap, {
+          theme: 'outline',
+          size: 'large',
+          width: 320,
+          text: 'continue_with'
+        });
+      }
+    } catch (err) {
+      console.warn("GSI initialization error:", err);
+    }
+  }
+
+  if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+    setupGSI();
+  } else {
+    window.addEventListener('load', () => setTimeout(setupGSI, 500));
+  }
+}
+
+function triggerGoogleSignIn() {
+  const errorMsg = document.getElementById('auth-error-msg');
+  if (errorMsg) errorMsg.style.display = 'none';
+
+  if (window.location.protocol === 'file:') {
+    showAuthError("Please run the app via http://localhost:8000 to use Google Sign-In.");
+    return;
+  }
+
+  if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) {
+    showAuthError("Google Sign-In is loading or blocked by your browser/ad-blocker. Please allow accounts.google.com or use email sign in below.");
+    return;
+  }
+
+  if (!googleAuthInitialized) {
+    try {
+      google.accounts.id.initialize({
+        client_id: googleClientId,
+        callback: handleGoogleCredentialResponse,
+        auto_select: false,
+        cancel_on_tap_outside: true
+      });
+      googleAuthInitialized = true;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  try {
+    google.accounts.id.prompt((notification) => {
+      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+        const wrap = document.getElementById('google-native-btn-wrap');
+        if (wrap) {
+          const btn = wrap.querySelector('div[role="button"]') || wrap.querySelector('iframe');
+          if (btn) {
+            btn.click();
+          } else {
+            wrap.style.display = 'block';
+            const customBtn = document.getElementById('btn-google-auth');
+            if (customBtn) customBtn.style.display = 'none';
+          }
+        }
+      }
+    });
+  } catch (err) {
+    console.error("Google prompt failed:", err);
+    showAuthError("Could not launch Google Sign-In prompt. Please ensure popups are enabled or sign in with email.");
+  }
+}
+
+async function handleGoogleCredentialResponse(response) {
+  if (!response || !response.credential) {
+    showAuthError("Google Sign-In was cancelled or failed.");
+    return;
+  }
+  const googleBtn = document.getElementById('btn-google-auth');
+  const googleBtnText = document.getElementById('google-btn-text');
+  if (googleBtn) googleBtn.disabled = true;
+  if (googleBtnText) googleBtnText.innerText = "Signing in with Google...";
+
+  try {
+    const res = await fetchWithTimeout("/api/auth/google", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ credential: response.credential })
+    }, 15000);
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.detail || "Google Sign-In failed on server.");
+    }
+
+    currentUser = data.user;
+    renderAuthUI(currentUser);
+    closeModal('modal-auth');
+    if (window.showToast) {
+      showToast(`Welcome, ${currentUser.full_name || currentUser.email}!`, 'success');
+    }
+  } catch (err) {
+    showAuthError(err.message || "Failed to sign in with Google.");
+  } finally {
+    if (googleBtn) googleBtn.disabled = false;
+    if (googleBtnText) googleBtnText.innerText = "Continue with Google";
+  }
+}
+
+async function handleSignInSubmit(e) {
+  e.preventDefault();
+  const email = document.getElementById('auth-signin-email')?.value?.trim();
+  const password = document.getElementById('auth-signin-password')?.value;
+  const submitBtn = document.getElementById('btn-submit-signin');
+
+  if (!email || !password) {
+    showAuthError("Please provide both email and password.");
+    return;
+  }
+
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.innerText = "Signing in..."; }
+
+  try {
+    const res = await fetchWithTimeout("/api/auth/signin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    }, 10000);
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.detail || "Sign in failed");
+    }
+
+    currentUser = data.user;
+    renderAuthUI(currentUser);
+    closeModal('modal-auth');
+  } catch (err) {
+    showAuthError(err.message);
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `<span>Sign In</span><i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>`;
+      if (window.lucide) lucide.createIcons();
+    }
+  }
+}
+
+async function handleSignUpSubmit(e) {
+  e.preventDefault();
+  const fullName = document.getElementById('auth-signup-name')?.value?.trim();
+  const email = document.getElementById('auth-signup-email')?.value?.trim();
+  const password = document.getElementById('auth-signup-password')?.value;
+  const submitBtn = document.getElementById('btn-submit-signup');
+
+  if (!email || !password) {
+    showAuthError("Please fill out all required fields.");
+    return;
+  }
+
+  if (password.length < 8) {
+    showAuthError("Password must be at least 8 characters long.");
+    return;
+  }
+
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.innerText = "Creating account..."; }
+
+  try {
+    const res = await fetchWithTimeout("/api/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password, full_name: fullName })
+    }, 10000);
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.detail || "Sign up failed");
+    }
+
+    currentUser = data.user;
+    renderAuthUI(currentUser);
+    closeModal('modal-auth');
+  } catch (err) {
+    showAuthError(err.message);
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `<span>Create Free Account</span><i data-lucide="check" style="width: 16px; height: 16px;"></i>`;
+      if (window.lucide) lucide.createIcons();
+    }
+  }
+}
+
+async function handleSignOut() {
+  toggleUserDropdown(false);
+  try {
+    await fetch("/api/auth/signout", { method: "POST" });
+  } catch (e) {}
+  currentUser = null;
+  renderAuthUI(null);
+}
+
+// Pricing & Checkout
+function openPricingModal() {
+  toggleUserDropdown(false);
+  openModal('modal-pricing');
+}
+
+function toggleBillingCycle() {
+  billingAnnual = !billingAnnual;
+  const switchBtn = document.getElementById("billing-cycle-switch");
+  const labelMonthly = document.getElementById("label-cycle-monthly");
+  const labelAnnual = document.getElementById("label-cycle-annual");
+
+  const priceProAmt = document.getElementById("price-pro-amt");
+  const priceProSub = document.getElementById("price-pro-sub");
+  const priceProAnnualSub = document.getElementById("price-pro-annual-sub");
+
+  const priceEntAmt = document.getElementById("price-enterprise-amt");
+  const priceEntSub = document.getElementById("price-enterprise-sub");
+  const priceEntAnnualSub = document.getElementById("price-enterprise-annual-sub");
+
+  if (switchBtn) switchBtn.classList.toggle("annual", billingAnnual);
+  if (labelMonthly) labelMonthly.classList.toggle("active", !billingAnnual);
+  if (labelAnnual) labelAnnual.classList.toggle("active", billingAnnual);
+
+  if (billingAnnual) {
+    if (priceProAmt) priceProAmt.innerText = "₹333";
+    if (priceProSub) priceProSub.innerText = "/ month";
+    if (priceProAnnualSub) priceProAnnualSub.style.display = "block";
+
+    if (priceEntAmt) priceEntAmt.innerText = "₹1,333";
+    if (priceEntSub) priceEntSub.innerText = "/ month";
+    if (priceEntAnnualSub) priceEntAnnualSub.style.display = "block";
+  } else {
+    if (priceProAmt) priceProAmt.innerText = "₹499";
+    if (priceProSub) priceProSub.innerText = "/ month";
+    if (priceProAnnualSub) priceProAnnualSub.style.display = "none";
+
+    if (priceEntAmt) priceEntAmt.innerText = "₹1,999";
+    if (priceEntSub) priceEntSub.innerText = "/ month";
+    if (priceEntAnnualSub) priceEntAnnualSub.style.display = "none";
+  }
+}
+
+function handleFreePlanAction() {
+  if (!currentUser) {
+    closeModal('modal-pricing');
+    openAuthModal('signup');
+  } else {
+    closeModal('modal-pricing');
+  }
+}
+
+async function startCheckout(tier) {
+  if (!currentUser) {
+    closeModal('modal-pricing');
+    openAuthModal('signup');
+    return;
+  }
+
+  const interval = billingAnnual ? 'year' : 'month';
+  try {
+    const res = await fetchWithTimeout("/api/billing/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tier, interval })
+    }, 15000);
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.detail || "Unable to start checkout");
+    }
+
+    if (data.mode === "cashfree" && data.payment_session_id) {
+      closeModal('modal-pricing');
+      if (window.Cashfree) {
+        const cashfree = window.Cashfree({ mode: data.environment || "sandbox" });
+        cashfree.checkout({
+          paymentSessionId: data.payment_session_id,
+          redirectTarget: "_modal"
+        }).then((result) => {
+          if (result && result.error) {
+            alert("Payment Error: " + (result.error.message || "Failed"));
+          }
+          verifyCashfreePayment(data.order_id);
+        }).catch(() => {
+          verifyCashfreePayment(data.order_id);
+        });
+
+        // Background polling to auto-detect payment completion
+        let pollCount = 0;
+        const pollInterval = setInterval(async () => {
+          pollCount++;
+          if (pollCount > 12 || (currentUser && (currentUser.tier === "pro" || currentUser.tier === "enterprise"))) {
+            clearInterval(pollInterval);
+            return;
+          }
+          try {
+            const pollRes = await fetch(`/api/billing/verify-payment?order_id=${encodeURIComponent(data.order_id)}`);
+            const pollData = await pollRes.json();
+            if (pollData.status === "success") {
+              clearInterval(pollInterval);
+              if (currentUser) currentUser.tier = pollData.tier;
+              await initAuth();
+              showToast("🎉 Payment verified! PRO tier is active.", "success");
+            }
+          } catch (e) {}
+        }, 2500);
+      } else {
+        verifyCashfreePayment(data.order_id);
+      }
+    } else if (data.mode === "demo") {
+      currentUser.tier = data.tier;
+      renderAuthUI(currentUser);
+      closeModal('modal-pricing');
+      alert(`🎉 DEMO MODE ACTIVATED!\n\nYou have been upgraded to the ${data.tier.toUpperCase()} tier for 30 days!\nEnjoy unlimited file conversions and AutoCAD batch plotting.`);
+    }
+  } catch (err) {
+    alert(`Checkout Error: ${err.message}`);
+  }
+}
+
+async function instantDemoUpgrade(tier) {
+  if (!currentUser) {
+    closeModal('modal-pricing');
+    openAuthModal('signup');
+    return;
+  }
+  try {
+    const res = await fetch("/api/billing/demo-toggle-tier", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tier: tier || "pro" })
+    });
+    const data = await res.json();
+    if (res.ok && data.status === "success") {
+      currentUser.tier = data.tier;
+      renderAuthUI(currentUser);
+      closeModal('modal-pricing');
+      showToast(`🎉 Your account has been upgraded to ${data.tier.toUpperCase()} (Unlimited conversions & AutoCAD plotting active)!`, "success");
+      await initAuth();
+    } else {
+      showToast(data.detail || "Upgrade failed", "error");
+    }
+  } catch (e) {
+    showToast(e.message, "error");
+  }
+}
+
+async function verifyCashfreePayment(orderId) {
+  try {
+    const res = await fetchWithTimeout(`/api/billing/verify-payment?order_id=${encodeURIComponent(orderId)}`, {}, 15000);
+    const data = await res.json();
+    if (data.status === "success") {
+      if (currentUser) currentUser.tier = data.tier;
+      await initAuth();
+      alert("🎉 Payment Successful!\n\nYour account has been upgraded to PRO! Enjoy unlimited daily conversions and AutoCAD batch plotting.");
+    } else {
+      console.log("Cashfree payment verification status:", data);
+    }
+  } catch (err) {
+    console.error("Failed to verify payment:", err);
+  }
+}
+
+async function openBillingPortal() {
+  toggleUserDropdown(false);
+  try {
+    const res = await fetch("/api/billing/customer-portal", { method: "POST" });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || "Cannot access portal");
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert(data.message || "Subscription portal is not configured in Demo Mode.");
+    }
+  } catch (err) {
+    alert(`Billing Portal: ${err.message}`);
+  }
+}
+
+function openApiKeyModal() {
+  toggleUserDropdown(false);
+  if (!currentUser) {
+    openAuthModal('signin');
+    return;
+  }
+  openModal('modal-api-key');
+}
+
+function copyApiKey() {
+  const input = document.getElementById("user-api-key-input");
+  const btn = document.getElementById("btn-copy-api-key");
+  if (!input || !input.value) return;
+
+  navigator.clipboard.writeText(input.value).then(() => {
+    if (btn) {
+      btn.innerHTML = `<i data-lucide="check" style="width: 15px; height: 15px; color: #10b981;"></i><span>Copied!</span>`;
+      if (window.lucide) lucide.createIcons();
+      setTimeout(() => {
+        btn.innerHTML = `<i data-lucide="copy" style="width: 15px; height: 15px;"></i><span>Copy</span>`;
+        if (window.lucide) lucide.createIcons();
+      }, 2000);
+    }
+  }).catch(() => {
+    input.select();
+    document.execCommand("copy");
+  });
+}
+
+function showQuotaLimitModal(customMsg) {
+  if (customMsg) {
+    const msgEl = document.getElementById("quota-limit-msg");
+    if (msgEl) msgEl.innerText = customMsg;
+  }
+  openModal('modal-quota-limit');
+}
+
+// -------------------------------------------------------------
+// Support Tickets & Problem Solving System (Musthaque Ali)
+// -------------------------------------------------------------
+function openTicketModal(category = "", description = "") {
+  const formContainer = document.getElementById("ticket-form-container");
+  const successContainer = document.getElementById("ticket-success-container");
+  const errAlert = document.getElementById("ticket-error-alert");
+
+  if (formContainer) formContainer.style.display = "block";
+  if (successContainer) successContainer.style.display = "none";
+  if (errAlert) errAlert.style.display = "none";
+
+  if (currentUser) {
+    const nameInput = document.getElementById("ticket-name");
+    const emailInput = document.getElementById("ticket-email");
+    if (nameInput && !nameInput.value) nameInput.value = currentUser.full_name || "";
+    if (emailInput && !emailInput.value) emailInput.value = currentUser.email || "";
+  }
+
+  if (category) {
+    const catSelect = document.getElementById("ticket-category");
+    if (catSelect) {
+      for (let i = 0; i < catSelect.options.length; i++) {
+        if (catSelect.options[i].value.toLowerCase().includes(category.toLowerCase())) {
+          catSelect.selectedIndex = i;
+          break;
+        }
+      }
+    }
+  }
+
+  if (description) {
+    const descInput = document.getElementById("ticket-description");
+    if (descInput) descInput.value = description;
+  }
+
+  openModal("modal-support-ticket");
+}
+
+function openTicketFromError(prefix) {
+  let errText = "";
+  const errEl = document.getElementById(`${prefix}-error-text`);
+  if (errEl) errText = errEl.innerText || "";
+
+  let category = "Conversion Error / Failure";
+  if (prefix === "plot") category = "AutoCAD & CAD Plotting";
+  else if (prefix === "merge") category = "Merge & Split";
+  else if (prefix === "resize") category = "Image & Media Optimization";
+
+  const msg = errText ? `Error encountered: "${errText}"\nPlease assist.` : "";
+  openTicketModal(category, msg);
+}
+
+async function handleSupportTicketSubmit(event) {
+  event.preventDefault();
+  const btn = document.getElementById("btn-submit-ticket");
+  const errAlert = document.getElementById("ticket-error-alert");
+  if (errAlert) errAlert.style.display = "none";
+
+  const name = document.getElementById("ticket-name").value.trim();
+  const email = document.getElementById("ticket-email").value.trim();
+  const phone = document.getElementById("ticket-phone").value.trim();
+  const category = document.getElementById("ticket-category").value;
+  const description = document.getElementById("ticket-description").value.trim();
+  const urgencyRadios = document.getElementsByName("ticket-urgency");
+  let urgency = "normal";
+  for (const r of urgencyRadios) {
+    if (r.checked) {
+      urgency = r.value;
+      break;
+    }
+  }
+
+  if (!name || !email || !description) {
+    if (errAlert) {
+      errAlert.innerText = "Please fill in all required fields.";
+      errAlert.style.display = "block";
+    }
+    return;
+  }
+
+  const originalBtnHtml = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = `<i data-lucide="loader-2" class="spin" style="width: 15px; height: 15px;"></i><span>Creating Ticket...</span>`;
+  if (window.lucide) lucide.createIcons();
+
+  try {
+    const res = await fetch("/api/support/ticket", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, phone, category, description, urgency })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.detail || "Failed to create support ticket");
+    }
+
+    // Populate success state
+    const displayId = document.getElementById("ticket-display-id");
+    if (displayId) displayId.innerText = data.ticket_id || "ILF-TICKET";
+
+    const waLink = document.getElementById("ticket-whatsapp-link");
+    const mailLink = document.getElementById("ticket-mailto-link");
+
+    if (waLink) waLink.href = data.whatsapp_url || `https://wa.me/917012318459?text=${encodeURIComponent('Hi Musthaque, Ticket ' + data.ticket_id + ': ' + description)}`;
+    if (mailLink) mailLink.href = data.mailto_url || `mailto:musthaqueali42@gmail.com?subject=${encodeURIComponent('Support Ticket [' + data.ticket_id + ']')}&body=${encodeURIComponent(description)}`;
+
+    document.getElementById("ticket-form-container").style.display = "none";
+    document.getElementById("ticket-success-container").style.display = "block";
+    if (window.lucide) lucide.createIcons();
+  } catch (err) {
+    if (errAlert) {
+      errAlert.innerText = err.message || "Could not generate ticket. Please contact +91 7012318459 directly.";
+      errAlert.style.display = "block";
+    }
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = originalBtnHtml;
+    if (window.lucide) lucide.createIcons();
+  }
+}
+
+function copyTicketId() {
+  const badge = document.getElementById("ticket-display-id");
+  if (!badge) return;
+  const ticketId = badge.innerText.trim();
+  navigator.clipboard.writeText(ticketId).then(() => {
+    const originalText = badge.innerText;
+    badge.innerText = "COPIED TO CLIPBOARD!";
+    badge.style.borderColor = "var(--tuckii-green)";
+    badge.style.color = "var(--tuckii-green)";
+    setTimeout(() => {
+      badge.innerText = originalText;
+      badge.style.borderColor = "";
+      badge.style.color = "";
+    }, 2000);
+  }).catch(() => {});
+}
+
+function resetAndCloseTicketModal() {
+  closeModal("modal-support-ticket");
+  const form = document.getElementById("support-ticket-form");
+  if (form) form.reset();
+  const formContainer = document.getElementById("ticket-form-container");
+  const successContainer = document.getElementById("ticket-success-container");
+  if (formContainer) formContainer.style.display = "block";
+  if (successContainer) successContainer.style.display = "none";
+}
+
+
+

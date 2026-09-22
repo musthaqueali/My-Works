@@ -1,0 +1,9 @@
+(vl-load-com)
+(princ "\n=== ACTIVE PLOT STYLE ===\n")
+(princ (vla-get-stylesheet (vla-get-activelayout (vla-get-activedocument (vlax-get-acad-object)))))
+(princ "\n=== ALL LAYOUT PLOT STYLES ===\n")
+(vlax-for lay (vla-get-layouts (vla-get-activedocument (vlax-get-acad-object)))
+  (princ (strcat (vla-get-name lay) " -> " (vla-get-stylesheet lay) "\n"))
+)
+QUIT
+Y
