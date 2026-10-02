@@ -16,6 +16,7 @@ Welcome to the central repository for **Musthaque Ali's** engineering tools, dat
 | **`i-love-files-clean`** | Web Application & SaaS | Full-stack document, CAD (DWG/DXF), and vector conversion utility platform. |
 | **`PCML`** | Asset Integrity / AutoCAD | Process Circuit Monitoring Limits (PCML) automated extraction and CAD database integration. |
 | **`QRO`** | Reliability Engineering | Quantitative Reliability Optimization (QRO) methodology presentations and framework tools. |
+| **`Excali Project`** | Whiteboard & Teaching AI | Excalidraw Plus Studio with AI diagram generator, multi-slide scene manager, and PPTX export. |
 | **`LeaveCalculator.html`** | Productivity Tool | Interactive, self-contained leave and attendance calculator widget. |
 
 ---
