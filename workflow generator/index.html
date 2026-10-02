@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LangGraph Studio Canvas | Next-Gen AI Workflow Generator</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Geist Mono', 'monospace'],
+          },
+          colors: {
+            canvasDark: '#090a0f',
+            canvasLight: '#f8fafc',
+            cardDark: '#11141e',
+            cardLight: '#ffffff',
+            borderDark: 'rgba(255, 255, 255, 0.08)',
+            borderLight: 'rgba(0, 0, 0, 0.08)',
+            brandBlue: '#38bdf8',
+            brandPurple: '#a855f7',
+            brandEmerald: '#10b981',
+            brandAmber: '#f59e0b',
+            brandRose: '#f43f5e',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tesseract.js for Client-side Diagram OCR & Image Recognition -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+  <style>
+    :root {
+      --bg-canvas: #090a0f;
+      --dot-color: rgba(255, 255, 255, 0.12);
+      --bg-panel: rgba(17, 20, 30, 0.85);
+      --bg-card: rgba(18, 22, 33, 0.92);
+      --border-color: rgba(255, 255, 255, 0.09);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --edge-default: #475569;
+      --edge-active: #38bdf8;
+      --edge-cond: #a855f7;
+      --label-bg: #1e2230;
+      --label-border: #333a4d;
+      --label-text: #cbd5e1;
+      --card-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.5);
+    }
+
+    html.light {
+      --bg-canvas: #f8fafc;
+      --dot-color: rgba(15, 23, 42, 0.15);
+      --bg-panel: rgba(255, 255, 255, 0.92);
+      --bg-card: #ffffff;
+      --border-color: rgba(15, 23, 42, 0.12);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --edge-default: #94a3b8;
+      --edge-active: #0284c7;
+      --edge-cond: #9333ea;
+      --label-bg: #ffffff;
+      --label-border: #cbd5e1;
+      --label-text: #334155;
+      --card-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.07), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
+    }
+
+    /* High-Precision Premium Dotted Grid */
+    .canvas-dotted-bg {
+      background-color: var(--bg-canvas);
+      background-image: radial-gradient(var(--dot-color) 1.25px, transparent 1.25px);
+      background-size: 24px 24px;
+      transition: background-color 0.3s ease;
+    }
+
+    .glass-panel {
+      background: var(--bg-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.25);
+      transition: all 0.25s ease;
+    }
+
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--card-shadow);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .glass-card:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 16px 36px -6px rgba(56, 189, 248, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .glass-card.active-node {
+      border-color: #38bdf8 !important;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.4), 0 16px 36px -6px rgba(56, 189, 248, 0.25) !important;
+    }
+
+    /* Edge Pulse Particle Flow Animation */
+    @keyframes pulse-flow {
+      0% {
+        stroke-dashoffset: 48;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .simulating-edge {
+      stroke: #38bdf8 !important;
+      stroke-width: 2.75px !important;
+      filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+      stroke-dasharray: 8, 6;
+      animation: pulse-flow 0.8s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .loading-shimmer {
+      background: linear-gradient(90deg, rgba(56,189,248,0.05) 25%, rgba(56,189,248,0.25) 50%, rgba(56,189,248,0.05) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    pre code {
+      font-family: 'Geist Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-canvasDark dark:bg-canvasDark text-slate-100 dark:text-slate-100 font-sans h-screen w-screen overflow-hidden flex flex-col select-none transition-colors duration-300">
+
+  <!-- Top Navigation Bar (Editorial Engineering Header) -->
+  <header class="h-14 border-b border-borderDark dark:border-borderDark bg-surface/90 dark:bg-[#0d1017]/90 backdrop-blur-md px-5 flex items-center justify-between z-30 shrink-0">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-md shadow-sky-500/20">
+          <i data-lucide="git-merge" class="w-4 h-4 text-white"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-sm tracking-tight text-white dark:text-white" id="brandTitle">LANGGRAPH</span>
+            <span class="text-[9px] uppercase font-mono px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-bold tracking-wider">STUDIO PRO</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="h-4 w-[1px] bg-slate-700/60 dark:bg-slate-800"></div>
+
+      <!-- Quick Template Selector -->
+      <div class="relative">
+        <select id="templateSelector" class="bg-slate-900/80 dark:bg-slate-900/80 border border-slate-700/80 dark:border-slate-800 hover:border-sky-500 text-xs text-slate-200 rounded-lg px-3 py-1.5 pr-8 focus:outline-none focus:ring-1 focus:ring-sky-500 cursor-pointer appearance-none font-medium">
+          <option value="supervisor">👑 Hierarchical Supervisor Swarm</option>
+          <option value="self_rag">🔍 Self-Corrective RAG (CRAG)</option>
+          <option value="human_loop">🛑 Human-in-the-Loop (Dynamic Interrupt)</option>
+          <option value="plan_execute">🗺️ Plan-and-Execute Agent</option>
+          <option value="subgraph">📦 Composite Subgraph Swarm</option>
+        </select>
+        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+      </div>
+    </div>
+
+    <!-- Center Control Badges -->
+    <div class="flex items-center gap-2">
+      <div id="stateInfoPill" class="hidden md:flex items-center gap-2.5 bg-slate-900/80 dark:bg-slate-950/70 border border-slate-800 px-3.5 py-1 rounded-full text-xs font-mono text-slate-300">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="activeGraphName" class="font-semibold text-sky-300">StateGraph: SupervisorAgentState</span>
+        <span class="text-slate-600">|</span>
+        <span id="nodeCountBadge" class="text-slate-400">7 Nodes</span>
+      </div>
+    </div>
+
+    <!-- Right Action Controls -->
+    <div class="flex items-center gap-2.5">
+      <!-- Dark / Light Theme Mode Switcher -->
+      <button id="themeToggleBtn" class="flex items-center gap-1.5 p-2 rounded-lg bg-slate-900/80 dark:bg-slate-900/80 border border-slate-700/80 dark:border-slate-800 hover:border-sky-500 text-slate-300 hover:text-white transition-all shadow-sm" title="Toggle Dark / Light Theme Mode">
+        <i id="themeIcon" data-lucide="sun" class="w-4 h-4 text-amber-400"></i>
+        <span id="themeLabel" class="text-xs font-mono font-medium hidden sm:inline">Light</span>
+      </button>
+
+      <!-- AI Model Settings Button -->
+      <button id="btnAiSettings" class="flex items-center gap-1.5 bg-slate-900/80 dark:bg-slate-900/80 border border-sky-500/40 hover:border-sky-400 text-sky-300 text-xs font-medium px-3 py-1.5 rounded-lg shadow-sm transition-colors">
+        <i data-lucide="bot" class="w-3.5 h-3.5 text-sky-400"></i>
+        <span id="activeModelLabel">Groq 120B (Active ⚡)</span>
+      </button>
+
+      <!-- Simulate Button -->
+      <button id="btnSimulate" class="flex items-center gap-1.5 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-medium px-3.5 py-1.5 rounded-lg shadow-md shadow-sky-500/20 transition-all active:scale-95">
+        <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+        <span>Simulate Flow</span>
+      </button>
+
+      <!-- Code Export -->
+      <button id="btnExportCode" class="flex items-center gap-1.5 bg-slate-900/80 dark:bg-slate-900/80 border border-slate-700/80 dark:border-slate-800 hover:border-slate-600 text-slate-200 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">
+        <i data-lucide="code-2" class="w-3.5 h-3.5 text-slate-400"></i>
+        <span>Python Code</span>
+      </button>
+
+      <!-- State Schema Toggle -->
+      <button id="btnToggleStatePanel" class="p-2 rounded-lg bg-slate-900/80 dark:bg-slate-900/80 border border-slate-700/80 dark:border-slate-800 hover:border-slate-600 text-slate-400 hover:text-white transition-colors" title="Toggle State Schema Drawer">
+        <i data-lucide="database" class="w-4 h-4"></i>
+      </button>
+
+      <!-- Canvas Fit/Reset -->
+      <button id="btnFitCanvas" class="p-2 rounded-lg bg-slate-900/80 dark:bg-slate-900/80 border border-slate-700/80 dark:border-slate-800 hover:border-slate-600 text-slate-400 hover:text-white transition-colors" title="Fit to Viewport">
+        <i data-lucide="scan" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Workspace Container -->
+  <div class="relative flex-1 w-full h-full overflow-hidden flex">
+
+    <!-- Interactive Graph Canvas Area with Dotted Pattern -->
+    <main id="canvasContainer" class="relative flex-1 h-full canvas-dotted-bg overflow-hidden cursor-grab active:cursor-grabbing">
+      
+      <!-- SVG Edges Layer -->
+      <svg id="svgLayer" class="absolute inset-0 w-full h-full pointer-events-none z-10">
+        <defs>
+          <marker id="arrow-default" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b" />
+          </marker>
+          <marker id="arrow-active" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8" />
+          </marker>
+          <marker id="arrow-conditional" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#a855f7" />
+          </marker>
+        </defs>
+        <g id="edgesGroup"></g>
+      </svg>
+
+      <!-- Zoom/Pan Transform Canvas Container -->
+      <div id="graphStage" class="absolute inset-0 origin-top-left transition-transform duration-75">
+        <div id="nodesContainer" class="relative w-full h-full pointer-events-auto"></div>
+      </div>
+
+      <!-- Canvas Controls Floating Overlay -->
+      <div class="absolute bottom-6 left-6 z-20 flex items-center gap-1.5 glass-panel p-1.5 rounded-xl shadow-xl">
+        <button id="btnZoomIn" class="w-8 h-8 rounded-lg hover:bg-slate-800/60 text-slate-300 dark:text-slate-300 flex items-center justify-center transition-colors">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+        </button>
+        <span id="zoomLevelIndicator" class="text-[11px] font-mono text-slate-400 px-2 min-w-[45px] text-center font-semibold">100%</span>
+        <button id="btnZoomOut" class="w-8 h-8 rounded-lg hover:bg-slate-800/60 text-slate-300 dark:text-slate-300 flex items-center justify-center transition-colors">
+          <i data-lucide="minus" class="w-4 h-4"></i>
+        </button>
+        <div class="w-[1px] h-4 bg-slate-700/50 mx-1"></div>
+        <button id="btnCenterView" class="w-8 h-8 rounded-lg hover:bg-slate-800/60 text-slate-300 dark:text-slate-300 flex items-center justify-center transition-colors" title="Center View">
+          <i data-lucide="crosshair" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Quick Prompt Suggestion Chips -->
+      <div class="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 overflow-x-auto max-w-3xl px-4 py-1">
+        <button onclick="usePromptChip(this.innerText)" class="text-[11px] font-medium bg-slate-900/90 dark:bg-slate-900/90 text-slate-200 border border-slate-700 hover:border-sky-400 px-3 py-1 rounded-full whitespace-nowrap transition-all shadow-md">
+          🛡️ KYC Fraud & Sanction Guard with Human Sign-off
+        </button>
+        <button onclick="usePromptChip(this.innerText)" class="text-[11px] font-medium bg-slate-900/90 dark:bg-slate-900/90 text-slate-200 border border-slate-700 hover:border-sky-400 px-3 py-1 rounded-full whitespace-nowrap transition-all shadow-md">
+          🚀 Autonomous DevSecOps Pipeline with Auto-Rollback
+        </button>
+        <button onclick="usePromptChip(this.innerText)" class="text-[11px] font-medium bg-slate-900/90 dark:bg-slate-900/90 text-slate-200 border border-slate-700 hover:border-sky-400 px-3 py-1 rounded-full whitespace-nowrap transition-all shadow-md">
+          🤖 Multi-Agent Financial Research Analyst
+        </button>
+      </div>
+
+      <!-- Bottom Floating Prompt Bar (AI Workflow Generator) -->
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 w-full max-w-2xl px-4">
+        <!-- Image Attachment Capsule (Shown when image is attached) -->
+        <div id="imageAttachmentPill" class="hidden mb-2 glass-panel p-2 px-3 rounded-xl flex items-center justify-between border border-sky-500/40 shadow-xl bg-slate-900/90 dark:bg-slate-950/90">
+          <div class="flex items-center gap-3 overflow-hidden">
+            <img id="imagePreviewThumb" class="w-8 h-8 object-cover rounded-lg border border-sky-500/30 shadow shrink-0" />
+            <div class="truncate">
+              <div id="imageFileName" class="text-xs font-semibold text-white truncate">diagram.png</div>
+              <div class="text-[10px] text-sky-400 font-mono flex items-center gap-1">
+                <i data-lucide="eye" class="w-3 h-3"></i>
+                <span>Image Attached &bull; Vision & OCR Ready</span>
+              </div>
+            </div>
+          </div>
+          <button id="btnRemoveImage" type="button" class="p-1 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-colors ml-2" title="Remove Image">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <div id="promptBarWrapper" class="glass-panel p-2 rounded-2xl flex items-center gap-2 border border-sky-500/25 shadow-2xl transition-all">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-sky-500/20 to-purple-500/20 border border-sky-500/30 flex items-center justify-center shrink-0">
+            <i id="promptIcon" data-lucide="sparkles" class="w-4 h-4 text-sky-400"></i>
+          </div>
+
+          <!-- Hidden Image File Input -->
+          <input type="file" id="imageFileInput" accept="image/*" class="hidden" />
+
+          <!-- Image Upload Trigger Button -->
+          <button id="btnUploadImage" type="button" class="w-8 h-8 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-sky-300 flex items-center justify-center transition-colors shrink-0" title="Attach or drop workflow diagram image (PNG, JPG, Screenshot)">
+            <i data-lucide="image" class="w-4 h-4"></i>
+          </button>
+
+          <input 
+            id="promptInput" 
+            type="text" 
+            placeholder="Describe requirement or attach a flowchart image / sketch..." 
+            class="flex-1 bg-transparent text-sm text-slate-100 placeholder-slate-400 focus:outline-none"
+          />
+          <button id="btnGenerate" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs px-4 py-2 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 shadow-lg shadow-sky-500/25 shrink-0">
+            <span id="btnGenerateText">Generate</span>
+            <i id="btnGenerateIcon" data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Drag & Drop Full Canvas Overlay -->
+      <div id="dragDropOverlay" class="hidden fixed inset-0 z-50 bg-sky-950/80 backdrop-blur-md border-4 border-dashed border-sky-400 flex flex-col items-center justify-center pointer-events-none transition-all">
+        <i data-lucide="image-plus" class="w-16 h-16 text-sky-400 animate-bounce mb-3"></i>
+        <div class="text-lg font-bold text-white">Drop Diagram Image Here</div>
+        <div class="text-xs text-sky-300 font-mono mt-1">Converts your flowchart, sketch, or architecture image into LangGraph</div>
+      </div>
+
+      <!-- Simulation State Step Banner -->
+      <div id="simBanner" class="hidden absolute top-6 left-1/2 -translate-x-1/2 z-20 glass-panel px-4 py-2 rounded-full border border-sky-500/40 flex items-center gap-3 shadow-xl">
+        <span class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-ping"></span>
+        <span id="simStatusText" class="text-xs font-mono text-sky-400">Simulating: START -> Supervisor...</span>
+        <button id="btnStopSim" class="text-slate-400 hover:text-white text-xs ml-2 underline">Stop</button>
+      </div>
+
+      <!-- Loading / Generating Toast -->
+      <div id="generatingToast" class="hidden absolute top-6 left-1/2 -translate-x-1/2 z-30 glass-panel px-5 py-2.5 rounded-2xl border border-sky-500/50 flex items-center gap-3 shadow-2xl">
+        <i data-lucide="loader" class="w-4 h-4 text-sky-400 animate-spin"></i>
+        <div class="text-xs font-mono">
+          <span class="text-white font-bold">AI Architecting Topology...</span>
+          <span class="text-slate-400 text-[11px] block">Synthesizing TypedDict channels & conditional edges</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right Inspector Drawer (Node Details, Python Function, Reducers) -->
+    <aside id="inspectorPanel" class="w-96 border-l border-slate-700/80 dark:border-borderDark bg-surface/95 dark:bg-[#0e111a]/95 backdrop-blur-xl flex flex-col z-20 shrink-0 transition-all duration-300 shadow-2xl">
+      <!-- Inspector Header -->
+      <div class="h-12 border-b border-slate-700/80 dark:border-borderDark px-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="sliders" class="w-4 h-4 text-sky-400"></i>
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-300">Node Inspector</span>
+        </div>
+        <button id="btnCloseInspector" class="text-slate-400 hover:text-slate-200 p-1 rounded-md">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Inspector Content Body -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-5 text-xs">
+        <!-- Selected Node Identification -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span id="inspectorNodeType" class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-bold">AGENT NODE</span>
+            <span id="inspectorNodeId" class="font-mono text-slate-500 text-[11px]">id: supervisor</span>
+          </div>
+          <h3 id="inspectorNodeLabel" class="text-base font-semibold text-white tracking-tight">Supervisor Router</h3>
+          <p id="inspectorNodeDesc" class="text-slate-400 leading-relaxed">Coordinates worker agents and routes tasks based on evaluation logic.</p>
+        </div>
+
+        <!-- LangGraph Primitives Section -->
+        <div class="border-t border-slate-700/80 dark:border-borderDark pt-4 space-y-3">
+          <span class="text-[11px] font-mono text-slate-400 uppercase tracking-wider block font-semibold">LangGraph Execution Properties</span>
+          
+          <div class="bg-slate-900/70 rounded-xl p-3 border border-slate-800 space-y-2 font-mono">
+            <div class="flex items-center justify-between text-slate-300">
+              <span class="text-slate-500">Channel / State:</span>
+              <span id="inspectorStateChannels" class="text-emerald-400 truncate max-w-[180px]">messages, next_step</span>
+            </div>
+            <div class="flex items-center justify-between text-slate-300">
+              <span class="text-slate-500">Reducer Type:</span>
+              <span class="text-sky-400">add_messages (Append)</span>
+            </div>
+            <div class="flex items-center justify-between text-slate-300">
+              <span class="text-slate-500">Interrupt Breakpoint:</span>
+              <span id="inspectorInterruptBadge" class="text-amber-400">None</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Python Node Implementation Code -->
+        <div class="border-t border-slate-700/80 dark:border-borderDark pt-4 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-mono text-slate-400 uppercase tracking-wider font-semibold">Python Node Function</span>
+            <button id="btnCopyNodeCode" class="text-slate-400 hover:text-sky-400 flex items-center gap-1 text-[11px]">
+              <i data-lucide="copy" class="w-3 h-3"></i>
+              <span>Copy</span>
+            </button>
+          </div>
+          <pre class="bg-black/60 border border-slate-800 rounded-xl p-3 overflow-x-auto text-[11px] leading-relaxed text-sky-200/90 font-mono"><code id="inspectorNodeCode">def supervisor_node(state: AgentState):
+    messages = state["messages"]
+    response = model.invoke([system_prompt] + messages)
+    return {"next_agent": response.next}</code></pre>
+        </div>
+
+        <!-- Outgoing Routing Logic -->
+        <div class="border-t border-slate-700/80 dark:border-borderDark pt-4 space-y-2">
+          <span class="text-[11px] font-mono text-slate-400 uppercase tracking-wider font-semibold">Outgoing Edges & Logic</span>
+          <div id="inspectorEdgesList" class="space-y-1.5"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Bottom State Schema / Reducer Drawer -->
+    <div id="stateDrawer" class="hidden absolute bottom-0 left-0 right-96 bg-surface/95 dark:bg-[#0e111a]/95 backdrop-blur-2xl border-t border-slate-700/80 dark:border-borderDark p-4 z-20 max-h-64 overflow-y-auto">
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2">
+          <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i>
+          <span class="text-xs font-mono font-bold text-slate-200 uppercase">LangGraph State Schema (TypedDict)</span>
+        </div>
+        <button id="btnCloseStateDrawer" class="text-slate-500 hover:text-slate-300">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <pre id="stateSchemaContent" class="bg-black/50 border border-slate-800 rounded-xl p-3 text-xs font-mono text-emerald-300 overflow-x-auto"></pre>
+    </div>
+  </div>
+
+  <!-- AI Model Settings Modal -->
+  <div id="aiSettingsModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col">
+      <div class="h-14 border-b border-slate-800 px-6 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="sparkles" class="w-5 h-5 text-sky-400"></i>
+          <span class="font-bold text-sm text-white">AI Model API Configuration</span>
+        </div>
+        <button id="btnCloseSettingsModal" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1.5">Select AI Engine Provider</label>
+          <select id="settingProvider" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-slate-200 focus:outline-none focus:border-sky-500 font-mono text-xs">
+            <option value="groq" selected>⚡ Groq Cloud (openai/gpt-oss-120b) - Ultra Fast (Active Key Set)</option>
+            <option value="gemini">Google Gemini (Gemini 2.5 Flash / 1.5 Flash)</option>
+            <option value="openai">OpenAI (GPT-4o / GPT-4o-mini)</option>
+            <option value="demo">Built-in Intelligent Synthesizer (No API Key Required)</option>
+          </select>
+        </div>
+
+        <div id="apiKeyGroup">
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="text-slate-300 font-semibold">API Key</label>
+            <span class="text-[10px] text-slate-500">Stored safely in your local browser storage</span>
+          </div>
+          <input 
+            id="settingApiKey" 
+            type="password" 
+            placeholder="Paste your Groq (gsk_...), Gemini (AIzaSy...), or OpenAI key" 
+            class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-slate-200 focus:outline-none focus:border-sky-500 font-mono text-xs"
+          />
+          <p class="text-[11px] text-slate-500 mt-1">Free Groq keys at <a href="https://console.groq.com/keys" target="_blank" class="text-sky-400 underline">console.groq.com</a> | Free Gemini keys at <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-sky-400 underline">Google AI Studio</a>.</p>
+        </div>
+
+        <div class="bg-sky-500/10 border border-sky-500/20 rounded-xl p-3 text-sky-300 space-y-1">
+          <div class="font-semibold text-xs flex items-center gap-1.5">
+            <i data-lucide="info" class="w-3.5 h-3.5"></i>
+            <span>Structured Graph Output Guarantee</span>
+          </div>
+          <p class="text-[11px] text-sky-200/80 leading-relaxed">
+            The AI model outputs strict LangGraph JSON specifying nodes, TypedDict state reducers, conditional edges, and a fully executable Python script.
+          </p>
+        </div>
+      </div>
+
+      <div class="h-14 border-t border-slate-800 px-6 flex items-center justify-end gap-3 bg-slate-950/40">
+        <button id="btnSaveSettings" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs px-5 py-2 rounded-xl transition-all">
+          Save Configuration
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export Code Modal -->
+  <div id="codeModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-4xl max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="h-14 border-b border-slate-800 px-6 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="terminal" class="w-5 h-5 text-sky-400"></i>
+          <span class="font-bold text-sm text-white">Runnable LangGraph 0.2+ Python Code</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="btnCopyFullPython" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span>Copy Full Script</span>
+          </button>
+          <button id="btnCloseModal" class="text-slate-400 hover:text-white p-1">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+      <div class="flex-1 overflow-auto p-6 bg-slate-950 font-mono text-xs text-sky-100">
+        <pre><code id="pythonCodeContainer"># Python LangGraph code generated dynamically</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- PRESETS WITH PROFESSIONAL CLEAN SPACING ---
+    const GRAPH_PRESETS = {
+      supervisor: {
+        title: "Hierarchical Supervisor Swarm",
+        stateName: "SupervisorAgentState",
+        stateSchema: `class SupervisorAgentState(TypedDict):
+    messages: Annotated[list[BaseMessage], add_messages]
+    next_step: Literal["researcher", "coder", "reviewer", "__end__"]
+    iteration_count: int`,
+        nodes: [
+          { id: "start", type: "start", label: "START", desc: "Graph Input trigger", x: 60, y: 220, color: "#10b981", icon: "play" },
+          { id: "supervisor", type: "agent", label: "Supervisor LLM", desc: "Orchestrator deciding next specialist", x: 380, y: 200, color: "#38bdf8", icon: "crown", stateKeys: ["messages", "next_step"] },
+          { id: "router", type: "conditional", label: "Router Condition", desc: "Evaluates next_step branching", x: 700, y: 210, color: "#a855f7", icon: "split", condition: "def route_next(state) -> str" },
+          { id: "researcher", type: "agent", label: "Web Researcher", desc: "Searches documentation & extracts facts", x: 1040, y: 60, color: "#38bdf8", icon: "globe", stateKeys: ["messages"] },
+          { id: "coder", type: "agent", label: "Synthesis Coder", desc: "Drafts code & solutions", x: 1040, y: 210, color: "#38bdf8", icon: "terminal", stateKeys: ["messages"] },
+          { id: "reviewer", type: "agent", label: "Human / QA Reviewer", desc: "Audits final quality before termination", x: 1040, y: 360, color: "#f59e0b", icon: "shield-check", stateKeys: ["messages"], interrupt: "interrupt_before" },
+          { id: "end", type: "end", label: "END", desc: "Final Compiled Output", x: 1380, y: 220, color: "#f43f5e", icon: "flag" }
+        ],
+        edges: [
+          { from: "start", to: "supervisor", label: "init", type: "fixed" },
+          { from: "supervisor", to: "router", label: "evaluate", type: "fixed" },
+          { from: "router", to: "researcher", label: "next == 'researcher'", type: "conditional" },
+          { from: "router", to: "coder", label: "next == 'coder'", type: "conditional" },
+          { from: "router", to: "reviewer", label: "next == 'reviewer'", type: "conditional" },
+          { from: "researcher", to: "supervisor", label: "report back", type: "fixed" },
+          { from: "coder", to: "supervisor", label: "draft return", type: "fixed" },
+          { from: "reviewer", to: "end", label: "approved", type: "fixed" },
+          { from: "router", to: "end", label: "finish", type: "conditional" }
+        ],
+        pythonCode: `from typing import Annotated, Literal, TypedDict
+from langchain_core.messages import BaseMessage, HumanMessage
+from langgraph.graph import StateGraph, START, END
+from langgraph.graph.message import add_messages
+from langgraph.checkpoint.memory import MemorySaver
+
+class SupervisorAgentState(TypedDict):
+    messages: Annotated[list[BaseMessage], add_messages]
+    next_step: Literal["researcher", "coder", "reviewer", "__end__"]
+    iteration_count: int
+
+def supervisor_node(state: SupervisorAgentState):
+    return {"next_step": "researcher", "iteration_count": state.get("iteration_count", 0) + 1}
+
+def researcher_node(state: SupervisorAgentState):
+    return {"messages": [HumanMessage(content="Extracted facts...")]}
+
+def coder_node(state: SupervisorAgentState):
+    return {"messages": [HumanMessage(content="Code implementation ready.")]}
+
+def reviewer_node(state: SupervisorAgentState):
+    return {"messages": [HumanMessage(content="QA Approved!")]}
+
+def route_next(state: SupervisorAgentState) -> str:
+    if state["iteration_count"] > 10:
+        return END
+    return state["next_step"]
+
+builder = StateGraph(SupervisorAgentState)
+builder.add_node("supervisor", supervisor_node)
+builder.add_node("researcher", researcher_node)
+builder.add_node("coder", coder_node)
+builder.add_node("reviewer", reviewer_node)
+
+builder.add_edge(START, "supervisor")
+builder.add_conditional_edges(
+    "supervisor",
+    route_next,
+    {
+        "researcher": "researcher",
+        "coder": "coder",
+        "reviewer": "reviewer",
+        "__end__": END
+    }
+)
+builder.add_edge("researcher", "supervisor")
+builder.add_edge("coder", "supervisor")
+builder.add_edge("reviewer", END)
+
+memory = MemorySaver()
+app = builder.compile(checkpointer=memory, interrupt_before=["reviewer"])`
+      },
+      self_rag: {
+        title: "Self-Corrective RAG (CRAG)",
+        stateName: "GraphState",
+        stateSchema: `class GraphState(TypedDict):
+    question: str
+    generation: str
+    documents: list[str]
+    hallucination_score: float`,
+        nodes: [
+          { id: "start", type: "start", label: "START", desc: "User Query Input", x: 60, y: 200, color: "#10b981", icon: "play" },
+          { id: "retrieve", type: "agent", label: "Retriever Node", desc: "Vector DB semantic search", x: 380, y: 200, color: "#38bdf8", icon: "database", stateKeys: ["documents"] },
+          { id: "grade_docs", type: "conditional", label: "Doc Relevance Grader", desc: "Filters irrelevant chunks", x: 700, y: 200, color: "#a855f7", icon: "filter", condition: "def grade_documents(state)" },
+          { id: "transform_query", type: "agent", label: "Query Rewriter", desc: "Optimizes query for live web", x: 700, y: 380, color: "#f59e0b", icon: "refresh-cw", stateKeys: ["question"] },
+          { id: "web_search", type: "agent", label: "Tavily Web Search", desc: "Enriches context with search", x: 1040, y: 380, color: "#38bdf8", icon: "globe", stateKeys: ["documents"] },
+          { id: "generate", type: "agent", label: "LLM Generator", desc: "Synthesizes grounded answer", x: 1040, y: 200, color: "#38bdf8", icon: "sparkles", stateKeys: ["generation"] },
+          { id: "check_hallucination", type: "conditional", label: "Hallucination Grader", desc: "Verifies generation vs ground truth", x: 1360, y: 200, color: "#a855f7", icon: "check-circle", condition: "def check_hallucination(state)" },
+          { id: "end", type: "end", label: "END", desc: "Verified Factual Response", x: 1680, y: 200, color: "#f43f5e", icon: "flag" }
+        ],
+        edges: [
+          { from: "start", to: "retrieve", label: "query", type: "fixed" },
+          { from: "retrieve", to: "grade_docs", label: "chunks", type: "fixed" },
+          { from: "grade_docs", to: "generate", label: "docs >= threshold", type: "conditional" },
+          { from: "grade_docs", to: "transform_query", label: "no relevant docs", type: "conditional" },
+          { from: "transform_query", to: "web_search", label: "optimized query", type: "fixed" },
+          { from: "web_search", to: "generate", label: "augmented docs", type: "fixed" },
+          { from: "generate", to: "check_hallucination", label: "validate", type: "fixed" },
+          { from: "check_hallucination", to: "generate", label: "hallucination retry", type: "conditional" },
+          { from: "check_hallucination", to: "end", label: "grounded & accurate", type: "conditional" }
+        ],
+        pythonCode: `from typing import TypedDict
+from langgraph.graph import StateGraph, START, END
+
+class GraphState(TypedDict):
+    question: str
+    generation: str
+    documents: list[str]
+
+def retrieve(state: GraphState):
+    return {"documents": ["retrieved context"]}
+
+def grade_documents(state: GraphState) -> str:
+    return "generate" if len(state["documents"]) > 0 else "rewrite"
+
+def transform_query(state: GraphState):
+    return {"question": "Rewritten search query"}
+
+def generate(state: GraphState):
+    return {"generation": "Grounded response generated"}
+
+def check_hallucination(state: GraphState) -> str:
+    return "useful"
+
+workflow = StateGraph(GraphState)
+workflow.add_node("retrieve", retrieve)
+workflow.add_node("transform_query", transform_query)
+workflow.add_node("generate", generate)
+
+workflow.add_edge(START, "retrieve")
+workflow.add_conditional_edges("retrieve", grade_documents, {
+    "generate": "generate",
+    "rewrite": "transform_query"
+})
+workflow.add_edge("transform_query", "generate")
+workflow.add_conditional_edges("generate", check_hallucination, {
+    "useful": END,
+    "not_useful": "transform_query"
+})
+app = workflow.compile()`
+      },
+      human_loop: {
+        title: "Human-in-the-Loop Approval & Rollback",
+        stateName: "ApprovalState",
+        stateSchema: `class ApprovalState(TypedDict):
+    plan: str
+    is_approved: bool
+    user_feedback: str`,
+        nodes: [
+          { id: "start", type: "start", label: "START", desc: "User Request", x: 80, y: 200, color: "#10b981", icon: "play" },
+          { id: "draft_plan", type: "agent", label: "Draft Action Plan", desc: "Synthesizes migration commands", x: 380, y: 200, color: "#38bdf8", icon: "file-code", stateKeys: ["plan"] },
+          { id: "human_review", type: "agent", label: "Human Approval Gate", desc: "Interrupts execution for sign-off", x: 700, y: 200, color: "#f59e0b", icon: "user-check", interrupt: "interrupt_before", stateKeys: ["is_approved", "user_feedback"] },
+          { id: "check_approval", type: "conditional", label: "Approval Evaluator", desc: "Branches on authorization", x: 1040, y: 200, color: "#a855f7", icon: "git-branch", condition: "def check_human(state)" },
+          { id: "execute_plan", type: "agent", label: "Execute Migration", desc: "Executes database commands", x: 1360, y: 110, color: "#10b981", icon: "zap", stateKeys: ["result"] },
+          { id: "abort_rollback", type: "agent", label: "Abort & Log Rollback", desc: "Cleans up staging changes safely", x: 1360, y: 290, color: "#f43f5e", icon: "alert-triangle", stateKeys: ["rollback_status"] },
+          { id: "end", type: "end", label: "END", desc: "Process Finished", x: 1680, y: 200, color: "#f43f5e", icon: "flag" }
+        ],
+        edges: [
+          { from: "start", to: "draft_plan", label: "dispatch", type: "fixed" },
+          { from: "draft_plan", to: "human_review", label: "await approval", type: "fixed" },
+          { from: "human_review", to: "check_approval", label: "human input", type: "fixed" },
+          { from: "check_approval", to: "execute_plan", label: "approved == True", type: "conditional" },
+          { from: "check_approval", to: "draft_plan", label: "feedback loop", type: "conditional" },
+          { from: "check_approval", to: "abort_rollback", label: "rejected == False", type: "conditional" },
+          { from: "execute_plan", to: "end", label: "done", type: "fixed" },
+          { from: "abort_rollback", to: "end", label: "halted", type: "fixed" }
+        ],
+        pythonCode: `from langgraph.graph import StateGraph, START, END
+from langgraph.checkpoint.memory import MemorySaver
+
+class ApprovalState(TypedDict):
+    plan: str
+    is_approved: bool
+
+builder = StateGraph(ApprovalState)
+builder.add_node("draft_plan", draft_plan)
+builder.add_node("human_review", human_review)
+builder.add_node("execute_plan", execute_plan)
+
+builder.add_edge(START, "draft_plan")
+builder.add_edge("draft_plan", "human_review")
+builder.add_conditional_edges("human_review", lambda s: "execute" if s["is_approved"] else "abort")
+
+app = builder.compile(checkpointer=MemorySaver(), interrupt_before=["human_review"])`
+      },
+      plan_execute: {
+        title: "Plan-and-Execute Agent",
+        stateName: "PlanExecuteState",
+        stateSchema: `class PlanExecuteState(TypedDict):
+    input: str
+    plan: list[str]
+    past_steps: list[tuple]
+    response: str`,
+        nodes: [
+          { id: "start", type: "start", label: "START", desc: "Goal Input", x: 80, y: 200, color: "#10b981", icon: "play" },
+          { id: "planner", type: "agent", label: "Planner LLM", desc: "Decomposes complex query into steps", x: 380, y: 200, color: "#38bdf8", icon: "list-ordered", stateKeys: ["plan"] },
+          { id: "executor", type: "agent", label: "Step Executor", desc: "Executes current task using tools", x: 700, y: 200, color: "#38bdf8", icon: "cpu", stateKeys: ["past_steps"] },
+          { id: "replanner", type: "conditional", label: "Replanner / Terminator", desc: "Re-evaluates remaining plan", x: 1040, y: 200, color: "#a855f7", icon: "refresh-cw", condition: "def should_continue(state)" },
+          { id: "end", type: "end", label: "END", desc: "Final Compiled Answer", x: 1360, y: 200, color: "#f43f5e", icon: "flag" }
+        ],
+        edges: [
+          { from: "start", to: "planner", label: "init", type: "fixed" },
+          { from: "planner", to: "executor", label: "step 1", type: "fixed" },
+          { from: "executor", to: "replanner", label: "step result", type: "fixed" },
+          { from: "replanner", to: "executor", label: "more steps", type: "conditional" },
+          { from: "replanner", to: "end", label: "done", type: "conditional" }
+        ],
+        pythonCode: `# Plan-and-Execute with LangGraph
+from langgraph.graph import StateGraph, START, END
+
+workflow = StateGraph(PlanExecuteState)
+workflow.add_node("planner", planner)
+workflow.add_node("executor", executor)
+workflow.add_node("replan", replan)
+
+workflow.add_edge(START, "planner")
+workflow.add_edge("planner", "executor")
+workflow.add_edge("executor", "replan")
+workflow.add_conditional_edges("replan", lambda s: END if len(s["plan"]) == 0 else "executor")
+app = workflow.compile()`
+      },
+      subgraph: {
+        title: "Composite Subgraph Swarm",
+        stateName: "ParentState",
+        stateSchema: `class ParentState(TypedDict):
+    main_task: str
+    subgraph_artifacts: dict`,
+        nodes: [
+          { id: "start", type: "start", label: "START", desc: "Top-Level Trigger", x: 80, y: 200, color: "#10b981", icon: "play" },
+          { id: "ingestion", type: "agent", label: "Ingestion Gateway", desc: "Validates incoming events", x: 380, y: 200, color: "#38bdf8", icon: "inbox" },
+          { id: "subgraph_node", type: "subgraph", label: "Nested Researcher Subgraph", desc: "Encapsulates independent StateGraph", x: 700, y: 180, color: "#8b5cf6", icon: "layers" },
+          { id: "synthesizer", type: "agent", label: "Result Aggregator", desc: "Merges subgraph outputs", x: 1040, y: 200, color: "#38bdf8", icon: "combine" },
+          { id: "end", type: "end", label: "END", desc: "Finished", x: 1360, y: 200, color: "#f43f5e", icon: "flag" }
+        ],
+        edges: [
+          { from: "start", to: "ingestion", label: "event", type: "fixed" },
+          { from: "ingestion", to: "subgraph_node", label: "delegate", type: "fixed" },
+          { from: "subgraph_node", to: "synthesizer", label: "subgraph return", type: "fixed" },
+          { from: "synthesizer", to: "end", label: "final", type: "fixed" }
+        ],
+        pythonCode: `# Composite Subgraphs in LangGraph
+from langgraph.graph import StateGraph, START, END
+
+sub_builder = StateGraph(SubState)
+sub_builder.add_node("sub_search", search)
+sub_builder.add_edge(START, "sub_search")
+sub_builder.add_edge("sub_search", END)
+subgraph = sub_builder.compile()
+
+parent = StateGraph(ParentState)
+parent.add_node("ingestion", ingestion)
+parent.add_node("subgraph_node", subgraph)
+parent.add_node("synthesizer", synthesizer)
+
+parent.add_edge(START, "ingestion")
+parent.add_edge("ingestion", "subgraph_node")
+parent.add_edge("subgraph_node", "synthesizer")
+parent.add_edge("synthesizer", END)
+app = parent.compile()`
+      }
+    };
+
+    // --- APP & THEME STATE ---
+    let currentTheme = localStorage.getItem("lg_theme") || "dark";
+    let currentPreset = GRAPH_PRESETS.supervisor;
+    let selectedNodeId = "supervisor";
+    let isSimulating = false;
+    let simStepIndex = 0;
+    let simInterval = null;
+
+    // AI Provider Config
+    let aiProvider = localStorage.getItem("lg_ai_provider") || "groq";
+    let aiApiKey = localStorage.getItem("lg_ai_api_key") || "";
+
+    // Image Upload & Vision State
+    let attachedImageBase64 = null;
+    let attachedImageMime = "image/png";
+    let attachedImageName = "";
+
+    // Canvas Pan & Zoom
+    let scale = 0.85;
+    let panX = 40;
+    let panY = 60;
+    let isPanning = false;
+    let startX, startY;
+    let draggedNode = null;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+
+    // DOM Elements
+    const canvasContainer = document.getElementById("canvasContainer");
+    const graphStage = document.getElementById("graphStage");
+    const nodesContainer = document.getElementById("nodesContainer");
+    const edgesGroup = document.getElementById("edgesGroup");
+    const templateSelector = document.getElementById("templateSelector");
+    const zoomLevelIndicator = document.getElementById("zoomLevelIndicator");
+    const activeModelLabel = document.getElementById("activeModelLabel");
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+    const themeIcon = document.getElementById("themeIcon");
+    const themeLabel = document.getElementById("themeLabel");
+
+    function init() {
+      applyTheme(currentTheme);
+      updateModelLabel();
+      lucide.createIcons();
+      loadGraph(currentPreset);
+      setupEvents();
+      centerGraph();
+    }
+
+    // Theme Management (Dark & Light Mode)
+    function applyTheme(theme) {
+      currentTheme = theme;
+      localStorage.setItem("lg_theme", theme);
+      const htmlEl = document.documentElement;
+
+      if (theme === "light") {
+        htmlEl.classList.remove("dark");
+        htmlEl.classList.add("light");
+        themeIcon.setAttribute("data-lucide", "moon");
+        themeLabel.innerText = "Dark";
+      } else {
+        htmlEl.classList.remove("light");
+        htmlEl.classList.add("dark");
+        themeIcon.setAttribute("data-lucide", "sun");
+        themeLabel.innerText = "Light";
+      }
+      lucide.createIcons();
+      renderEdges();
+    }
+
+    function toggleTheme() {
+      applyTheme(currentTheme === "dark" ? "light" : "dark");
+    }
+
+    function updateModelLabel() {
+      if (aiProvider === "groq") {
+        activeModelLabel.innerText = "Groq 120B (Active ⚡)";
+      } else if (aiProvider === "gemini") {
+        activeModelLabel.innerText = aiApiKey ? "Gemini 2.5 Flash (Live)" : "Gemini 2.5 Flash (Setup)";
+      } else if (aiProvider === "openai") {
+        activeModelLabel.innerText = aiApiKey ? "GPT-4o (Live)" : "OpenAI (Setup)";
+      } else {
+        activeModelLabel.innerText = "Built-in Synthesizer";
+      }
+    }
+
+    function loadGraph(preset) {
+      currentPreset = preset;
+      document.getElementById("activeGraphName").innerText = `StateGraph: ${preset.stateName}`;
+      document.getElementById("nodeCountBadge").innerText = `${preset.nodes.length} Nodes`;
+      document.getElementById("pythonCodeContainer").textContent = preset.pythonCode;
+      document.getElementById("stateSchemaContent").textContent = preset.stateSchema;
+
+      renderNodes();
+      renderEdges();
+      selectNode(preset.nodes[1]?.id || preset.nodes[0]?.id);
+      lucide.createIcons();
+    }
+
+    // Professional Auto-Layout Algorithm with Generous Spacing
+    function autoLayoutGraph(graph) {
+      const nodeMap = {};
+      graph.nodes.forEach(n => nodeMap[n.id] = n);
+
+      const ranks = {};
+      const inDegree = {};
+      graph.nodes.forEach(n => {
+        ranks[n.id] = 0;
+        inDegree[n.id] = 0;
+      });
+
+      graph.edges.forEach(e => {
+        if (inDegree[e.to] !== undefined) inDegree[e.to]++;
+      });
+
+      const queue = graph.nodes.filter(n => inDegree[n.id] === 0 || n.type === 'start').map(n => n.id);
+      if (queue.length === 0 && graph.nodes.length > 0) queue.push(graph.nodes[0].id);
+
+      const visited = new Set();
+      while (queue.length > 0) {
+        const curr = queue.shift();
+        visited.add(curr);
+        const currRank = ranks[curr] || 0;
+
+        graph.edges.filter(e => e.from === curr).forEach(e => {
+          ranks[e.to] = Math.max(ranks[e.to] || 0, currRank + 1);
+          if (!visited.has(e.to) && !queue.includes(e.to)) {
+            queue.push(e.to);
+          }
+        });
+      }
+
+      // Group nodes by rank (columns)
+      const rankGroups = {};
+      graph.nodes.forEach(n => {
+        const r = ranks[n.id] || 0;
+        if (!rankGroups[r]) rankGroups[r] = [];
+        rankGroups[r].push(n);
+      });
+
+      // Generous Horizontal & Vertical Spacing to prevent crowding
+      const colWidth = 340;
+      const rowHeight = 150;
+      const startX = 60;
+      const centerY = 240;
+
+      Object.keys(rankGroups).sort((a,b) => a - b).forEach(rank => {
+        const group = rankGroups[rank];
+        const colX = startX + rank * colWidth;
+        const totalHeight = group.length * rowHeight;
+        const topY = centerY - totalHeight / 2 + 50;
+
+        group.forEach((node, idx) => {
+          node.x = colX;
+          node.y = topY + idx * rowHeight;
+        });
+      });
+
+      return graph;
+    }
+
+    function renderNodes() {
+      nodesContainer.innerHTML = "";
+
+      currentPreset.nodes.forEach(node => {
+        const el = document.createElement("div");
+        el.id = `node-${node.id}`;
+        el.className = `absolute select-none cursor-pointer glass-card rounded-2xl p-4 transition-all duration-200 ${selectedNodeId === node.id ? 'active-node' : ''}`;
+        el.style.left = `${node.x}px`;
+        el.style.top = `${node.y}px`;
+        el.style.minWidth = node.type === 'start' || node.type === 'end' ? '120px' : '230px';
+
+        let badgeBg = "bg-sky-500/10 text-sky-400 border-sky-500/20";
+        let typeLabel = "AGENT NODE";
+        if (node.type === "start") {
+          badgeBg = "bg-emerald-500/10 text-emerald-500 border-emerald-500/20";
+          typeLabel = "ENTRYPOINT";
+        } else if (node.type === "end") {
+          badgeBg = "bg-rose-500/10 text-rose-500 border-rose-500/20";
+          typeLabel = "TERMINATION";
+        } else if (node.type === "conditional") {
+          badgeBg = "bg-purple-500/10 text-purple-400 border-purple-500/20";
+          typeLabel = "ROUTER / CONDITIONAL";
+        } else if (node.type === "subgraph") {
+          badgeBg = "bg-indigo-500/10 text-indigo-400 border-indigo-500/20";
+          typeLabel = "COMPILED SUBGRAPH";
+        }
+
+        const interruptPill = node.interrupt ? `
+          <div class="mt-2.5 flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-500/30 text-[10px] font-mono text-amber-500 font-semibold">
+            <i data-lucide="pause-circle" class="w-3 h-3"></i>
+            <span>${node.interrupt}</span>
+          </div>` : '';
+
+        const stateChannelPill = node.stateKeys ? `
+          <div class="mt-2 flex flex-wrap gap-1">
+            ${node.stateKeys.map(k => `<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-800/80 text-slate-300 border border-slate-700/60">${k}</span>`).join('')}
+          </div>` : '';
+
+        el.innerHTML = `
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[9px] font-mono uppercase font-bold tracking-wider px-1.5 py-0.5 rounded border ${badgeBg}">${typeLabel}</span>
+            <div class="w-6 h-6 rounded-lg flex items-center justify-center bg-slate-800/50 text-slate-300" style="color: ${node.color || '#38bdf8'}">
+              <i data-lucide="${node.icon || 'box'}" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+          <div class="font-semibold text-xs text-slate-100 tracking-tight">${node.label}</div>
+          <div class="text-[11px] text-slate-400 line-clamp-1 mt-0.5">${node.desc || ''}</div>
+          ${interruptPill}
+          ${stateChannelPill}
+        `;
+
+        el.addEventListener("mousedown", (e) => {
+          e.stopPropagation();
+          selectNode(node.id);
+          draggedNode = node;
+          dragOffsetX = (e.clientX - panX) / scale - node.x;
+          dragOffsetY = (e.clientY - panY) / scale - node.y;
+        });
+
+        nodesContainer.appendChild(el);
+      });
+    }
+
+    // Clean Circuit Bezier Routing & Collision-Proof Pill Labels
+    function renderEdges() {
+      edgesGroup.innerHTML = "";
+      const isLight = currentTheme === "light";
+
+      currentPreset.edges.forEach(edge => {
+        const fromNode = currentPreset.nodes.find(n => n.id === edge.from);
+        const toNode = currentPreset.nodes.find(n => n.id === edge.to);
+        if (!fromNode || !toNode) return;
+
+        const fromEl = document.getElementById(`node-${fromNode.id}`);
+        const toEl = document.getElementById(`node-${toNode.id}`);
+        const fromW = fromEl ? fromEl.offsetWidth : 220;
+        const fromH = fromEl ? fromEl.offsetHeight : 80;
+        const toW = toEl ? toEl.offsetWidth : 220;
+        const toH = toEl ? toEl.offsetHeight : 80;
+
+        let pathData = "";
+        let midX = 0;
+        let midY = 0;
+
+        const isBackward = toNode.x < fromNode.x + 40;
+
+        if (!isBackward) {
+          // Normal Forward Edge: Right of Source -> Left of Target
+          const startX = fromNode.x + fromW;
+          const startY = fromNode.y + fromH / 2;
+          const endX = toNode.x;
+          const endY = toNode.y + toH / 2;
+
+          const dx = Math.max(Math.abs(endX - startX) * 0.5, 50);
+          const c1X = startX + dx;
+          const c1Y = startY;
+          const c2X = endX - dx;
+          const c2Y = endY;
+
+          pathData = `M ${startX} ${startY} C ${c1X} ${c1Y}, ${c2X} ${c2Y}, ${endX} ${endY}`;
+          midX = (startX + endX) / 2;
+          midY = (startY + endY) / 2 - 12;
+        } else {
+          // Backward / Return Loop: Arches OVER or UNDER intermediate nodes!
+          const isOver = fromNode.y <= toNode.y;
+          if (isOver) {
+            // Arch OVER the top
+            const startX = fromNode.x + fromW / 2;
+            const startY = fromNode.y;
+            const endX = toNode.x + toW / 2;
+            const endY = toNode.y;
+            const archTop = Math.min(startY, endY) - 75;
+
+            pathData = `M ${startX} ${startY} C ${startX} ${archTop}, ${endX} ${archTop}, ${endX} ${endY}`;
+            midX = (startX + endX) / 2;
+            midY = archTop - 4;
+          } else {
+            // Arch UNDER the bottom
+            const startX = fromNode.x + fromW / 2;
+            const startY = fromNode.y + fromH;
+            const endX = toNode.x + toW / 2;
+            const endY = toNode.y + toH;
+            const archBottom = Math.max(startY, endY) + 75;
+
+            pathData = `M ${startX} ${startY} C ${startX} ${archBottom}, ${endX} ${archBottom}, ${endX} ${endY}`;
+            midX = (startX + endX) / 2;
+            midY = archBottom + 12;
+          }
+        }
+
+        // SVG Path Curve
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.id = `edge-${edge.from}-${edge.to}`;
+        path.setAttribute("d", pathData);
+        path.setAttribute("fill", "none");
+
+        const strokeColor = edge.type === 'conditional' 
+          ? (isLight ? "#9333ea" : "#a855f7") 
+          : (isLight ? "#94a3b8" : "#475569");
+
+        path.setAttribute("stroke", strokeColor);
+        path.setAttribute("stroke-width", edge.type === 'conditional' ? "2" : "1.75");
+        if (edge.type === 'conditional') {
+          path.setAttribute("stroke-dasharray", "5, 4");
+        }
+        path.setAttribute("marker-end", edge.type === 'conditional' ? "url(#arrow-conditional)" : "url(#arrow-default)");
+        path.setAttribute("class", "transition-all duration-300");
+
+        edgesGroup.appendChild(path);
+
+        // Pill-backed Edge Label (Ensures zero text collision with background lines)
+        if (edge.label) {
+          const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+          g.setAttribute("transform", `translate(${midX}, ${midY})`);
+
+          // Estimate label box width
+          const labelWidth = Math.max(edge.label.length * 6.5 + 16, 40);
+          const labelHeight = 20;
+
+          const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          rect.setAttribute("x", -labelWidth / 2);
+          rect.setAttribute("y", -labelHeight / 2);
+          rect.setAttribute("width", labelWidth);
+          rect.setAttribute("height", labelHeight);
+          rect.setAttribute("rx", "10");
+          rect.setAttribute("fill", isLight ? "#ffffff" : "#141724");
+          rect.setAttribute("stroke", isLight ? "#cbd5e1" : "rgba(255,255,255,0.12)");
+          rect.setAttribute("stroke-width", "1");
+          rect.setAttribute("filter", "drop-shadow(0 2px 4px rgba(0,0,0,0.15))");
+
+          const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          text.setAttribute("x", "0");
+          text.setAttribute("y", "3.5");
+          text.setAttribute("fill", edge.type === 'conditional' ? (isLight ? "#7e22ce" : "#c084fc") : (isLight ? "#475569" : "#cbd5e1"));
+          text.setAttribute("font-size", "9.5");
+          text.setAttribute("font-weight", "500");
+          text.setAttribute("font-family", "Geist Mono, monospace");
+          text.setAttribute("text-anchor", "middle");
+          text.textContent = edge.label;
+
+          g.appendChild(rect);
+          g.appendChild(text);
+          edgesGroup.appendChild(g);
+        }
+      });
+
+      updateSvgTransform();
+    }
+
+    function updateSvgTransform() {
+      edgesGroup.setAttribute("transform", `translate(${panX}, ${panY}) scale(${scale})`);
+    }
+
+    function selectNode(id) {
+      selectedNodeId = id;
+      const node = currentPreset.nodes.find(n => n.id === id);
+      if (!node) return;
+
+      document.querySelectorAll(".glass-card").forEach(c => c.classList.remove("active-node"));
+      const activeEl = document.getElementById(`node-${id}`);
+      if (activeEl) activeEl.classList.add("active-node");
+
+      document.getElementById("inspectorNodeType").innerText = node.type.toUpperCase() + " NODE";
+      document.getElementById("inspectorNodeId").innerText = `id: ${node.id}`;
+      document.getElementById("inspectorNodeLabel").innerText = node.label;
+      document.getElementById("inspectorNodeDesc").innerText = node.desc || '';
+      document.getElementById("inspectorStateChannels").innerText = node.stateKeys ? node.stateKeys.join(", ") : "Passes state context";
+      document.getElementById("inspectorInterruptBadge").innerText = node.interrupt || "None";
+
+      document.getElementById("inspectorNodeCode").textContent = `def ${node.id}_node(state: ${currentPreset.stateName}):
+    """Node: ${node.label}"""
+    # LangGraph channel operations
+    return {"status": "ok"}`;
+
+      const outgoing = currentPreset.edges.filter(e => e.from === id);
+      const listEl = document.getElementById("inspectorEdgesList");
+      listEl.innerHTML = "";
+      if (outgoing.length === 0) {
+        listEl.innerHTML = `<span class="text-slate-500 italic">Terminating node (No outgoing edges)</span>`;
+      } else {
+        outgoing.forEach(e => {
+          const div = document.createElement("div");
+          div.className = "flex items-center justify-between p-2 rounded-lg bg-black/30 border border-slate-800 text-[11px] font-mono";
+          div.innerHTML = `
+            <div class="flex items-center gap-1.5 text-slate-300">
+              <i data-lucide="arrow-right" class="w-3 h-3 text-sky-400"></i>
+              <span>${e.to}</span>
+            </div>
+            <span class="text-purple-400 text-[10px]">${e.label || ''}</span>
+          `;
+          listEl.appendChild(div);
+        });
+      }
+      lucide.createIcons();
+    }
+
+    function handleImageFile(file) {
+      if (!file || !file.type.startsWith("image/")) {
+        alert("Please upload a valid image file (PNG, JPG, WebP, etc.)");
+        return;
+      }
+      attachedImageMime = file.type;
+      attachedImageName = file.name;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        attachedImageBase64 = e.target.result;
+        document.getElementById("imagePreviewThumb").src = attachedImageBase64;
+        document.getElementById("imageFileName").innerText = attachedImageName;
+        document.getElementById("imageAttachmentPill").classList.remove("hidden");
+        lucide.createIcons();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function clearAttachedImage() {
+      attachedImageBase64 = null;
+      attachedImageName = "";
+      document.getElementById("imageAttachmentPill").classList.add("hidden");
+      document.getElementById("imageFileInput").value = "";
+    }
+
+    function setupEvents() {
+      // Theme Toggle Click
+      themeToggleBtn.addEventListener("click", toggleTheme);
+
+      canvasContainer.addEventListener("mousedown", (e) => {
+        if (e.target.closest(".glass-card") || e.target.closest("button") || e.target.closest("input")) return;
+        isPanning = true;
+        startX = e.clientX - panX;
+        startY = e.clientY - panY;
+      });
+
+      window.addEventListener("mousemove", (e) => {
+        if (isPanning) {
+          panX = e.clientX - startX;
+          panY = e.clientY - startY;
+          applyTransform();
+        } else if (draggedNode) {
+          draggedNode.x = (e.clientX - panX) / scale - dragOffsetX;
+          draggedNode.y = (e.clientY - panY) / scale - dragOffsetY;
+          const el = document.getElementById(`node-${draggedNode.id}`);
+          if (el) {
+            el.style.left = `${draggedNode.x}px`;
+            el.style.top = `${draggedNode.y}px`;
+          }
+          renderEdges();
+        }
+      });
+
+      window.addEventListener("mouseup", () => {
+        isPanning = false;
+        draggedNode = null;
+      });
+
+      canvasContainer.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        const zoomFactor = e.deltaY < 0 ? 1.08 : 0.92;
+        zoom(zoomFactor);
+      }, { passive: false });
+
+      templateSelector.addEventListener("change", (e) => {
+        const key = e.target.value;
+        if (GRAPH_PRESETS[key]) {
+          loadGraph(GRAPH_PRESETS[key]);
+          centerGraph();
+        }
+      });
+
+      document.getElementById("btnZoomIn").addEventListener("click", () => zoom(1.15));
+      document.getElementById("btnZoomOut").addEventListener("click", () => zoom(0.85));
+      document.getElementById("btnCenterView").addEventListener("click", centerGraph);
+      document.getElementById("btnFitCanvas").addEventListener("click", centerGraph);
+
+      document.getElementById("btnSimulate").addEventListener("click", startSimulation);
+      document.getElementById("btnStopSim").addEventListener("click", stopSimulation);
+
+      // Image Upload Button and Input
+      const fileInput = document.getElementById("imageFileInput");
+      document.getElementById("btnUploadImage").addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", (e) => {
+        if (e.target.files && e.target.files[0]) handleImageFile(e.target.files[0]);
+      });
+      document.getElementById("btnRemoveImage").addEventListener("click", clearAttachedImage);
+
+      // Clipboard Paste Listener (Ctrl+V)
+      window.addEventListener("paste", (e) => {
+        if (e.clipboardData && e.clipboardData.items) {
+          for (const item of e.clipboardData.items) {
+            if (item.type.startsWith("image/")) {
+              const file = item.getAsFile();
+              handleImageFile(file);
+              break;
+            }
+          }
+        }
+      });
+
+      // Drag and Drop Listeners
+      const dragOverlay = document.getElementById("dragDropOverlay");
+      window.addEventListener("dragenter", (e) => {
+        if (e.dataTransfer && e.dataTransfer.types.includes("Files")) {
+          dragOverlay.classList.remove("hidden");
+        }
+      });
+      dragOverlay.addEventListener("dragleave", (e) => {
+        dragOverlay.classList.add("hidden");
+      });
+      window.addEventListener("dragover", (e) => {
+        e.preventDefault();
+      });
+      window.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dragOverlay.classList.add("hidden");
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          handleImageFile(e.dataTransfer.files[0]);
+        }
+      });
+
+      // AI Settings Modal
+      document.getElementById("btnAiSettings").addEventListener("click", () => {
+        document.getElementById("settingProvider").value = aiProvider;
+        document.getElementById("settingApiKey").value = aiApiKey;
+        document.getElementById("aiSettingsModal").classList.remove("hidden");
+      });
+      document.getElementById("btnCloseSettingsModal").addEventListener("click", () => {
+        document.getElementById("aiSettingsModal").classList.add("hidden");
+      });
+      document.getElementById("btnSaveSettings").addEventListener("click", () => {
+        aiProvider = document.getElementById("settingProvider").value;
+        aiApiKey = document.getElementById("settingApiKey").value.trim();
+        localStorage.setItem("lg_ai_provider", aiProvider);
+        localStorage.setItem("lg_ai_api_key", aiApiKey);
+        updateModelLabel();
+        document.getElementById("aiSettingsModal").classList.add("hidden");
+      });
+
+      // Code Modal Controls
+      document.getElementById("btnExportCode").addEventListener("click", () => {
+        document.getElementById("codeModal").classList.remove("hidden");
+      });
+      document.getElementById("btnCloseModal").addEventListener("click", () => {
+        document.getElementById("codeModal").classList.add("hidden");
+      });
+      document.getElementById("btnCopyFullPython").addEventListener("click", () => {
+        navigator.clipboard.writeText(currentPreset.pythonCode);
+        alert("Full LangGraph Python script copied to clipboard!");
+      });
+
+      // State Drawer Toggle
+      document.getElementById("btnToggleStatePanel").addEventListener("click", () => {
+        document.getElementById("stateDrawer").classList.toggle("hidden");
+      });
+      document.getElementById("btnCloseStateDrawer").addEventListener("click", () => {
+        document.getElementById("stateDrawer").classList.add("hidden");
+      });
+
+      // Prompt Generation
+      document.getElementById("btnGenerate").addEventListener("click", handleAIGenerate);
+      document.getElementById("promptInput").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") handleAIGenerate();
+      });
+    }
+
+    function zoom(factor) {
+      scale = Math.min(Math.max(0.4, scale * factor), 2.2);
+      zoomLevelIndicator.innerText = `${Math.round(scale * 100)}%`;
+      applyTransform();
+    }
+
+    function applyTransform() {
+      graphStage.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+      updateSvgTransform();
+    }
+
+    function centerGraph() {
+      panX = 40;
+      panY = 60;
+      scale = 0.85;
+      zoomLevelIndicator.innerText = `${Math.round(scale * 100)}%`;
+      applyTransform();
+    }
+
+    function usePromptChip(text) {
+      document.getElementById("promptInput").value = text;
+      handleAIGenerate();
+    }
+
+    // --- AI GENERATION ENGINE ---
+    async function handleAIGenerate() {
+      const input = document.getElementById("promptInput");
+      const userRequirement = input.value.trim();
+      if (!userRequirement && !attachedImageBase64) return;
+
+      const toast = document.getElementById("generatingToast");
+      const promptBarWrapper = document.getElementById("promptBarWrapper");
+      const btnText = document.getElementById("btnGenerateText");
+
+      toast.classList.remove("hidden");
+      promptBarWrapper.classList.add("loading-shimmer");
+      btnText.innerText = attachedImageBase64 ? "Recognizing..." : "Synthesizing...";
+
+      try {
+        let generatedGraph = null;
+        let finalPrompt = userRequirement;
+
+        // Vision / OCR processing if image attached
+        if (attachedImageBase64) {
+          if (aiProvider === "gemini" && aiApiKey) {
+            generatedGraph = await callGeminiVisionAPI(userRequirement || "Reconstruct this flowchart diagram into a clean LangGraph 0.2 workflow.", attachedImageBase64, attachedImageMime, aiApiKey);
+          } else {
+            const toastTitle = document.querySelector("#generatingToast span.text-white");
+            if (toastTitle) toastTitle.innerText = "OCR Scanning Diagram...";
+            const ocrResult = await Tesseract.recognize(attachedImageBase64, 'eng');
+            const recognizedText = ocrResult.data.text.trim();
+            if (toastTitle) toastTitle.innerText = "AI Architecting Topology...";
+
+            finalPrompt = `The user uploaded a flowchart/architecture image.
+The OCR text extracted from the diagram elements and arrows is:
+---
+${recognizedText || "(Handwritten or visual diagram; infer logical steps from structure)"}
+---
+User instruction/context: ${userRequirement || "Convert this visual diagram into a production LangGraph 0.2 workflow with clean nodes, conditional routers, and state schema."}`;
+          }
+        }
+
+        if (!generatedGraph) {
+          if (aiProvider === "groq") {
+            const res = await fetch("/api/generate", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ prompt: finalPrompt, apiKey: aiApiKey })
+            });
+            if (!res.ok) {
+              const err = await res.json().catch(() => ({}));
+              throw new Error(err.error || `Server status ${res.status}`);
+            }
+            generatedGraph = await res.json();
+          } else if (aiProvider === "gemini" && aiApiKey) {
+            generatedGraph = await callGeminiAPI(finalPrompt, aiApiKey);
+          } else if (aiProvider === "openai" && aiApiKey) {
+            generatedGraph = await callOpenAIAPI(finalPrompt, aiApiKey);
+          } else {
+            generatedGraph = await mockIntelligentSynthesizer(finalPrompt);
+          }
+        }
+
+        // Apply topological auto-layout
+        autoLayoutGraph(generatedGraph);
+        loadGraph(generatedGraph);
+        centerGraph();
+        input.value = "";
+        clearAttachedImage();
+      } catch (err) {
+        console.error("AI Generation error:", err);
+        alert(`Generation Error: ${err.message}\n(Falling back to intelligent synthesizer)`);
+        const fallback = await mockIntelligentSynthesizer(userRequirement || "Adaptive Workflow");
+        autoLayoutGraph(fallback);
+        loadGraph(fallback);
+        centerGraph();
+      } finally {
+        toast.classList.add("hidden");
+        promptBarWrapper.classList.remove("loading-shimmer");
+        btnText.innerText = "Generate";
+        const toastTitle = document.querySelector("#generatingToast span.text-white");
+        if (toastTitle) toastTitle.innerText = "AI Architecting Topology...";
+      }
+    }
+
+    async function callGeminiVisionAPI(prompt, base64Url, mimeType, apiKey) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+      const base64Data = base64Url.split(",")[1];
+      const systemInstruction = `You are an expert LangGraph 0.2 architect. Examine the image of the flowchart carefully. Reconstruct all nodes, decisions, branches, and connections into a clean LangGraph 0.2 JSON schema strictly without markdown fencing.`;
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{
+            parts: [
+              { text: `Analyze this flowchart diagram image and construct the matching LangGraph workflow: ${prompt}` },
+              { inlineData: { mimeType: mimeType || "image/png", data: base64Data } }
+            ]
+          }],
+          systemInstruction: { parts: [{ text: systemInstruction }] },
+          generationConfig: {
+            responseMimeType: "application/json",
+            temperature: 0.2
+          }
+        })
+      });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`Gemini Vision API error ${res.status}: ${errText}`);
+      }
+
+      const data = await res.json();
+      return JSON.parse(data.candidates[0].content.parts[0].text);
+    }
+
+    async function callGeminiAPI(prompt, apiKey) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+      const systemInstruction = `You are a world-class LangGraph 0.2+ system architect. Given the user requirement, output ONLY a valid JSON object matching the LangGraph schema strictly.`;
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: `Design an advanced LangGraph workflow for: "${prompt}". Output valid JSON strictly.` }] }],
+          systemInstruction: { parts: [{ text: systemInstruction }] },
+          generationConfig: {
+            responseMimeType: "application/json",
+            temperature: 0.2
+          }
+        })
+      });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`Gemini API returned ${res.status}: ${errText}`);
+      }
+
+      const data = await res.json();
+      return JSON.parse(data.candidates[0].content.parts[0].text);
+    }
+
+    async function callOpenAIAPI(prompt, apiKey) {
+      const url = `https://api.openai.com/v1/chat/completions`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: "gpt-4o",
+          response_format: { type: "json_object" },
+          messages: [
+            {
+              role: "system",
+              content: `You are an expert LangGraph 0.2 architect. Return a JSON object with title, stateName, stateSchema, nodes [{id, type, label, desc, color, icon, stateKeys, interrupt}], edges [{from, to, label, type}], and pythonCode.`
+            },
+            {
+              role: "user",
+              content: `Create a LangGraph workflow for: "${prompt}"`
+            }
+          ]
+        })
+      });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`OpenAI API returned ${res.status}: ${errText}`);
+      }
+
+      const data = await res.json();
+      return JSON.parse(data.choices[0].message.content);
+    }
+
+    async function mockIntelligentSynthesizer(query) {
+      await new Promise(r => setTimeout(r, 600));
+      return {
+        title: query,
+        stateName: "AdaptiveWorkflowState",
+        stateSchema: `class AdaptiveWorkflowState(TypedDict):
+    request: str
+    execution_trace: list[str]
+    is_validated: bool`,
+        nodes: [
+          { id: "start", type: "start", label: "START", desc: "User Trigger", color: "#10b981", icon: "play" },
+          { id: "intake_agent", type: "agent", label: "Intake & Parser", desc: "Deconstructs request payload", color: "#38bdf8", icon: "cpu", stateKeys: ["request"] },
+          { id: "eval_gate", type: "conditional", label: "Branching Gate", desc: "Evaluates condition thresholds", color: "#a855f7", icon: "split", condition: "def evaluate(state)" },
+          { id: "primary_worker", type: "agent", label: "Execution Engine", desc: "Performs primary pipeline logic", color: "#38bdf8", icon: "zap", stateKeys: ["execution_trace"] },
+          { id: "qa_escalation", type: "agent", label: "Human Verification", desc: "Quality sign-off breakpoint", color: "#f59e0b", icon: "shield-check", interrupt: "interrupt_before" },
+          { id: "end", type: "end", label: "END", desc: "Workflow Completed", color: "#f43f5e", icon: "flag" }
+        ],
+        edges: [
+          { from: "start", to: "intake_agent", label: "event", type: "fixed" },
+          { from: "intake_agent", to: "eval_gate", label: "parsed payload", type: "fixed" },
+          { from: "eval_gate", to: "primary_worker", label: "nominal path", type: "conditional" },
+          { from: "eval_gate", to: "qa_escalation", label: "requires review", type: "conditional" },
+          { from: "primary_worker", to: "end", label: "completed", type: "fixed" },
+          { from: "qa_escalation", to: "end", label: "approved", type: "fixed" }
+        ],
+        pythonCode: `# LangGraph 0.2+ workflow
+from langgraph.graph import StateGraph, START, END
+from langgraph.checkpoint.memory import MemorySaver
+
+class AdaptiveWorkflowState(TypedDict):
+    request: str
+    execution_trace: list[str]
+    is_validated: bool
+
+builder = StateGraph(AdaptiveWorkflowState)
+builder.add_node("intake", intake_agent)
+builder.add_node("primary_worker", primary_worker)
+builder.add_node("qa_escalation", qa_escalation)
+
+builder.add_edge(START, "intake")
+builder.add_conditional_edges("intake", lambda s: "primary_worker" if s.get("is_validated") else "qa_escalation")
+builder.add_edge("primary_worker", END)
+builder.add_edge("qa_escalation", END)
+
+app = builder.compile(checkpointer=MemorySaver(), interrupt_before=["qa_escalation"])`
+      };
+    }
+
+    // Interactive Simulation Runner
+    function startSimulation() {
+      if (isSimulating) return;
+      isSimulating = true;
+      simStepIndex = 0;
+      document.getElementById("simBanner").classList.remove("hidden");
+
+      const nodes = currentPreset.nodes;
+      const simSequence = nodes.map(n => n.id);
+
+      simInterval = setInterval(() => {
+        if (simStepIndex >= simSequence.length) {
+          stopSimulation();
+          return;
+        }
+
+        const currentNodeId = simSequence[simStepIndex];
+        selectNode(currentNodeId);
+        
+        document.querySelectorAll("path").forEach(p => p.classList.remove("simulating-edge"));
+        if (simStepIndex > 0) {
+          const prevNodeId = simSequence[simStepIndex - 1];
+          const edgeEl = document.getElementById(`edge-${prevNodeId}-${currentNodeId}`);
+          if (edgeEl) edgeEl.classList.add("simulating-edge");
+        }
+
+        document.getElementById("simStatusText").innerText = `Step ${simStepIndex + 1}/${simSequence.length}: Executing Node [${currentNodeId}]...`;
+        simStepIndex++;
+      }, 1200);
+    }
+
+    function stopSimulation() {
+      isSimulating = false;
+      clearInterval(simInterval);
+      document.getElementById("simBanner").classList.add("hidden");
+      document.querySelectorAll("path").forEach(p => p.classList.remove("simulating-edge"));
+    }
+
+    window.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>

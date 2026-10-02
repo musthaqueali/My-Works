@@ -1,0 +1,60 @@
+Required Documents
+Resources
+RTK TML Data Change Loadsheet
+RTK TML Move Loadsheet
+TML CAS Query Export
+Overview
+The TML Move and Rename loadsheet is for two purposes:
+The case where TMLs need to be renamed AND
+TMLs need to be moved from one TML Group to another.
+Previously, the “TML Move_Rename” loadsheet was thought to perform both these functions simultaneously, but two separate loadsheets are now needed in this order:
+RTK TML Data Change Loadsheet
+RTK TML Move Loadsheet
+The reason for this is the “Move” loadsheet cannot rename and move TMLs at the same time without causing an error.
+Procedure – TML Data Change
+This loadsheet includes two aspects, TM Data within the TM Module, and the CAS data also within the TM Module. It is important to note the CAS Data only needs to be updated when the following information in TM for any given TML is changed:
+TML ID
+TML Status
+Update TML Tab
+Pull the TML CAS Query and filter for the specified area/plant to reduce the size of the query.
+Gather the TMLs needing updates and lookup those ENTY KEYs.
+Place those ENTY KEYS in Column A, and add any additional data that needs updated in the proceeding columns. (i.e. Status, Code, TML ID, etc.)
+If either TML ID or TML Status fields are being updated, the final two tabs for CAS and Corr Analysis must also be updated.
+Update CAS Tab
+Lookup the CAS ENTY KEY for the same CML that had either the TML ID or TML Status updated. Place that ENTY KEY in column A.
+Column B must be formatted in the following manner:
+[TML ID] [NDE TYPE] [STATUS]: [NDE TYPE] Corr. Analy. Settings
+Example: RT2.009 RT Active: RT Corr. Analy. Settings
+Update Corr Analysis Tab
+Lookup the ANALYSIS ENTY KEY for the same CML that had either the TML ID or TML Status updated. Place that ENTY KEY in column A.
+Column B must be formatted in the following manner:
+[TML ID] [NDE TYPE] [STATUS] - Corrosion Analysis
+Example: RT2.009 RT Active - Corrosion Analysis
+Send the Loadsheet for QC and upload using the APM Family before moving on.
+Procedure – TML Move
+This loadsheet is only for the process of needing a TML moved from one TML Group to another. These TML Groups can even be within different assets/circuits, as long as they exist in the TM Module.
+Pull a new TML CAS Query and filter for the specified area/plant to reduce the size of the query.
+NOTE: It is imperative that the data in this TML Move spreadsheet matches exactly as it currently is in TM, otherwise the move will not work.
+In the TML Move loadsheet, fill out all the necessary information as it pertains to which TMLs need to be moved and to what TML Group. The necessary information includes:
+Destination (New) TML Group ID
+Destination (New) TML Group ENTY KEY
+Current TML ID
+Current TML ENTY KEY
+Current TML Status Indicator
+Begin by placing all the current TML IDs and ENTY KEYs in the designated columns.
+Lookup each TML’s Status by it’s ENTY KEY to ensure the correct status is populated as it is currently reflected in TM.
+NOTE: This field has to match TM. The Status cannot be changed in this loadsheet, but rather should have been changed in the “TML Data Change” loadsheet.
+Next, outline the destination TML Group where each desired TML shall be moved to, and populate the TML Group ENTY KEY as well as the TML Group ID.
+NOTE: This is not creating new TML Groups.
+NOTE: Leaving this field blank will send the TML to no TML Group, and will be unattached to any asset whatsoever. DO NOT leave the destination TML Group ID or ENTY KEY blank. If the TML is not being moved, it should not be on this list.
+For “FMLY_ID” field populate with: MI Thickness Measurement Location
+For “PRE_FMLY_ID” field populate with: MI_TMLGROUP
+Send the Loadsheet for QC and upload using the APM Family.
+[TABLE ROW] Document ID | Title
+RTK TML Move Rename Procedure | Prior Date
+[TABLE ROW] Revision
+1 | Prepared by
+Phillip Dupree | Date Prepared
+8/25/2023
+[TABLE ROW] Effective Date | Reviewed by | Date Reviewed
+[TABLE ROW] Approved by | Date Approved

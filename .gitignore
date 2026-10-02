@@ -36,9 +36,10 @@ scratch/
 *.log
 **/*.log
 
-# Database files
+# Database & Backup files
 *.sqlite3
 *.db-journal
+*.bak
 
 # OS generated files
 Thumbs.db
@@ -46,3 +47,8 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 .DS_Store
+
+# Large Course PDFs (>50MB)
+ML-100 DAYS/*.pdf
+ML-100 DAYS/**/*.pdf
+

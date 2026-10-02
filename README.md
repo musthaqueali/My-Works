@@ -17,6 +17,13 @@ Welcome to the central repository for **Musthaque Ali's** engineering tools, dat
 | **`PCML`** | Asset Integrity / AutoCAD | Process Circuit Monitoring Limits (PCML) automated extraction and CAD database integration. |
 | **`QRO`** | Reliability Engineering | Quantitative Reliability Optimization (QRO) methodology presentations and framework tools. |
 | **`Excali Project`** | Whiteboard & Teaching AI | Excalidraw Plus Studio with AI diagram generator, multi-slide scene manager, and PPTX export. |
+| **`Digiloker API`** | Government APIs & Identity | DigiLocker integration and document verification scripts. |
+| **`ML-100 DAYS`** | Machine Learning Curriculum | 100 Days of Machine Learning code, algorithms, and deep learning notebooks. |
+| **`RTK Loadsheet`** | Survey & Automation | Real-Time Kinematic (RTK) survey data parsing and automated loadsheet generation. |
+| **`Title Blocks`** | AutoCAD Automation | Automated CAD drawing border, layout, and title block extraction utilities. |
+| **`VBA`** | Excel & Office Automation | Custom Visual Basic for Applications (VBA) engineering macros and AI dashboards. |
+| **`workflow generator`** | Process Engineering | Dynamic pipeline and workflow definition generator. |
+| **`newton`** | Computational Modeling | Physics and computational modeling scripts. |
 | **`LeaveCalculator.html`** | Productivity Tool | Interactive, self-contained leave and attendance calculator widget. |
 
 ---

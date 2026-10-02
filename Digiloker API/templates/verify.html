@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Certificate - {{ doc.title }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800 font-sans flex flex-col justify-between">
+
+    <!-- Top Bar -->
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-20">
+        <div class="max-w-5xl mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <a href="/" class="text-slate-400 hover:text-slate-700 mr-1" title="Back to Dashboard">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <div class="bg-emerald-600 p-2 rounded-lg text-white">
+                    <i class="fa-solid fa-certificate"></i>
+                </div>
+                <div>
+                    <h1 class="text-sm font-bold text-slate-900 leading-tight">Verification Certificate</h1>
+                    <p class="text-xs text-slate-500">Document ID: <span class="font-mono">{{ doc.id }}</span></p>
+                </div>
+            </div>
+            <div>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                    <i class="fa-solid fa-circle-check mr-1.5 text-emerald-600"></i> Verified & Signed
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Certificate Details -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 w-full flex-grow space-y-6">
+
+        <!-- Top Certificate Card -->
+        <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm bg-gradient-to-r from-emerald-50/50 via-white to-white">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div class="flex items-start space-x-4">
+                    <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-700 text-2xl flex-shrink-0">
+                        <i class="fa-solid fa-shield-check"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">{{ doc.title }}</h2>
+                        <p class="text-xs text-slate-500 mt-1">This document has been electronically signed and verified under the IT Act (2000).</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 pt-4 border-t border-slate-100 text-xs">
+                            <div>
+                                <span class="text-slate-400 block">Signer</span>
+                                <span class="font-bold text-slate-800">{{ doc.recipient_name }}</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block">Signed At</span>
+                                <span class="font-bold text-slate-800">{{ doc.signed_at or 'Verified' }}</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block">Verification Method</span>
+                                <span class="font-bold text-indigo-700">{{ doc.method or 'DigiLocker / Aadhaar eSign' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-row md:flex-col gap-2 w-full md:w-auto">
+                    <a href="/download/{{ doc.id }}" class="flex-1 md:flex-none px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md transition duration-150 flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-file-arrow-down"></i>
+                        <span>Download Signed PDF</span>
+                    </a>
+                    <a href="/" class="flex-1 md:flex-none px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition duration-150 flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-table-columns"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Embedded Signed PDF Viewer -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col h-[700px]">
+            <div class="bg-slate-50 px-4 py-2.5 border-b border-slate-200 flex justify-between items-center">
+                <span class="text-xs font-bold text-slate-600 flex items-center space-x-1.5">
+                    <i class="fa-solid fa-stamp text-emerald-600"></i>
+                    <span>Signed Document Preview (with Stamped Digital Seal)</span>
+                </span>
+                <span class="text-xs text-slate-400 font-mono">Status: Cryptographically Sealed</span>
+            </div>
+            <div class="flex-grow bg-slate-200 relative">
+                <iframe src="data:application/pdf;base64,{{ pdf_base64 }}" class="w-full h-full border-none"></iframe>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-3 text-center text-xs text-slate-400">
+        DigiLocker & Setu eSign Integration &bull; Powered by FastAPI & ReportLab
+    </footer>
+
+</body>
+</html>

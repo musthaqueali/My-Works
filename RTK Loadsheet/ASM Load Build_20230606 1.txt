@@ -1,0 +1,244 @@
+Purpose
+The purpose of this procedure is to provide the guidelines for creating the APM Connect Data Loader that will be used to import the Asset Strategy Data to the ASM module. This data will be implemented to Asset Strategy Implementation and then packaged before sending to SAP.
+Objective
+This procedure instructs on the proper steps for aggregating the required fields needed to populate the Strategies, Action, Risks, and Mitigations of the template.
+Resources and Responsibilities
+Definitions
+1.0 Data Gathering
+Prerequisite documents
+Gather the following documentation prior to beginning work on the SAP load sheets.
+Master Asset List (Fixed Equipment)
+Not applicable for LP Work
+Validated Equipment & Piping List (DMR Workbook) – if applicable
+Not applicable for LP Work
+APM Functional Location & Equipment Export – FL_EQ Query
+Batched Circuitized P&IDs – per area
+Inspection Planning workbook – per area
+2.0 Populate Strategies
+Strategies is the first worksheet that will be created as part of the ASM Loader. This tab will create Strategies records within ASM. The strategies identified and created in this tab will be referenced in each subsequent tab.
+Begin filling in the tab by column, using the resources available and the techniques/processes suggested below.
+3.0 Populate Actions
+4.0 Populate Risks
+5.0 Populate Mitigations
+Revision History:
+[TABLE ROW] Title
+ASM Build | Revision
+1.0
+[TABLE ROW] Prepared by
+Ivan Santillan | Approved by
+[TABLE ROW] Completed by
+Unit Owner | Date Last Approved
+[TABLE ROW] Role | Responsibility
+[TABLE ROW] PL / TS | Task assignment to Task Owner; task closure at completion; delivery to Rio Tinto SAP Controller
+[TABLE ROW] AIA (Task Owner) | Completion of SAP Load Sheet, self-QC and QMP Companions, communication & submittal for QC, communication on estimated time remaining, updating any relevant documents (trackers).
+[TABLE ROW] Quality Resource, AIA or TS | Completion of gate check QC, provide feedback of errors and methods of improvement, communication with Task Owner/Team lead on QC results
+[TABLE ROW] SAP Business Architect (RTC) | Loading the completed SAP Load Sheet for Functional Locations and Equipment and communication of success/error log.
+[TABLE ROW] Term | Definition
+[TABLE ROW] Functional Location | Organizational unit within the business hierarchy that structures the maintenance objects according to functional, process-related, or spatial criteria. The Functional Location represents the physical place at which a maintenance task is to be performed.
+[TABLE ROW] Equipment | An individual object in the system that is maintained independently. Equipment can be stored at different Functional Locations. For the purposes of this project, each fixed asset (Tank, Pressure Vessel, Piping Circuit, PSV) will have its own Equipment record.
+[TABLE ROW] Strategy | A defined plan for an asset or system that identifies both the Risks (failure modes) and Actions (physical actions) to manage or mitigate the Risks.
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Input - this value needs to be carried through to Column A of every tab in this document. Use the naming conventions: 
+RTKC [Functional Location] Asset Strategy.
+RTKC 4005SM513HX046 Asset Strategy
+For circuit strategy IDs, include the circuit ID:
+RTKC [Functional Location] [Circuit ID] Asset Strategy
+RTKC 4002CP3330TK021   .PIPE 3330-004-260 Asset Strategy
+[TABLE ROW] Asset ID | Mandatory | Character (255) | The Asset ID that is used in the strategy. Look this up in the FL EQ query.
+
+The Asset ID is the Equipment ID field in the FL EQ Query. Include the 11 leading zeros in the number. 
+NOTE: Please ensure the EQ ID is not deactivated, as this will result in an error when loading. Check this field in the “System Status” field in the FL EQ export. “INST” is active, and “CLSD” or “INAC” or “DTLD” is inactivated.
+[TABLE ROW] Asset Family ID | Mandatory | Character (15) | The asset family - equipment or functional location. 
+
+Default this to MI_EQUIP000.
+[TABLE ROW] Asset ID Field | Mandatory | Character (255) | Where to look for the asset ID (either equipment technical number or functional location). 
+
+Default this to MI_EQUIP000_EQUIP_ID_C.
+[TABLE ROW] CMMS ID | Mandatory | Character (255) | Default this to MI_EQUIP000_SAP_SYSTEM_C.
+[TABLE ROW] CMMS Value | Mandatory | Character (255) | Default this to ECP-500.
+[TABLE ROW] Strategy Owner | Mandatory | Text | LEAVE BLANK
+[TABLE ROW] Strategy Notes | Optional | Text | LEAVE BLANK
+[TABLE ROW] Risk Analysis Type | Optional | Character (255) | Default to “Qualitative”
+[TABLE ROW] Quantitative Result | Optional | Text | LEAVE BLANK
+[TABLE ROW] Plan Length | Optional | Numeric | Default to 10
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Replica of Strategy ID from Strategies tab
+[TABLE ROW] Action ID | Mandatory | Character (255) | Own input - there must be a unique value for each action pertaining to a strategy. For each Asset, each Action ID will correlate to the Task Type in the Inspection Planning workbook. For example, if an asset has Inspection Task Types of Internal Visual and External Visual, the Asset will have Actions of ACTION-001 and ACTION-002, respectively.
+[TABLE ROW] Name | Business Mandatory | Character (255) | Task Type (e.g. Internal Visual) from the Inspection Planning workbook. 
+
+If there is multiple Damage Mechanisms (risks) associated with the asset, outputting multiple of the same task types in the inspection plan, only include 1 task type (action) in the ASM loadsheet. 
+
+There should only be a single UT action, internal action, and external action (as applicable) per asset regardless of number of Damage Mechanisms or components.
+
+For Run to failure strategies: RTF - No Proactive Inspection
+[TABLE ROW] Description | Optional | Text | For each Inspection Task Type Concatenate the following from the Inspection Plan Template: 
+
+Inspection Plan
+Likely Area
+CML Narrative
+Qualifications
+Subsequent Frequency
+
+If any of those columns do not have data in them per the inspection plan template, do not concatenate them into the formula. 
+
+Formula for all columns with applicable: 
+= “Inspection Plan: ” & [CELL REF] & CHAR(10) & CHAR(10) & “Likely Area: ” & [CELL REF] & CHAR(10) & CHAR(10) & “CML Narrative: ” & [CELL REF] & CHAR(10) & CHAR(10) & “Qualifications: ” & [CELL REF] & CHAR(10) & CHAR(10) & “Interval: Initial Frequency ”&[CELL REF] & “; Subsequent Frequency ” & [CELL REF]
+
+Example: 
+
+Inspection Plan: External Visual Inspection per NBIC Standard guidance of likely locations
+
+Likely Area: Vessels with operating temperatures sufficiently low to allow moisture to be present.
+Vessels with paint or coating in poor condition.
+Vessels cycled between ambient and higher or lower operating temperatures.
+Tanks are particularly susceptible.
+Orientation to the prevailing wind and rain.
+Flange hardware
+
+Qualifications: Will be performed by qualified personnel such as a certified 510 inspector or designated examiner
+
+Interval: Subsequent Interval 48 months.
+
+Note, how CML Narrartive was note included as External Visuals do not need a CML Narrative in the inspection plan template per that procedure.
+
+For each statutory Inspection Task Type, concatenate the following from the Inspection Planning workbook: 
+
+Long Text
+Frequency
+
+Formula: 
+= [LONG TEXT CELL REF] & CHAR(10) & CHAR(10) & “Interval:” & ([CELL REF] * 12) & “ months”
+
+Example:
+
+Contact State Inspector to Schedule Statutory inspection. Conduct the recertification inspection before current COI expires
+
+Interval: 24 months
+
+For each Run to Failure strategy: Run To Failure strategy selected. No proactive inspections planned. Assess for temporary repair or replacement through operator surveillance. Review strategy every 10 years or when equipment is replaced.
+
+For each NDE strategy: 
+Execute [UT/RT] thickness readings at designated CML locations, reference attached drawings.
+
+[List of RTK ISO drawing numbers if available]
+[ISO dwg 1: i.e. 500-66-055]
+[ISO dwg 2: i.e. 500-66-056]
+[ISO dwg 3: i.e. 500-66-057]
+
+QUALIFICATIONS: Will be performed by qualified personnel experienced/certified per ASNT.
+
+SUBSEQUENT FREQUENCY: [Interval: i.e 120 Months]
+[TABLE ROW] Basis | Optional | Character (255) | For baseline API and statutory strategies: 2020 Asset Strategy Development
+
+For Run to Failure Strategies: 2023 Inspection Management Assessment
+[TABLE ROW] Type | Optional | Character (255) | For baseline API and statutory strategies: PM
+
+For Run to Failure strategies: None
+[TABLE ROW] Condition Monitoring Type | Optional | Character (50) | For baseline API and statutory strategies: Periodic
+
+For Run to Failure strategies: leave blank
+[TABLE ROW] Interval | Optional | Numeric | Interval Frequency from Inspection Planning workbook. Be sure this is the subsequent interval frequency.
+
+For Run to Failure strategies: leave blank
+[TABLE ROW] Interval Unit | Optional | Character (50) | For baseline API and statutory strategies: Months
+
+For Run to Failure strategies: leave blank
+[TABLE ROW] Recommended Resource | Optional | Character (255) | Default to INSP
+[TABLE ROW] Resource Cost | Optional | Numeric | LEAVE BLANK
+[TABLE ROW] Shutdown Required | Optional | Boolean | Populate TRUE / FALSE based on Inspection Planning workbook.
+
+For Run to Failure strategies: FALSE
+[TABLE ROW] Statutory | Optional | Boolean | Populate TRUE / FALSE based on Inspection Planning workbook.
+
+For Run to Failure strategies: FALSE
+[TABLE ROW] Target Completion Date | Date | If there is inspection history on the asset, it’s the last inspection date plus interval. 
+
+If it’s doesn’t have inspection history, it will be a date discussed with the client. Suggestion is 1 year from go-live date; this value should be determined in the insp plan develop/review.
+
+For Run to Failure strategies: leave blank
+[TABLE ROW] Process Safety | Boolean
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Replica of Strategy ID from Strategies tab
+[TABLE ROW] Risk ID | Mandatory | Character (255) | Own input - there must be a unique value for each action pertaining to a strategy. For each Asset, each Action ID will correlate to the Task Type in the Inspection Planning workbook. For example, if an asset has Inspection Task Types of Internal Visual and External Visual, the Asset will have Actions of RISK-001 and RISK-002, respectively. 
+
+Risks should never be duplicated (e.g., RISK-001 and RISK-002 being both erosion corrosion). 
+
+Multiple actions may link to the same risk record (e.g., internal visual and NDE actions can both link to one erosion corrosion RISK-001 record)
+[TABLE ROW] Name | Business Mandatory | Character (515) | Insert the damage mechanism from the Inspection Planning workbook (e.g. Sulfuric Acid Corrosion) 
+
+For Run to Failure (RTF) strategies, fill out the risk name as “Mechanical Integrity Failure”
+[TABLE ROW] (CC_CASH_FLOW) Consequence | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_CASH_FLOW) Probability | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_ENVIRONMENT) consequence | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_ENVIRONMENT) Probability | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_OPERATIONAL_IMPACTS) Consequence | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_OPERATIONAL_IMPACTS) Probability | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_PARTNERSHIPS) Consequence | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_PARTNERSHIPS) Probability | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_SAFETY_HEALTH) Consequence | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_SAFETY_HEALTH) Probability | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_FINANCIAL_NETMARGIN) Consequence | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_FINANCIAL_NETMARGIN) Maintenance Cost | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_FINANCIAL_NETMARGIN) Probability | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_FINANCIAL_NETMARGIN) Production Loss | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] Basis for Assessment | Optional | Text | For baseline API and statutory strategies: 2020 Asset Strategy Development
+
+For Run to Failure Strategies: 2023 Inspection Management Assessment
+[TABLE ROW] Condition | Optional | Character (50) | LEAVE BLANK
+[TABLE ROW] Description | Optional | Text | Concatenate the following: 
+
+Damage Mechanisms
+Damage Mode
+Justification (if available) 
+General Material
+Operating Conditions (if available) - Temperature
+Critical Corrosion Parameters (if available)
+
+Leave appropriate spacing and insert lines between sections. 
+
+Formula: 
+= “Damage Mechanism: ” & [CELL REF] & CHAR(10) & CHAR(10) & “Damage Mode: ” & [CELL REF] & CHAR(10) & CHAR(10) & “General Material: ” & [CELL REF] & CHAR(10) & CHAR(10) & “Operation Temperature:” & [CELL REF] 
+
+For Run to Failure Strategies: Any failure due to process damage to primary containment of the fixed asset
+[TABLE ROW] Driving Unmitigated Risk Alias | Optional | Character (50) | LEAVE BLANK
+[TABLE ROW] Estimated Repair Time | Optional | Numeric | LEAVE BLANK
+[TABLE ROW] Failure Cause | Optional | Character (50) | LEAVE BLANK
+[TABLE ROW] Failure Mode | Optional | Character (255) | LEAVE BLANK
+[TABLE ROW] Failure Without Replacement | Optional | Boolean | LEAVE BLANK
+[TABLE ROW] Is Active | Optional | Boolean | LEAVE BLANK
+[TABLE ROW] Is Latent | Optional | Boolean | LEAVE BLANK
+[TABLE ROW] Last Failure | Optional | Date | LEAVE BLANK
+[TABLE ROW] Maintainable Item | Optional | Character (50) | LEAVE BLANK
+[TABLE ROW] Number of Subcomponents | Optional | Numeric | LEAVE BLANK
+[TABLE ROW] Percentage of PF Interval to Wait | Optional | Numeric | LEAVE BLANK
+[TABLE ROW] PF Interval | Optional | Numeric | LEAVE BLANK
+[TABLE ROW] PF Interval Units | Optional | Character (50) | LEAVE BLANK
+[TABLE ROW] Planned Correction Cost | Optional | Numeric | LEAVE BLANK
+[TABLE ROW] Planned Correction Duration | Optional | Numeric | LEAVE BLANK
+[TABLE ROW] Repair Immediately | Optional | Boolean | LEAVE BLANK
+[TABLE ROW] Risk Basis | Optional | Character (255) | LEAVE BLANK
+[TABLE ROW] Unmitigated Risk Alias | Optional | Character (50) | LEAVE BLANK
+[TABLE ROW] Wear Pattern | Optional | Character (50) | LEAVE BLANK
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Repeat from Strategies tab.
+[TABLE ROW] Risk ID | Mandatory | Character (255) | Correlate each Risk from the Risk tab with the corresponding Action from the Action tab. This must be done for each Strategy ID.
+[TABLE ROW] Action ID | Mandatory | Character (255) | Correlate each Risk from the Risk tab with the corresponding Action from the Action tab. This must be done for each Strategy ID.
+[TABLE ROW] (CC_CASH_FLOW) Consequence | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_CASH_FLOW) Probability | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_ENVIRONMENT) consequence | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_ENVIRONMENT) Probability | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_OPERATIONAL_IMPACTS) Consequence | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_OPERATIONAL_IMPACTS) Probability | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_PARTNERSHIPS) Consequence | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_PARTNERSHIPS) Probability | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_SAFETY_HEALTH) Consequence | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_SAFETY_HEALTH) Probability | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_FINANCIAL_NETMARGIN) Consequence | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_FINANCIAL_NETMARGIN) Maintenance Cost | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_FINANCIAL_NETMARGIN) Probability | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] (CC_FINANCIAL_NETMARGIN) Production Loss | Business Mandatory | Numeric | LEAVE BLANK
+[TABLE ROW] Basis for Assessment | Optional | Text | LEAVE BLANK
+[TABLE ROW] Rev. # | Date | Description of Changes | Made By
+[TABLE ROW] 0 | 08/20/20 | Initial Release | Ivan Santillan
+[TABLE ROW] 1 | 10/12/22 | Miscellaneous verbiage updates | Stew Pinckard
+[TABLE ROW] 2 | 06/06/23 | Updated RTF verbiage in the actions/risk tab | Michael Ong

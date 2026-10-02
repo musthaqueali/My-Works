@@ -1,0 +1,1288 @@
+Required Documents
+Resources
+RTK ASI Family Template
+RTK ASI Loadsheet Template
+RTK Date Aid Tool
+RTK Loading Aid Tool
+RTK PSV Operations Template
+RTK Amplify Loading Tool (GE APM Asset Strategy Packager V12)
+ASM Query Export
+ASI Query Export
+FL_EQ Export
+APM Query SQLs
+ASM Query Export
+ASI Query Export
+Quick Reference
+NDE Tactic Loadsheet Creation
+External Tactic Loadsheet Creation
+Internal Tactic Loadsheet Creation
+PSV Tactic Loadsheet Creation
+Loading ASI Loadsheet
+Overview
+ASI loading requires tactics to be up to date in the ASM (Asset Strategy Management) module. Tactics will be linked from the ASM Strategy to create ASI Packages and SAP Maintenance Plans within those ASI Packages. This procedure will outline how to build the ASI Loadsheets for four tactics, NDE, External Visual, Internal Visual, and PSV Tactics.
+The loading step is the same regardless of the contents of the ASI Loadsheet, and uses a tool created by Amplify. This tool is provided in the resource folder and must be run on an RTK laptop or remote desktop connection to the RTK network.
+The ASI Family loadsheet is a comprehensive way to edit fields within ASI in mass. This is most used directly after using the Amplify Loading Tool to populate missing fields.
+Multiple resources are referenced in this procedure, which are expanded upon at the end of this procedure and are resource folder.
+ASI Packages are linked to ASM Strategies, and within the ASI Packages are SAP Maintenance Plans that corelate to each action in ASM. The hierarchy of these Maintenance Plans are shown below, and this information is what is populated in the “Package Strategies” Tab.
+In addition, the Maintenance Plan hierarchy remains the same when implemented into SAP.
+Gather ASM Export
+Before the ASI loadsheet can be built, the ASM Export must be pulled to gather the most up to date information from ASM, in order for the ASM Strategies to be promoted to ASI. 
+Note: This requires the ASM portion of tactic building to be completed. Please refer to the ASM procedure.
+An ASM export lives in this file location, but if that needs to be updated, pull a new export from APM.
+To begin pulling the ASM Export:
+Navigate to APM.
+Navigate to Tools > Queries on the side bar.
+Click on “Create New” To create a new query from an SQL.
+Exit out of the popup screen that appears, hit “Cancel”.
+Navigate to the “SQL” tab.
+Open the SQL .txt file for the ASM Query.
+Copy the text onto the clipboard.
+Paste the text onto the empty SQL Screen.
+Click on the “Results” Tab that just appeared.
+Save the file to Excel by clicking the ellipsis> “Export to file”
+Name and save the file.
+Finding and Deleting Existing RTK MP
+Before loading shall begin, it is important to check in advance what existing RTK Maintenance Plans (MP) exist in SAP. If there is an existing Maintenance Plan (MP) in SAP, and a new strategy is required to replace the existing one, the old strategy should be deleted to avoid duplicate inspections on the same equipment.
+To check MP currently in SAP
+Open SAP and enter transaction code, IP18 – Display Maintenance Item, and click the check.
+Next to the row labelled “Functional Location”, place Functional Location that you want to search and click the check.
+From here, the flocs will pull up a list of MP associated to that floc
+Building ASI Loadsheet: NDE
+NDE tasks on Equipment and Piping mainly consist of an RT and a UT tactic. Ultrasonic Thickness (UT) readings are typically performed by Technicians, whereas Radiographic Thickness (RT) readings are performed and coordinated via a third-party. It is essential for these and every strategy that the date the inspection will be performed is known, that way once loading is complete, the work order will be properly assigned that date, and the next interval will be reflective of when the inspection actually got completed.
+To begin building the ASI Loadsheet:
+Gather the ASM Export.
+Identify what assets need ASI tactics and identify the Asset Strategies in ASM.
+Fill out the Strategy Activation Tab
+Strategy Activation Tab
+Strategy ID
+This is the name of the ASM Strategy, which should be 1 to 1 match for the ASI Package name. Use the ASM and ASI Query pulls to confirm this.
+ASM: Strategy
+ASI: Package
+Once names are confirmed, copy the names here for all applicable circuits.
+This tab will pull up the name in ASM and make sure it is activated.
+This tab will also be identical to the last tab in this loadsheet, “Implement Packages”
+Fill out the Package Strategies Tab
+Package Strategies Tab
+This is the main bulk of information for ASI. Each line item corresponds to one unique operation, where the Maintenance Plan (MP), Maintenance Item (MI), and Task List (TL) information can repeat. For example, an Action with multiple operations will have the same info for MP, MI, and TL, wherein the operations will be different.
+The structural hierarchy of how this information is stored in ASI/SAP is shown below.
+To fill out the loadsheet, broken down into five parts:
+Strategy Information Section (Actions)
+MI_MAINTPLN Section (MP)
+MI_MAINTITM Section (MI)
+MI_TASKLIST Section (TL)
+MI_OPERTION Section (Operations)
+Notice how the above sections are in order of the ASI hierarchy.
+Every main NDE operation needs a PRT attached. To determine which PRT to attach, reference the “PRT List” tab of the RTK Loading Aid Tool.
+More information about the RTK Loading Aid Tool is in the Resources section at the end of this procedure.
+For NDE, filter by Asset Type, Plant, and Area to get the PRT information to load.
+Fill out the Operation PRTs Tab
+Every main NDE operation needs a PRT attached. To determine which PRT to attach, reference the “PRT List” tab of the RTK Loading Aid Tool.
+More information about the RTK Loading Aid Tool is located in the Resources section at the end of this procedure.
+For NDE, filter by Asset Type, Plant, and Area to get the PRT information to load.
+Fill out the Operation PRTs Tab
+Operation PRT Tab
+This is a supplemental section of the load sheet that is used to create and attach PRT element to a desired operation on the load sheet. The desired operation is usually the main operation, in this case for NDE, the [UT/RT] NDE INSP [Asset ID].
+7. Fill out the Operation Materials Tab
+Operation Materials Tab
+This is an optional section for any materials that need to be ordered to perform the task.
+Fill out the Implement Packages Tab
+Implement Packages Tab
+Should be the same as the “Strategy Activation” Tab.
+Once the load sheet is complete, go through the Self QC Checklist located on this procedure, then submit for QC.
+Building ASI Loadsheet: EXT
+External tasks on Equipment and Piping consist of an External Visual being performed by a qualified API inspector. It is essential for these and every strategy that the date the inspection will be performed is known, that way once loading is complete, the work order will be properly assigned that date, and the next interval will be reflective of when the inspection actually got completed.
+To begin building the ASI Loadsheet:
+Gather the ASM Export.
+Identify what assets need ASI tactics and identify the Asset Strategies in ASM.
+Fill out the Strategy Activation Tab
+Strategy Activation Tab
+Fill out the Package Strategies Tab
+Package Strategies Tab
+This is the main bulk of information for ASI. Each line item corresponds to one unique operation, where the Maintenance Plan (MP), Maintenance Item (MI), and Task List (TL) information can repeat. For example, an Action with multiple operations will have the same info for MP, MI, and TL, wherein the operations will be different.
+The structural hierarchy of how this information is stored in ASI/SAP is shown below.
+To fill out the loadsheet, broken down into five parts:
+Strategy Information Section (Actions)
+MI_MAINTPLN Section (MP)
+MI_MAINTITM Section (MI)
+MI_TASKLIST Section (TL)
+MI_OPERTION Section (Operations)
+Notice how the above sections are in order of the ASI hierarchy.
+Every main EXT operation needs a PRT attached. To determine which PRT to attach, reference the “PRT List” tab of the RTK Loading Aid Tool.
+More information about the RTK Loading Aid Tool is located in the Resources section at the end of this procedure.
+6.    For NDE, filter by Asset Type, Plant, and Area to get the PRT information to load.
+7.    Fill out the Operation PRTs Tab
+Operation PRT Tab
+This is a supplemental section of the load sheet that is used to create and attach PRT element to a desired operation on the load sheet. The desired operation is usually the main operation, in this case for Externals, the EXT VIS INSP [Asset ID].
+8. Fill out the Operation Materials Tab
+Operation Materials Tab
+This is an optional section for any materials that need to be ordered to perform the task.
+Fill out the Implement Packages Tab
+Implement Packages Tab
+Should be exactly the same as the “Strategy Activation” Tab.
+Once the loadsheet is complete, go through the Self QC Checklist located on this procedure, then submit for QC.
+Drone Inspections
+In the event a revision to an existing Maintenance Plan is needed due to drone inspection required, please update the maintenance plan with the following information relating to an external drone inspection.
+Add in additional operation in ASI for drone inspection under the External Visual MP. This will most likely be operation 0020.
+Title: External Drone Inspection
+Description: Schedule drone inspection with Kennecott ROV team for external drone inspection of asset.
+Work Center/Plant: AIPDMX/4009
+MI_OPERTION|MI_OPERTION_PLANT_C
+Condition: 3
+Operation Hours: 2
+Resource: 1
+Save and re-implement the ASI package with the new operation, to send it to SAP.
+Check SAP to ensure the operation went through.
+Now, on the next call date, the next work order will call with the newly added operation to ensure the drone inspection gets scheduled.
+Building ASI Loadsheet: INT
+Internals for equipment tend to require the most operations out of any tactic. Often the operations are unique to each specific equipment internal, which will require consulting with both the client and API inspectors. 
+An example list of operations for a typical internal is as follows:
+These additional operations vary per equipment. There is no set list of operations per Internal. The only operation that exists for every Internal is the main INT VIS operation. Please consult with client and inspector on each equipment to build out operations and hours as needed.
+To begin building the ASI Loadsheet:
+Gather the ASM Export.
+Identify what assets need ASI tactics and identify the Asset Strategies in ASM.
+Fill out the Strategy Activation Tab
+Strategy Activation Tab
+Fill out the Package Strategies Tab
+Package Strategies Tab
+This is the main bulk of information for ASI. Each line item corresponds to one unique operation, where the Maintenance Plan (MP), Maintenance Item (MI), and Task List (TL) information can repeat. For example, an Action with multiple operations will have the same info for MP, MI, and TL, wherein the operations will be different.
+The structural hierarchy of how this information is stored in ASI/SAP is shown below.
+To fill out the load sheet, broken down into five parts:
+Strategy Information Section (Actions)
+MI_MAINTPLN Section (MP)
+MI_MAINTITM Section (MI)
+MI_TASKLIST Section (TL)
+MI_OPERTION Section (Operations)
+Notice how the above sections are in order of the ASI hierarchy.
+Every main INT VIS operation needs a PRT attached. To determine which PRT to attach, reference the “PRT List” tab of the RTK Loading Aid Tool.
+More information about the RTK Loading Aid Tool is in the Resources section at the end of this procedure.
+For Internal Visual, filter by Asset Type, Plant, and Area to get the PRT information to load.
+Fill out the Operation PRTs Tab
+Operation PRT Tab
+This is a supplemental section of the load sheet that is used to create and attach PRT element to a desired operation on the load sheet. The desired operation is usually the main operation, in this case for Internals, the INT VIS INSP [Asset ID].
+Fill out the Operation Materials Tab
+Operation Materials Tab
+This is an optional section for any materials that need to be ordered to perform the task.
+Fill out the Implement Packages Tab
+Implement Packages Tab
+Should be exactly the same as the “Strategy Activation” Tab.
+Once the loadsheet is complete, go through the Self QC Checklist located on this procedure, then submit for QC.
+Building ASI Loadsheet: PSV
+PSV loading depends on the specific PSV type being inspected. Contact your PL or TS on how to determine the specific loading needs for any given PSV. There are five different PSV Inspection types that may be used, each with a very specific set of operations that is outlined in the RTK PSV Operations Template excel file in resource folder.
+PSV Operations Template
+The five main PSV inspection types are as follows:
+As shown above, only the Lift Lever Test and the Replace Task have specific Statutory and Non-Statutory requirements respectively. The other three tests can occur on PSVs that are either Statutory or not. The PSV Operations Template outlines each of the operations needed for these five inspection types. These will be briefly outlined here as well:
+Set Pressure Test
+Online Set Point
+Replace Task w/ Bench Ops
+Lift Lever Test with Replace PSV
+Replace Task
+To begin building the ASI Loadsheet:
+Gather the ASM Export.
+Identify what assets need ASI tactics and identify the Asset Strategies in ASM.
+Fill out the Strategy Activation Tab
+Strategy Activation Tab
+Strategy ID
+This is the name of the ASM Strategy, which should be 1 to 1 match for the ASI Package name. Use the ASM and ASI Query pulls to confirm this.
+ASM: Strategy
+ASI: Package
+Once names are confirmed, copy the names here for all applicable circuits.
+This tab will pull up the name in ASM and make sure it is activated.
+This tab will also be identical to the last tab in this loadsheet, “Implement Packages”
+Fill out the Package Strategies Tab
+Package Strategies Tab
+This is the main bulk of information for ASI. Each line item corresponds to one unique operation, where the Maintenance Plan (MP), Maintenance Item (MI), and Task List (TL) information can repeat. For example, an Action with multiple operations will have the same info for MP, MI, and TL, wherein the operations will be different.
+The structural hierarchy of how this information is stored in ASI/SAP is shown below.
+To fill out the loadsheet, broken down into five parts:
+Strategy Information Section (Actions)
+MI_MAINTPLN Section (MP)
+MI_MAINTITM Section (MI)
+MI_TASKLIST Section (TL)
+MI_OPERTION Section (Operations)
+Notice how the above sections are in order of the ASI hierarchy.
+Every main PSV operation needs a PRT attached. To determine which PRT to attach, reference the “PSV PRT List” tab of the RTK Loading Aid Tool.
+More information about the RTK Loading Aid Tool is located in the Resources section at the end of this procedure.
+For PSVs, filter by Inspection Type, Plant, and Area to get the PRT information to load.
+Fill out the Operation PRTs Tab
+Operation PRT Tab
+This is a supplemental section of the load sheet that is used to create and attach PRT element to a desired operation on the load sheet. The desired operation is usually the main operation, in this case for Internals, the INT VIS INSP [Asset ID].
+Fill out the Operation Materials Tab
+Operation Materials Tab
+This is an optional section for any materials that need to be ordered to perform the task.
+Fill out the Implement Packages Tab
+Implement Packages Tab
+Should be exactly the same as the “Strategy Activation” Tab.
+Once the loadsheet is complete, go through the Self QC Checklist located on this procedure, then submit for QC.
+Loading ASI Loadsheet
+This is the loadsheet we will use for the ASM to ASI portion of this load. This will pull data from ASM and send it to packages in ASI. These packages will need operations, which is the driving force behind our inspections. In addition, this load should utilize the Amplify Tool v10 to load from an authorized user account.
+Amplify Tool v12
+Once the ASI loadsheet is created, it can be loaded into ASI using the amplify tool. Open the .exe file.
+Fill in APM Server and populate with: mdnlb.corp.riotinto.org
+Click “Get Datasources” and click the dropdown under Data Source for “PRODUCTION:
+Fill in the user’s full Rio Tinto email and password.
+Browse to open the ASI loadsheet. Once loaded click Execute.
+Three options will be presented. It is best practice to do these one at a time, fixing any errors in between.
+After each load, a dialogue box will pop up to save a log in the form of an excel file. Save to open these logs and look for any errors in the load before moving onto the next checkmark.
+Strategy Activation Step
+This step relates to only the first tab in the ASI loadsheet and makes sure all the strategies listed are marked as “Active” in ASM. If not, the tool will set those strategies to “Active”.
+Usually not many errors occur during this step but be sure to look at the log sheet to confirm.
+Strategy Packaging Step
+This step relates to the middle three tabs in the ASI loadsheet and is the bulk of information being populated for the ASI package.
+Common errors include:
+Invalid values for MP/MI/TL/Operations
+Creating operation failed
+Using ASI Family
+An ASI Family load may be needed after using the Amplify tool to load the ASI loadsheet. This ASI Family
+To start populating the ASI Family loader:
+Open the ASI Family template and the ASI Query Export.
+Locate the Maintenance Plan ENTY_KEY from the ASI Query Export, for the Maintenance Plans that are missing the above values.
+Copy the ENTY_KEYS into the ASI Family spreadsheet under “ENTY_KEY”
+Populate Call Horizon as noted in the Call Horizon step in the ASI Loadsheet section above. The Call Horizon is based on the Interval of the tactic, and if it needs to be down during a Shutdown or not:
+Populate the correct start date as denoted in the loadsheet.
+The final ASI Family Loadsheet should look like below.
+This loadsheet is loaded using the Data Loader module in APM. Navigate there and hit “Import New”. Select APM Connect>APM Family, select, and upload the Excel sheet using the “Browse” function.
+Give the import job a clear and precise description.
+Click Upload. The import job will now enter the queue. Once completed, one of the four results will show.
+Troubleshoot any errors with the APM Family load using the downloadable .txt log.
+Since the APM Family load is much more simplistic than other loads, the common error should be in relation to the field attempting to be populated.
+Using ASI Family to Upload CRM Risks
+The following is intended for all new MP Loads moving forward. This involves adding a CRM to the operations of a task, in order to identify the risks associated with that task/area. The following is a table of the possible Risks that can be loaded through ASI to SAP.
+(Manual updates in SAP will be needed to add risks to operations for currently existing MP in SAP.)
+Before implementing these newly loaded ASI Packages for the first time, upload the Risk assignments via the following:
+Pull an ASI Export.
+Gather the Operation ENTY KEYs for the operations needing CRM Risks added to them. These will just constitute the main inspection operations for each task. (i.e. EXT, INT, NDE, etc.)
+Create and open a copy of the ASI Family – Adding CRM to Ops loadsheet.
+Fill in the desired operation ENTY KEYs in column B below.
+Then, insert the desired Risk appropriate to the area/task using the table above. Note that only one risk can be chosen, so in the likely event that multiple risks apply, choose the highest risk.
+Further clarification on area-specific risks can be requested with field lead and field inspectors.
+Save and close the document then proceed to load using the Data Loader module in APM using the steps in the previous section.
+Once the load has been completed and is successfully loaded, the ASI Packages are now good to implement.
+Implement Packages Step
+This last step related to the last tab on the ASI loadsheet where the Packages are sent to be implemented to SAP. This should only be done after all changes/errors are corrected.
+In cases where the ASI Package being loaded is a new package, the Amplify tool can continue to be used for Implementing.
+In cases where the ASI Package has already existed, and the loading aspect is simply creating new actions/maintenance plans in said package, then the Amplify tool shall not be used. Instead, utilize the “ASI Approver_Rev7” tool located in the resources folder. This is a tool that can re-implement packages in ASI, as well as correctly assign user names to the assigned user status in ASI. This is the main reason to use this tool, as the Amplify tool currently does not change user status names.
+Once Maintenance Plans are implemented in SAP, one final step needs to be taken in SAP front end. Navigate to IP02 to change MP (or IP15 for list view) in order to change one field in SAP, the Scheduling indicator.
+From the MP main page, click on Plan Scheduling parameters.
+Under the section “Scheduling indicator” change the selection to “Time – key date” as shown below.
+This will allow the MP to correctly time out the work orders to be called. Once this field is selected, the Factory Calendar will automatically populate with A1. This field can now be updated in ASI for data health, however ASI will not need to be re-implemented to SAP, since the factory calendar is now correct in SAP.
+Quality Assurance
+Once all information is loaded, always pull a new ASI Query (follow the steps in the ASM Query section earlier in this procedure), and look at all the data holistically to identify any errors or blank values. Fix any missing or incorrect values either manually or with an ASI Family loadsheet if there are many errors. To accompany this, utilize the Audit Load Checklist to review every check for a TM, ASM, or ASI load.
+The ASI load has the biggest variance of potential errors. Things to look out for are listed below:
+Long Text populated correctly for MP/MI/TL/Operations
+Call Horizon and Start Date populated correctly
+Operation work center is AIPDMX, and plant is 4009 (for all areas)
+If asset is statutory, the statutory field is marked Y for all operations
+PRT and Material are populated correctly and pushed to SAP correctly
+Manual Checks
+To ensure a Maintenance Plan has been loaded and successfully pushed to SAP, each of the Maintenance Plan, Maintenance Item, and Task List IDs will need to be hyperlinked in ASI as shown below.
+This is the MP ID searchable in SAP.
+In addition, a few manual checks can be made to ensure the ASM Strategy was linked correctly to the ASI Package. The ASI main page shows each action name and the associated ASM Strategy it is linked to.
+The following screenshot shows the link to the ASM Strategy under “Asset ID”. That hyperlink shows the current Package is properly linked.
+Upon navigating that link, the user is brought to the ASM page where a similar view is shown, this time “Package Name” will navigate the user to the ASI Package view.
+Examining these two pages, it is clear the action, “EXT VIS INSP 6300-001-030” is consistent throughout, and is properly packaged into ASI.
+Another manual check prominent in the ASI/SAP workflow is assuring the Interval (Cycle) and Interval Description (Cycle Text) is properly updated in SAP when updated in ASI. This step requires the correct interval be updated manually in ASI, then re-implemented to SAP to have that interval change reflected.
+To change the interval, first update the ASM Strategy’s Interval to the correct value, and perform the ASM refresh so that change reflects in ASI. (Refer to the ASM Refresh section here).
+
+Next, select the MP of each action in the ASI Package to ensure the Cycle and Cycle Text are updated. 
+
+
+Click on “Manage Cycles”.
+
+
+The following screen will appear. Ensure that the Cycle and Cycle Description both match the Interval listed on the main Package page. (In this case, 120 months is the desired interval.)
+From here, if any adjustments are needed, please ensure that the MP has the pencil edit icon before implementing. If that icon is not present, the changes will not be reflected in the SAP MP.
+
+
+After implementing check ASI and SAP to ensure data matches correctly.
+Common Implementation Errors
+The following are common errors typically encountered during ASI implementation. The Amplify tool will report these errors in the log sheet after the Implementation step. Likewise, manually implementing will also show these errors if there. The following is a table of common errors and how to solve them:
+Manual ASI Implementation
+To manually send packages to ASI without using the tool, follow this section which is updated to reflect changes made in GE APM 4.6.3.
+Manually sending information to ASI to package creation and Implementation is a tedious process, that heavily utilizes APM knowledge and resources previously covered in this procedure. It should only be done as a last resort, in cases such as the Amplify tool not being available.
+This task consists of three major parts:
+ASM Refresh
+ASI Package Creation
+ASI Package Implementation
+ASM Refresh
+Before diving into ASI, the information in ASM must be correct first. The specific “ASM Refresh” task is expanded upon more in the overall ASM procedure, but this section will just be focused on when manual implementations are needed.
+ASM Refresh consists of updating the ACTION TITLE, ACTION DESCRIPTION, and ACTION INTERVAL in ASM. This information must be up to date, before being pushed to ASI.
+To begin:
+Start by gathering the list of strategies and associated actions are desired to be implemented into ASI. Keep in mind an ASM Strategy can house multiple actions. For example, the 440-001-020 Asset Strategy has the External and NDE Strategy which is the example we will use in this section.
+Once the appropriate list is identified, we will want to mass update the Action title, Description, and Interval. This is achievable via the ASM Family loadsheet, which will mass update fields. Stat by pulling an ASM query, detailed in this section.
+With the ASM query pulled, gather and open the “RTK ASM Family Template” as attached in the resources folder here.
+From here, look up by floc, equipment ID, or ASM Strategy to locate the list of actions in the ASM query needing to be updated. For example, searching for “440-001-020 Asset Strategy” in the ASM query will pull up the following:
+We see two actions on this Strategy, which is exactly the ones we were looking for. In addition, the Action ENTY KEY is what will be the first data loaded into the “RTK ASM Family Template” under column A.
+Next is the Action Name, which depending on the task, has a specific format. For quick reference:
+NDE Task: UT NDE INSP [Asset ID] or RT NDE INSP [Asset ID]
+EXT Task: EXT VIS INSP [Asset ID]
+INT Task: INT VIS INSP [Asset ID]
+In this example, the External and NDE Task will need to be changed to EXT VIS INSP 440-001-020 and UT NDE INSP 440-001-020 respectively. Input these into the “RTK ASM Family Template” under column B. Make sure that the action enty keys match that of the old naming convention, i.e. do not mix and match an external task and rename it to UT NDE.
+Note: If the action in ASM is already in the correct format, leave that field blank.
+Next, populate the description with thee correct format as noted below.
+NDE Task: “Execute [UT/RT] thickness readings at designated locations….” etc
+EXT Task: “External Visual Inspection per [API Guidance] of likely locations….” etc
+INT Task: “Internal Visual inspection per API [API Guidance] guidance of likely areas…” etc
+Note: If the Description in ASM is already in the correct format, leave that field blank.
+Finally, the last part of the ASM Family Loadsheet is the interval. Usually, the interval listed is correct. (typically 120 or 60months for NDE, and 120, 60, 48, or 36 months for EXT). Usually an interval of just 12 months may indicate the interval is incorrect. Please confirm with the Master Inspection Plans to confirm the correct interval for the tactic. In the following example, 440-001-020 Asset Strategy has 120 month intervals for the UT and EXT task, so this field can be left blank in the loadsheet.
+Now, the ASM Family Loadsheet is ready to load. Please refer to this section of the procedure to load the ASM Family loadsheet through the Data Loader module.
+Once the Data Loader goes through, download the log and also pull an ASM Query to ensure the changes went through correctly.
+Before we can begin pushing to ASI, the information still needs to be “synced” in APM. This is because when using the ASM Family loader, the information we populated for Title, Desc, and Interval, got “forcefully” overwritten, but the system did not recognize that as a change. To further clarify, navigate to the  “Implement Actions Tab”.
+
+
+Here, we can see that the system still recognized the old titles for these actions. This is because ASM will need to be re-activated in order for these changes to push through.
+i.e. the changes as they currently look in the “Risks and Actions” page:
+To do this, we will have to kick the ASM Strategy into the modified state. Open up any of the actions, go to the description, and make a small edit such as adding a space or a period “.”
+Save the Action and close out.
+You will now see a pencil icon next to the action you just changed. Do this for every action that needs refresh. In this example, both the EXT and NDE actions will have the pencil icon, indicating a change has been made.
+You will now see the “Active” has now changed to “Modified”.
+Next, simply re-activate the ASM Strat by clicking “Propose”
+A prompt will appear “Basis for revision”, type in “ASM Refresh” and hit OK.
+The ASM Strat will now be in “Pending Review.”
+Change this to “Make Active”
+
+Note: It is not required to change name assignments for these steps.
+After a short period of time, the ASM Strategy will now say “Active”, and the pencil icons next to the Actions will be removed, indicating the changes have been “synced” with APM.
+We can confirm by going into the “Implement Actions” tab to confirm.
+Now that ASM is “refreshed” and up to date with the correct information, it is now time to send the ASM actions to ASI, i.e. “Packaging”.
+ASI Package Creation
+This step will outline sending the information in ASM to a package in ASI. The asset example here will continue to be the 440-001-020 Asset Strategy.
+Begin in ASM with the Asset Strategy page open. Navigate to the “Implement Actions” Tab.
+Check that the correct Action name should appear like so:
+
+If not, complete the steps in the ASM Refresh section above.
+Looking at the rest of this page, reference the “IMPLEMENTATION” column. This will indicate what has already been pushed to an ASI Package.
+In the example above, this EXT VIS INSP 440-001-020 action has already been implemented into ASI previously. Thus, an overall ASI Package for the 440-001-020 Asset Strategy exists. However, the UT NDE Action has not been Implemented.
+To send the UT NDE action, or any other desired action, to ASI, click the checkbox next to the action.
+Click the icon that is a triangle inside a box for “Send to ASI Package”
+In this example case, an ASI Package already exists. Hence, we will send this UT Action to that same Package. Search for “440-001-020 Asset Strategy” under the “Link Existing” page.
+NOTE: If there is not a current existing Package, simply change the selection to “Create New” and copy the ASM Strategy title in full.
+Highlight that Strategy and hit “Send”
+NOTE: You may receive a pop-up error. You can ignore this and this will be addressed later.
+You will now see the hyperlink appear for the UT NDE row under the “Package Name” column.
+Navigate to the ASI Package by clicking on that hyper link under “Package Name”.
+Viewing the ASI Package page now, you should see the action you just pushed (in this case NDE) and any existing actions (if applicable).
+Notice on the left hand side of the page, there is only a Maintenance Plan for the EXT VIS action, and not the UT NDE action we just pushed.
+
+If there was no previous action, there will be no maintenance plans here.
+To create the Maintenance Plan for an action, first change the state assignments to your name and switch the ASI Package to “Revise”.
+NOTE: If your package is initially in the draft state, there is no need to revise, since the Package is already editable in the draft state.
+Click the checkbox next to the action and click “Build SAP Plan”.
+Select “Actions are Items”, then “Build”.
+You should now see a new Maintenance Plan has been created on the left hand side.
+
+NOTE: This will look incorrect at first (i.e. the title is ‘120 Months’, that is normal)
+This will now begin the process of updating the information in the Maintenance Plan
+Maintenance Plan
+Screen 1
+Change description to the Action name. (i.e. UT NDE INSP 440-001-020)
+Populate Long Text with the Description from the ASM Family Loadsheet.
+Change Category to M
+Click Save
+Screen 2
+Authorization Group: Plant area. (i.e., 4004, 4005, 4006, 4002, etc.)
+Sort Field: “ [Plant]_TIME BASED”
+Factory Calendar: A1. NOTE: This field is greyed out and cannot be edited. This will have to be another step to load these in via an ASI Family, but this should wait until the very last step so all the maintenance plans we’re loading can be edited at once. This is picked back up in step 20.
+Click Save
+Screen 3
+Call Horizon: Depending on the interval via the following Table:
+Start Date: Should be the exact date needed to perform the inspection, minus the interval. Utilize the Date Aid section for this. This date needs to be known down to the week of execution by the field team.
+Click Save
+Maintenance Item
+Screen 1
+No changes on Screen 1, “Header”.
+Screen 2
+Change Work Center to “AIPDMX”
+Change Work Center Plant to “4009”
+Change Activity Type to “190”
+Change Priority to “A”
+Click Save
+Task List
+Screen 1
+Change Description to the Action name. (i.e. UT NDE INSP 440-001-020)
+Change Long Text to that in the ASM Family Load
+Work Center change to AIPDMX
+Plant Change to 4009. NOTE: Do not change “Planning Plant”, just “Plant”
+Usage change to 01
+Planner Group, use the same Planner Group as in the Maintenance Item page.
+System Condition change to 3
+Assembly Number will have to be pulled from the FL_EQ Export located in the Resources folder here. The Assembly number is found in the column G for “Construction Type”. I.e. 000000000060925736
+NOTE: Ensure this is populated with the 10 leading zero’s
+Click save.
+Operations
+Firstly, refer to the appropriate section in this procedure for the number of operations needed. For NDE or EXT tasks, usually one operation is needed unless scaffolding is needed. Luckily, the main operation is added by default.
+If additional operations are needed, click the plus sign and select “operation”
+NDE Operations
+EXT Operations
+INT Operations
+Screen 1
+Task Type: For the main operation, select 0001 Inspection
+Work Center: AIPDMX
+Plant: 4009
+Control Key: PM01
+System Condition: 3
+Screen 2
+For specific hours, refer to the above operations hyperlinks to different sections of this procedure. The following example will be hours for a UT NDE TASK
+Work: 2,5
+(NOTE: Be sure to use a comma and not a period)
+Number: 1
+Normal Duration: 2,5
+(NOTE: Be sure to use a comma and not a period)
+Normal duration unit: H
+Activity Type: REL
+Click Save.
+Repeat step 16 for every Action and every Package as desired.
+Select the Implement task on the top right of the ASI Package.
+NOTE: For any errors, refer to the common errors list to debug.
+Once that is complete, we can now mass update to fill in the factory calendar to “A1” since that field was greyed out. To do this, open up the “RTK ASI Family Template-A1” from the Resources Folder. (NOTE: This has to be done after
+Copy a local version onto your desktop.
+Remove columns D and E.
+Pull an ASI Query export and locate the desired ASI Packages and Maintenance Plans that need the factory calendar updated.
+Locate the Maintenance Plan ENTY KEYs and populate those in Column B.
+Ensure Column C is populated with “A1” for the factory Calendar.
+Save the spreadsheet and load according to this section.
+Re-Implement the packages again and troubleshoot any errors similar to step 19.
+Once ASI Packages are implemented, they can move onto Work Order creation. This is outlined in the SAP Procedure.
+Resources
+Date Aid
+The Date Aid is a tool to calculate specific Start Dates, End Dates, and/or Call Dates for a given set of inputs. 
+There are three tabs which require three specific inputs. (NOTE: The Interval must be known and is always a required input)
+Desired Start Date: The date that has to be entered into the ASI Loadsheet for the Maintenance Plan to start from. This is typically a date in the past, as this is when the interval will start counting from. Usually this is the date that is needed to be calculated and is rarely known beforehand.
+Desired Call Date: This is the date that the Work Order (WO) will call (i.e. generate) from the Maintenance Plan. Before this date, the WO number is unknown and the WO cannot be viewed, since it hasn’t been generated. After this date, the WO is accessible and can be then scheduled.
+Desired End Date: This is the due date or end of the interval cycle. After this date, the next interval will kick in, where this essentially acts as the start date for the next interval cycle. Between the Call Date and the End Date is the time allotted for the WO to be completed.
+Here is an example scenario for how to use the Date Aid tool:
+Question: Say there is a 60 month interval regular tactic that needs to be done by 3/6/2023. What should the call horizon be and what start date should be loaded into ASI?
+Answer: The Call Horizon is dictated by this table as previously shown in every loadsheet section earlier in this procedure.
+Seeing from the table, given a 60 month regular tactic, the call horizon should be 3 months before the Due Date, which gives a call horizon of 95. Plugging the values known in the “Have End Date Tab” gives the following:
+Seeing from the tool, the Call Horizon date will kick on 12/3/2022 which is three months before the Due Date of 3/6/2023. More importantly, the calculated start date is 3/6/2018, which is simply 60 months or 5 years before the Due Date. This start date of 3/6/2018 is what will be entered into the ASI Loadsheet and be loaded into ASI.
+Loading Aid
+The Loading Aid document is a quick reference tool and PRT list in one. The first page expands upon specific Work Center groups for very specific operations such as Pressure Washing, PSV Tactics, and more. It also includes generalized hour/resource information for general inspections. The biggest thing to note is the guidance on Planner Group and Planning Plant information.
+
+Planner Groups shall be those listed within the Functional Location the tactic is tied to. Use the FL_EQ to get exact planner group and planning plant needed per floc.
+In addition, the PRT List and PSV PRT List provide references to specific PRT information that is used when building ASI loadsheets. For example, the PRT for an Internal visual on a PV in 512-Smelter has the Document Number, 0000000000000010000234104. This document number references a Word document that is already loaded into the SAP system. This reference simply points to that document when the Maintenance Plan is loaded. The same logic applies to the PSV PRT List.
+PSV Operations Template
+This is a table format of the information shown in the PSV section above. These are the set operations needed for PSVs based on their tactic. This excel sheet can be used to copy from Excel into a PSV ASI Loadsheet for faster building.
+Appendix
+ASI Loadsheet Template
+
+
+Date Aid
+
+
+Loading Aid
+
+
+PSV Operations Template
+Self QC Checklist – ASI Loadsheet
+Overall Data Checks
+Strategy Activation Tab Data Checks
+Package Strategies Tab Data Checks
+Strategy Information Section (Actions)
+MI_MAINTPLN Section (MP)
+MI_MAINTITM Section (MI)
+MI_TASKLIST Section (TL)
+MI_OPERTION Section (Operations)
+Operation PRTs Tab Data Checks
+Operation Materials Tab Data Checks
+Implement Packages Tab Data Checks
+[TABLE ROW] Rio Tinto Kennecott
+Asset Integrity ASI Loadsheet Manual
+[TABLE ROW] Revision | Description | Date | Author(s) | Approver(s)
+[TABLE ROW] 0 | Initial Rollout | 10/10/2023 | Phillip Dupree
+[TABLE ROW] 1 | Format Update | 8/27/2024 | Phillip Dupree
+[TABLE ROW] 2 | Tasklist Update | 10/23/2025 | De’Andrez Johnson
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Input - this value needs to be carried through to Column A of every tab in this document. Use the naming conventions: 
+RTKC [Functional Location] Asset Strategy.
+RTKC 4005SM513HX046 Asset Strategy
+For circuit strategy IDs, include the circuit ID:
+RTKC [Functional Location] [Circuit ID] Asset Strategy
+RTKC 4002CP3330TK021   .PIPE 3330-004-260 Asset Strategy
+[TABLE ROW] Field Name | Field ID | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Strategy ID | Mandatory | Character (255) | Input - this value needs to be carried through to Column A of every tab in this document, with format ‘RTKC [Functional Location] Asset Strategy’
+
+e.g. RTKC 4005SM513HX046 Asset Strategy
+For circuit strategy IDs, include the circuit ID in format, ‘RTKC [Functional Location] [Circuit ID][Asset Strategy’
+e.g. RTKC 4002CP3330TK021   .PIPE 3330-004-260 Asset Strategy
+[TABLE ROW] Action ID | Action ID | Mandatory | Text | Used by the data loader to identify which action to package to ASI. This is pulled from the ASM export and must match the specific action ID in ASM, in format ‘ACTION-[###]’
+e.g. ACTION-001
+[TABLE ROW] Package ID | Package ID | Mandatory | Character (255) | Same as Strategy ID.
+[TABLE ROW] Implementation Type | Implementation Type | Mandatory | Text | Items
+[TABLE ROW] Auth Group | MI_MAINTPLN|MI_MAINTPLN_AUTH_GROUP_C | Mandatory | Numeric | This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+e.g. 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Sort Field | MI_MAINTPLN|MI_MAINTPLN_SORT_FIELD_C | Mandatory | Text | In format, ‘Auth Group + “_TIME BASED”’
+e.g. 4001_TIME BASED
+[TABLE ROW] Category | MI_MAINTPLN|MI_MAINTPLN_CATEGORY_C | Mandatory | Text | Default to ‘M’
+[TABLE ROW] Call Horizon | MI_MAINTPLN|MI_MAINTPLN_CALL_HORIZON_N | Mandatory | Numeric | This is a percentage indicating to kick out a work order from this MP for a percentage of the interval after the MP start date. For shutdown specific items the work order should kick 6 months in advance, and for everything else, 3 months in advance.
+Based on the specific interval, use the following Call Horizons:
+[TABLE ROW] Start Date | MI_MAINTPLN|MI_MAINTPLN_START_DATE_D | Mandatory | Date | This field sets when the Maintenance plan is set to start. The start date entered will be added to the interval to produce the end date. For example, a start date of 2010 and an interval of 120 months (10 years) will produce an end date of 2020. Therefore, it’s important to reverse engineer the start date based on the desired end date. The Date Aid tool can be used to achieve this. Format as short text. 
+e.g. 3/4/2012 (formatted as short text)
+[TABLE ROW] Description | MI_MAINTPLN|MI_MAINTPLN_DESC_C | Mandatory | Character (40) | The title of the Maintenance plan. There is one MP per action. Format, ‘UT NDE INSP [Asset ID]’ or ‘RT NDE INSP [Asset ID]’
+e.g. UT NDE INSP 350-005-002
+[TABLE ROW] Long Text | MI_MAINTPLN|MI_MAINTPLN_LONG_DESC_TX | Optional | Text | The long description of the MP. Will be the same for every operation line, and will be the same for the Maintenance Item and Task List Long Desc. Copy the following format:
+e.g. “Execute [UT/RT] thickness readings at designated locations.
+[List of RTK ISOs]
+QUALIFICATIONS: Will be performed by qualified personnel experienced/certified per ASNT
+SUBSEQUENT FREQUENCY: [Interval]”
+[TABLE ROW] Planning Plant | MI_MAINTITM|MI_MAINTITM_PLAN_PLANT_C | Mandatory | Numeric | This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+e.g. 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Planner Group | MI_MAINTITM|MI_MAINTITM_PLAN_GROUP_C | Mandatory | Text | This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet (reference SAP hierarchy procedure to see how to pull query) to find Planning Plant and Planner Group:
+e.g. SB2, KFS, CMF, etc.
+[TABLE ROW] Work Center | MI_MAINTITM|MI_MAINTITM_WRK_CTR_C | Mandatory | Text | Default to AIPDMX.
+[TABLE ROW] Work Center Plant | MI_MAINTITM|MI_MAINTITM_WRK_CTR_PLANT_C | Mandatory | Numeric | Populate this with 4009.
+[TABLE ROW] Activity Type | MI_MAINTITM|MI_MAINTITM_ACTIVITY_TYPE_C | Mandatory | Numeric | Always ‘190’
+[TABLE ROW] Category | MI_MAINTITM|MI_MAINTITM_CATEGORY_C | Mandatory | Text | Always ‘M’
+[TABLE ROW] Priority | MI_MAINTITM|MI_MAINTITM_PRIORITY_C | Mandatory | Text | Always ‘A’
+[TABLE ROW] Description | MI_MAINTITM|MI_MAINTITM_DESC_C | Mandatory | Character (40) | Populate this field with the same title as in the MP with format, ‘UT NDE INSP [Asset ID] or RT NDE INSP [Asset ID]’
+e.g. UT NDE INSP 350-005-002
+[TABLE ROW] Long Text | MI_MAINTITM|MI_MAINTITM_LONG_DESC_TX | Optional | Text | Populate this field with the same description as in the MP
+[TABLE ROW] Description | MI_TASKLIST|MI_TASKLIST_DESC_C | Mandatory | Character (40) | Populate this field with the same title as in the MP
+i.e.: UT NDE INSP [Asset ID] or RT NDE INSP [Asset ID]
+ex.: UT NDE INSP 350-005-002
+[TABLE ROW] Long Text | MI_TASKLIST|MI_TASKLIST_LONG_DESC_TX | Optional | Text | Populate this field with the same description as in the MP
+[TABLE ROW] Work Center | MI_TASKLIST|MI_TASKLIST_WRK_CTR_C | Mandatory | Text | This field should be populated with AIPDMX
+[TABLE ROW] Planning Plant | MI_TASKLIST|MI_TASKLIST_PLAN_PLANT_C | Mandatory | Numeric | Same as Maintenance Item Planning Plant
+This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Plant | MI_TASKLIST|MI_TASKLIST_PLANT_C | Mandatory | Numeric | Populate this with 4009.
+[TABLE ROW] Planner Group | MI_TASKLIST|MI_TASKLIST_PLAN_GROUP_C | Mandatory | Text | Same as Maintenance Item Planner Group.
+This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: [Planner Group for specific Floc]
+e.x.: SB2, KFS, CMF, etc.
+[TABLE ROW] Usage | MI_TASKLIST|MI_TASKLIST_USAGE_C | Mandatory | Numeric | Always ‘01’
+[TABLE ROW] Assembly | MI_TASKLIST|MI_TASKLIST_ASSEMBLY_C | Mandatory | Numeric | This is the CT (Construction Type) value found in the Floc data in SAP. This can also be pulled and found in the FL_EQ Export. The CT must have the ten leading zeros. (i.e. ‘000000000060020274’)
+[TABLE ROW] Condition | MI_TASKLIST|MI_TASKLIST_CONDITION_C | Mandatory | Numeric | Populate this with the one-digit number that corresponds to the condition needed to perform the action.
+For NDE, this will almost always be 3.
+i.e.: 3 = Online or Offline
+[TABLE ROW] Operation ID | MI_OPERTION|MI_OPERTION_ID_C | Mandatory | Numeric | The name of the operations in working order.
+i.e.: 0010, 0020, 0030, etc.
+[TABLE ROW] Operation Task Type | MI_OPERTION|CC_OPERTION_TASK_TYPE_C | Optional | Text | The main operation for this tactic should be loaded as “0001 INSPECTION” and all additional pre/post operations should be left blank
+[TABLE ROW] Operation Description | MI_OPERTION|MI_OPERTION_DESC_C | Mandatory | Character (40) | For main operation, use same as title as in the MP
+i.e.: UT NDE INSP [Asset ID] or RT NDE INSP [Asset ID]
+ex.: UT NDE INSP 350-005-002
+For other operations, NDE only requires two specific access operations that may need to be called out. These are Scaffolding and Man Lift access needs. If a circuit needs either of these, the following operations must be set. If a circuit requires both, default to just Scaffold. Examples are as follows:
+Scaffolding:
+0010: Scope Scaffolding
+0020: Install Scaffolding
+0030: Inspect Scaffolding		
+0040: Main Op: “[UT/RT] NDE INSP [Asset-ID]”
+0050: Remove Scaffolding
+Man Lift	
+0010: Call Manlift
+0020: Main Op: “[UT/RT] NDE INSP [Asset-ID]”
+0030: Return Manlift
+These additional SCF/MLF operations vary per asset. Please consult with the Field coordinator on if an asset requires either of these.
+[TABLE ROW] Operation Long Text | MI_OPERTION|MI_OPERTION_LONG_DESC_TX | Optional | Text | For Main NDE operation, Populate this field with the same description as in the MP.
+For all other operations, leave blank.
+[TABLE ROW] Operation Work Center | MI_OPERTION|MI_OPERTION_WRK_CTR_C | Mandatory | Text | For main operations:
+AIPDMX
+For scaffolding operations:
+4006 – RFDPI
+4005 – SDPI
+4002 – CXDP
+4009 – KOSDPI2
+For manlift operations, use AIPDMX for each area:
+4006/4005/4002 – AIPDM
+[TABLE ROW] Operation Plant | MI_OPERTION|MI_OPERTION_PLANT_C | Mandatory | Numeric | For Main operations and Hole Watch Operations, 4009
+For other operations, use plant area 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Control Key | MI_OPERTION|MI_OPERTION_CONTROL_KEY_C | Mandatory | Text | Always PM01
+[TABLE ROW] Condition | MI_OPERTION|MI_OPERTION_CONDITION_C | Mandatory | Numeric | Always 3, “Online or offline”
+[TABLE ROW] Work Hours | MI_OPERTION|MI_OPERTION_WORK_C | Mandatory | Numeric | This is where the estimated work time (hours) is entered.
+Main Operations:
+2,5 – standard UT inspections on non-tank assets
+5 – standard RT inspections
+Scaffold:
+0010: 2
+0020: 1
+0030: 2
+0050: 2
+Manlift:
+0010: 1
+0030: 1
+[TABLE ROW] Work Unit | MI_OPERTION|MI_OPERTION_WORK_UNIT_C | Mandatory | Text | Always H
+[TABLE ROW] Activity Type | MI_OPERTION|MI_OPERTION_ACTIVITY_TYPE_C | Mandatory | Text | Always REL
+[TABLE ROW] Resource Count | MI_OPERTION|MI_OPERTION_RESOURCE_COUNT_C | Mandatory | Numeric | The number of workers needed for job, i.e. 1
+[TABLE ROW] Duration | MI_OPERTION|MI_OPERTION_DURATION_C | Mandatory | Numeric | Always Work Hours divided by resource count.
+i.e. 4hrs / 2 persons = 2 hours per person
+[TABLE ROW] Duration Unit | MI_OPERTION|MI_OPERTION_DURATION_UNIT_C | Mandatory | Text | Always ‘H’
+[TABLE ROW] Statutory | MI_OPERTION|MI_OPERTION_USER_FIELD_10_F | Mandatory | Boolean | If Statutory, TRUE.
+Otherwise, FALSE
+[TABLE ROW] PSM | MI_OPERTION|MI_OPERTION_USER_FIELD_11_F | Mandatory | Boolean | If part of Process Safety Management (PSM), TRUE.
+Otherwise, FALSE
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Input the strategy ID this PRT is being tied to.
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 40011104TK05 Asset Strategy
+[TABLE ROW] Action ID | Mandatory | Text | Input the action ID this PRT is being tied to.
+i.e.: ACTION-XXX
+e.x.: ACTION-001
+[TABLE ROW] Operation ID | Mandatory | Numeric | Input the operation this PRT is being tied to.
+i.e.: [Main operation number]
+e.x.: 0010
+[TABLE ROW] Iten Number | Mandatory | Numeric | Populate with 1
+[TABLE ROW] Document | Mandatory | Numeric | Once PRTs have been created and loaded into SAP, they will be assigned a document number that will be applied here in the loadsheet.
+This is the reference to the PRT document in SAP. This should be loaded with 10 leading 0’s
+This is located in the RTK Loading Aid document located in resource folder or in SAP using CV04N transaction code.
+Ensure that you select the right area as well as the correct inspection method.
+i.e.: [PRT Document Number]
+e.x.: 0000000000000010000278700
+[TABLE ROW] Document Type | Mandatory | Text | Populate with ZMP
+[TABLE ROW] Document Part | Mandatory | Numeric | Populate with 000
+[TABLE ROW] Document Version | Mandatory | Numeric | Populate with 00
+[TABLE ROW] Quantity | Mandatory | Numeric | Populate with 1
+[TABLE ROW] Quantity Unit | Mandatory | Text | Populate with EA
+[TABLE ROW] Control Key | Mandatory | Numeric | Populate with 1
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Input the strategy ID this Material is being tied to.
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 40011104TK05 Asset Strategy
+[TABLE ROW] Action ID | Mandatory | Text | Input the action ID this Material is being tied to.
+i.e.: ACTION-XXX
+e.x.: ACTION-001
+[TABLE ROW] Operation ID | Mandatory | Numeric | Input the operation this Material is being tied to.
+i.e.: [Main operation number]
+e.x.: 0010
+[TABLE ROW] Material Number | Mandatory | Numeric | The SAP specific material number associated to the material needed for each operation
+These numbers should be determined on the PRTs
+[TABLE ROW] Quantity | Mandatory | Numeric | The quantity needed for each material
+These numbers should be determined on the PRTs
+[TABLE ROW] Unit of Measure | Mandatory | Text | Populate with EA
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Input - this value needs to be carried through to Column A of every tab in this document. Use the naming conventions: 
+•	RTKC [Functional Location] Asset Strategy.
+•	RTKC 4005SM513HX046 Asset Strategy
+For circuit strategy IDs, include the circuit ID:
+•	RTKC [Functional Location] [Circuit ID] Asset Strategy
+•	RTKC 4002CP3330TK021   .PIPE 3330-004-260 Asset Strategy
+[TABLE ROW] Field Name | Field ID | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Strategy ID | Mandatory | Character (255) | Name of Asset Strategy in ASM. Should come from list in “StrategyActivation” Tab
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 40011104TK05 Asset Strategy
+[TABLE ROW] Action ID | Action ID | Mandatory | Text | Used by the data loader to identify which action to package to ASI. This is pulled from the ASM export and must match the specific action ID in ASM.
+i.e.: ACTION-XXX
+e.x.: ACTION-001
+[TABLE ROW] Package ID | Package ID | Mandatory | Character (255) | Name of the Package in ASI. To be named same as the ASM Strategy.
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 40011104TK05 Asset Strategy
+[TABLE ROW] Implementation Type | Implementation Type | Mandatory | Text | Items
+[TABLE ROW] Auth Group | MI_MAINTPLN|MI_MAINTPLN_AUTH_GROUP_C | Mandatory | Numeric | This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+e.g. 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Sort Field | MI_MAINTPLN|MI_MAINTPLN_SORT_FIELD_C | Mandatory | Text | In format, ‘Auth Group + “_TIME BASED”’
+e.g. 4001_TIME BASED
+[TABLE ROW] Category | MI_MAINTPLN|MI_MAINTPLN_CATEGORY_C | Mandatory | Text | Default to ‘M’
+[TABLE ROW] Call Horizon | MI_MAINTPLN|MI_MAINTPLN_CALL_HORIZON_N | Mandatory | Numeric | This is a percentage indicating to kick out a work order from this MP for a percentage of the interval after the MP start date. For shutdown specific items the work order should kick 6 months in advance, and for everything else, 3 months in advance. Based on the specific interval, use the following Call Horizons:
+i.e.:
+[TABLE ROW] Start Date | MI_MAINTPLN|MI_MAINTPLN_START_DATE_D | Mandatory | Date | This field is when the Maintenance plan is set to start. The start date entered will be added to the interval to produce the end date. For example, a start date of 2010 and an interval of 120 months (10 years) will produce an end date of 2020. Therefore, it’s important to reverse engineer the start date based on the desired end date. The Date Aid tool can be used to achieve this.
+Inquire with the field team lead and PL to determine desired start date.
+i.e.: MM/DD/YYYY (formatted as short text)
+e.x.: 3/4/2012 (formatted as short text)
+[TABLE ROW] Description | MI_MAINTPLN|MI_MAINTPLN_DESC_C | Mandatory | Character (40) | The title of the Maintenance plan. There is one MP per action. 
+i.e.: EXT VIS INSP [Asset ID]
+ex.: EXT VIS INSP 350-005-002
+[TABLE ROW] Long Text | MI_MAINTPLN|MI_MAINTPLN_LONG_DESC_TX | Optional | Text | The long description of the MP. Will be the same for every operation line, and will be the same for the Maintenance Item and Task List Long Desc. Copy the following format:
+i.e.: INSPECTION PLAN: External Visual Inspection per [API Guidance] of likely locations.
+
+LIKELY AREA: Refer to the APM [External or Tank Inspection Checklist]
+
+QUALIFICATIONS: Will be performed by qualified personnel such as a certified [API Guidance] inspector or designated examiner
+
+SUBSEQUENT FREQUENCY: [Interval]
+e.x.: INSPECTION PLAN: External Visual Inspection per API 653 guidance of likely locations.
+
+LIKELY AREA: Refer to the APM Tank Inspection Checklist 
+
+QUALIFICATIONS: Will be performed by qualified personnel such as a certified 653 inspector or designated examiner
+[TABLE ROW] Planning Plant | MI_MAINTITM|MI_MAINTITM_PLAN_PLANT_C | Mandatory | Numeric | This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Planner Group | MI_MAINTITM|MI_MAINTITM_PLAN_GROUP_C | Mandatory | Text | This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: [Planner Group for specific Floc]
+e.x.: SB2, KFS, CMF, etc.
+[TABLE ROW] Work Center | MI_MAINTITM|MI_MAINTITM_WRK_CTR_C | Mandatory | Text | This field should be populated with AIPDMX.
+[TABLE ROW] Work Center Plant | MI_MAINTITM|MI_MAINTITM_WRK_CTR_PLANT_C | Mandatory | Numeric | Populate this with 4009.
+[TABLE ROW] Description | MI_MAINTITM|MI_MAINTITM_DESC_C | Mandatory | Character (40) | Populate this field with the same title as in the MP
+i.e.: EXT VIS INSP [Asset ID]
+ex.: EXT VIS INSP 350-005-002
+[TABLE ROW] Long Text | MI_MAINTITM|MI_MAINTITM_LONG_DESC_TX | Mandatory | Text | Populate this field with the same description as in the MP
+[TABLE ROW] Activity Type | MI_MAINTITM|MI_MAINTITM_ACTIVITY_TYPE_C | Mandatory | Numeric | Always ‘190’
+[TABLE ROW] Category | MI_MAINTITM|MI_MAINTITM_CATEGORY_C | Mandatory | Text | Always ‘M’
+[TABLE ROW] Priority | MI_MAINTITM|MI_MAINTITM_PRIORITY_C | Mandatory | Text | Always ‘A’
+[TABLE ROW] Description | MI_TASKLIST|MI_TASKLIST_DESC_C | Mandatory | Character (40) | Populate this field with the same title as in the MP
+i.e.: EXT VIS INSP [Asset ID]
+ex.: EXT VIS INSP 350-005-002
+[TABLE ROW] Long Text | MI_TASKLIST|MI_TASKLIST_LONG_DESC_TX | Optional | Text | Populate this field with the same description as in the MP
+[TABLE ROW] Work Center | MI_TASKLIST|MI_TASKLIST_WRK_CTR_C | Mandatory | Text | This field should be populated with AIPDMX.
+[TABLE ROW] Planning Plant | MI_TASKLIST|MI_TASKLIST_PLAN_PLANT_C | Mandatory | Numeric | Same as Maintenance Item Planning Plant
+This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Plant | MI_TASKLIST|MI_TASKLIST_PLANT_C | Mandatory | Numeric | Populate this with 4009.
+[TABLE ROW] Planner Group | MI_TASKLIST|MI_TASKLIST_PLAN_GROUP_C | Mandatory | Text | Same as Maintenance Item Planner Group.
+This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: [Planner Group for specific Floc]
+e.x.: SB2, KFS, CMF, etc.
+[TABLE ROW] Condition | MI_TASKLIST|MI_TASKLIST_CONDITION_C | Mandatory | Numeric | Populate this with the one-digit number that corresponds to the condition needed to perform the action.
+For EXT, this will almost always be 3.
+i.e.: 3 = Online or Offline
+[TABLE ROW] Usage | MI_TASKLIST|MI_TASKLIST_USAGE_C | Mandatory | Numeric | Always ‘01’
+[TABLE ROW] Assembly | MI_TASKLIST|MI_TASKLIST_ASSEMBLY_C | Mandatory | Numeric | This is the CT (Construction Type) value found in the Floc data in SAP. This can also be pulled and found in the FL_EQ Export. The CT must have the ten leading zeros. (i.e. ‘000000000060020274’)
+[TABLE ROW] Operation ID | MI_OPERTION|MI_OPERTION_ID_C | Mandatory | Numeric | The name of the operations in working order.
+i.e.: 0010, 0020, 0030, etc.
+[TABLE ROW] Operation Task Type | MI_OPERTION|CC_OPERTION_TASK_TYPE_C | Optional | Text | The main operation for this tactic should be loaded as “0001 INSPECTION” and all additional pre/post operations should be left blank
+[TABLE ROW] Operation Description | MI_OPERTION|MI_OPERTION_DESC_C | Mandatory | Character (40) | For main operation, use same as title as in the MP
+i.e. : EXT VIS INSP [Asset ID]
+ex.: EXT VIS INSP 350-005-002
+In rare cases, the External Visual may require Scaffolding or Man Lift access in order to properly perform the External. Please consult with the Field Lead to determine if an asset cannot have the External performed via ground access. If an asset needs either of these, the following operations must be set. 
+Scaffolding:
+0010: Scope Scaffolding
+0020: Install Scaffolding
+0030: Inspect Scaffolding		
+0040: Main Op: “EXT VIS INSP [Asset-ID]”
+0050: Remove Scaffolding
+Man Lift	
+0010: Call Manlift
+0020: Main Op: “EXT VIS INSP [Asset-ID]”
+0030: Return Manlift
+These additional SCF/MLF operations vary per asset. Please consult with the Field coordinator on if an asset requires these.
+[TABLE ROW] Operation Long Text | MI_OPERTION|MI_OPERTION_LONG_DESC_TX | Optional | Text | For Main EXT operation, Populate this field with the same description as in the MP.
+For all other operations, leave blank.
+[TABLE ROW] Work Center | MI_OPERTION|MI_OPERTION_WRK_CTR_C | Mandatory | Numeric | For main operations:
+AIPDMX
+For scaffolding operations:
+4006 – RFDPI
+4005 – SDPI
+4002 – CXDP
+For manlift operations, use AIPDMX for each area:
+4006/4005/4002 – AIPDMX
+[TABLE ROW] Plant | MI_OPERTION|MI_OPERTION_PLANT_C | Mandatory | Numeric | For Main operations and Hole Watch Operations
+4009
+For other operations, use plant area 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Control Key | MI_OPERTION|MI_OPERTION_CONTROL_KEY_C | Mandatory | Text | PM01
+[TABLE ROW] Condition | MI_OPERTION|MI_OPERTION_CONDITION_C | Mandatory | Numeric | 3
+[TABLE ROW] Work Hours | MI_OPERTION|MI_OPERTION_WORK_C | Mandatory | Numeric | This is where the estimated work time (hours) is entered.
+Main EXT Operations:
+2,5 – standard EXT on PV or PIPE
+5 – standard EXT on TK
+Scaffold:
+0010: 2
+0020: 1
+0030: 2
+0050: 2
+Manlift:
+0010: 1
+0030: 1
+[TABLE ROW] Work Unit | MI_OPERTION|MI_OPERTION_WORK_UNIT_C | Mandatory | Text | H
+[TABLE ROW] Activity Type | MI_OPERTION|MI_OPERTION_ACTIVITY_TYPE_C | Mandatory | Text | REL
+[TABLE ROW] Resource Count | MI_OPERTION|MI_OPERTION_RESOURCE_COUNT_C | Mandatory | Numeric | 1
+[TABLE ROW] Duration | MI_OPERTION|MI_OPERTION_DURATION_C | Mandatory | Numeric | Same as Work Hours
+[TABLE ROW] Duration Unit | MI_OPERTION|MI_OPERTION_DURATION_UNIT_C | Mandatory | Text | H
+[TABLE ROW] Statutory | MI_OPERTION|MI_OPERTION_USER_FIELD_10_F | Mandatory | Boolean | If Statutory, TRUE.
+Otherwise, FALSE
+[TABLE ROW] PSM | MI_OPERTION|MI_OPERTION_USER_FIELD_11_F | Mandatory | Boolean | If part of Process Safety Management (PSM), TRUE.
+Otherwise, FALSE
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Input the strategy ID this PRT is being tied to.
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 40011104TK05 Asset Strategy
+[TABLE ROW] Action ID | Mandatory | Input the action ID this PRT is being tied to.
+i.e.: ACTION-XXX
+e.x.: ACTION-001
+[TABLE ROW] Operation ID | Mandatory | Input the operation this PRT is being tied to.
+i.e.: [Main operation number]
+e.x.: 0010
+[TABLE ROW] Item Number | Mandatory | Populate with 1
+[TABLE ROW] Document | Mandatory | Once PRTs have been created and loaded into SAP, they will be assigned a document number that will be applied here in the loadsheet.
+This is the reference to the PRT document in SAP. This should be loaded with 10 leading 0’s
+This is located in the LOADING AID document.
+i.e.: [PRT Document Number]
+e.x.: 0000000000000010000278700
+[TABLE ROW] Document Type | Mandatory | Populate with ZMP
+[TABLE ROW] Document Part | Mandatory | Populate with 000
+[TABLE ROW] Document Version | Mandatory | Populate with 00
+[TABLE ROW] Quantity | Mandatory | Populate with 1
+[TABLE ROW] Quantity Unit | Mandatory | Populate with EA
+[TABLE ROW] Control Key | Mandatory | Populate with 1
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Input the strategy ID this PRT is being tied to.
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 40011104TK05 Asset Strategy
+[TABLE ROW] Action ID | Mandatory | Text | Input the action ID this PRT is being tied to.
+i.e.: ACTION-XXX
+e.x.: ACTION-001
+[TABLE ROW] Operation ID | Mandatory | Numeric | Input the operation this PRT is being tied to.
+i.e.: [Main operation number]
+e.x.: 0010
+[TABLE ROW] Iten Number | Mandatory | Numeric | Populate with 1
+[TABLE ROW] Document | Mandatory | Numeric | Once PRTs have been created and loaded into SAP, they will be assigned a document number that will be applied here in the loadsheet.
+This is the reference to the PRT document in SAP. This should be loaded with 10 leading 0’s
+This is located in the RTK Loading Aid document located in resource folder or in SAP using CV04N transaction code.
+Ensure that you select the right area as well as the correct inspection method.
+i.e.: [PRT Document Number]
+e.x.: 0000000000000010000278700
+[TABLE ROW] Document Type | Mandatory | Text | Populate with ZMP
+[TABLE ROW] Document Part | Mandatory | Numeric | Populate with 000
+[TABLE ROW] Document Version | Mandatory | Numeric | Populate with 00
+[TABLE ROW] Quantity | Mandatory | Numeric | Populate with 1
+[TABLE ROW] Quantity Unit | Mandatory | Text | Populate with EA
+[TABLE ROW] Control Key | Mandatory | Numeric | Populate with 1
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Input the strategy ID this Material is being tied to.
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 40011104TK05 Asset Strategy
+[TABLE ROW] Action ID | Mandatory | Text | Input the action ID this Material is being tied to.
+i.e.: ACTION-XXX
+e.x.: ACTION-001
+[TABLE ROW] Operation ID | Mandatory | Numeric | Input the operation this Material is being tied to.
+i.e.: [Main operation number]
+e.x.: 0010
+[TABLE ROW] Material Number | Mandatory | Numeric | The SAP specific material number associated to the material needed for each operation
+These numbers should be determined on the PRTs
+[TABLE ROW] Quantity | Mandatory | Numeric | The quantity needed for each material
+These numbers should be determined on the PRTs
+[TABLE ROW] Unit of Measure | Mandatory | Text | Populate with EA
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Input - this value needs to be carried through to Column A of every tab in this document. Use the naming conventions: 
+•	RTKC [Functional Location] Asset Strategy.
+•	RTKC 4005SM513HX046 Asset Strategy
+For circuit strategy IDs, include the circuit ID:
+•	RTKC [Functional Location] [Circuit ID] Asset Strategy
+•	RTKC 4002CP3330TK021   .PIPE 3330-004-260 Asset Strategy
+[TABLE ROW] Field Name | Field ID | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Strategy ID | Mandatory | Character (255) | Name of Asset Strategy in ASM. Should come from list in “StrategyActivation” Tab
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 40011104TK05 Asset Strategy
+[TABLE ROW] Action ID | Action ID | Mandatory | Text | Used by the data loader to identify which action to package to ASI. This is pulled from the ASM export and must match the specific action ID in ASM.
+i.e.: ACTION-XXX
+e.x.: ACTION-001
+[TABLE ROW] Package ID | Package ID | Mandatory | Character (255) | Name of the Package in ASI. To be named same as the ASM Strategy.
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 40011104TK05 Asset Strategy
+[TABLE ROW] Implementation Type | Implementation Type | Mandatory | Text | Items
+[TABLE ROW] Call Horizon | MI_MAINTPLN|MI_MAINTPLN_CALL_HORIZON_N | Mandatory | Numeric | This is a percentage indicating to kick out a work order from this MP for a percentage of the interval after the MP start date. For shutdown specific items the work order should kick 6 months in advance, and for everything else, 3 months in advance. Based on the specific interval, use the following Call Horizons:
+i.e.:
+[TABLE ROW] Start Date | MI_MAINTPLN|MI_MAINTPLN_START_DATE_D | Mandatory | Date | This field is when the Maintenance plan is set to start. For NDE’s, we are using our subsequent interval which is usually either 120 months or 36 months. The start date entered will be added to the interval to produce the end date. For example, a start date of 2010 and an interval of 120 months (10 years) will produce an end date of 2020. Therefore, it’s important to reverse engineer the start date based on the desired end date. The Date Aid tool can be used to achieve this.
+Inquire with the field team lead and PL to determine desired start date.
+i.e.: MM/DD/YYYY (formatted as short text)
+e.x.: 3/4/2012 (formatted as short text)
+[TABLE ROW] Description | MI_MAINTPLN|MI_MAINTPLN_DESC_C | Mandatory | Character (40) | The title of the Maintenance plan. There is one MP per action. 
+i.e. : INT VIS INSP [Asset ID] 
+ex. : INT VIS INSP 350-TK-04
+[TABLE ROW] Long Text | MI_MAINTPLN|MI_MAINTPLN_LONG_DESC_TX | Optional | Text | The long description of the MP. Will be the same for every operation line and will be the same for the Maintenance Item and Task List Long Desc. Copy the following format:
+i.e.: Inspection Plan: Internal Visual inspection per API [API Guidance] guidance of likely areas; 
+Expected Damage Mode: [Damage Mode as listed in ASM] 
+Likely Area: Full internal visual inspection focusing on the floor, roof, and liquid level line 
+CML Narrative: - 
+Qualifications: Will be performed by qualified personnel such as a certified [API Guidance] inspector or designated examiner 
+Interval: [Tactic Interval]
+e.x.: Inspection Plan: Internal Visual inspection per API 653 guidance of likely areas; 
+Expected Damage Mode: Local due to Caustic Corrosion and Erosion/Erosion Corrosion 
+Likely Area: Full internal visual inspection focusing on the floor, roof, and liquid level line 
+CML Narrative: - Qualifications: Will be performed by qualified personnel such as a certified 653 inspector or designated examiner 
+Interval: 60 months
+[TABLE ROW] Auth Group | MI_MAINTPLN|MI_MAINTPLN_AUTH_GROUP_C | Mandatory | Numeric | Same As Planning Plant (i.e. ‘4001’)
+[TABLE ROW] Sort Field | MI_MAINTPLN|MI_MAINTPLN_SORT_FIELD_C | Mandatory | Text | Auth Group + “_TIME BASED” (i.e. ‘4001_TIME BASED’)
+[TABLE ROW] Category | MI_MAINTPLN|MI_MAINTPLN_CATEGORY_C | Mandatory | Text | Always ‘M’
+[TABLE ROW] Planning Plant | MI_MAINTITM|MI_MAINTITM_PLAN_PLANT_C | Mandatory | Numeric | This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Planner Group | MI_MAINTITM|MI_MAINTITM_PLAN_GROUP_C | Mandatory | Text | This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: [Planner Group for specific Floc]
+e.x.: SB2, KFS, CMF, etc.
+[TABLE ROW] Work Center | MI_MAINTITM|MI_MAINTITM_WRK_CTR_C | Mandatory | Text | This field should be populated with AIPDMX
+[TABLE ROW] Plant | MI_MAINTITM|MI_MAINTITM_WRK_CTR_PLANT_C | Mandatory | Numeric | Populate this with 4009.
+[TABLE ROW] Description | MI_MAINTITM|MI_MAINTITM_DESC_C | Mandatory | Character (40) | Populate this field with the same title as in the MP
+i.e.: INT VIS INSP [Asset ID] 
+ex.: INT VIS INSP 350-TK-04
+[TABLE ROW] Long Text | MI_MAINTITM|MI_MAINTITM_LONG_DESC_TX | Mandatory | Text | Populate this field with the same description as in the MP
+[TABLE ROW] Activity Type | MI_MAINTITM|MI_MAINTITM_ACTIVITY_TYPE_C | Mandatory | Numeric | Always ‘190’
+[TABLE ROW] Category | MI_MAINTITM|MI_MAINTITM_CATEGORY_C | Mandatory | Text | Always ‘M’
+[TABLE ROW] Priority | MI_MAINTITM|MI_MAINTITM_PRIORITY_C | Mandatory | Text | Always ‘A’
+[TABLE ROW] Description | MI_TASKLIST|MI_TASKLIST_DESC_C | Mandatory | Character (40) | Populate this field with the same title as in the MP
+i.e.: INT VIS INSP [Asset ID] 
+ex.: INT VIS INSP 350-TK-04
+[TABLE ROW] Long Text | MI_TASKLIST|MI_TASKLIST_LONG_DESC_TX | Mandatory | Text | Populate this field with the same description as in the MP
+[TABLE ROW] Work Center | MI_TASKLIST|MI_TASKLIST_WRK_CTR_C | Mandatory | Text | This field should be populated with AIPDMX
+[TABLE ROW] Planning Plant | MI_TASKLIST|MI_TASKLIST_PLAN_PLANT_C | Mandatory | Numeric | Same as Maintenance Item Planning Plant
+This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Plant | MI_TASKLIST|MI_TASKLIST_PLANT_C | Mandatory | Numeric | Populate this with 4009.
+[TABLE ROW] Planner Group | MI_TASKLIST|MI_TASKLIST_PLAN_GROUP_C | Mandatory | Text | Same as Maintenance Item Planner Group.
+This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: [Planner Group for specific Floc]
+e.x.: SB2, KFS, CMF, etc.
+[TABLE ROW] Condition | MI_TASKLIST|MI_TASKLIST_CONDITION_C | Mandatory | Numeric | Populate this with the one-digit number that corresponds to the condition needed to perform the action.
+For Internals, this will almost always be 2 or 4.
+i.e.: 1 = Online, 2 = Offline, 3 = Online or Offline, 4 = Shutdown required
+[TABLE ROW] Usage | MI_TASKLIST|MI_TASKLIST_USAGE_C | Mandatory | Numeric | Always ‘01’
+[TABLE ROW] Assembly | MI_TASKLIST|MI_TASKLIST_ASSEMBLY_C | Mandatory | Numeric | This is the CT (Construction Type) value found in the Floc data in SAP. This can also be pulled and found in the FL_EQ Export. The CT must have the ten leading zeros. (i.e. ‘000000000060020274’)
+[TABLE ROW] Operation ID | MI_OPERTION|MI_OPERTION_ID_C | Mandatory | Numeric | The name of the operations in working order.
+i.e.: 0010, 0020, 0030, etc
+[TABLE ROW] Operation Task Type | MI_OPERTION|CC_OPERTION_TASK_TYPE_C | Optional | Text | The main operation for this tactic should be loaded as “0001 INSPECTION” and all additional pre/post operations should be left blank
+[TABLE ROW] Description | MI_OPERTION|MI_OPERTION_DESC_C | Mandatory | Character (40) | For main operation, use same as title as in the MP
+i.e.: INT VIS INSP [Asset ID] 
+ex.: INT VIS INSP 350-TK-04
+For other operations, examples are as follows:
+Scaffolding:
+Scope Scaffolding
+Install Scaffolding
+Inspect Scaffolding		
+Remove Scaffolding
+Access Points:
+Open Manway
+Close Manway and Return to operation
+Wash Operations:
+Drain & Wash Out Tank
+Internal Cleaning Via Hydro-Blasting
+Hole Watch Operation:
+Provide Hole Watch Support
+These additional operations vary per equipment. There is no set list of operations per Internal. The only operation that exists for every Internal is the main INT VIS operation. Please consult with client and inspector on each equipment to build out operations as needed
+[TABLE ROW] Long Text | MI_OPERTION|MI_OPERTION_LONG_DESC_TX | Optional | Text | For Main Internal operation, Populate this field with the same description as in the MP.
+For all other operations, leave blank
+[TABLE ROW] Work Center | MI_OPERTION|MI_OPERTION_WRK_CTR_C | Mandatory | Text | For Main operations and Hole Watch Operations:
+AIPDMX
+For scaffolding and insulation operations:
+4006 – RFDPI
+4005 – SDPI
+4002 – CXDP
+4009 – KOSDPI2
+For opening/closing access points:
+4006 – RFMEC
+4005 – SB2M
+4002 – CPM
+For cleaning operations:
+4006 – RFOPS
+4005 – SNORTH
+4002 – CXN
+[TABLE ROW] Plant | MI_OPERTION|MI_OPERTION_PLANT_C | Mandatory | Numeric | For Main operations and Hole Watch Operations
+4009
+For other operations, use plant area 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Control Key | MI_OPERTION|MI_OPERTION_CONTROL_KEY_C | Mandatory | Text | PM01
+[TABLE ROW] Condition | MI_OPERTION|MI_OPERTION_CONDITION_C | Mandatory | Numeric | 2 or 4 depending on Shutdown need
+[TABLE ROW] Work Hours | MI_OPERTION|MI_OPERTION_WORK_C | Mandatory | Numeric | This is where the estimated work time (hours) is entered. Below is a table for how long, in general, each operation should take. 
+Note: These additional operations vary per equipment. There is no set list of operations per Internal. The only operation that exists for every Internal is the main INT VIS operation. Please consult with client and inspector on each equipment to build out operations and hours as needed.
+[TABLE ROW] Work Hours Unit | MI_OPERTION|MI_OPERTION_WORK_UNIT_C | Mandatory | Text | H
+[TABLE ROW] Activity Type | MI_OPERTION|MI_OPERTION_ACTIVITY_TYPE_C | Mandatory | Text | REL
+[TABLE ROW] Resource Count | MI_OPERTION|MI_OPERTION_RESOURCE_COUNT_C | Mandatory | Numeric | 1
+[TABLE ROW] Duration | MI_OPERTION|MI_OPERTION_DURATION_C | Mandatory | Text | Same as Work Hours
+[TABLE ROW] Duration Unit | MI_OPERTION|MI_OPERTION_DURATION_UNIT_C | Mandatory | Text | H
+[TABLE ROW] Statutory | MI_OPERTION|MI_OPERTION_USER_FIELD_10_F | Mandatory | Boolean | If Statutory, TRUE.
+Otherwise, FALSE
+[TABLE ROW] PSM | MI_OPERTION|MI_OPERTION_USER_FIELD_11_F | Mandatory | Boolean | If part of Process Safety Management (PSM), TRUE.
+Otherwise, FALSE
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Input the strategy ID this PRT is being tied to.
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 40011104TK05 Asset Strategy
+[TABLE ROW] Action ID | Mandatory | Text | Input the action ID this PRT is being tied to.
+i.e.: ACTION-XXX
+e.x.: ACTION-001
+[TABLE ROW] Operation ID | Mandatory | Numeric | Input the operation this PRT is being tied to.
+i.e.: [Main operation number]
+e.x.: 0010
+[TABLE ROW] Item Number | Mandatory | Numeric | Populate with 1
+[TABLE ROW] Document | Mandatory | Numeric | Once PRTs have been created and loaded into SAP, they will be assigned a document number that will be applied here in the loadsheet.
+This is the reference to the PRT document in SAP. This should be loaded with 10 leading 0’s
+This is located in the LOADING AID document.
+i.e.: [PRT Document Number]
+e.x.: 0000000000000010000278700
+[TABLE ROW] Document Type | Mandatory | Text | Populate with ZMP
+[TABLE ROW] Document Part | Mandatory | Numeric | Populate with 000
+[TABLE ROW] Document Version | Mandatory | Numeric | Populate with 00
+[TABLE ROW] Quantity | Mandatory | Numeric | Populate with 1
+[TABLE ROW] Quantity Unit | Mandatory | Text | Populate with EA
+[TABLE ROW] Control Key | Mandatory | Numeric | Populate with 1
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Input the strategy ID this Material is being tied to.
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 40011104TK05 Asset Strategy
+[TABLE ROW] Action ID | Mandatory | Text | Input the action ID this Material is being tied to.
+i.e.: ACTION-XXX
+e.x.: ACTION-001
+[TABLE ROW] Operation ID | Mandatory | Numeric | Input the operation this Material is being tied to.
+i.e.: [Main operation number]
+e.x.: 0010
+[TABLE ROW] Material Number | Mandatory | Numeric | The SAP specific material number associated to the material needed for each operation
+These numbers should be determined on the PRTs
+[TABLE ROW] Quantity | Mandatory | Numeric | The quantity needed for each material
+These numbers should be determined on the PRT
+[TABLE ROW] Unit Of Measure | Mandatory | Text | Populate with EA
+[TABLE ROW] Inspection Type | Statutory Requirements
+[TABLE ROW] Set Pressure Test | Either Statutory or Non-Statutory
+[TABLE ROW] Online Set Point | Either Statutory or Non-Statutory
+[TABLE ROW] Replace Task w/ Bench Ops | Either Statutory or Non-Statutory
+[TABLE ROW] Lift Lever Test with Replace PSV | ONLY Statutory
+[TABLE ROW] Replace Task | ONLY Non-Statutory
+[TABLE ROW] Op | NEEDS PRT? | Op Title
+[TABLE ROW] 0010 | Remove PSV and give to AI for Testing
+[TABLE ROW] 0020 | External Visual
+[TABLE ROW] 0030 | NEEDS PRT | Set Pressure Test
+[TABLE ROW] 0040 | Install certified PSV
+[TABLE ROW] 0050 | External Visual
+[TABLE ROW] Op | Needs PRT? | Op Title
+[TABLE ROW] 0010 | NEEDS PRT | Online Set Point Certification
+[TABLE ROW] Op | Needs PRT? | Op Title
+[TABLE ROW] 0010 | Remove PSV and give to AI for Testing
+[TABLE ROW] 0020 | NEEDS PRT | Set Pressure
+[TABLE ROW] 0030 | NEEDS PRT/MATERIAL | Replace Pressure Safety Valve
+[TABLE ROW] 0040 | External Visual
+[TABLE ROW] Op | NEEDS PRT? | Op Title
+[TABLE ROW] 0010 | NEEDS PRT | Lift Lever Test
+[TABLE ROW] 0020 | NEEDS PRT/MATERIAL | Replace Pressure Safety Valve
+[TABLE ROW] 0030 | External Visual
+[TABLE ROW] Op | Needs PRT? | Op Title
+[TABLE ROW] 0010 | NEEDS PRT AND MATERIAL | Replace Pressure Safety Valve
+[TABLE ROW] Field Name | Field ID | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Strategy ID | Mandatory | Character (255) | Name of Asset Strategy in ASM. Should come from list in “StrategyActivation” Tab
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 522PSV001 Asset Strategy
+[TABLE ROW] Action ID | Action ID | Mandatory | Text | Used by the data loader to identify which action to package to ASI. This is pulled from the ASM export and must match the specific action ID in ASM.
+i.e.: ACTION-XXX
+e.x.: ACTION-001
+[TABLE ROW] Package ID | Package ID | Mandatory | Character (255) | Name of the Package in ASI. To be named same as the ASM Strategy.
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 522PSV001 Asset Strategy
+[TABLE ROW] Implementation Type | Implementation Type | Mandatory | Text | Items
+[TABLE ROW] Call Horizon | MI_MAINTPLN|MI_MAINTPLN_CALL_HORIZON_N | Mandatory | Numeric | This is a percentage indicating to kick out a work order from this MP for a percentage of the interval after the MP start date. For shutdown specific items the work order should kick 6 months in advance, and for everything else, 3 months in advance. Based on the specific interval, use the following Call Horizons:
+i.e.:
+[TABLE ROW] Start Date | MI_MAINTPLN|MI_MAINTPLN_START_DATE_D | Mandatory | Date | This field is when the Maintenance plan is set to start. For NDE’s, we are using our subsequent interval which is usually either 120 months or 36 months. The start date entered will be added to the interval to produce the end date. For example, a start date of 2010 and an interval of 120 months (10 years) will produce an end date of 2020. Therefore, it’s important to reverse engineer the start date based on the desired end date. The Date Aid tool can be used to achieve this.
+Inquire with the field team lead and PL to determine desired start date.
+i.e.: MM/DD/YYYY (formatted as short text)
+e.x.: 3/4/2012 (formatted as short text)
+[TABLE ROW] Description | MI_MAINTPLN|MI_MAINTPLN_DESC_C | Mandatory | Character (40) | The title of the Maintenance plan. There is one MP per action.
+[TABLE ROW] Long Text | MI_MAINTPLN|MI_MAINTPLN_LONG_DESC_TX | Optional | Text | The long description of the MP. Will be the same for every operation line and will be the same for the Maintenance Item and Task List Long Desc.
+[TABLE ROW] Auth Group | MI_MAINTPLN|MI_MAINTPLN_AUTH_GROUP_C | Mandatory | Numeric | Same As Planning Plant (i.e. ‘4001’)
+[TABLE ROW] Sort Field | MI_MAINTPLN|MI_MAINTPLN_SORT_FIELD_C | Mandatory | Text | Auth Group + “_TIME BASED” (i.e. ‘4001_TIME BASED’)
+[TABLE ROW] Category | MI_MAINTPLN|MI_MAINTPLN_CATEGORY_C | Mandatory | Text | Always ‘M’
+[TABLE ROW] Planning Plant | MI_MAINTITM|MI_MAINTITM_PLAN_PLANT_C | Mandatory | Numeric | This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Planner Group | MI_MAINTITM|MI_MAINTITM_PLAN_GROUP_C | Mandatory | Text | This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: [Planner Group for specific Floc]
+e.x.: SB2, KFS, CMF, etc.
+[TABLE ROW] Work Center | MI_MAINTITM|MI_MAINTITM_WRK_CTR_C | Mandatory | Text | This field should be populated with AIPDMX
+[TABLE ROW] Plant | MI_MAINTITM|MI_MAINTITM_WRK_CTR_PLANT_C | Mandatory | Numeric | Populate this with 4009.
+[TABLE ROW] Description | MI_MAINTITM|MI_MAINTITM_DESC_C | Mandatory | Character (40) | Populate this field with the same title as in the MP
+[TABLE ROW] Long Text | MI_MAINTITM|MI_MAINTITM_LONG_DESC_TX | Mandatory | Text | Populate this field with the same description as in the MP
+[TABLE ROW] Activity Type | MI_MAINTITM|MI_MAINTITM_ACTIVITY_TYPE_C | Mandatory | Numeric | Always ‘190’
+[TABLE ROW] Category | MI_MAINTITM|MI_MAINTITM_CATEGORY_C | Mandatory | Text | Always ‘M’
+[TABLE ROW] Priority | MI_MAINTITM|MI_MAINTITM_PRIORITY_C | Mandatory | Text | Always ‘A’
+[TABLE ROW] Description | MI_TASKLIST|MI_TASKLIST_DESC_C | Mandatory | Character (40) | Populate this field with the same title as in the MP
+[TABLE ROW] Long Text | MI_TASKLIST|MI_TASKLIST_LONG_DESC_TX | Mandatory | Text | Populate this field with the same description as in the MP
+[TABLE ROW] Work Center | MI_TASKLIST|MI_TASKLIST_WRK_CTR_C | Mandatory | Text | This field should be populated with AIPDMX
+[TABLE ROW] Planning Plant | MI_TASKLIST|MI_TASKLIST_PLAN_PLANT_C | Mandatory | Numeric | Same as Maintenance Item Planning Plant
+This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Plant | MI_TASKLIST|MI_TASKLIST_PLANT_C | Mandatory | Numeric | Populate this with 4009.
+[TABLE ROW] Planner Group | MI_TASKLIST|MI_TASKLIST_PLAN_GROUP_C | Mandatory | Text | Same as Maintenance Item Planner Group.
+This field should be populated with the plant’s designation for the reliability group, as shown in the functional location. The planner group MUST match that of the floc. Do not reference the Loading Aid document for planner group, but instead reference the FL_EQ spreadsheet to find Planning Plant and Planner Group:
+i.e.: [Planner Group for specific Floc]
+e.x.: SB2, KFS, CMF, etc.
+[TABLE ROW] Condition | MI_TASKLIST|MI_TASKLIST_CONDITION_C | Mandatory | Numeric | Populate this with the one-digit number that corresponds to the condition needed to perform the action.
+For Internals, this will almost always be 2 or 4.
+i.e.: 1 = Online, 2 = Offline, 3 = Online or Offline, 4 = Shutdown required
+[TABLE ROW] Usage | MI_TASKLIST|MI_TASKLIST_USAGE_C | Mandatory | Numeric | Always ‘01’
+[TABLE ROW] Assembly | MI_TASKLIST|MI_TASKLIST_ASSEMBLY_C | Mandatory | Numeric | This is the CT (Construction Type) value found in the Floc data in SAP. This can also be pulled and found in the FL_EQ Export. The CT must have the ten leading zeros. (i.e. ‘000000000060020274’)
+[TABLE ROW] Operation ID | MI_OPERTION|MI_OPERTION_ID_C | Mandatory | Numeric | The name of the operations in working order.
+i.e.: 0010, 0020, 0030, etc
+[TABLE ROW] Operation Task Type | MI_OPERTION|CC_OPERTION_TASK_TYPE_C | Optional | Text | The main operation for this tactic should be loaded as “0001 INSPECTION” and all additional pre/post operations should be left blank
+[TABLE ROW] Description | MI_OPERTION|MI_OPERTION_DESC_C | Mandatory | Character (40) | For main operation, use same as title as in the MP
+NOTE: All operations data is listed in detail in the PSV Operations Template.
+In the scenario where a PSV required Scaffold or Manlift access, add the following:
+Scaffolding:
+0010: Scope Scaffolding
+0020: Install Scaffolding
+0030: Inspect Scaffolding		
+0040: Main PSV Operation(s) as outlined in the PSV Ops Template
+0050: Remove Scaffolding
+Man Lift	
+0010: Call Manlift
+0020: Main PSV Operation(s) as outlined in the PSV Ops Template
+        0030: Return Manlift
+[TABLE ROW] Long Text | MI_OPERTION|MI_OPERTION_LONG_DESC_TX | Optional | Text | For Main Internal operation, Populate this field with the same description as in the MP.
+For all other operations, leave blank
+[TABLE ROW] Work Center | MI_OPERTION|MI_OPERTION_WRK_CTR_C | Mandatory | Text | For main operations:
+AIPDMX
+For scaffolding operations:
+4006 – RFDPI
+4005 – SDPI
+4002 – CXDP
+For manlift operations, use AIPDMX for each area:
+4006/4005/4002 – AIPDMX
+[TABLE ROW] Plant | MI_OPERTION|MI_OPERTION_PLANT_C | Mandatory | Numeric | For Main operations and Hole Watch Operations
+4009
+For other operations, use plant area 4001, 4002, 4005, 4006, or 4009
+[TABLE ROW] Control Key | MI_OPERTION|MI_OPERTION_CONTROL_KEY_C | Mandatory | Text | PM01
+[TABLE ROW] Condition | MI_OPERTION|MI_OPERTION_CONDITION_C | Mandatory | Numeric | Populate this with the one-digit number that corresponds to the condition needed to perform the action.
+For Internals, this will almost always be 2 or 4.
+i.e.: 1 = Online, 2 = Offline, 3 = Online or Offline, 4 = Shutdown required
+[TABLE ROW] Work Hours | MI_OPERTION|MI_OPERTION_WORK_C | Mandatory | Numeric | This is where the estimated work time (hours) is entered. Below is a table for how long, in general, each operation should take. 
+Note: These additional operations vary per equipment. There is no set list of operations per Internal. The only operation that exists for every Internal is the main INT VIS operation. Please consult with client and inspector on each equipment to build out operations and hours as needed.
+[TABLE ROW] Work Hours Unit | MI_OPERTION|MI_OPERTION_WORK_UNIT_C | Mandatory | Text | H
+[TABLE ROW] Activity Type | MI_OPERTION|MI_OPERTION_ACTIVITY_TYPE_C | Mandatory | Text | REL
+[TABLE ROW] Resource Count | MI_OPERTION|MI_OPERTION_RESOURCE_COUNT_C | Mandatory | Numeric | 1
+[TABLE ROW] Duration | MI_OPERTION|MI_OPERTION_DURATION_C | Mandatory | Text | Same as Work Hours
+[TABLE ROW] Duration Unit | MI_OPERTION|MI_OPERTION_DURATION_UNIT_C | Mandatory | Text | H
+[TABLE ROW] Statutory | MI_OPERTION|MI_OPERTION_USER_FIELD_10_F | Mandatory | Boolean | If Statutory, TRUE.
+Otherwise, FALSE
+[TABLE ROW] PSM | MI_OPERTION|MI_OPERTION_USER_FIELD_11_F | Mandatory | Boolean | If part of Process Safety Management (PSM), TRUE.
+Otherwise, FALSE
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Input the strategy ID this PRT is being tied to.
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 40011104TK05 Asset Strategy
+[TABLE ROW] Action ID | Mandatory | Text | Input the action ID this PRT is being tied to.
+i.e.: ACTION-XXX
+e.x.: ACTION-001
+[TABLE ROW] Operation ID | Mandatory | Numeric | Input the operation this PRT is being tied to.
+i.e.: [Main operation number]
+e.x.: 0010
+[TABLE ROW] Item Number | Mandatory | Numeric | Populate with 1
+[TABLE ROW] Document | Mandatory | Numeric | Once PRTs have been created and loaded into SAP, they will be assigned a document number that will be applied here in the loadsheet.
+This is the reference to the PRT document in SAP. This should be loaded with 10 leading 0’s
+This is located in the LOADING AID document.
+i.e.: [PRT Document Number]
+e.x.: 0000000000000010000278700
+[TABLE ROW] Document Type | Mandatory | Text | Populate with ZMP
+[TABLE ROW] Document Part | Mandatory | Numeric | Populate with 000
+[TABLE ROW] Document Version | Mandatory | Numeric | Populate with 00
+[TABLE ROW] Quantity | Mandatory | Numeric | Populate with 1
+[TABLE ROW] Quantity Unit | Mandatory | Text | Populate with EA
+[TABLE ROW] Control Key | Mandatory | Numeric | Populate with 1
+[TABLE ROW] Field | Requirement | Format | Notes
+[TABLE ROW] Strategy ID | Mandatory | Character (255) | Input the strategy ID this Material is being tied to.
+i.e.: RTKC [Asset Floc] Asset Strategy
+e.x.: RTKC 40011104TK05 Asset Strategy
+[TABLE ROW] Action ID | Mandatory | Text | Input the action ID this Material is being tied to.
+i.e.: ACTION-XXX
+e.x.: ACTION-001
+[TABLE ROW] Operation ID | Mandatory | Numeric | Input the operation this Material is being tied to.
+i.e.: [Main operation number]
+e.x.: 0010
+[TABLE ROW] Material Number | Mandatory | Numeric | The SAP specific material number associated to the material needed for each operation
+These numbers should be determined on the PRTs
+[TABLE ROW] Quantity | Mandatory | Numeric | The quantity needed for each material
+These numbers should be determined on the PRT
+[TABLE ROW] Unit Of Measure | Mandatory | Text | Populate with EA
+[TABLE ROW] Interval | Call Horizon | SD Call Horizon
+[TABLE ROW] 120 month | 98 | 95
+[TABLE ROW] 60 month | 95 | 91
+[TABLE ROW] 48 month | 94 | 88
+[TABLE ROW] 36 month | 92 | 84
+[TABLE ROW] 24 month | 88 | 76
+[TABLE ROW] 12 month | 76 | 51
+[TABLE ROW] Risk ID | Name
+[TABLE ROW] RISK001 | Vehicle Collision or Rollover
+[TABLE ROW] RISK002 | Contact with Electricity
+[TABLE ROW] RISK003 | Entanglement and Crushing
+[TABLE ROW] RISK004 | Exposure to Hazardous Substances
+[TABLE ROW] RISK005 | Fall from Heights
+[TABLE ROW] RISK006 | Falling Objects
+[TABLE ROW] RISK007 | Confined Spaces
+[TABLE ROW] RISK008 | Lifting Operations
+[TABLE ROW] RISK009 | Slope Failure
+[TABLE ROW] RISK010 | Exposure to Thermal Extremes
+[TABLE ROW] RISK011 | Exposure to Thermal Extremes
+[TABLE ROW] RISK012 | Underground Fire
+[TABLE ROW] RISK013 | Underground Hoisting
+[TABLE ROW] RISK014 | Underground Inrush
+[TABLE ROW] RISK015 | Underground Rock Fall
+[TABLE ROW] RISK016 | Unplanned Initiation of Explosives
+[TABLE ROW] RISK017 | Vehicle Impact on Person
+[TABLE ROW] RISK018 | Underground Hazardous Atmosphere
+[TABLE ROW] RISK019 | Contact with Molten Material
+[TABLE ROW] RISK020 | Drowning
+[TABLE ROW] RISK021 | Rail Collision
+[TABLE ROW] RISK022 | Rail Impact on Person
+[TABLE ROW] RISK024 | Mooring Operations
+[TABLE ROW] RISK026 | Exposure to Hazardous Substances Chronic
+[TABLE ROW] RISK027 | Malaria
+[TABLE ROW] Error Description | Solution
+[TABLE ROW] Maint Item - "Reference object for business operation not allowed" | This was found when a strategy tried to create a MP to an EQ ID that was set for deletion (DLFL in SAP, code IE03).
+[TABLE ROW] Amplify Tool Checkbox 1 for Strategy Actiation isn't working. AND
+"Action not Found in APM" | ASM Strat ID was wrong, had an RF. This instance we found the tool was only pulling the first value in the "Strategy Activation" Tab. Tried making a new tab and copying info, didn't work. Tried downloading new Template from tool, and worked
+[TABLE ROW] An item with the same key has already been added. | APM was slow this time. Get it to manually send to ASI package, and if still blank (the action that is), just go ahead and BUILD SAP PLAN and it should link and show up properly.
+[TABLE ROW] Formatting error in the field PLPOD-ARBEI ; see next message
+Must be in the format ____. - | Changed operation hour to comma or period. Back and forth until it works
+[TABLE ROW] RMIPM-MPTYP | I fixed this once by inputting a field in the Maintenance Item where the "M - Maintence Order" field is. This was blank, I changed it, and it worked.
+[TABLE ROW] PLPOD-ISTRU | Check if the Floc has a Construction Type tied to it. The floc needs to have its Construction Type added in.
+[TABLE ROW] PLKOD-WERKS | Task List has blanks. Fill in all fields.
+[TABLE ROW] Fiscal year error | Key Date in Task List is not today. Use ASI Family load to populate the Key Date with today's date.
+[TABLE ROW] Call horizon > 100% is not allowed | Try changing Key Date and/or Call Horizon.
+[TABLE ROW] Operation 0010 of task list A M0002608 01 not found | Had to change the "Past Operation number" and add/remove from SAP as needed to match then implement, worked. Difficult, consult with Phillip on this.
+[TABLE ROW] PLPOD-VORNR(05) You can only select created records | Try changing Key Date.
+[TABLE ROW] PLPOD-VORNR(02) | Try changing Key Date.
+[TABLE ROW] Material component for the task list with A M0003067 not found | Will require force delete of Material. Consult with Phillip.
+[TABLE ROW] MATNR   No valid material component selected | Add ten-zeros infront of material ID. i.e. "0000000000XXXXXXXXX" "000000000040367711"
+[TABLE ROW] Error occurred updating operation Task Type field for Task List A-M0005470-01; field value may not be set correctly | Change Operation Task Type from "0001 Inspection" to blank
+[TABLE ROW] Field DEVICEID for reference object view: O120 not possible -> value reset
+Object has deviant business area ( 0001 )
+WARPL Maintenance plan M00000004796 locked by ECP500APM | Try to re implement again. If persisting, the bottom note especially, the MP may currently be open by someone else.
+[TABLE ROW] Update flags for Operation Line 1 Missing | Match previous operation number to Prev operation
+[TABLE ROW] PRT Item 0001 is already exists Please choose the next avaialble Item Number | Already exact PRT in SAP. Remove from SAP and try again
+[TABLE ROW] PLKOD-VERWE | MP - Category M-Maint order
+Maint Item - Change Category to M-Maint Order
+Task List: Add Usage "01" and make sure assmbly is there (assembly=Const Type)
+[TABLE ROW] Please enter valid priority | Prio in Maint Item, 2nd tab
+[TABLE ROW] Field RMIPM-FABKL . is not an input field | Maint Plan 2nd tab still empty
+[TABLE ROW] The remote server returned an error (500) Server Error | In this scenario, the Task List (TL) has partially implemented to SAP. To solve this, the “status” of that Task list needs to be reverted to an “A” status. 
+To do this, use the ASI Family load located here and in this email.
+Gather the Task List ENTY KEY and populate in the spreadsheet.
+Keep Column C blank, and Column D as “A”
+Load using the Data loader and this will revert the status in ASI of the Task List.
+Continue to implement again and the package should go through.
+[TABLE ROW] Fiscal Year Error | If key date change doesn't work; Change operation work center to "AIPDMX" & operation Plant to "4009" (Control Key should remain PM01) *Note this will delete your "Normal Duration Unit" field in the "Standard Values" tab so you will have to re-enter this field before saving* After implementation, you can modify and change work center and plant back to its original and it will implement.
+[TABLE ROW] PLKOD-ISTRU; The material number is longer than the length set | In task list, remove leading zero's from the "Assembly" field
+[TABLE ROW] Interval | Call Horizon
+[TABLE ROW] 120 month | 98
+[TABLE ROW] 60 month | 95
+[TABLE ROW] 48 month | 94
+[TABLE ROW] 36 month | 92
+[TABLE ROW] 24 month | 88
+[TABLE ROW] 12 month | 76
+[TABLE ROW] Tab | Inputs Needed
+[TABLE ROW] Have Start Date | Desired Start Date
+Interval
+[TABLE ROW] Have Call Date | Desired Call Date
+Interval
+[TABLE ROW] Have End Date | Desired End Date
+Interval
+[TABLE ROW] Interval | Call Horizon | SD Call Horizon
+[TABLE ROW] 120 month | 98 | 95
+[TABLE ROW] 60 month | 95 | 91
+[TABLE ROW] 48 month | 94 | 88
+[TABLE ROW] 36 month | 92 | 84
+[TABLE ROW] 24 month | 88 | 76
+[TABLE ROW] 12 month | 76 | 51
+[TABLE ROW] Data Check | QC Resource Initials | Date Checked | Comments
+[TABLE ROW] All example lines have been deleted from all tabs.
+[TABLE ROW] Any strategy ID listed on StrategyActivation tab is also present on Package Strategies tab and Implement Packages tab.
+[TABLE ROW] Spelling has been checked throughout.
+[TABLE ROW] The number of assets on the StrategyActivation tab is equal to the number of assets on the Implement Packages tab.
+[TABLE ROW] Each strategy and action combination is unique.
+[TABLE ROW] Each strategy and operation combination is unique.
+[TABLE ROW] Data Check | QC Resource Initials | Date Checked | Comments
+[TABLE ROW] All Strategy IDs have both ‘RTKC’ and ‘Asset Strategy’ in the name.
+[TABLE ROW] Data Check | QC-er Initials | Date Checked | Comments
+[TABLE ROW] Strategy ID is filled with only those listed on the Strategy Activation tab.
+[TABLE ROW] Action ID is filled by matching the asset strategy ID and/or functional location (FLOC) from the ASM query.
+[TABLE ROW] Package ID is equal to the Strategy ID – ASM column.
+[TABLE ROW] Implementation Type has ‘Operations’ if main operation, or “Manual Operations” if a supporting operation. (Scaffold, bolting, etc.)
+[TABLE ROW] Data Check | QC-er Initials | Date Checked | Comments
+[TABLE ROW] Call Horizon follows chart based on interval and SD Need.
+[TABLE ROW] Start Date is formatted as a date, and is back-calculated logically from today’s date and the assigned frequency using the Date Aid Tool.
+[TABLE ROW] Maintenance Plan Description matches that of the Maintenance Item, Task List, and Main Operation.
+[TABLE ROW] Maintenance Plan Long Text correctly references the necessary drawings/isometrics, the correct inspection type, and the correct frequency.
+[TABLE ROW] Maintenance Plan Long Text matches that of the Maintenance Item, Task List, and Main Operation.
+[TABLE ROW] Data Check | QC-er Initials | Date Checked | Comments
+[TABLE ROW] Planning Plant and Planner Group match that listed under the associated floc for the tactic, in the FL_EQ spreadsheet.
+[TABLE ROW] Work Center and Work Center Plant is AIPDMX/4009.
+[TABLE ROW] Data Check | QC-er Initials | Date Checked | Comments
+[TABLE ROW] Planning Plant and Planner Group match that listed under the associated floc for the tactic, in the FL_EQ spreadsheet.
+[TABLE ROW] Work Center and Work Center Plant is AIPDMX/4009.
+[TABLE ROW] Data Check | QC-er Initials | Date Checked | Comments
+[TABLE ROW] Operation ID has each field listed as ‘0010’, ‘0020’, ‘0030’, etc.
+[TABLE ROW] Work Center and Plant are AIPDMX/4009 for main operation, and for other (manual) operations follow correct guidance outlined in the Loading Aid document.
+[TABLE ROW] Control Key and Activity Type  are populated with ‘PM01’ and ‘REL’, respectively.
+[TABLE ROW] Operation Work Unit and Work Duration Unit has ‘H’ for hours.
+[TABLE ROW] Data Check | QC Resource Initials | Date Checked | Comments
+[TABLE ROW] Needed PRTs are loaded by one line per PRT.
+[TABLE ROW] PRTs are attached to the correct operation
+[TABLE ROW] Data Check | QC Resource Initials | Date Checked | Comments
+[TABLE ROW] Needed Materials are loaded by one line per Material.
+[TABLE ROW] Materials are attached to the correct operation
+[TABLE ROW] Data Check | QC Resource Initials | Date Checked | Comments
+[TABLE ROW] Tab is exactly the same as the StrategyActivation tab

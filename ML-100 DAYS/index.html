@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The CampusX Machine Learning &amp; AI Library</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       1. BROADSHEET MASTHEAD
+       ========================================================================== -->
+  <header class="broadsheet-masthead">
+    <div class="masthead-top">
+      <div class="masthead-lead">
+        <span class="badge-ember">GAZETTE</span>
+        <span>CAMPUSX COMPLETE REFERENCE REPOSITORY</span>
+      </div>
+
+      <div class="masthead-center" onclick="showLibraryView()" title="Return to Library Catalog">
+        <h1 class="masthead-title">The Machine Learning &amp; AI Library</h1>
+        <p class="masthead-sub">Ten Volumes • 6,027 Folios • 9,092 Topics • Comprehensive Lecture Notes &amp; Dispatches</p>
+      </div>
+
+      <div class="masthead-actions">
+        <span id="readingProgressText" style="font-family: var(--font-mono); font-size: 11px; color: var(--text-charcoal); font-weight: 700;">Library Catalog</span>
+        <button class="btn-broadsheet" id="btnTheme" title="Toggle Broadsheet Theme">
+          🌙 INK DARK
+        </button>
+      </div>
+    </div>
+
+    <!-- Reading Progress Bar -->
+    <div style="width: 100%; height: 3px; background: var(--border-light); position: relative;">
+      <div id="readingProgressBar" style="height: 100%; width: 0%; background: var(--accent-ember); transition: width 0.3s ease;"></div>
+    </div>
+
+    <!-- Reader Controls Bar (Active when studying a course) -->
+    <div class="masthead-bar" id="readerControlsBar" style="display: none;">
+      <div class="bar-left">
+        <button class="btn-broadsheet" id="btnBackToLibrary" title="Return to Library Catalog (Press L)">
+          ← ALL NOTES
+        </button>
+
+        <!-- Course Switcher -->
+        <select class="broadsheet-select" id="courseSwitcher" title="Switch Course Volume">
+          <!-- Populated by JS -->
+        </select>
+
+        <button class="btn-broadsheet" id="btnToggleSidebar" title="Toggle Table of Contents">
+          ☰ INDEX
+        </button>
+
+        <!-- Topic Search in Active Course -->
+        <div class="editorial-search-wrap">
+          <span class="editorial-search-icon">🔍</span>
+          <input type="text" class="editorial-search-input" id="readerSearchInput" placeholder="Filter active course topics...">
+        </div>
+
+        <!-- Jump to Day/Chapter -->
+        <select class="broadsheet-select" id="daySelect" title="Jump to Chapter">
+          <!-- Populated by JS -->
+        </select>
+      </div>
+
+      <!-- Center Stepper Controls -->
+      <div class="bar-center">
+        <div class="broadsheet-stepper">
+          <button class="btn-broadsheet" id="btnPrevPage" title="Previous Page (← or [)">◀</button>
+          <span>FOLIO</span>
+          <input type="number" class="stepper-input" id="stepperInput" min="1" max="2434" value="1">
+          <span>OF <span id="totalPagesDisplay">2,434</span></span>
+          <button class="btn-broadsheet" id="btnNextPage" title="Next Page (→ or ])">▶</button>
+        </div>
+      </div>
+
+      <!-- Right Zoom & Native PDF Controls -->
+      <div class="bar-right">
+        <button class="btn-broadsheet" id="btnOpenNativePdf" title="Open 100% Native Vector PDF at Current Folio in New Tab">
+          📄 NATIVE PDF
+        </button>
+        <button class="btn-broadsheet" id="btnZoomOut" title="Zoom Out (−)">−</button>
+        <button class="btn-broadsheet" id="btnZoomFit" title="Fit to Reading Desk">FIT</button>
+        <button class="btn-broadsheet" id="btnZoomIn" title="Zoom In (+)">+</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       VIEW A: LIBRARY CATALOG LANDING PAGE (Blocks of Notes)
+       ========================================================================== -->
+  <main id="libraryView">
+    <div class="library-container">
+      
+      <!-- Hero Banner -->
+      <div class="library-hero">
+        <div class="library-hero-top">
+          <div class="library-hero-title">
+            <h2>Course Folios &amp; Lecture Notes</h2>
+            <p>Select any volume below to open its dedicated reading desk with instant search and direct scrolling.</p>
+          </div>
+          <div class="library-stats-strip">
+            <span class="stat-chip">📚 10 VOLUMES</span>
+            <span class="stat-chip">📄 6,027 FOLIOS</span>
+            <span class="stat-chip">📑 9,092 TOPICS</span>
+            <span class="stat-chip">⚡ 0.0s DIRECT JUMP</span>
+          </div>
+        </div>
+
+        <!-- Global Search Bar -->
+        <div class="library-search-wrapper">
+          <span class="library-search-icon">🔍</span>
+          <input type="text" class="library-search-input" id="librarySearchInput" placeholder="Search any topic, algorithm, or architecture across all 10 volumes (e.g. Backpropagation, RAG, LangGraph, Docker, Attention, PCA)...">
+        </div>
+
+        <!-- Global Search Results Drawer -->
+        <div class="global-results-wrap" id="globalResultsWrap">
+          <div class="global-results-header">
+            <span id="globalResultsCount">Search Results</span>
+            <span style="cursor: pointer; color: var(--text-charcoal);" onclick="document.getElementById('globalResultsWrap').style.display='none'">✕ CLOSE</span>
+          </div>
+          <div id="globalResultsList"></div>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="category-filter-strip" id="categoryFilterStrip">
+          <button class="pill-filter active" data-category="all">All Dispatches (10)</button>
+          <button class="pill-filter" data-category="Core Machine Learning">Core ML &amp; Math</button>
+          <button class="pill-filter" data-category="Deep Learning">Deep Learning</button>
+          <button class="pill-filter" data-category="Generative AI">Generative AI &amp; LLMs</button>
+          <button class="pill-filter" data-category="Autonomous AI Agents">Agents &amp; MCP</button>
+          <button class="pill-filter" data-category="Engineering">Engineering &amp; MLOps</button>
+          <button class="pill-filter" data-category="Natural Language">NLP</button>
+        </div>
+      </div>
+
+      <!-- Course Cards Grid -->
+      <div class="courses-grid" id="coursesGrid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       VIEW B: READING DESK (Active Course Direct-Scroll Reader)
+       ========================================================================== -->
+  <main class="broadsheet-workspace" id="readerWorkspace">
+    
+    <!-- LEFT PANE: COURSE TABLE OF CONTENTS -->
+    <aside class="editorial-index-pane" id="editorialIndexPane">
+      <div class="index-header">
+        <h3>Volume Index</h3>
+        <span class="index-meta" id="sidebarCourseMeta">TOC</span>
+      </div>
+
+      <div class="index-scroll-area" id="indexScrollArea">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </aside>
+
+    <!-- RIGHT PANE: DIRECT SCROLL READING DESK -->
+    <section class="broadsheet-reader-desk">
+      
+      <!-- Sub-Banner: Current Reading Topic -->
+      <div class="reading-status-banner">
+        <div class="reading-status-left">
+          <button class="status-toggle-sidebar" id="statusToggleSidebar" title="Toggle Table of Contents">
+            INDEX
+          </button>
+          <div class="current-reading-label" id="currentReadingLabel">
+            <span class="num">FOLIO 1:</span> Course Lecture Notes
+          </div>
+        </div>
+
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">
+          DIRECT SCROLL DESK • 100% UNALTERED NOTES
+        </div>
+      </div>
+
+      <!-- Direct Continuous Scroll Container -->
+      <div class="direct-scroll-container" id="scrollContainer">
+        <!-- Initial Loader -->
+        <div id="initialLoader">
+          <div class="folio-loading-spinner" style="width: 44px; height: 44px; border-width: 3px;"></div>
+          <div class="initial-loader-title" style="margin-top: 14px;">Opening Dispatch</div>
+          <div class="initial-loader-sub">Preparing direct scrolling for folios...</div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Notification Toast -->
+  <div class="editorial-toast" id="editorialToast"></div>
+
+  <!-- Scripts -->
+  <script src="pdf.min.js"></script>
+  <script src="courses_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

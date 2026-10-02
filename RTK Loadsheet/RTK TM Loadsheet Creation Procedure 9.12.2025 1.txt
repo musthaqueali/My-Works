@@ -1,0 +1,393 @@
+DELIVERABLE REQUIREMENT: TM Datamining and Loading
+CLIENT: RTK
+SITE: RTK
+PROJECT: TM Full Implementation
+REVISION: 1.0
+Purpose
+Pinnacle will use the process and methodology documented in the deliverable requirement TM Datamining & Loading to:
+Datamine the necessary fields required for the Thickness Monitoring (TM) Module to manage inspections, monitor asset health, and ensure inspection compliance in APM.
+Develop load sheets for fixed equipment and piping circuits which will provide a baseline reference at the time of the implementation and may be used to identify changes made during Evergreening of the MI Inspection Program
+Import load sheets into the APM TM Module
+TM Datamining & Loading
+Key Aspects & Features
+Mechanical Data Mining (Equipment and Piping): Pinnacle will collect asset design and construction information from gathered asset documentation. Pinnacle will datamine piping mechanical data using RTK piping standards/specifications.
+Fixed Equipment and Piping Circuit APM Load: Pinnacle will develop load sheets for equipment and piping circuits to load into APM.
+GE APM Thickness Monitoring (TM) Module
+Pinnacle will datamine existing historical TML data for equipment and piping circuits, and load to corresponding TMLs in APM.
+Out of Scope
+APM fields not listed as required fields in Section E and Section F and their dependents, will not be datamined and loaded.
+Equipment and Units not listed as in-scope on the MALs will not have their TMLs datamined.
+TMLS that cannot be correlated using an equipment drawing will not be datamined.
+Final Format
+Datamined load sheets will be loaded into the GE APM Thickness Monitoring (TM) Module
+Assumptions
+Pinnacle assumes that accurate line specification sheets are available for piping-datamining.
+Pinnacle will only need to datamine the appropriate data as detailed in Section E and Section F of this deliverable requirements document.
+Pinnacle assumes that all asset documentation is accurate and available to the project team.
+Pinnacle is not calculating or assessing for fitness for services (FFS).
+Pinnacle is not performing T-min calculations internal or external to the APM system as part of this scope of work for pressure or structural T-min analysis.
+Minimum Structural T-min for piping will follow API 574 Table 7 for all pipe sizes. T-min for pipe sizes not included in API 574 Table 7 will be modeled after the largest pipe size in Table 7. This will be used for all piping materials at all temperatures.
+All assets are built to ASME VIII, ASME B31.3 or API 650 codes.
+Any non-required field will not be modified.
+Pinnacle will provide a list of TML/Circuit data gaps for RTK to vet gaps and fill in necessary data for Pinnacle to load if desired.
+APM piping formula A will be loaded for the purpose of T-min calculations for piping because it is the most consistent.
+Thickness Monitoring (TM)
+Thickness Monitoring Location Load Sheet Fields
+Data load template worksheet: Assets
+Data load template worksheet: Asset_CAS
+Data load template worksheet: TML_Group
+Data load template worksheet: TML_Group_CAS
+Data load template worksheet: TML
+Data load template worksheet: TML_CAS
+Do Not Populate
+Data load template worksheet: Measurements
+[TABLE ROW] Load Sheet Field | Populate | Data Requirements
+[TABLE ROW] Equipment ID | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM/SAP
+Field Details: Text Entry 
+Example Inputs:
+000000000002000092
+[TABLE ROW] CMMS System | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM/SAP
+Field Details: Text Entry
+Required Input: ECP-500
+[TABLE ROW] Equipment Technical Number | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry 
+Example Inputs:
+3330-TK-003
+[TABLE ROW] Load Sheet Field | Populate | Data Requirements
+[TABLE ROW] Equipment ID | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry 
+Example Inputs:
+000000000002000092
+[TABLE ROW] CMMS System | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry
+Required Input: ECP-500
+[TABLE ROW] Equipment Technical Number | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry 
+Example Input: 3330-TK-003
+[TABLE ROW] Inspection Type | Yes | Expected Source: APM
+Field Details: Text Entry
+Required Input: UT or RT
+[TABLE ROW] Controlling Corrosion Rate | Yes | Required Input: Maximum
+[TABLE ROW] Comments | No | Required Input: Leave Blank
+[TABLE ROW] Apply CCR to TML Rem Life Next Insp Date Calc | No | Required Input: Leave Blank
+[TABLE ROW] Safety Factor | No | Required Input: Leave Blank
+[TABLE ROW] Minimum Number of TMLs | No | Required Input: Leave Blank
+[TABLE ROW] Percentile | No | Required Input: Leave Blank
+[TABLE ROW] Std Deviation Factor | Yes | Purpose: Displays the value that determines where the upper and lower limit will be drawn on the asset analysis plot; "2" means that the upper and lower limits will be drawn to represent 2 standard deviations
+Field Details: Numeric
+Required Input: 2
+[TABLE ROW] Remaining Life Critical Number of TMLs | Yes | Purpose: Displays the number of TMLs to use when calculating Remaining life; 1 means the system will select the most conservative (shortest) remaining life value; selecting more than 1 will result in an average calculation
+Field Details: Numeric
+Required Input: 1
+[TABLE ROW] Corrosion Rate Options - Least Squares | Yes | Required Input: False
+[TABLE ROW] Corrosion Rate Options - Short Term | Yes | Required Input: True
+[TABLE ROW] Corrosion Rate Options - Long Term | Yes | Required Input: True
+[TABLE ROW] Corrosion Rate Options - Custom A | Yes | Required Input: False
+[TABLE ROW] Corrosion Rate Options - Custom B | Yes | Required Input: False
+[TABLE ROW] Default Inspection Interval (Months) | Yes | Purpose: The value that will be used for calculating Interval next inspection date for a TML
+Field Details: Numeric
+Example Inputs: 24, 36, 48, 60, 120
+[TABLE ROW] Inspection Interval Options - Factor Remaining Life | Yes | Purpose: Determines which inspection dates should be calculated for TMLs and how scheduled next inspection date is determined
+Field Details: Text Entry
+Equipment: True
+[TABLE ROW] Inspection Interval Options - Inspection Interval | Yes | Purpose: Determines which inspection dates should be calculated for TMLs and how scheduled next inspection date is determined
+Field Details: Text Entry
+Equipment: True
+[TABLE ROW] Default T-Min (Inches) | Yes | Purpose: Value used for T-min if field not populated
+Field Details: Numeric
+[TABLE ROW] Minimum Corrosion Rate (Mils/year) | Yes | Expected Source: Use DMR corrosion model
+Field Details: Text
+Example Inputs: 5 (Mils/year)
+Notes: If there is more than 1 modeled TML group for the Asset, utilize the largest internal corrosion rate for the Asset.
+[TABLE ROW] Use Minimum Corrosion Rate | Yes | Purpose: If checked, the system will use the minimum corrosion rate if the calculated corrosion rate is less than the minimum.
+Field Details: Text Entry
+Required Inputs: True
+[TABLE ROW] Remaining Life Factor | Yes | Purpose: Calculates the remaining life for the equipment by multiplying the rate by the date (0.5 = half life)
+Field Details: Text
+Required Inputs: 0.5
+[TABLE ROW] Allowable Measurement Variance (inches) | Yes | Purpose: How much difference is allowed between the measurements entered and the two most recent measurements
+Field Details: Numeric
+Required Inputs: 0
+[TABLE ROW] Corrosion Rate Variance | Yes | Purpose: The amount of variation that is allowed between the short term rate for a TML and the Minimum corrosion rate. If the value is zero, the validation will not be performed.
+Field Details: Numeric
+Required Inputs: 0
+[TABLE ROW] Load Sheet Field | Populate | Data Requirements
+[TABLE ROW] Equipment ID | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry 
+Example Inputs:
+000000000002000083
+[TABLE ROW] CMMS System | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry
+Required Input: ECP-500
+[TABLE ROW] Equipment Technical Number | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry 
+Example Input: 3330-TK-009
+[TABLE ROW] TML Group ID | Yes | Purpose: Loaded value for new TML Group
+Expected Source: CML Datamining Spreadsheet
+Field Details: Text Entry 
+Example Inputs: 
+Piping: PIPE
+Equipment: 3330-TK-009, 3330-TK-009
+Notes: ≤ 50 characters in length
+[TABLE ROW] Description | No | Required Input: Leave Blank
+[TABLE ROW] Corrosion Group | Yes | Purpose: Loaded value for new TML Group
+Expected Source: CML Datamining Spreadsheet
+Field Details: Text Entry 
+Example Inputs: 
+Equipment: SHELL, NOZZLES, ROOF, FLOOR, etc
+Piping: PIPE
+[TABLE ROW] Comments | No | Required Input: Leave Blank
+[TABLE ROW] Load Sheet Field | Populate | Data Requirements
+[TABLE ROW] Equipment ID | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry 
+Example Inputs:
+000000000002000095
+[TABLE ROW] CMMS System | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry
+Required Input: ECP-500
+[TABLE ROW] Equipment Technical Number | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry 
+Example Input: 3330-TK-008
+[TABLE ROW] Inspection Type | Yes | Expected Source: APM
+Field Details: Text Entry
+Required Input: UT or RT
+[TABLE ROW] TML Group ID | Yes | Purpose: Loaded value for new TML Group
+Expected Source: CML Datamining Spreadsheet
+Field Details: Text Entry 
+Example Inputs: 
+Piping: PIPE
+Equipment: 3330-TK-009, 3330-TK-009
+[TABLE ROW] Controlling Corrosion Rate | Yes | Required Input: Maximum
+[TABLE ROW] Comments | No | Required Input: Leave Blank
+[TABLE ROW] Apply CCR to TML Rem Life Next Insp Date Calc | No | Required Input: Leave Blank
+[TABLE ROW] Safety Factor | No | Required Input: Leave Blank
+[TABLE ROW] Minimum Number of TMLs | No | Required Input: Leave Blank
+[TABLE ROW] Percentile | No | Required Input: Leave Blank
+[TABLE ROW] Std Deviation Factor | Yes | Purpose: Displays the value that determines where the upper and lower limit will be drawn on the asset analysis plot; "2" means that the upper and lower limits will be drawn to represent 2 standard deviations
+Field Details: Numeric
+Required Input: 2
+[TABLE ROW] Remaining Life Critical Number of TMLs | Yes | Purpose: Displays the number of TMLs to use when calculating Remaining life; 1 means the system will select the most conservative (shortest) remaining life value; selecting more than 1 will result in an average calculation
+Field Details: Numeric
+Required Input: 1
+[TABLE ROW] Corrosion Rate Options - Least Squares | Yes | Required Input: False
+[TABLE ROW] Corrosion Rate Options - Short Term | Yes | Required Input: True
+[TABLE ROW] Corrosion Rate Options - Long Term | Yes | Required Input: True
+[TABLE ROW] Corrosion Rate Options - Custom A | Yes | Required Input: False
+[TABLE ROW] Corrosion Rate Options - Custom B | Yes | Required Input: False
+[TABLE ROW] Default Inspection Interval (Months) | Yes | Purpose: The value that will be used for calculating Interval next inspection date for a TML
+Field Details: Numeric
+Example Inputs: 24, 36, 48, 60, 120
+[TABLE ROW] Inspection Interval Options - Factor Remaining Life | Yes | Purpose: Determines which inspection dates should be calculated for TMLs and how scheduled next inspection date is determined
+Field Details: Text Entry
+Equipment: True
+[TABLE ROW] Inspection Interval Options - Inspection Interval | Yes | Purpose: Determines which inspection dates should be calculated for TMLs and how scheduled next inspection date is determined
+Field Details: Text Entry
+Equipment: True
+[TABLE ROW] Default T-Min (Inches) | Yes | Purpose: Value used for T-min if field not populated
+Field Details: Numeric
+[TABLE ROW] Minimum Corrosion Rate (Mils/year) | Yes | Expected Source: Use DMR corrosion model
+Field Details: Text
+Example Inputs: 5 (Mils/year)
+[TABLE ROW] Use Minimum Corrosion Rate | Yes | Purpose: If checked, the system will use the minimum corrosion rate if the calculated corrosion rate is less than the minimum.
+Field Details: Text Entry
+Required Inputs: True
+[TABLE ROW] Remaining Life Factor | Yes | Purpose: Calculates the remaining life for the equipment by multiplying the rate by the date (.5 = half life)
+Field Details: Text
+Required Inputs: 0.5
+[TABLE ROW] Allowable Measurement Variance (inches) | Yes | Purpose: How much difference is allowed between the measurements entered and the two most recent measurements
+Field Details: Numeric
+Required Inputs: 0
+[TABLE ROW] Corrosion Rate Variance | Yes | Purpose: The amount of variation that is allowed between the short term rate for a TML and the Minimum corrosion rate. If the value is zero, the validation will not be performed.
+Field Details: Numeric
+Required Inputs: 0
+[TABLE ROW] Load Sheet Field | Populate | Data Requirements
+[TABLE ROW] Equipment ID | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry
+Example Inputs:
+000000000002000095
+[TABLE ROW] CMMS System | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry
+Example Input: ECP-500
+[TABLE ROW] Equipment Technical Number | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry
+Example Input: 3330-TK-012
+[TABLE ROW] TML Group ID | Yes | Purpose: Associated TML Group Record Identification
+Expected Source: Equipment Data Collection Spreadsheet
+Field Details: Text Entry
+Example Input: 
+Piping: PIPE
+Equipment: 3330-TK-009, 3330-TK-009
+[TABLE ROW] TML_ID | Yes | Purpose: Loaded value for New TMLs
+Expected Source: Equipment Data Collection Spreadsheet
+Field Details: Text Entry
+Example Input: UT1.001, RT2.004, UTS.002, RT1.009
+[TABLE ROW] TML Analysis Type | Yes | Expected Source: APM
+Field Details: Text Entry
+Required Input: UT or RT
+[TABLE ROW] Status Indicator | Yes | Purpose: Statues of measurement in APM for corrosion rate calculations
+Expected Source: CML Datamining Template
+Field Details: Text
+Inputs: Active or Inactive
+[TABLE ROW] Component Type | Yes | Purpose: Loaded value for New TMLs.
+Expected Source: CML Data Collection Spreadsheets
+Field Details: Text ; Character Limit: 10
+Example Input: SHELL, REDUCER, NOZZLE, ELBOW
+[TABLE ROW] Location | Yes | Expected Source: Directional description
+Field Details: Text Entry
+Example Input: North
+[TABLE ROW] Line Number Designation | No | Required Input: Leave Blank
+[TABLE ROW] ISO Drawing Number | Yes | Expected Source: Equipment Number/Pipe Circuit Number-ISO #
+Field Details: Text Entry
+Example Inputs: 
+3330-TK-009_SHT01, 330-M-080
+[TABLE ROW] Access | Yes | Expected Source: ISO Drawing/Field Sketch
+Field Details: Text Entry
+Example Inputs: SCAFFOLD, LADDER, etc
+Note: These values must adhere to the APM picklist.
+[TABLE ROW] Inspection Sequence Number | No | Required Input: Leave Blank
+[TABLE ROW] Insulated Flag | Yes | Expected Source: CML Data Collection Spreadsheets
+Field Details: Text Entry
+Example Input: TRUE or FALSE
+Note: Must be in all caps.
+[TABLE ROW] TML Comment | No | Required Input: Leave Blank
+[TABLE ROW] Minimum Thickness | Yes | Expected Source: CML Data Collection Spreadsheets
+Field Details: Text Entry
+Example Input: 0.1
+Equipment:
+1. Below 0.1, use 0.1
+2. Above 0.1, use calc Tmin on PV calc sheet.
+3. Tmin not provided, document in Data Gap Log. 
+4. For equipment with nominal below 0.1, utilize nominal for the Tmin.
+
+Piping: 
+1. API 574 Table Structural Alert (left side of table) is lowest value TML can be
+2. Tmin not provided, document in Data Gap Log. 
+Table 7 in API 574 will be applied to all piping materials at all temperatures.
+
+Tanks: 
+Below 0.1, use 0.1
+Above 0.1, use calc Tmin [Internal Inspection docs have values for Min thickness per Shell Course and a lot of cases even the roof]
+Tmin not provided, document in Data Gap Log. 
+For equipment & ASTs with nominal below 0.1, utilize nominal for the Tmin.
+[TABLE ROW] Additional Thickness | No | Required Input: Leave Blank
+[TABLE ROW] Excluded from Analysis | No | Required Input: Leave Blank
+[TABLE ROW] Number of Readings | No | Required Input: Leave Blank
+[TABLE ROW] Design Code | Yes | Field Details: Picklist
+Piping – B31.3
+Vessel – ASME VIII DIV 1
+Tank – API 650
+     *UL142 API 653
+[TABLE ROW] Code Year (T-Min Formula) | No | Required Input: Leave Blank
+[TABLE ROW] Code Year (Allowable Stress Lookup) | No | Required Input: Leave Blank
+[TABLE ROW] Material Specification | No | Required Input: Leave Blank
+[TABLE ROW] Material Grade | No | Required Input: Leave Blank
+[TABLE ROW] Material Type | No | Required Input: Leave Blank
+[TABLE ROW] Design Pressure | No | Required Input: Leave Blank
+[TABLE ROW] Design Temperature | No | Required Input: Leave Blank
+[TABLE ROW] Nominal Thickness | Yes | Expected Source: CML Data Collection Spreadsheets
+Field Details: Numeric
+Example Input: 0.154
+[TABLE ROW] Override Allowable Stress | Yes | Required Input: False
+[TABLE ROW] Allowable Stress | No | Required Input: Leave Blank
+[TABLE ROW] Outside Diameter | No | Required Input: Leave Blank
+[TABLE ROW] Inside Diameter | No | Required Input: Leave Blank
+[TABLE ROW] Joint Factor | No | Required Input: Leave Blank
+[TABLE ROW] Corrosion Allowance | Yes | Purpose: Loaded value for New TMLs.
+Expected Source: Data Collection Spreadsheets
+Field Details: Numeric
+[TABLE ROW] Piping Nominal Diameter - NPS | Yes, Piping | Purpose: Loaded value for New TMLs.
+Expected Source: Data Collection Spreadsheets
+Field Details: Load sheet Picklist
+Example Input: 6
+[TABLE ROW] Piping Nominal Diameter - DN | Yes, Piping | Purpose: Looks up the wall thickness & will find the structural thickness to support cascading Picklist which ties to NPS & Schedule
+Expected Source: Data Collection Spreadsheets
+Field Details: Load sheet Picklist
+Example Input: 6
+[TABLE ROW] Schedule | No | Required Input: Leave Blank
+[TABLE ROW] Piping Formula | No | Required Input: Leave Blank
+[TABLE ROW] Mechanical Allowance | No | Required Input: Leave Blank
+[TABLE ROW] Design Factor | No | Required Input: Leave Blank
+[TABLE ROW] Temperature Factor | No | Required Input: Leave Blank
+[TABLE ROW] Tank Type | No | Required Input: Leave Blank
+[TABLE ROW] Shell Type | No | Required Input: Leave Blank
+[TABLE ROW] API Method | No | Required Input: Leave Blank
+[TABLE ROW] Plate Thickness | No | Required Input: Leave Blank
+[TABLE ROW] Minimum Yield Strength | No | Required Input: Leave Blank
+[TABLE ROW] Minimum Tensile Strength | No | Required Input: Leave Blank
+[TABLE ROW] Course Height | No | Required Input: Leave Blank
+[TABLE ROW] Course Number | No | Required Input: Leave Blank
+[TABLE ROW] Fill Height | No | Required Input: Leave Blank
+[TABLE ROW] Specific Gravity | No | Required Input: Leave Blank
+[TABLE ROW] Floor Plate has Detection? | No | Required Input: Leave Blank
+[TABLE ROW] Floor Plate has Reinforced Lining? | No | Required Input: Leave Blank
+[TABLE ROW] Maximum Operating Fill Height | No | Required Input: Leave Blank
+[TABLE ROW] Distance from the Bottom | No | Required Input: Leave Blank
+[TABLE ROW] Tank Diameter | No | Required Input: Leave Blank
+[TABLE ROW] Vessel Type | No | Required Input: Leave Blank
+[TABLE ROW] PV Formula | No | Required Input: Leave Blank
+[TABLE ROW] Dish Radius | No | Required Input: Leave Blank
+[TABLE ROW] Knuckle Radius | No | Required Input: Leave Blank
+[TABLE ROW] Apex Angle | No | Required Input: Leave Blank
+[TABLE ROW] Inside Radius | No | Required Input: Leave Blank
+[TABLE ROW] Outside Radius | No | Required Input: Leave Blank
+[TABLE ROW] Head Diameter | No | Required Input: Leave Blank
+[TABLE ROW] Estimated T-Min? | No | Required Input: Leave Blank
+[TABLE ROW] Design Stress Constant | No | Required Input: Leave Blank
+[TABLE ROW] Load Sheet Field | Populate | Data Requirements
+[TABLE ROW] Equipment ID | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry 
+Example Inputs:
+000000000002000092
+[TABLE ROW] CMMS System | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry
+Required Input: ECP-500
+[TABLE ROW] Equipment Technical Number | Yes | Purpose: Associated Equipment Record Identification
+Expected Source: APM
+Field Details: Text Entry 
+Example Input: 3330-TK-003
+[TABLE ROW] TML Group ID | Yes | Purpose: Associated TML Group Record Identification
+Expected Source: Equipment Data Collection Spreadsheet
+Field Details: Text Entry
+Example Input: 
+Piping: PIPE
+Equipment: 3330-TK-009, 3330-TK-009
+[TABLE ROW] TML_ID | Yes | Purpose: Loaded value for New TMLs
+Expected Source: Equipment Data Collection Spreadsheet
+Field Details: Text Entry
+Example Input: UT1.001, RT2.004, UTS.002, RT1.009
+[TABLE ROW] Readings | Yes | Purpose: Measurement Reading
+Expected Source: UT Reports
+Field Details: Numeric
+Example Input: 0.256
+[TABLE ROW] Measurement Date | Yes | Purpose: Measurement Taken Date
+Expected Source: UT Reports
+Field Details: Short Date
+Example Input: 3/15/2020
+[TABLE ROW] Nominal | Yes | Purpose: Identifies Nominal Reading
+Expected Source: Remaining Life Spreadsheets
+Field Details: Text
+Inputs: True or False
+[TABLE ROW] Measurement Status Indicator | Yes | Purpose: Statues of measurement in APM for corrosion rate calculations
+Expected Source: CML Datamining Template
+Field Details: Text
+Inputs: Active or Inactive
+[TABLE ROW] Measurement Taken By | No | Required Input: Leave Blank
+[TABLE ROW] Measurement Comments | No | Required Input: Leave Blank
+[TABLE ROW] Temperature | No | Required Input: Leave Blank
