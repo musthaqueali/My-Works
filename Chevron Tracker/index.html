@@ -47,12 +47,23 @@
             <button id="btn-theme-toggle" class="theme-toggle-btn" title="Toggle Dark/Light Theme">
                 <span id="theme-icon">&#9789;</span>
             </button>
-            <a href="autopcml_studio.html" target="_blank" class="action-btn primary" title="Launch AutoPCML Studio AI Digital Twin Pipeline" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; background:#001489; color:#fff;">
-                <span>⚡ AutoPCML Studio™</span>
-            </a>
             <button id="btn-export-today-xlsx" class="action-btn success" title="Export Today's Live Entries to Excel">
                 <span>Export Today's Excel</span>
             </button>
+
+            <!-- Auth User Profile & Actions -->
+            <div id="auth-user-bar" class="auth-user-bar" style="display:none;">
+                <div class="auth-user-pill">
+                    <span class="auth-role-tag" id="auth-role-tag">Analyst</span>
+                    <span class="auth-name" id="auth-name">Musthaque Ali</span>
+                </div>
+                <button id="btn-header-manage-team" class="action-btn primary" title="Manage Employees & Activate Logins" style="display:none; padding: 4px 10px; font-size: 11px;">
+                    <span>👑 Manage Team</span>
+                </button>
+                <button id="btn-logout" class="action-btn secondary" title="Sign Out of Chevron Tracker" style="padding: 4px 10px; font-size: 11px;">
+                    <span>Sign Out</span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -511,6 +522,15 @@
 
         <!-- PANEL: TEAM -->
         <section id="panel-team" class="view-panel">
+            <div class="team-header-bar" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <div>
+                    <h2>Team Directory & Logins</h2>
+                    <p style="font-size:12px; color:var(--text-secondary); margin-top:2px;">All active Chevron Reliability Operations team members</p>
+                </div>
+                <button type="button" id="btn-team-add-member" class="btn-submit-primary" style="display:none; font-size:12px; padding:6px 14px;">
+                    <span>➕ Add New Employee</span>
+                </button>
+            </div>
             <div class="team-grid-12" id="team-roster-grid"></div>
         </section>
 
@@ -638,6 +658,164 @@
                 <div class="standup-bar"><label>Format:</label><select id="standup-format-style" class="mini-filter"><option value="slack">Slack</option><option value="bullet">Bullet</option></select></div>
                 <textarea id="standup-text-output" rows="10" readonly class="standup-code"></textarea>
                 <div class="modal-footer"><button type="button" id="btn-copy-standup" class="btn-submit-primary">Copy</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUTHENTICATION MODAL -->
+    <div id="auth-modal" class="modal-backdrop active" style="display:none;">
+        <div class="auth-modal-box">
+            <header class="auth-header">
+                <div style="display:flex; justify-content:center; gap:8px; margin-bottom:8px;">
+                    <img src="assets/chevron_logo.png" alt="Chevron" style="height:32px;">
+                    <img src="assets/pinnacle_logo.png" alt="Pinnacle" style="height:32px;">
+                </div>
+                <h2>Chevron Operations Sign-In</h2>
+                <p>Secure Work Tracker • Pinnacle Reliability Operations</p>
+            </header>
+
+            <div class="auth-tabs-row">
+                <button type="button" class="auth-tab-btn active" id="tab-auth-employee" onclick="switchAuthTab('employee')">
+                    Work Account Sign-In
+                </button>
+                <button type="button" class="auth-tab-btn" id="tab-auth-admin" onclick="switchAuthTab('admin')">
+                    Lead / Admin Sign-In
+                </button>
+            </div>
+
+            <!-- TAB 1: WORK ACCOUNT / EMPLOYEE LOGIN -->
+            <div id="auth-tab-body-employee" class="auth-body">
+                <button type="button" class="ms-btn" id="btn-ms-login">
+                    <svg width="20" height="20" viewBox="0 0 21 21" fill="none"><rect x="1" y="1" width="9" height="9" fill="#f25022"/><rect x="11" y="1" width="9" height="9" fill="#7fba00"/><rect x="1" y="11" width="9" height="9" fill="#00a4ef"/><rect x="11" y="11" width="9" height="9" fill="#ffb900"/></svg>
+                    <span>Sign In with Microsoft Work Account</span>
+                </button>
+
+                <div class="auth-divider"><span>Or continue with Work Email</span></div>
+
+                <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size:12px; font-weight:600; color:var(--text-secondary);">Corporate Work Email</label>
+                    <input type="email" id="auth-email-input" class="simple-input" placeholder="e.g. musthaque.ali@pinnacle.com" autocomplete="email">
+                </div>
+
+                <div id="auth-employee-alert" class="auth-alert"></div>
+
+                <button type="button" id="btn-submit-employee-auth" class="btn-submit-primary full-btn" style="padding:12px; font-size:14px;">
+                    Sign In to Tracker
+                </button>
+
+                <p style="font-size:11px; color:var(--text-muted); text-align:center; line-height:1.4;">
+                    * Only employees with activated email IDs can log in. Contact your Lead/Admin for activation.
+                </p>
+            </div>
+
+            <!-- TAB 2: LEAD / ADMIN LOGIN -->
+            <div id="auth-tab-body-admin" class="auth-body" style="display:none;">
+                <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size:12px; font-weight:600; color:var(--text-secondary);">Admin / Lead Work Email</label>
+                    <input type="email" id="auth-admin-email" class="simple-input" placeholder="musthaque.ali@pinnacle.com" value="musthaque.ali@pinnacle.com">
+                </div>
+
+                <div class="form-group" style="display:flex; flex-direction:column; gap:6px;">
+                    <label style="font-size:12px; font-weight:600; color:var(--text-secondary);">Admin Security Password</label>
+                    <input type="password" id="auth-admin-password" class="simple-input" placeholder="Enter Admin Password">
+                </div>
+
+                <div id="auth-admin-alert" class="auth-alert"></div>
+
+                <button type="button" id="btn-submit-admin-auth" class="btn-submit-primary full-btn" style="padding:12px; font-size:14px; background:#001489;">
+                    <span>👑 Sign In as Lead / Admin</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN MANAGE EMPLOYEES & ACTIVATION MODAL -->
+    <div id="admin-manage-modal" class="modal-backdrop" style="display:none;">
+        <div class="admin-modal-box">
+            <header class="modal-head">
+                <div>
+                    <h3 style="font-size:16px; font-weight:700;">👑 Manage Team &amp; Login Activations</h3>
+                    <p style="font-size:12px; color:var(--text-secondary); margin-top:2px;">Add new employees and toggle email login authorization</p>
+                </div>
+                <button type="button" id="btn-close-admin-modal" class="modal-close">&times;</button>
+            </header>
+
+            <div class="admin-modal-body">
+                <!-- SECTION 1: ADD NEW EMPLOYEE -->
+                <div class="admin-section-card">
+                    <div class="admin-section-head">
+                        <h4>➕ Add New Employee Profile</h4>
+                        <span style="font-size:11px; color:var(--text-muted);">Instantly adds employee and configures login permission</span>
+                    </div>
+
+                    <form id="form-add-employee" class="simple-form-grid">
+                        <div class="form-col-4">
+                            <div class="form-group">
+                                <label style="font-size:11px; font-weight:600; color:var(--text-secondary);">Full Name <span style="color:red;">*</span></label>
+                                <input type="text" id="new-emp-name" required class="simple-input" placeholder="e.g. Rachel Adams">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size:11px; font-weight:600; color:var(--text-secondary);">Work Email ID <span style="color:red;">*</span></label>
+                                <input type="email" id="new-emp-email" required class="simple-input" placeholder="rachel.adams@pinnacle.com">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size:11px; font-weight:600; color:var(--text-secondary);">Job Title / Designation</label>
+                                <input type="text" id="new-emp-role" class="simple-input" placeholder="Reliability Data Analyst" value="Reliability Data Analyst">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size:11px; font-weight:600; color:var(--text-secondary);">Location</label>
+                                <select id="new-emp-location" class="simple-select">
+                                    <option value="India">India</option>
+                                    <option value="Global" selected>Global</option>
+                                    <option value="Houston">Houston</option>
+                                    <option value="Pasadena">Pasadena</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; flex-wrap:wrap; gap:12px;">
+                            <div style="display:flex; align-items:center; gap:20px;">
+                                <label class="simple-checkbox" style="font-size:12px;">
+                                    <input type="checkbox" id="new-emp-is-admin">
+                                    <span>Grant Lead / Admin Rights</span>
+                                </label>
+                                <label class="simple-checkbox" style="font-size:12px;">
+                                    <input type="checkbox" id="new-emp-activate-now" checked>
+                                    <span style="color:var(--status-green); font-weight:600;">Activate Email for Login Immediately</span>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn-submit-primary" style="padding:8px 18px; font-size:13px;">
+                                <span>Save &amp; Activate Employee</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- SECTION 2: DIRECTORY & LOGIN ACTIVATION TOGGLES -->
+                <div class="admin-section-card">
+                    <div class="admin-section-head">
+                        <h4>📋 Employee Directory &amp; Login Activation Status (<span id="admin-emp-count">0</span>)</h4>
+                        <span style="font-size:11px; color:var(--text-muted);">Click "Activate / Deactivate" to toggle login access in real time</span>
+                    </div>
+
+                    <div style="overflow-x:auto;">
+                        <table class="emp-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Work Email</th>
+                                    <th>Role / Location</th>
+                                    <th>Login Permission</th>
+                                    <th style="text-align:right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-emp-table-body">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

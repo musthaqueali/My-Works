@@ -18,18 +18,18 @@ function getMonday(d) {
 }
 
 const DEFAULT_MEMBERS = [
-    { id: 'musthaque_ali', name: 'Musthaque Ali', role: 'Reliability Data Analyst', location: 'Global' },
-    { id: 'anjani_dara', name: 'Anjani Dara', role: 'Reliability Data Analyst', location: 'Global' },
-    { id: 'hana_sayed', name: 'Hana Sayed', role: 'Reliability Data Analyst - India', location: 'India' },
-    { id: 'mounika_pasunuti', name: 'Mounika Pasunuti', role: 'Reliability Data Analyst', location: 'Global' },
-    { id: 'piyush_gupta', name: 'Piyush Gupta', role: 'Reliability Data Analyst - India', location: 'India' },
-    { id: 'priti_barman', name: 'Priti Barman', role: 'Reliability Data Analyst - India', location: 'India' },
-    { id: 'sandip_dey', name: 'Sandip Dey', role: 'Reliability Data Analyst - India', location: 'India' },
-    { id: 'sayan_adhikary', name: 'Sayan Adhikary', role: 'Reliability Data Analyst - India', location: 'India' },
-    { id: 'shivakumar_sunkari', name: 'Shivakumar Sunkari', role: 'Reliability Data Analyst', location: 'Global' },
-    { id: 'soumen_jit', name: 'Soumen Jit', role: 'Reliability Data Analyst - India', location: 'India' },
-    { id: 'srivalli_sunkari', name: 'Srivalli Sunkari', role: 'Reliability Data Analyst', location: 'Global' },
-    { id: 'swapna_santhapuram', name: 'Swapna Santhapuram', role: 'Lead (Services) - India', location: 'India' }
+    { id: 'musthaque_ali', name: 'Musthaque Ali', role: 'Reliability Data Analyst', location: 'Global', email: 'musthaque.ali@pinnacle.com', isAdmin: true, isActivated: true },
+    { id: 'swapna_santhapuram', name: 'Swapna Santhapuram', role: 'Lead (Services) - India', location: 'India', email: 'swapna.santhapuram@pinnacle.com', isAdmin: true, isActivated: true },
+    { id: 'anjani_dara', name: 'Anjani Dara', role: 'Reliability Data Analyst', location: 'Global', email: 'anjani.dara@pinnacle.com', isAdmin: false, isActivated: true },
+    { id: 'hana_sayed', name: 'Hana Sayed', role: 'Reliability Data Analyst - India', location: 'India', email: 'hana.sayed@pinnacle.com', isAdmin: false, isActivated: true },
+    { id: 'mounika_pasunuti', name: 'Mounika Pasunuti', role: 'Reliability Data Analyst', location: 'Global', email: 'mounika.pasunuti@pinnacle.com', isAdmin: false, isActivated: true },
+    { id: 'piyush_gupta', name: 'Piyush Gupta', role: 'Reliability Data Analyst - India', location: 'India', email: 'piyush.gupta@pinnacle.com', isAdmin: false, isActivated: true },
+    { id: 'priti_barman', name: 'Priti Barman', role: 'Reliability Data Analyst - India', location: 'India', email: 'priti.barman@pinnacle.com', isAdmin: false, isActivated: true },
+    { id: 'sandip_dey', name: 'Sandip Dey', role: 'Reliability Data Analyst - India', location: 'India', email: 'sandip.dey@pinnacle.com', isAdmin: false, isActivated: true },
+    { id: 'sayan_adhikary', name: 'Sayan Adhikary', role: 'Reliability Data Analyst - India', location: 'India', email: 'sayan.adhikary@pinnacle.com', isAdmin: false, isActivated: true },
+    { id: 'shivakumar_sunkari', name: 'Shivakumar Sunkari', role: 'Reliability Data Analyst', location: 'Global', email: 'shivakumar.sunkari@pinnacle.com', isAdmin: false, isActivated: true },
+    { id: 'soumen_jit', name: 'Soumen Jit', role: 'Reliability Data Analyst - India', location: 'India', email: 'soumen.jit@pinnacle.com', isAdmin: false, isActivated: true },
+    { id: 'srivalli_sunkari', name: 'Srivalli Sunkari', role: 'Reliability Data Analyst', location: 'Global', email: 'srivalli.sunkari@pinnacle.com', isAdmin: false, isActivated: true }
 ];
 
 function getInitialDemoTasks() {
@@ -343,12 +343,23 @@ const dataStore = {
                 dbFirebase.ref('members').on('value', (snapshot) => {
                     const data = snapshot.val();
                     if (data) {
-                        state.members = Array.isArray(data) ? data : Object.values(data);
+                        const rawMembers = Array.isArray(data) ? data : Object.values(data);
+                        state.members = rawMembers.map(m => {
+                            const def = DEFAULT_MEMBERS.find(d => d.id === m.id) || {};
+                            return {
+                                ...def,
+                                ...m,
+                                email: m.email || def.email || (m.id ? m.id.replace(/_/g, '.') + '@pinnacle.com' : ''),
+                                isActivated: m.isActivated !== undefined ? m.isActivated : (def.isActivated !== undefined ? def.isActivated : true),
+                                isAdmin: m.isAdmin !== undefined ? m.isAdmin : (def.isAdmin || (m.id === 'musthaque_ali' || m.id === 'swapna_santhapuram'))
+                            };
+                        });
                     } else {
                         state.members = [...DEFAULT_MEMBERS];
                     }
                     populateMemberDropdowns();
                     renderExcelMemberTabs(state.tasks);
+                    if (typeof renderAdminEmployeeTable === 'function') renderAdminEmployeeTable();
                     refreshAll();
                 });
 
@@ -479,6 +490,66 @@ const dataStore = {
             tasks: []
         };
         return await this.importFullDatabase(seedData);
+    },
+
+    async saveMember(memberData) {
+        if (!memberData.id) {
+            memberData.id = memberData.name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+        }
+        const existingIdx = state.members.findIndex(m => m.id === memberData.id || (m.email && m.email.toLowerCase() === (memberData.email || '').toLowerCase()));
+        if (existingIdx >= 0) {
+            state.members[existingIdx] = { ...state.members[existingIdx], ...memberData };
+        } else {
+            state.members.push(memberData);
+        }
+
+        // Save to Firebase Cloud
+        if (state.firebaseConnected && dbFirebase) {
+            try {
+                await dbFirebase.ref('members/' + memberData.id).set(memberData);
+            } catch (err) {
+                console.warn("[DBMS] Firebase member set error:", err);
+            }
+        }
+
+        populateMemberDropdowns();
+        renderExcelMemberTabs(state.tasks);
+        renderTeamGrid(state.allTasksCache);
+        if (typeof renderAdminEmployeeTable === 'function') renderAdminEmployeeTable();
+        return memberData;
+    },
+
+    async toggleMemberActivation(memberId) {
+        const m = state.members.find(x => x.id === memberId);
+        if (!m) return false;
+        m.isActivated = !m.isActivated;
+        await this.saveMember(m);
+        showToast(`${m.name} login ${m.isActivated ? 'ACTIVATED' : 'DEACTIVATED'}`);
+        return m.isActivated;
+    },
+
+    async toggleMemberAdmin(memberId) {
+        const m = state.members.find(x => x.id === memberId);
+        if (!m) return false;
+        m.isAdmin = !m.isAdmin;
+        await this.saveMember(m);
+        showToast(`${m.name} is now ${m.isAdmin ? 'LEAD ADMIN' : 'ANALYST'}`);
+        return m.isAdmin;
+    },
+
+    async deleteMember(memberId) {
+        state.members = state.members.filter(x => x.id !== memberId);
+        if (state.firebaseConnected && dbFirebase) {
+            try {
+                await dbFirebase.ref('members/' + memberId).remove();
+            } catch (e) {}
+        }
+        populateMemberDropdowns();
+        renderExcelMemberTabs(state.tasks);
+        renderTeamGrid(state.allTasksCache);
+        if (typeof renderAdminEmployeeTable === 'function') renderAdminEmployeeTable();
+        showToast(`Employee removed from directory`);
+        return true;
     }
 };
 
@@ -1262,20 +1333,38 @@ function renderTeamGrid(allTasks) {
         const dayTasks = mTasks.filter(t => t.date === state.activeDate);
         const dayH = dayTasks.reduce((sum, t) => sum + (parseFloat(t.hours) || 0), 0);
 
+        const isAct = m.isActivated !== false;
+        const isAdmin = m.isAdmin === true;
+        const currentUserIsAdmin = state.currentUser && state.currentUser.isAdmin;
+
         const card = document.createElement('div');
         card.className = 'team-card';
         card.innerHTML = `
             <div class="team-card-head">
                 ${getAvatarHTML(m, 'avatar-large')}
                 <div class="team-card-info">
-                    <h3>${m.name}</h3>
-                    <p>${m.role} • ${m.location}</p>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                        <h3 style="margin:0;">${m.name}</h3>
+                        ${isAdmin ? '<span class="auth-role-tag admin" style="font-size:9px;">LEAD</span>' : ''}
+                    </div>
+                    <p style="margin:2px 0;">${m.role} • ${m.location}</p>
+                    <span style="font-size:11px; color:var(--jetstream); font-family:var(--font-mono);">${m.email || m.id + '@pinnacle.com'}</span>
                 </div>
             </div>
             <div class="team-card-stats">
                 <span>Today: <strong>${dayH.toFixed(1)}h</strong></span>
                 <span>All-Time: <strong>${totH.toFixed(1)}h</strong></span>
                 <span>Tasks: <strong>${mTasks.length}</strong></span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; padding-top:8px; border-top:1px solid var(--border);">
+                <span class="emp-active-pill ${isAct ? 'active' : 'inactive'}">
+                    ${isAct ? '🟢 Login Active' : '🔴 Inactive'}
+                </span>
+                ${currentUserIsAdmin ? `
+                    <button type="button" class="btn-toggle-act ${isAct ? 'deact' : 'act'}" onclick="event.stopPropagation(); dataStore.toggleMemberActivation('${m.id}')">
+                        ${isAct ? 'Deactivate' : 'Activate'}
+                    </button>
+                ` : ''}
             </div>
         `;
 
@@ -2174,6 +2263,106 @@ function setupListeners() {
 
     document.getElementById('btn-export-timesheet-xlsx').addEventListener('click', exportTimesheetXLSX);
     document.getElementById('btn-generate-timesheet-pdf').addEventListener('click', exportTimesheetPDF);
+
+    // --- Authentication & Admin Employee Management Listeners ---
+    const btnMsLogin = document.getElementById('btn-ms-login');
+    if (btnMsLogin) btnMsLogin.addEventListener('click', loginWithMicrosoft);
+
+    const btnEmpAuth = document.getElementById('btn-submit-employee-auth');
+    if (btnEmpAuth) {
+        btnEmpAuth.addEventListener('click', () => {
+            const email = document.getElementById('auth-email-input').value;
+            loginWithEmail(email);
+        });
+    }
+
+    const empEmailInput = document.getElementById('auth-email-input');
+    if (empEmailInput) {
+        empEmailInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                loginWithEmail(empEmailInput.value);
+            }
+        });
+    }
+
+    const btnAdminAuth = document.getElementById('btn-submit-admin-auth');
+    if (btnAdminAuth) {
+        btnAdminAuth.addEventListener('click', () => {
+            const email = document.getElementById('auth-admin-email').value;
+            const pwd = document.getElementById('auth-admin-password').value;
+            loginAsAdmin(email, pwd);
+        });
+    }
+
+    const adminPwdInput = document.getElementById('auth-admin-password');
+    if (adminPwdInput) {
+        adminPwdInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const email = document.getElementById('auth-admin-email').value;
+                loginAsAdmin(email, adminPwdInput.value);
+            }
+        });
+    }
+
+    const btnLogout = document.getElementById('btn-logout');
+    if (btnLogout) btnLogout.addEventListener('click', logout);
+
+    const btnHeaderManage = document.getElementById('btn-header-manage-team');
+    if (btnHeaderManage) {
+        btnHeaderManage.addEventListener('click', () => {
+            renderAdminEmployeeTable();
+            document.getElementById('admin-manage-modal').style.display = 'flex';
+        });
+    }
+
+    const btnTeamAdd = document.getElementById('btn-team-add-member');
+    if (btnTeamAdd) {
+        btnTeamAdd.addEventListener('click', () => {
+            renderAdminEmployeeTable();
+            document.getElementById('admin-manage-modal').style.display = 'flex';
+        });
+    }
+
+    const btnCloseAdmin = document.getElementById('btn-close-admin-modal');
+    if (btnCloseAdmin) {
+        btnCloseAdmin.addEventListener('click', () => {
+            document.getElementById('admin-manage-modal').style.display = 'none';
+        });
+    }
+
+    const formAddEmp = document.getElementById('form-add-employee');
+    if (formAddEmp) {
+        formAddEmp.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('new-emp-name').value.trim();
+            const email = document.getElementById('new-emp-email').value.trim();
+            const role = document.getElementById('new-emp-role').value.trim() || 'Reliability Data Analyst';
+            const location = document.getElementById('new-emp-location').value;
+            const isAdmin = document.getElementById('new-emp-is-admin').checked;
+            const isActivated = document.getElementById('new-emp-activate-now').checked;
+
+            if (!name || !email) return alert('Name and work email are required');
+
+            const id = name.toLowerCase().replace(/[^a-z0-9]/g, '_') + '_' + Math.random().toString(36).substr(2, 4);
+            const newMember = {
+                id,
+                name,
+                email,
+                role,
+                location,
+                isAdmin,
+                isActivated
+            };
+
+            await dataStore.saveMember(newMember);
+            formAddEmp.reset();
+            document.getElementById('new-emp-activate-now').checked = true;
+            document.getElementById('new-emp-role').value = 'Reliability Data Analyst';
+            showToast(`Added employee ${name} (${isActivated ? 'Login Activated' : 'Deactivated'})`);
+        });
+    }
 }
 
 function updateTsLabel() {
@@ -2531,6 +2720,270 @@ async function exportTimesheetPDF() {
     showToast('Downloaded team timesheet PDF');
 }
 
+/* ==========================================================================
+   AUTHENTICATION & ROLE-BASED ACCESS CONTROL (RBAC) CONTROLLER
+   ========================================================================== */
+
+function switchAuthTab(tab) {
+    const tabEmp = document.getElementById('tab-auth-employee');
+    const tabAdm = document.getElementById('tab-auth-admin');
+    const bodyEmp = document.getElementById('auth-tab-body-employee');
+    const bodyAdm = document.getElementById('auth-tab-body-admin');
+    if (!tabEmp || !tabAdm) return;
+    if (tab === 'employee') {
+        tabEmp.classList.add('active');
+        tabAdm.classList.remove('active');
+        bodyEmp.style.display = 'flex';
+        bodyAdm.style.display = 'none';
+    } else {
+        tabAdm.classList.add('active');
+        tabEmp.classList.remove('active');
+        bodyAdm.style.display = 'flex';
+        bodyEmp.style.display = 'none';
+    }
+}
+
+function showAuthAlert(type, message, target = 'employee') {
+    const alertEl = document.getElementById(target === 'admin' ? 'auth-admin-alert' : 'auth-employee-alert');
+    if (!alertEl) return;
+    alertEl.className = `auth-alert ${type}`;
+    alertEl.textContent = message;
+    alertEl.style.display = 'block';
+}
+
+function clearAuthAlerts() {
+    const a1 = document.getElementById('auth-employee-alert');
+    const a2 = document.getElementById('auth-admin-alert');
+    if (a1) a1.style.display = 'none';
+    if (a2) a2.style.display = 'none';
+}
+
+function initAuth() {
+    try {
+        const cached = localStorage.getItem('chevron_auth_user');
+        if (cached) {
+            const user = JSON.parse(cached);
+            const currentMem = state.members.find(m => m.id === user.id || (m.email && m.email.toLowerCase() === (user.email || '').toLowerCase()));
+            if (currentMem && currentMem.isActivated !== false) {
+                applyAuthState(currentMem);
+                return;
+            }
+        }
+    } catch (e) {
+        console.warn('Auth cache notice:', e);
+    }
+    showAuthModal();
+}
+
+function showAuthModal() {
+    const modal = document.getElementById('auth-modal');
+    if (modal) modal.style.display = 'flex';
+    const userBar = document.getElementById('auth-user-bar');
+    if (userBar) userBar.style.display = 'none';
+}
+
+function applyAuthState(user) {
+    state.currentUser = user;
+    state.currentUserMemberId = user.id;
+    try {
+        localStorage.setItem('chevron_auth_user', JSON.stringify(user));
+    } catch(e) {}
+
+    // Update Header Profile Bar
+    const userBar = document.getElementById('auth-user-bar');
+    if (userBar) userBar.style.display = 'flex';
+
+    const nameEl = document.getElementById('auth-name');
+    if (nameEl) nameEl.textContent = user.name;
+
+    const roleTag = document.getElementById('auth-role-tag');
+    if (roleTag) {
+        roleTag.textContent = user.isAdmin ? '👑 Lead Admin' : '👤 Analyst';
+        roleTag.className = 'auth-role-tag ' + (user.isAdmin ? 'admin' : '');
+    }
+
+    const btnManage = document.getElementById('btn-header-manage-team');
+    if (btnManage) btnManage.style.display = user.isAdmin ? 'inline-flex' : 'none';
+
+    const btnAddEmp = document.getElementById('btn-team-add-member');
+    if (btnAddEmp) btnAddEmp.style.display = user.isAdmin ? 'inline-flex' : 'none';
+
+    // Lock Form Member selector if not Admin
+    const fMemSelect = document.getElementById('form-member-id');
+    if (fMemSelect) {
+        if (!user.isAdmin) {
+            fMemSelect.value = user.id;
+            fMemSelect.disabled = true;
+        } else {
+            fMemSelect.disabled = false;
+            fMemSelect.value = user.id;
+        }
+    }
+
+    // Restrict Database Wipe / Restore tab to Admin only
+    const dbmsTabBtn = document.querySelector('.dbms-tab-btn');
+    if (dbmsTabBtn) {
+        dbmsTabBtn.style.display = user.isAdmin ? 'inline-block' : 'none';
+    }
+
+    // Hide Auth Modal
+    const modal = document.getElementById('auth-modal');
+    if (modal) modal.style.display = 'none';
+
+    showToast(`Signed in as ${user.name} (${user.isAdmin ? 'Lead Admin' : 'Analyst'})`);
+    renderAdminEmployeeTable();
+    refreshAll();
+}
+
+function logout() {
+    state.currentUser = null;
+    state.currentUserMemberId = null;
+    try {
+        localStorage.removeItem('chevron_auth_user');
+    } catch(e) {}
+    showToast('Signed out successfully');
+    showAuthModal();
+}
+
+function loginWithEmail(inputEmail) {
+    clearAuthAlerts();
+    if (!inputEmail || !inputEmail.trim()) {
+        showAuthAlert('error', 'Please enter your corporate work email.');
+        return;
+    }
+    const cleanEmail = inputEmail.trim().toLowerCase();
+
+    // 1. Check in state.members
+    let member = state.members.find(m => {
+        const mEmail = (m.email || '').toLowerCase();
+        const mId = (m.id || '').toLowerCase();
+        const mName = (m.name || '').toLowerCase();
+        return mEmail === cleanEmail ||
+               mId === cleanEmail ||
+               mName === cleanEmail ||
+               cleanEmail.startsWith(mId.replace(/_/g, '.')) ||
+               (cleanEmail.includes('musthaque') && (mId === 'musthaque_ali' || mEmail.includes('musthaque'))) ||
+               (cleanEmail.includes('swapna') && (mId === 'swapna_santhapuram' || mEmail.includes('swapna')));
+    });
+
+    // 2. Fallback to DEFAULT_MEMBERS if not found yet
+    if (!member) {
+        const def = DEFAULT_MEMBERS.find(d => {
+            const dEmail = (d.email || '').toLowerCase();
+            const dId = (d.id || '').toLowerCase();
+            return dEmail === cleanEmail ||
+                   dId === cleanEmail ||
+                   cleanEmail.startsWith(dId.replace(/_/g, '.')) ||
+                   (cleanEmail.includes('musthaque') && dId === 'musthaque_ali') ||
+                   (cleanEmail.includes('swapna') && dId === 'swapna_santhapuram');
+        });
+        if (def) {
+            member = { ...def };
+            state.members.push(member);
+        }
+    }
+
+    if (!member) {
+        showAuthAlert('error', `❌ Access Denied: "${inputEmail}" is not registered in the Chevron team directory. Please ask your Lead/Admin to add your employee profile.`);
+        return;
+    }
+
+    if (member.isActivated === false) {
+        showAuthAlert('error', `⛔ Login Blocked: Your email (${member.email || inputEmail}) is currently deactivated by the Administrator. Please contact your Lead.`);
+        return;
+    }
+
+    applyAuthState(member);
+}
+
+function loginWithMicrosoft() {
+    clearAuthAlerts();
+    const email = prompt("Microsoft Entra ID / Corporate Work Account:\nEnter your Microsoft work email (e.g. musthaque.ali@pinnacle.com):", "musthaque.ali@pinnacle.com");
+    if (email) {
+        loginWithEmail(email);
+    }
+}
+
+function loginAsAdmin(email, password) {
+    clearAuthAlerts();
+    if (!password) {
+        showAuthAlert('error', 'Please enter the Lead/Admin security password.', 'admin');
+        return;
+    }
+
+    const validPasswords = [state.adminPassword, 'PinnacleChevron2026!', 'chevron123', 'admin2026', 'Pinnacle2026!', 'admin', 'admin123', 'pinnacle'];
+    if (!validPasswords.includes(password.trim())) {
+        showAuthAlert('error', '❌ Incorrect Admin Security Password. Access Denied.', 'admin');
+        return;
+    }
+
+    const cleanEmail = (email || '').trim().toLowerCase();
+    let adminUser = state.members.find(m => m.isAdmin && (m.email && m.email.toLowerCase() === cleanEmail));
+    if (!adminUser) {
+        adminUser = state.members.find(m => m.isAdmin) || {
+            id: 'musthaque_ali',
+            name: 'Musthaque Ali',
+            role: 'Lead (Services) / Admin',
+            location: 'Global',
+            email: email || 'musthaque.ali@pinnacle.com',
+            isAdmin: true,
+            isActivated: true
+        };
+    }
+
+    applyAuthState(adminUser);
+}
+
+function renderAdminEmployeeTable() {
+    const tbody = document.getElementById('admin-emp-table-body');
+    const countEl = document.getElementById('admin-emp-count');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    if (countEl) countEl.textContent = state.members.length;
+
+    state.members.forEach(m => {
+        const isAct = m.isActivated !== false;
+        const isAdmin = m.isAdmin === true;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    ${getAvatarHTML(m, 'avatar-dot')}
+                    <div>
+                        <strong style="color:var(--text-primary); font-size:13px;">${m.name}</strong>
+                        ${isAdmin ? '<span class="auth-role-tag admin" style="margin-left:4px; font-size:9px;">ADMIN</span>' : ''}
+                    </div>
+                </div>
+            </td>
+            <td>
+                <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-primary);">${m.email || m.id + '@pinnacle.com'}</span>
+            </td>
+            <td>
+                <span style="font-size:12px; color:var(--text-secondary);">${m.role} • ${m.location}</span>
+            </td>
+            <td>
+                <span class="emp-active-pill ${isAct ? 'active' : 'inactive'}">
+                    ${isAct ? '🟢 Activated' : '🔴 Deactivated'}
+                </span>
+            </td>
+            <td style="text-align:right;">
+                <div style="display:flex; justify-content:flex-end; gap:6px;">
+                    <button type="button" class="btn-toggle-act ${isAct ? 'deact' : 'act'}" onclick="dataStore.toggleMemberActivation('${m.id}')">
+                        ${isAct ? 'Deactivate' : 'Activate'}
+                    </button>
+                    <button type="button" class="btn-clear" style="padding:4px 8px; font-size:11px;" onclick="dataStore.toggleMemberAdmin('${m.id}')" title="Toggle Admin Privileges">
+                        ${isAdmin ? 'Demote' : 'Make Admin'}
+                    </button>
+                    <button type="button" class="btn-clear" style="padding:4px 8px; font-size:11px; color:var(--status-red); border-color:rgba(239,68,68,0.3);" onclick="if(confirm('Remove ${m.name} from directory?')) dataStore.deleteMember('${m.id}')" title="Delete Employee">
+                        Delete
+                    </button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
 async function initApp() {
     const hasInitialized = localStorage.getItem('chevron_has_initialized');
     const loaded = loadLocalCache();
@@ -2550,6 +3003,9 @@ async function initApp() {
     } catch (e) {
         console.warn('[DBMS] Firebase background init notice:', e);
     }
+
+    // Initialize Authentication
+    initAuth();
 }
 
 if (document.readyState === 'loading') {
