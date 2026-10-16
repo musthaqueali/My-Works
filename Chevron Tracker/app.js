@@ -722,7 +722,21 @@ function renderExcelMemberTabs(allDayTasks = state.tasks) {
     if (!container) return;
     container.innerHTML = '';
 
-    // "All Members" tab
+    const isWorker = state.currentUser && !state.currentUser.isAdmin;
+    if (isWorker && state.currentUserMemberId) {
+        const m = state.members.find(x => x.id === state.currentUserMemberId);
+        if (m) {
+            const shortName = getMemberShortName(m);
+            const memTasks = allDayTasks.filter(t => t.memberId === m.id);
+            const tab = document.createElement('div');
+            tab.className = 'excel-tab-item active';
+            tab.innerHTML = `<span>${shortName} (Your Tasks)</span><span class="excel-tab-count">${memTasks.length}</span>`;
+            container.appendChild(tab);
+        }
+        return;
+    }
+
+    // "All Members" tab (Admins only)
     const allTab = document.createElement('div');
     allTab.className = `excel-tab-item ${state.filterMember === 'all' ? 'active' : ''}`;
     allTab.innerHTML = `<span>All Members</span><span class="excel-tab-count">${allDayTasks.length}</span>`;
@@ -736,7 +750,7 @@ function renderExcelMemberTabs(allDayTasks = state.tasks) {
     });
     container.appendChild(allTab);
 
-    // Individual Member tabs matching the exact screenshot sequence
+    // Individual Member tabs matching the exact sequence (Admins only)
     ORDERED_MEMBER_IDS.forEach(mId => {
         const m = state.members.find(x => x.id === mId);
         if (!m) return;
@@ -1883,17 +1897,25 @@ async function loadTaskIntoForm(taskId) {
    ========================================================================== */
 
 async function refreshAll() {
-    state.tasks = await dataStore.getTasks(state.activeDate);
-    const allTasks = await dataStore.getAllTasks();
+    let dayTasks = await dataStore.getTasks(state.activeDate);
+    let allTasks = await dataStore.getAllTasks();
 
-    updateSummaryKPIs(state.tasks);
-    renderExcelMemberTabs(state.tasks);
-    renderFeedTable(state.tasks);
-    renderKanban(state.tasks);
+    const isWorker = state.currentUser && !state.currentUser.isAdmin;
+    if (isWorker && state.currentUserMemberId) {
+        dayTasks = dayTasks.filter(t => t.memberId === state.currentUserMemberId);
+        allTasks = allTasks.filter(t => t.memberId === state.currentUserMemberId);
+    }
+
+    state.tasks = dayTasks;
+
+    updateSummaryKPIs(dayTasks);
+    renderExcelMemberTabs(dayTasks);
+    renderFeedTable(dayTasks);
+    renderKanban(dayTasks);
     renderAnalyticsView(allTasks);
-    renderTeamGrid(allTasks);
+    if (!isWorker) renderTeamGrid(allTasks);
     renderTimesheet(allTasks);
-    renderDBMSView(allTasks);
+    if (!isWorker) renderDBMSView(allTasks);
 }
 
 function switchTab(tabId) {
@@ -2426,7 +2448,11 @@ function showToast(msg) {
 
 async function exportTodayTasksXLSX() {
     if (typeof XLSX === 'undefined') return alert('Loading Excel library, please retry in a second...');
-    const dayTasks = await dataStore.getTasks(state.activeDate);
+    let dayTasks = await dataStore.getTasks(state.activeDate);
+    const isWorker = state.currentUser && !state.currentUser.isAdmin;
+    if (isWorker && state.currentUserMemberId) {
+        dayTasks = dayTasks.filter(t => t.memberId === state.currentUserMemberId);
+    }
     if (dayTasks.length === 0) {
         return alert(`No tasks logged for today (${state.activeDate}) to export.`);
     }
@@ -2758,7 +2784,77 @@ function clearAuthAlerts() {
     if (a2) a2.style.display = 'none';
 }
 
-function initAuth() {
+let msalAppInstance = null;
+
+function getMsalInstance() {
+    if (msalAppInstance) return msalAppInstance;
+    if (typeof msal !== 'undefined' && window.MSAL_CONFIG) {
+        try {
+            msalAppInstance = new msal.PublicClientApplication(window.MSAL_CONFIG);
+        } catch (e) {
+            console.warn("[MSAL] Failed to initialize PublicClientApplication:", e);
+        }
+    }
+    return msalAppInstance;
+}
+
+// Check if returning from a Microsoft OAuth redirect
+async function checkMsalRedirect() {
+    const msalObj = getMsalInstance();
+    if (!msalObj) return false;
+    try {
+        const response = await msalObj.handleRedirectPromise();
+        if (response && response.account) {
+            const email = response.account.username || (response.account.idTokenClaims && (response.account.idTokenClaims.email || response.account.idTokenClaims.preferred_username));
+            if (email) {
+                console.log("[MSAL] Authenticated successfully via Microsoft:", email);
+                loginWithEmail(email);
+                return true;
+            }
+        }
+    } catch (err) {
+        console.error("[MSAL] Redirect handling error:", err);
+        showAuthAlert('error', `Microsoft Authentication Error: ${err.message || err}`);
+    }
+    return false;
+}
+
+function checkUrlHashAuth() {
+    if (!window.location.hash) return false;
+    try {
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        const idToken = params.get('id_token') || params.get('access_token');
+        if (idToken) {
+            const parts = idToken.split('.');
+            if (parts.length >= 2) {
+                const base64Url = parts[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+                const claims = JSON.parse(jsonPayload);
+                const email = claims.email || claims.preferred_username || claims.upn || claims.unique_name;
+                if (email) {
+                    history.replaceState(null, null, window.location.pathname + window.location.search);
+                    loginWithEmail(email);
+                    return true;
+                }
+            }
+        }
+    } catch (e) {
+        console.warn("Hash auth notice:", e);
+    }
+    return false;
+}
+
+async function initAuth() {
+    // 1. Check for incoming Microsoft OAuth redirect callback
+    const fromHash = checkUrlHashAuth();
+    if (fromHash) return;
+
+    const fromMsal = await checkMsalRedirect();
+    if (fromMsal) return;
+
+    // 2. Check cached session
     try {
         const cached = localStorage.getItem('chevron_auth_user');
         if (cached) {
@@ -2785,6 +2881,8 @@ function showAuthModal() {
 function applyAuthState(user) {
     state.currentUser = user;
     state.currentUserMemberId = user.id;
+    const isWorker = !user.isAdmin;
+
     try {
         localStorage.setItem('chevron_auth_user', JSON.stringify(user));
     } catch(e) {}
@@ -2808,22 +2906,55 @@ function applyAuthState(user) {
     const btnAddEmp = document.getElementById('btn-team-add-member');
     if (btnAddEmp) btnAddEmp.style.display = user.isAdmin ? 'inline-flex' : 'none';
 
-    // Lock Form Member selector if not Admin
-    const fMemSelect = document.getElementById('form-member-id');
-    if (fMemSelect) {
-        if (!user.isAdmin) {
-            fMemSelect.value = user.id;
-            fMemSelect.disabled = true;
-        } else {
-            fMemSelect.disabled = false;
-            fMemSelect.value = user.id;
-        }
+    // ========================================================
+    // STRICT DATA ISOLATION CONTROLS (NON-ADMIN WORKERS)
+    // ========================================================
+    state.filterMember = isWorker ? user.id : 'all';
+    state.tsMemberFilter = isWorker ? user.id : 'all';
+    state.biMember = isWorker ? user.id : 'all';
+    state.drilldownMemberId = isWorker ? user.id : 'all';
+
+    // 1. Hide Team Tab and Database Tab for Workers
+    document.querySelectorAll('[data-tab="team"]').forEach(el => el.style.display = isWorker ? 'none' : '');
+    document.querySelectorAll('.dbms-tab-btn').forEach(el => el.style.display = isWorker ? 'none' : '');
+
+    // 2. Hide Table Member Filter Dropdown for Workers
+    const selFilterMem = document.getElementById('db-filter-member');
+    if (selFilterMem) {
+        selFilterMem.style.display = isWorker ? 'none' : '';
+        if (!isWorker) selFilterMem.value = 'all';
     }
 
-    // Restrict Database Wipe / Restore tab to Admin only
-    const dbmsTabBtn = document.querySelector('.dbms-tab-btn');
-    if (dbmsTabBtn) {
-        dbmsTabBtn.style.display = user.isAdmin ? 'inline-block' : 'none';
+    // 3. Hide / Lock BI Member Selector
+    const biSelect = document.getElementById('bi-member-select');
+    if (biSelect) {
+        biSelect.value = isWorker ? user.id : 'all';
+        const biGroup = biSelect.closest('.filter-group') || biSelect.parentElement;
+        if (biGroup) biGroup.style.display = isWorker ? 'none' : '';
+    }
+
+    // 4. Hide / Lock Timesheet Member Selector
+    const tsSelect = document.getElementById('ts-member-select');
+    if (tsSelect) {
+        tsSelect.value = isWorker ? user.id : 'all';
+        const tsWrap = tsSelect.closest('.ts-member-select-wrap') || tsSelect.parentElement;
+        if (tsWrap) tsWrap.style.display = isWorker ? 'none' : '';
+    }
+
+    // 5. Hide Active Analysts KPI card for workers
+    const activeTile = document.getElementById('stat-active-count')?.closest('.metric-tile');
+    if (activeTile) activeTile.style.display = isWorker ? 'none' : '';
+
+    // 6. Lock Form Member Selector to Worker
+    const fMemSelect = document.getElementById('form-member-id');
+    if (fMemSelect) {
+        fMemSelect.value = user.id;
+        fMemSelect.disabled = isWorker;
+    }
+
+    // 7. If currently on a forbidden tab, switch to feed
+    if (isWorker && (state.activeTab === 'team' || state.activeTab === 'dbms')) {
+        switchTab('feed');
     }
 
     // Hide Auth Modal
@@ -2831,16 +2962,28 @@ function applyAuthState(user) {
     if (modal) modal.style.display = 'none';
 
     showToast(`Signed in as ${user.name} (${user.isAdmin ? 'Lead Admin' : 'Analyst'})`);
-    renderAdminEmployeeTable();
+    if (user.isAdmin) renderAdminEmployeeTable();
     refreshAll();
 }
 
 function logout() {
     state.currentUser = null;
     state.currentUserMemberId = null;
+    state.filterMember = 'all';
+    state.tsMemberFilter = 'all';
+    state.biMember = 'all';
     try {
         localStorage.removeItem('chevron_auth_user');
     } catch(e) {}
+
+    // Restore UI visibility
+    document.querySelectorAll('[data-tab="team"]').forEach(el => el.style.display = '');
+    document.querySelectorAll('.dbms-tab-btn').forEach(el => el.style.display = '');
+    const selFilterMem = document.getElementById('db-filter-member');
+    if (selFilterMem) selFilterMem.style.display = '';
+    const activeTile = document.getElementById('stat-active-count')?.closest('.metric-tile');
+    if (activeTile) activeTile.style.display = '';
+
     showToast('Signed out successfully');
     showAuthModal();
 }
@@ -2896,12 +3039,43 @@ function loginWithEmail(inputEmail) {
     applyAuthState(member);
 }
 
-function loginWithMicrosoft() {
+async function loginWithMicrosoft() {
     clearAuthAlerts();
-    const email = prompt("Microsoft Entra ID / Corporate Work Account:\nEnter your Microsoft work email (e.g. musthaque.ali@pinnacle.com):", "musthaque.ali@pinnacle.com");
-    if (email) {
-        loginWithEmail(email);
+    const msalObj = getMsalInstance();
+    const loginRequest = {
+        scopes: ["User.Read", "openid", "profile", "email"]
+    };
+
+    if (msalObj) {
+        try {
+            // Smooth popup flow first
+            const response = await msalObj.loginPopup(loginRequest);
+            if (response && response.account) {
+                const email = response.account.username || (response.account.idTokenClaims && (response.account.idTokenClaims.email || response.account.idTokenClaims.preferred_username));
+                if (email) {
+                    loginWithEmail(email);
+                    return;
+                }
+            }
+        } catch (popupErr) {
+            console.warn("[MSAL] Popup prevented or failed, redirecting to Microsoft login...", popupErr);
+            if (popupErr.name === 'BrowserAuthError' && popupErr.message.includes('user_cancelled')) {
+                return;
+            }
+            try {
+                await msalObj.loginRedirect(loginRequest);
+                return;
+            } catch (redirErr) {
+                console.error("[MSAL] loginRedirect error:", redirErr);
+            }
+        }
     }
+
+    // Direct Microsoft Entra ID OAuth2 authorize redirect fallback
+    const clientId = (window.MSAL_CONFIG && window.MSAL_CONFIG.auth && window.MSAL_CONFIG.auth.clientId) || "3f511943-42e1-4560-a299-d596489419fb";
+    const redirectUri = encodeURIComponent(window.location.origin + window.location.pathname);
+    const msAuthUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${clientId}&response_type=token+id_token&redirect_uri=${redirectUri}&scope=openid+profile+email+User.Read&response_mode=fragment&nonce=${Date.now()}`;
+    window.location.href = msAuthUrl;
 }
 
 function loginAsAdmin(email, password) {

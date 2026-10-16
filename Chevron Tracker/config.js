@@ -4,7 +4,7 @@
 const firebaseConfig = {
   apiKey: "AIzaSyBOmIXuJGmBDCLJejkACVxj2DGuza2OgW4",
   authDomain: "chevrontracker.firebaseapp.com",
-  databaseURL: "https://chevrontracker-default-rtdb.firebaseio.com", // Default US region. If you selected Europe or Asia, replace this with the URL shown on your Firebase Realtime Database screen.
+  databaseURL: "https://chevrontracker-default-rtdb.firebaseio.com",
   projectId: "chevrontracker",
   storageBucket: "chevrontracker.firebasestorage.app",
   messagingSenderId: "1035645066754",
@@ -12,5 +12,25 @@ const firebaseConfig = {
   measurementId: "G-TKXF813NWW"
 };
 
-// Make config globally accessible
 window.FIREBASE_CONFIG = firebaseConfig;
+
+// Microsoft Entra ID (Azure AD) Work-Account Configuration
+// Supports single-sign-on for all Pinnacle and Chevron corporate accounts
+const msalConfig = {
+  auth: {
+    // Registered Azure App Client ID (can be overridden by window.AZURE_CLIENT_ID or localStorage)
+    clientId: localStorage.getItem('chevron_azure_client_id') || window.AZURE_CLIENT_ID || "3f511943-42e1-4560-a299-d596489419fb",
+    authority: "https://login.microsoftonline.com/common",
+    redirectUri: (typeof window !== 'undefined' && window.location) 
+      ? (window.location.origin.includes('localhost') || window.location.protocol === 'file:'
+          ? window.location.href.split('#')[0].split('?')[0]
+          : "https://chevrontracker01.netlify.app/")
+      : "https://chevrontracker01.netlify.app/"
+  },
+  cache: {
+    cacheLocation: "localStorage",
+    storeAuthStateInCookie: false
+  }
+};
+
+window.MSAL_CONFIG = msalConfig;
